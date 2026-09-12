@@ -1,0 +1,686 @@
+{
+  "$schema": "../schema/entries.schema.json",
+  "dataset": "china",
+  "entries": [
+    {
+      "id": "china-xia",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "하(夏)",
+      "region": "동아시아",
+      "start_year": -2070,
+      "end_year": -1600,
+      "era_note": "기원전 2070년 ~ 기원전 1600년",
+      "description": "전승상 중국 최초의 왕조로, 이리두 문화와의 연관이 논의된다.",
+      "tags": [
+        "고대",
+        "왕조"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-shang",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "상(은)",
+      "region": "동아시아",
+      "start_year": -1600,
+      "end_year": -1046,
+      "era_note": "기원전 1600년 ~ 기원전 1046년",
+      "description": "갑골문과 청동기로 대표되는 왕조로, 실증 가능한 중국 최초의 왕조다.",
+      "tags": [
+        "고대",
+        "왕조"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-western-zhou",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "서주",
+      "region": "동아시아",
+      "start_year": -1046,
+      "end_year": -771,
+      "era_note": "기원전 1046년 ~ 기원전 771년",
+      "description": "봉건제와 천명사상을 확립해 이후 중국 정치사상의 토대를 놓았다.",
+      "tags": [
+        "고대",
+        "왕조"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-chunqiu",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "춘추시대",
+      "region": "동아시아",
+      "start_year": -770,
+      "end_year": -476,
+      "era_note": "기원전 770년 ~ 기원전 476년",
+      "description": "주 왕실이 약화되고 패자들이 경쟁하며 제자백가 사상이 태동했다.",
+      "tags": [
+        "고대",
+        "분열기"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-zhanguo",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "전국시대",
+      "region": "동아시아",
+      "start_year": -475,
+      "end_year": -221,
+      "era_note": "기원전 475년 ~ 기원전 221년",
+      "description": "칠웅이 경쟁하며 철기 보급과 법가·유가 등 사상이 만개했다.",
+      "tags": [
+        "고대",
+        "분열기"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-qin",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "진(秦)",
+      "region": "동아시아",
+      "start_year": -221,
+      "end_year": -206,
+      "era_note": "기원전 221년 ~ 기원전 206년",
+      "description": "시황제가 중국을 통일해 군현제·문자·도량형을 통일한 최초의 제국이다.",
+      "tags": [
+        "고대",
+        "통일제국"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-western-han",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "전한",
+      "region": "동아시아",
+      "start_year": -202,
+      "end_year": 9,
+      "era_note": "기원전 202년 ~ 9년",
+      "description": "유방이 세운 통일제국으로 유교의 국교화와 실크로드 개척이 이루어졌다.",
+      "tags": [
+        "고대",
+        "제국"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-xin",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "신(왕망)",
+      "region": "동아시아",
+      "start_year": 9,
+      "end_year": 23,
+      "era_note": "9년 ~ 23년",
+      "description": "왕망이 전한을 찬탈해 세운 단명 왕조로, 급진 개혁 실패로 무너졌다.",
+      "tags": [
+        "고대",
+        "왕조"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-eastern-han",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "후한",
+      "region": "동아시아",
+      "start_year": 25,
+      "end_year": 220,
+      "era_note": "25년 ~ 220년",
+      "description": "광무제가 재건한 한 왕조로, 제지술과 유교 관료제가 발전했다.",
+      "tags": [
+        "고대",
+        "제국"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-three-kingdoms",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "삼국시대(위·촉·오)",
+      "region": "동아시아",
+      "start_year": 220,
+      "end_year": 280,
+      "era_note": "220년 ~ 280년",
+      "description": "후한 붕괴 후 세 나라가 정립한 시기로, 문학과 군사사에 큰 자취를 남겼다.",
+      "tags": [
+        "중세",
+        "분열기"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-western-jin",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "서진",
+      "region": "동아시아",
+      "start_year": 265,
+      "end_year": 316,
+      "era_note": "265년 ~ 316년",
+      "description": "삼국을 통일했으나 팔왕의 난과 북방 민족 남하로 단명했다.",
+      "tags": [
+        "중세",
+        "왕조"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-eastern-jin",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "동진·오호십육국",
+      "region": "동아시아",
+      "start_year": 317,
+      "end_year": 420,
+      "era_note": "317년 ~ 420년",
+      "description": "강남으로 피난한 한족 정권과 화북의 유목계 정권이 병립한 시기다.",
+      "tags": [
+        "중세",
+        "분열기"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-nanbeichao",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "남북조",
+      "region": "동아시아",
+      "start_year": 420,
+      "end_year": 589,
+      "era_note": "420년 ~ 589년",
+      "description": "남조와 북조가 대립하며 불교가 확산되고 귀족문화가 발달했다.",
+      "tags": [
+        "중세",
+        "분열기"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-sui",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "수",
+      "region": "동아시아",
+      "start_year": 581,
+      "end_year": 618,
+      "era_note": "581년 ~ 618년",
+      "description": "남북조를 통일하고 대운하를 건설했으나 무리한 원정으로 단명했다.",
+      "tags": [
+        "중세",
+        "통일제국"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-tang",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "당",
+      "region": "동아시아",
+      "start_year": 618,
+      "end_year": 907,
+      "era_note": "618년 ~ 907년",
+      "description": "동아시아 세계제국으로 율령체제·국제교역·시문학이 절정에 달했다.",
+      "tags": [
+        "중세",
+        "제국"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-wudai",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "오대십국",
+      "region": "동아시아",
+      "start_year": 907,
+      "end_year": 979,
+      "era_note": "907년 ~ 979년",
+      "description": "당 멸망 후의 분열기로, 화북의 다섯 왕조와 남방의 여러 정권이 교체되었다.",
+      "tags": [
+        "중세",
+        "분열기"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-liao",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "요(거란)",
+      "region": "동아시아",
+      "start_year": 916,
+      "end_year": 1125,
+      "era_note": "916년 ~ 1125년",
+      "description": "거란족이 세운 북방 제국으로 이중통치체제를 운영했다.",
+      "tags": [
+        "중세",
+        "정복왕조"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-northern-song",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "북송",
+      "region": "동아시아",
+      "start_year": 960,
+      "end_year": 1127,
+      "era_note": "960년 ~ 1127년",
+      "description": "문치주의와 상업혁명, 인쇄·화약·나침반 기술이 꽃핀 시기다.",
+      "tags": [
+        "중세",
+        "왕조"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-xixia",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "서하",
+      "region": "동아시아",
+      "start_year": 1038,
+      "end_year": 1227,
+      "era_note": "1038년 ~ 1227년",
+      "description": "탕구트족이 하서회랑에 세운 왕국으로 몽골에 멸망했다.",
+      "tags": [
+        "중세",
+        "정복왕조"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-jin-jurchen",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "금(여진)",
+      "region": "동아시아",
+      "start_year": 1115,
+      "end_year": 1234,
+      "era_note": "1115년 ~ 1234년",
+      "description": "여진족이 세워 북송을 무너뜨리고 화북을 지배한 정복왕조다.",
+      "tags": [
+        "중세",
+        "정복왕조"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-southern-song",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "남송",
+      "region": "동아시아",
+      "start_year": 1127,
+      "end_year": 1279,
+      "era_note": "1127년 ~ 1279년",
+      "description": "강남으로 남천한 송으로, 성리학 완성과 해상무역 번영을 이루었다.",
+      "tags": [
+        "중세",
+        "왕조"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-yuan",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "원",
+      "region": "동아시아",
+      "start_year": 1271,
+      "end_year": 1368,
+      "era_note": "1271년 ~ 1368년",
+      "description": "쿠빌라이가 세운 몽골계 왕조로 유라시아 교류망의 중심이 되었다.",
+      "tags": [
+        "중세",
+        "정복왕조"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-ming",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "명",
+      "region": "동아시아",
+      "start_year": 1368,
+      "end_year": 1644,
+      "era_note": "1368년 ~ 1644년",
+      "description": "한족 왕조의 부활로 정화의 원정, 조공체제, 상품경제가 발전했다.",
+      "tags": [
+        "근세",
+        "왕조"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-qing",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "청",
+      "region": "동아시아",
+      "start_year": 1636,
+      "end_year": 1912,
+      "era_note": "1636년 ~ 1912년",
+      "description": "만주족이 세운 마지막 왕조로 최대 판도를 이뤘으나 근대 서구의 압력에 무너졌다.",
+      "tags": [
+        "근세",
+        "왕조"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-opium-war",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "아편전쟁",
+      "region": "동아시아",
+      "start_year": 1840,
+      "end_year": 1842,
+      "era_note": "1840년 ~ 1842년",
+      "description": "영국과의 전쟁 패배로 난징조약을 맺으며 불평등조약 체제가 시작되었다.",
+      "tags": [
+        "근대",
+        "전쟁"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-taiping",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "태평천국운동",
+      "region": "동아시아",
+      "start_year": 1851,
+      "end_year": 1864,
+      "era_note": "1851년 ~ 1864년",
+      "description": "홍수전이 이끈 대규모 종교·농민 반란으로 청조를 크게 흔들었다.",
+      "tags": [
+        "근대",
+        "민중운동"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-yangwu",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "양무운동",
+      "region": "동아시아",
+      "start_year": 1861,
+      "end_year": 1895,
+      "era_note": "1861년 ~ 1895년",
+      "description": "서구 기술 도입으로 부국강병을 꾀한 위로부터의 개혁 운동이다.",
+      "tags": [
+        "근대",
+        "개혁"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-xinhai",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "신해혁명",
+      "region": "동아시아",
+      "start_year": 1911,
+      "end_year": 1912,
+      "era_note": "1911년 ~ 1912년",
+      "description": "청조를 무너뜨리고 아시아 최초의 공화국을 세운 혁명이다.",
+      "tags": [
+        "근대",
+        "혁명"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-roc-mainland",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "중화민국(대륙 시기)",
+      "region": "동아시아",
+      "start_year": 1912,
+      "end_year": 1949,
+      "era_note": "1912년 ~ 1949년",
+      "description": "군벌 시대와 국민정부 시기를 거친 공화정으로, 내전 끝에 타이완으로 이전했다.",
+      "tags": [
+        "근대",
+        "국가"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-second-sino-japanese",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "중일전쟁",
+      "region": "동아시아",
+      "start_year": 1937,
+      "end_year": 1945,
+      "era_note": "1937년 ~ 1945년",
+      "description": "일본의 전면 침공에 맞선 8년 항전으로, 제2차 세계대전의 아시아 전선을 이루었다.",
+      "tags": [
+        "근대",
+        "전쟁"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-civil-war",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "국공내전",
+      "region": "동아시아",
+      "start_year": 1946,
+      "end_year": 1949,
+      "era_note": "1946년 ~ 1949년",
+      "description": "국민당과 공산당의 내전으로 중화인민공화국 수립과 양안 분단을 낳았다.",
+      "tags": [
+        "현대",
+        "전쟁"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-prc",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "중화인민공화국",
+      "region": "동아시아",
+      "start_year": 1949,
+      "end_year": 2025,
+      "era_note": "1949년 ~ 2025년",
+      "description": "공산당이 수립한 국가로 사회주의 건설과 개혁개방을 거쳐 세계 2위 경제로 성장했다.",
+      "tags": [
+        "현대",
+        "국가"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-cultural-revolution",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "문화대혁명",
+      "region": "동아시아",
+      "start_year": 1966,
+      "end_year": 1976,
+      "era_note": "1966년 ~ 1976년",
+      "description": "마오쩌둥이 주도한 대규모 정치·사회 운동으로 극심한 혼란을 남겼다.",
+      "tags": [
+        "현대",
+        "정치"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "china-reform-opening",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "title": "개혁개방",
+      "region": "동아시아",
+      "start_year": 1978,
+      "end_year": 2025,
+      "era_note": "1978년 ~ 2025년",
+      "description": "덩샤오핑이 주도한 시장 개혁과 대외 개방으로 급속한 경제성장을 이뤘다.",
+      "tags": [
+        "현대",
+        "경제"
+      ],
+      "sources": [
+        "Cambridge History of China 개괄",
+        "위키백과 중국사 개괄"
+      ],
+      "status": "draft"
+    }
+  ]
+}

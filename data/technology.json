@@ -1,0 +1,766 @@
+{
+  "$schema": "../schema/entries.schema.json",
+  "dataset": "technology",
+  "entries": [
+    {
+      "id": "technology-agriculture",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "농경의 시작(신석기 혁명)",
+      "region": "세계",
+      "start_year": -10000,
+      "end_year": -4000,
+      "era_note": "기원전 10000년 ~ 기원전 4000년",
+      "description": "작물 재배와 가축 사육으로 정착 생활과 잉여, 도시의 조건이 만들어졌다.",
+      "tags": [
+        "선사",
+        "농업"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-wheel",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "바퀴와 수레",
+      "region": "서아시아",
+      "start_year": -3500,
+      "end_year": -3000,
+      "era_note": "기원전 3500년 ~ 기원전 3000년",
+      "description": "운송과 도기 제작을 바꾼 발명으로 메소포타미아에서 확산되었다.",
+      "tags": [
+        "고대",
+        "운송"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-writing",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "문자의 발명(쐐기문자)",
+      "region": "서아시아",
+      "start_year": -3200,
+      "end_year": -3200,
+      "era_note": "기원전 3200년",
+      "description": "기록을 통해 지식의 축적과 행정, 역사의 시작이 가능해졌다.",
+      "tags": [
+        "고대",
+        "정보"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-bronze",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "청동기 기술",
+      "region": "세계",
+      "start_year": -3300,
+      "end_year": -1200,
+      "era_note": "기원전 3300년 ~ 기원전 1200년",
+      "description": "합금 기술로 무기·농구·의례기가 발전하며 계층 사회가 강화되었다.",
+      "tags": [
+        "고대",
+        "금속"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-iron",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "철기의 확산",
+      "region": "세계",
+      "start_year": -1200,
+      "end_year": -500,
+      "era_note": "기원전 1200년 ~ 기원전 500년",
+      "description": "값싸고 단단한 철제 농기구와 무기가 생산력과 전쟁 양상을 바꿨다.",
+      "tags": [
+        "고대",
+        "금속"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-aqueduct",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "로마 수도교와 콘크리트",
+      "region": "지중해",
+      "start_year": -312,
+      "end_year": 300,
+      "era_note": "기원전 312년 ~ 300년",
+      "description": "대규모 토목 기술로 도시 생활의 물리적 기반을 만들었다.",
+      "tags": [
+        "고대",
+        "토목"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-paper",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "제지술(채륜)",
+      "region": "동아시아",
+      "start_year": 105,
+      "end_year": 105,
+      "era_note": "105년",
+      "description": "값싼 기록 매체의 등장으로 지식 전파 비용이 획기적으로 낮아졌다.",
+      "tags": [
+        "고대",
+        "정보"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-woodblock",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "목판인쇄(『무구정광대다라니경』·『금강경』)",
+      "region": "동아시아",
+      "start_year": 751,
+      "end_year": 868,
+      "era_note": "751년 ~ 868년",
+      "description": "대량 복제의 시작으로 불경과 지식의 확산이 가속되었다.",
+      "tags": [
+        "중세",
+        "정보"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-gunpowder",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "화약의 발명과 전파",
+      "region": "동아시아",
+      "start_year": 850,
+      "end_year": 1300,
+      "era_note": "850년 ~ 1300년",
+      "description": "중국에서 발명되어 유라시아로 퍼지며 전쟁과 성곽 구조를 바꿨다.",
+      "tags": [
+        "중세",
+        "군사"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-compass",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "나침반의 항해 이용",
+      "region": "동아시아",
+      "start_year": 1000,
+      "end_year": 1200,
+      "era_note": "1000년 ~ 1200년",
+      "description": "원양 항해가 가능해지며 대항해시대의 기술적 전제가 되었다.",
+      "tags": [
+        "중세",
+        "항해"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-mech-clock",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "기계식 시계",
+      "region": "유럽",
+      "start_year": 1300,
+      "end_year": 1400,
+      "era_note": "1300년 ~ 1400년",
+      "description": "균등한 시간 측정이 도시 생활과 노동 규율을 재조직했다.",
+      "tags": [
+        "중세",
+        "계측"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-metal-type",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "금속활자(『직지』)",
+      "region": "동아시아",
+      "start_year": 1377,
+      "end_year": 1377,
+      "era_note": "1377년",
+      "description": "현존 최고(最古)의 금속활자 인쇄본으로 고려의 기술 수준을 보여준다.",
+      "tags": [
+        "중세",
+        "정보"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-gutenberg",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "구텐베르크 활판인쇄",
+      "region": "유럽",
+      "start_year": 1450,
+      "end_year": 1455,
+      "era_note": "1450년 ~ 1455년",
+      "description": "대량 인쇄로 종교개혁과 과학혁명의 정보 기반을 마련했다.",
+      "tags": [
+        "근세",
+        "정보"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-telescope",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "망원경과 현미경",
+      "region": "유럽",
+      "start_year": 1590,
+      "end_year": 1610,
+      "era_note": "1590년 ~ 1610년",
+      "description": "관측 범위를 확장해 천문학과 생물학의 새로운 대상을 열었다.",
+      "tags": [
+        "근세",
+        "계측"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-spinning",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "방적·방직 기계화",
+      "region": "유럽",
+      "start_year": 1764,
+      "end_year": 1785,
+      "era_note": "1764년 ~ 1785년",
+      "description": "제니 방적기와 역직기로 면공업이 공장제 생산으로 전환되었다.",
+      "tags": [
+        "근대",
+        "산업"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-steam",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "와트 증기기관",
+      "region": "유럽",
+      "start_year": 1769,
+      "end_year": 1769,
+      "era_note": "1769년",
+      "description": "동력을 장소와 계절에서 해방시켜 산업혁명을 가속했다.",
+      "tags": [
+        "근대",
+        "동력"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-railway",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "철도의 등장",
+      "region": "세계",
+      "start_year": 1825,
+      "end_year": 1869,
+      "era_note": "1825년 ~ 1869년",
+      "description": "스톡턴–달링턴 개통 이후 대륙 횡단까지 이동과 시간 개념을 바꿨다.",
+      "tags": [
+        "근대",
+        "운송"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-photography",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "사진술",
+      "region": "유럽",
+      "start_year": 1839,
+      "end_year": 1839,
+      "era_note": "1839년",
+      "description": "다게레오타이프 공개로 이미지의 기록과 복제가 가능해졌다.",
+      "tags": [
+        "근대",
+        "매체"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-telegraph",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "전신",
+      "region": "세계",
+      "start_year": 1844,
+      "end_year": 1866,
+      "era_note": "1844년 ~ 1866년",
+      "description": "대서양 해저 케이블로 정보가 사람보다 빨리 이동하기 시작했다.",
+      "tags": [
+        "근대",
+        "통신"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-telephone",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "전화",
+      "region": "북아메리카",
+      "start_year": 1876,
+      "end_year": 1876,
+      "era_note": "1876년",
+      "description": "실시간 음성 통신으로 거리의 의미가 다시 축소되었다.",
+      "tags": [
+        "근대",
+        "통신"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-electricity",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "전등과 전력망",
+      "region": "북아메리카",
+      "start_year": 1879,
+      "end_year": 1900,
+      "era_note": "1879년 ~ 1900년",
+      "description": "에디슨의 백열등과 발전소 건설로 도시가 24시간 사회로 바뀌었다.",
+      "tags": [
+        "근대",
+        "에너지"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-automobile",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "내연기관 자동차",
+      "region": "유럽",
+      "start_year": 1886,
+      "end_year": 1908,
+      "era_note": "1886년 ~ 1908년",
+      "description": "벤츠의 특허차와 모델 T로 개인 이동수단의 시대가 열렸다.",
+      "tags": [
+        "근대",
+        "운송"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-radio",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "무선통신과 라디오",
+      "region": "유럽",
+      "start_year": 1895,
+      "end_year": 1930,
+      "era_note": "1895년 ~ 1930년",
+      "description": "마르코니의 무선전신에서 방송으로 발전해 대중매체 시대를 열었다.",
+      "tags": [
+        "근대",
+        "통신"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-airplane",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "비행기",
+      "region": "북아메리카",
+      "start_year": 1903,
+      "end_year": 1903,
+      "era_note": "1903년",
+      "description": "라이트 형제의 동력 비행 성공으로 항공 시대가 시작되었다.",
+      "tags": [
+        "근대",
+        "운송"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-mass-production",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "컨베이어 대량생산",
+      "region": "북아메리카",
+      "start_year": 1913,
+      "end_year": 1913,
+      "era_note": "1913년",
+      "description": "포드의 조립라인이 생산성과 소비사회의 구조를 바꿨다.",
+      "tags": [
+        "현대",
+        "산업"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-haber",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "하버-보슈법과 비료",
+      "region": "유럽",
+      "start_year": 1913,
+      "end_year": 1913,
+      "era_note": "1913년",
+      "description": "공중질소 고정으로 식량 생산이 급증해 인구 증가를 뒷받침했다.",
+      "tags": [
+        "현대",
+        "화학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-computer",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "전자식 컴퓨터(ENIAC)",
+      "region": "북아메리카",
+      "start_year": 1946,
+      "end_year": 1946,
+      "era_note": "1946년",
+      "description": "범용 전자계산기의 등장으로 계산과 정보처리의 개념이 바뀌었다.",
+      "tags": [
+        "현대",
+        "정보"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-transistor",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "트랜지스터",
+      "region": "북아메리카",
+      "start_year": 1947,
+      "end_year": 1947,
+      "era_note": "1947년",
+      "description": "벨연구소의 발명으로 전자기기의 소형화와 집적화가 시작되었다.",
+      "tags": [
+        "현대",
+        "전자"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-sputnik",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "인공위성 스푸트니크",
+      "region": "유라시아",
+      "start_year": 1957,
+      "end_year": 1957,
+      "era_note": "1957년",
+      "description": "우주 시대와 미소 우주 경쟁의 서막을 열었다.",
+      "tags": [
+        "현대",
+        "우주"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-ic",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "집적회로",
+      "region": "북아메리카",
+      "start_year": 1958,
+      "end_year": 1971,
+      "era_note": "1958년 ~ 1971년",
+      "description": "IC와 마이크로프로세서로 컴퓨터가 책상 위로 내려올 수 있게 되었다.",
+      "tags": [
+        "현대",
+        "전자"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-apollo",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "아폴로 11호 달 착륙",
+      "region": "북아메리카",
+      "start_year": 1969,
+      "end_year": 1969,
+      "era_note": "1969년",
+      "description": "인류가 처음으로 다른 천체에 발을 디딘 사건이다.",
+      "tags": [
+        "현대",
+        "우주"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-arpanet",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "ARPANET과 인터넷",
+      "region": "북아메리카",
+      "start_year": 1969,
+      "end_year": 1990,
+      "era_note": "1969년 ~ 1990년",
+      "description": "패킷 교환 네트워크가 전 세계를 잇는 인터넷으로 성장했다.",
+      "tags": [
+        "현대",
+        "정보"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-pc",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "개인용 컴퓨터",
+      "region": "북아메리카",
+      "start_year": 1977,
+      "end_year": 1990,
+      "era_note": "1977년 ~ 1990년",
+      "description": "애플 II와 IBM PC로 컴퓨팅이 개인과 가정으로 확산되었다.",
+      "tags": [
+        "현대",
+        "정보"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-www",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "월드와이드웹",
+      "region": "유럽",
+      "start_year": 1991,
+      "end_year": 1991,
+      "era_note": "1991년",
+      "description": "팀 버너스리의 웹 공개로 인터넷이 대중적 정보 공간이 되었다.",
+      "tags": [
+        "현대",
+        "정보"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-mobile",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "이동통신과 스마트폰",
+      "region": "세계",
+      "start_year": 1992,
+      "end_year": 2007,
+      "era_note": "1992년 ~ 2007년",
+      "description": "GSM 상용화에서 아이폰까지 통신과 컴퓨팅이 손안으로 들어왔다.",
+      "tags": [
+        "현대",
+        "통신"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-renewable",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "재생에너지 전환",
+      "region": "세계",
+      "start_year": 1990,
+      "end_year": 2025,
+      "era_note": "1990년 ~ 2025년",
+      "description": "태양광·풍력 단가 하락으로 에너지 체계의 구조적 전환이 진행 중이다.",
+      "tags": [
+        "현대",
+        "에너지"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-deep-learning",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "딥러닝 혁명",
+      "region": "세계",
+      "start_year": 2012,
+      "end_year": 2018,
+      "era_note": "2012년 ~ 2018년",
+      "description": "ImageNet 성과 이후 인공지능이 실용 기술로 급속히 확산되었다.",
+      "tags": [
+        "현대",
+        "인공지능"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "technology-genai",
+      "category": "기술사",
+      "subcategory": "기술",
+      "title": "생성형 AI와 대규모 언어모델",
+      "region": "세계",
+      "start_year": 2018,
+      "end_year": 2025,
+      "era_note": "2018년 ~ 2025년",
+      "description": "트랜스포머 기반 모델이 언어·이미지 생성 능력을 산업 전반에 확산시켰다.",
+      "tags": [
+        "현대",
+        "인공지능"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 기술사 개괄",
+        "위키백과 기술사 개괄"
+      ],
+      "status": "draft"
+    }
+  ]
+}

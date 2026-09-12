@@ -1,0 +1,946 @@
+{
+  "$schema": "../schema/entries.schema.json",
+  "dataset": "world",
+  "entries": [
+    {
+      "id": "world-sumer",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "수메르 도시국가",
+      "region": "서아시아",
+      "start_year": -3500,
+      "end_year": -2000,
+      "era_note": "기원전 3500년 ~ 기원전 2000년",
+      "description": "메소포타미아 남부에서 쐐기문자와 도시문명을 처음으로 일으켰다.",
+      "tags": [
+        "고대",
+        "문명"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-egypt",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "고대 이집트",
+      "region": "북아프리카",
+      "start_year": -3100,
+      "end_year": -332,
+      "era_note": "기원전 3100년 ~ 기원전 332년",
+      "description": "나일강 유역의 통일 왕국으로 피라미드와 상형문자, 신권정치를 남겼다.",
+      "tags": [
+        "고대",
+        "문명"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-indus",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "인더스 문명",
+      "region": "남아시아",
+      "start_year": -2600,
+      "end_year": -1900,
+      "era_note": "기원전 2600년 ~ 기원전 1900년",
+      "description": "계획도시와 배수시설을 갖춘 청동기 문명으로, 문자는 아직 해독되지 않았다.",
+      "tags": [
+        "고대",
+        "문명"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-akkad",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "아카드 제국",
+      "region": "서아시아",
+      "start_year": -2334,
+      "end_year": -2154,
+      "era_note": "기원전 2334년 ~ 기원전 2154년",
+      "description": "사르곤이 메소포타미아를 통합해 세운 세계 최초의 제국으로 평가된다.",
+      "tags": [
+        "고대",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-babylon",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "고바빌로니아",
+      "region": "서아시아",
+      "start_year": -1894,
+      "end_year": -1595,
+      "era_note": "기원전 1894년 ~ 기원전 1595년",
+      "description": "함무라비 법전으로 유명한 왕국으로 메소포타미아를 재통일했다.",
+      "tags": [
+        "고대",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-hittite",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "히타이트",
+      "region": "아나톨리아",
+      "start_year": -1650,
+      "end_year": -1180,
+      "era_note": "기원전 1650년 ~ 기원전 1180년",
+      "description": "철기 사용과 전차 전술로 이집트와 카데시에서 맞선 아나톨리아 제국이다.",
+      "tags": [
+        "고대",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-mycenae",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "미케네 문명",
+      "region": "유럽",
+      "start_year": -1600,
+      "end_year": -1100,
+      "era_note": "기원전 1600년 ~ 기원전 1100년",
+      "description": "그리스 본토의 청동기 문명으로 선형문자 B와 성채 왕국을 남겼다.",
+      "tags": [
+        "고대",
+        "문명"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-assyria",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "신아시리아 제국",
+      "region": "서아시아",
+      "start_year": -911,
+      "end_year": -609,
+      "era_note": "기원전 911년 ~ 기원전 609년",
+      "description": "철제 무기와 상비군으로 오리엔트를 최초로 통일한 군사 제국이다.",
+      "tags": [
+        "고대",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-neo-babylon",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "신바빌로니아",
+      "region": "서아시아",
+      "start_year": -626,
+      "end_year": -539,
+      "era_note": "기원전 626년 ~ 기원전 539년",
+      "description": "바빌론 유수와 공중정원으로 알려진 제국으로 페르시아에 멸망했다.",
+      "tags": [
+        "고대",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-achaemenid",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "아케메네스 페르시아",
+      "region": "서아시아",
+      "start_year": -550,
+      "end_year": -330,
+      "era_note": "기원전 550년 ~ 기원전 330년",
+      "description": "키루스가 세운 대제국으로 관용정책과 왕의 길, 사트라프 제도를 운영했다.",
+      "tags": [
+        "고대",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-greek-classical",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "그리스 고전기",
+      "region": "유럽",
+      "start_year": -500,
+      "end_year": -323,
+      "era_note": "기원전 500년 ~ 기원전 323년",
+      "description": "페르시아 전쟁 승리 후 아테네 민주정과 철학·연극이 절정에 달했다.",
+      "tags": [
+        "고대",
+        "문명"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-hellenistic",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "알렉산드로스 제국·헬레니즘",
+      "region": "지중해",
+      "start_year": -336,
+      "end_year": -30,
+      "era_note": "기원전 336년 ~ 기원전 30년",
+      "description": "동서 문화가 융합된 시대로 알렉산드리아가 학문의 중심이 되었다.",
+      "tags": [
+        "고대",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-maurya",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "마우리아 제국",
+      "region": "남아시아",
+      "start_year": -322,
+      "end_year": -185,
+      "era_note": "기원전 322년 ~ 기원전 185년",
+      "description": "인도 최초의 통일 제국으로 아소카왕이 불교를 널리 후원했다.",
+      "tags": [
+        "고대",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-roman-republic",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "로마 공화정",
+      "region": "지중해",
+      "start_year": -509,
+      "end_year": -27,
+      "era_note": "기원전 509년 ~ 기원전 27년",
+      "description": "원로원과 집정관 체제로 지중해를 제패했으나 내전 끝에 제정으로 전환되었다.",
+      "tags": [
+        "고대",
+        "공화정"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-roman-empire",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "로마 제국(서로마)",
+      "region": "지중해",
+      "start_year": -27,
+      "end_year": 476,
+      "era_note": "기원전 27년 ~ 476년",
+      "description": "아우구스투스 이후 '팍스 로마나'를 누렸고 법·도로·라틴어 유산을 남겼다.",
+      "tags": [
+        "고대",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-parthia",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "파르티아",
+      "region": "서아시아",
+      "start_year": -247,
+      "end_year": 224,
+      "era_note": "기원전 247년 ~ 224년",
+      "description": "이란 고원의 기마 제국으로 실크로드 중계무역과 대로마 항쟁을 이끌었다.",
+      "tags": [
+        "고대",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-han-silkroad",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "실크로드 개통",
+      "region": "유라시아",
+      "start_year": -130,
+      "end_year": 1450,
+      "era_note": "기원전 130년 ~ 1450년",
+      "description": "한과 로마를 잇는 유라시아 교역망으로 물자·종교·기술이 오갔다.",
+      "tags": [
+        "교류",
+        "무역"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-sassanid",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "사산조 페르시아",
+      "region": "서아시아",
+      "start_year": 224,
+      "end_year": 651,
+      "era_note": "224년 ~ 651년",
+      "description": "조로아스터교를 국교로 삼은 제국으로 이슬람 세력에 멸망했다.",
+      "tags": [
+        "중세",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-gupta",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "굽타 제국",
+      "region": "남아시아",
+      "start_year": 320,
+      "end_year": 550,
+      "era_note": "320년 ~ 550년",
+      "description": "인도 고전문화의 황금기로 0과 십진법, 산스크리트 문학이 발전했다.",
+      "tags": [
+        "중세",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-byzantine",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "비잔틴 제국",
+      "region": "유럽",
+      "start_year": 330,
+      "end_year": 1453,
+      "era_note": "330년 ~ 1453년",
+      "description": "동로마 제국으로 로마법과 그리스 정교 문화를 천 년간 계승했다.",
+      "tags": [
+        "중세",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-frank",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "프랑크 왕국",
+      "region": "유럽",
+      "start_year": 481,
+      "end_year": 843,
+      "era_note": "481년 ~ 843년",
+      "description": "서유럽을 통합한 게르만 왕국으로 카롤루스 대제 때 서로마 황제권을 부활시켰다.",
+      "tags": [
+        "중세",
+        "왕국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-rashidun",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "정통 칼리파 시대",
+      "region": "서아시아",
+      "start_year": 632,
+      "end_year": 661,
+      "era_note": "632년 ~ 661년",
+      "description": "무함마드 사후 네 칼리파가 아라비아 밖으로 이슬람 세력을 급속히 확장했다.",
+      "tags": [
+        "중세",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-umayyad",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "우마이야 칼리파조",
+      "region": "서아시아",
+      "start_year": 661,
+      "end_year": 750,
+      "era_note": "661년 ~ 750년",
+      "description": "다마스쿠스를 수도로 이베리아에서 중앙아시아까지 통치한 이슬람 제국이다.",
+      "tags": [
+        "중세",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-abbasid",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "아바스 칼리파조",
+      "region": "서아시아",
+      "start_year": 750,
+      "end_year": 1258,
+      "era_note": "750년 ~ 1258년",
+      "description": "바그다드를 중심으로 이슬람 과학·번역운동의 황금기를 열었다.",
+      "tags": [
+        "중세",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-hre",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "신성로마제국",
+      "region": "유럽",
+      "start_year": 962,
+      "end_year": 1806,
+      "era_note": "962년 ~ 1806년",
+      "description": "중부 유럽의 느슨한 제국 연합체로 나폴레옹 전쟁기에 해체되었다.",
+      "tags": [
+        "중세",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-crusade-state",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "십자군 국가",
+      "region": "서아시아",
+      "start_year": 1099,
+      "end_year": 1291,
+      "era_note": "1099년 ~ 1291년",
+      "description": "레반트에 세워진 라틴 왕국들로, 동서 교류와 충돌의 무대가 되었다.",
+      "tags": [
+        "중세",
+        "전쟁"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-mongol",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "몽골 제국",
+      "region": "유라시아",
+      "start_year": 1206,
+      "end_year": 1368,
+      "era_note": "1206년 ~ 1368년",
+      "description": "역사상 최대의 육상 제국으로 유라시아를 하나의 교역권으로 묶었다.",
+      "tags": [
+        "중세",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-ottoman",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "오스만 제국",
+      "region": "서아시아",
+      "start_year": 1299,
+      "end_year": 1922,
+      "era_note": "1299년 ~ 1922년",
+      "description": "콘스탄티노플을 정복하고 발칸·서아시아·북아프리카를 600년간 통치했다.",
+      "tags": [
+        "근세",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-renaissance-era",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "르네상스",
+      "region": "유럽",
+      "start_year": 1350,
+      "end_year": 1600,
+      "era_note": "1350년 ~ 1600년",
+      "description": "고전 부활과 인간 중심 문화로 유럽 근대의 문을 연 문예운동이다.",
+      "tags": [
+        "근세",
+        "문화"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-age-of-discovery",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "대항해시대",
+      "region": "세계",
+      "start_year": 1415,
+      "end_year": 1600,
+      "era_note": "1415년 ~ 1600년",
+      "description": "포르투갈·스페인의 항해로 대륙 간 교류와 식민지 체제가 시작되었다.",
+      "tags": [
+        "근세",
+        "교류"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-reformation-era",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "종교개혁과 종교전쟁",
+      "region": "유럽",
+      "start_year": 1517,
+      "end_year": 1648,
+      "era_note": "1517년 ~ 1648년",
+      "description": "루터의 95개조에서 베스트팔렌 조약까지 유럽의 종교·정치 질서가 재편되었다.",
+      "tags": [
+        "근세",
+        "종교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-spanish-empire",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "스페인 제국",
+      "region": "세계",
+      "start_year": 1492,
+      "end_year": 1898,
+      "era_note": "1492년 ~ 1898년",
+      "description": "아메리카 은과 대서양 무역으로 최초의 세계 제국을 이루었다.",
+      "tags": [
+        "근세",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-mughal",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "무굴 제국",
+      "region": "남아시아",
+      "start_year": 1526,
+      "end_year": 1857,
+      "era_note": "1526년 ~ 1857년",
+      "description": "인도 아대륙 대부분을 통치한 이슬람 제국으로 타지마할을 남겼다.",
+      "tags": [
+        "근세",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-thirty-years",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "30년 전쟁",
+      "region": "유럽",
+      "start_year": 1618,
+      "end_year": 1648,
+      "era_note": "1618년 ~ 1648년",
+      "description": "유럽 최대의 종교전쟁으로 베스트팔렌 체제(주권국가 질서)를 낳았다.",
+      "tags": [
+        "근세",
+        "전쟁"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-british-empire",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "대영제국",
+      "region": "세계",
+      "start_year": 1583,
+      "end_year": 1997,
+      "era_note": "1583년 ~ 1997년",
+      "description": "'해가 지지 않는 제국'으로 산업혁명과 세계 무역질서를 주도했다.",
+      "tags": [
+        "근대",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-industrial-revolution",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "산업혁명",
+      "region": "유럽",
+      "start_year": 1760,
+      "end_year": 1840,
+      "era_note": "1760년 ~ 1840년",
+      "description": "증기기관과 공장제로 생산양식과 사회구조를 근본적으로 바꾼 전환이다.",
+      "tags": [
+        "근대",
+        "경제"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-american-revolution",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "미국 독립혁명",
+      "region": "북아메리카",
+      "start_year": 1775,
+      "end_year": 1783,
+      "era_note": "1775년 ~ 1783년",
+      "description": "13개 식민지가 독립을 쟁취하고 성문헌법 공화국을 수립했다.",
+      "tags": [
+        "근대",
+        "혁명"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-french-revolution",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "프랑스 혁명",
+      "region": "유럽",
+      "start_year": 1789,
+      "end_year": 1799,
+      "era_note": "1789년 ~ 1799년",
+      "description": "절대왕정을 무너뜨리고 자유·평등·국민주권 이념을 세계에 확산시켰다.",
+      "tags": [
+        "근대",
+        "혁명"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-napoleon",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "나폴레옹 제국",
+      "region": "유럽",
+      "start_year": 1804,
+      "end_year": 1815,
+      "era_note": "1804년 ~ 1815년",
+      "description": "유럽 대부분을 제패하며 법전과 국민국가 이념을 퍼뜨렸다.",
+      "tags": [
+        "근대",
+        "제국"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-imperialism",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "제국주의 시대",
+      "region": "세계",
+      "start_year": 1870,
+      "end_year": 1914,
+      "era_note": "1870년 ~ 1914년",
+      "description": "열강이 아프리카·아시아를 분할하며 세계가 하나의 정치경제 체제로 묶였다.",
+      "tags": [
+        "근대",
+        "제국주의"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-ww1",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "제1차 세계대전",
+      "region": "세계",
+      "start_year": 1914,
+      "end_year": 1918,
+      "era_note": "1914년 ~ 1918년",
+      "description": "총력전으로 4개 제국이 붕괴하고 베르사유 체제가 성립했다.",
+      "tags": [
+        "근대",
+        "전쟁"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-soviet",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "러시아 혁명과 소련",
+      "region": "유라시아",
+      "start_year": 1917,
+      "end_year": 1991,
+      "era_note": "1917년 ~ 1991년",
+      "description": "세계 최초의 사회주의 국가로 냉전의 한 축을 이루다 해체되었다.",
+      "tags": [
+        "현대",
+        "국가"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-great-depression",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "대공황",
+      "region": "세계",
+      "start_year": 1929,
+      "end_year": 1939,
+      "era_note": "1929년 ~ 1939년",
+      "description": "세계 경제의 연쇄 붕괴로 전체주의 대두와 국가 개입 경제를 낳았다.",
+      "tags": [
+        "현대",
+        "경제"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-ww2",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "제2차 세계대전",
+      "region": "세계",
+      "start_year": 1939,
+      "end_year": 1945,
+      "era_note": "1939년 ~ 1945년",
+      "description": "인류 최대의 전쟁으로 유엔 창설과 미·소 양극체제를 낳았다.",
+      "tags": [
+        "현대",
+        "전쟁"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-cold-war",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "냉전",
+      "region": "세계",
+      "start_year": 1947,
+      "end_year": 1991,
+      "era_note": "1947년 ~ 1991년",
+      "description": "미·소 진영의 이념·군사 대립으로 세계가 양분된 시기다.",
+      "tags": [
+        "현대",
+        "국제질서"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-decolonization",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "탈식민화",
+      "region": "세계",
+      "start_year": 1945,
+      "end_year": 1975,
+      "era_note": "1945년 ~ 1975년",
+      "description": "아시아·아프리카에서 100개 넘는 신생 독립국이 등장한 시기다.",
+      "tags": [
+        "현대",
+        "독립"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "world-globalization",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "탈냉전·세계화",
+      "region": "세계",
+      "start_year": 1991,
+      "end_year": 2025,
+      "era_note": "1991년 ~ 2025년",
+      "description": "시장 통합과 인터넷 확산으로 지구적 상호의존이 심화된 시기다.",
+      "tags": [
+        "현대",
+        "세계화"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 개괄",
+        "위키백과 세계사 개괄"
+      ],
+      "status": "draft"
+    }
+  ]
+}

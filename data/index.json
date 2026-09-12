@@ -1,0 +1,177 @@
+{
+  "$schema": "../schema/index.schema.json",
+  "schema_version": 1,
+  "title": "빅 히스토리 연표",
+  "description": "왕조·국가사와 주제사를 하나의 시간축 위에서 비교하는 통합 연표.",
+  "default_window": {
+    "start_year": -3000,
+    "end_year": 2040
+  },
+  "tracks": [
+    {
+      "id": "nation",
+      "label": "왕조·국가사",
+      "order": 1
+    },
+    {
+      "id": "theme",
+      "label": "주제사",
+      "order": 2
+    }
+  ],
+  "era_presets": [
+    {
+      "id": "all",
+      "label": "전체",
+      "start_year": null,
+      "end_year": null
+    },
+    {
+      "id": "ancient",
+      "label": "고대",
+      "start_year": -3500,
+      "end_year": 500
+    },
+    {
+      "id": "medieval",
+      "label": "중세",
+      "start_year": 400,
+      "end_year": 1500
+    },
+    {
+      "id": "earlymodern",
+      "label": "근세",
+      "start_year": 1400,
+      "end_year": 1800
+    },
+    {
+      "id": "modern",
+      "label": "근현대",
+      "start_year": 1750,
+      "end_year": 2030
+    }
+  ],
+  "datasets": [
+    {
+      "id": "world",
+      "file": "world-empire.json",
+      "track": "nation",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "label": "세계사(제국·문명)",
+      "color": "#2980b9",
+      "region": "세계",
+      "order": 10
+    },
+    {
+      "id": "korea",
+      "file": "korea-dynasty.json",
+      "track": "nation",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "label": "한국사",
+      "color": "#c0392b",
+      "region": "동아시아",
+      "order": 30
+    },
+    {
+      "id": "china",
+      "file": "china-dynasty.json",
+      "track": "nation",
+      "category": "왕조사",
+      "subcategory": "중국",
+      "label": "중국사",
+      "color": "#d35400",
+      "region": "동아시아",
+      "order": 31
+    },
+    {
+      "id": "japan",
+      "file": "japan-dynasty.json",
+      "track": "nation",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "label": "일본사",
+      "color": "#8e44ad",
+      "region": "동아시아",
+      "order": 32
+    },
+    {
+      "id": "science",
+      "file": "science.json",
+      "track": "theme",
+      "category": "과학사",
+      "subcategory": "과학",
+      "label": "과학사",
+      "color": "#16a085",
+      "region": "세계",
+      "order": 50
+    },
+    {
+      "id": "music",
+      "file": "music.json",
+      "track": "theme",
+      "category": "음악사",
+      "subcategory": "음악",
+      "label": "음악사",
+      "color": "#8e44ad",
+      "region": "세계",
+      "order": 51
+    },
+    {
+      "id": "art",
+      "file": "art.json",
+      "track": "theme",
+      "category": "미술사",
+      "subcategory": "미술",
+      "label": "미술사",
+      "color": "#e67e22",
+      "region": "세계",
+      "order": 52
+    },
+    {
+      "id": "religion",
+      "file": "religion.json",
+      "track": "theme",
+      "category": "종교사",
+      "subcategory": "종교",
+      "label": "종교사",
+      "color": "#2c3e50",
+      "region": "세계",
+      "order": 53
+    },
+    {
+      "id": "philosophy",
+      "file": "philosophy.json",
+      "track": "theme",
+      "category": "철학사",
+      "subcategory": "철학",
+      "label": "철학사",
+      "color": "#34495e",
+      "region": "세계",
+      "order": 54
+    },
+    {
+      "id": "literature",
+      "file": "literature.json",
+      "track": "theme",
+      "category": "문학사",
+      "subcategory": "문학",
+      "label": "문학사",
+      "color": "#27ae60",
+      "region": "세계",
+      "order": 55
+    },
+    {
+      "id": "technology",
+      "file": "technology.json",
+      "track": "theme",
+      "category": "기술사",
+      "subcategory": "기술",
+      "label": "기술사",
+      "color": "#7f8c8d",
+      "region": "세계",
+      "order": 56
+    }
+  ]
+}

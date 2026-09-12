@@ -1,0 +1,696 @@
+/* ------------------------------------------------------------------
+   빅 히스토리 연표 — 스타일
+   색상 토큰은 :root 에 모아두었으니 여기만 바꾸면 전체 분위기가 바뀝니다.
+   ------------------------------------------------------------------ */
+
+:root {
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --surface-2: #eef1f5;
+  --ink: #1b2733;
+  --ink-soft: #5a6b7c;
+  --ink-faint: #8b9aa8;
+  --line: #d8dee6;
+  --accent: #1b6ac9;
+  --accent-ink: #ffffff;
+  --danger: #c0392b;
+  --draft: #b7791f;
+  --radius: 10px;
+  --radius-sm: 6px;
+  --toolbar-h: auto;
+  --shadow-1: 0 1px 2px rgba(16, 30, 45, 0.08);
+  --shadow-2: 0 10px 30px rgba(16, 30, 45, 0.18);
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo",
+    "Noto Sans KR", "Malgun Gothic", Roboto, sans-serif;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141a21;
+    --surface: #1b232c;
+    --surface-2: #232d38;
+    --ink: #e8edf2;
+    --ink-soft: #a9b8c6;
+    --ink-faint: #7b8b9a;
+    --line: #2e3a47;
+    --accent: #4a97ef;
+    --accent-ink: #0d1319;
+    --draft: #d6a44a;
+    --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-2: 0 10px 30px rgba(0, 0, 0, 0.55);
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ------------------------------------------------------------ 툴바 */
+
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  box-shadow: var(--shadow-1);
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: max(10px, env(safe-area-inset-top));
+}
+
+.toolbar__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.toolbar__row--filters {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.toolbar__row--filters[hidden] { display: none; }
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.brand__mark {
+  width: 10px;
+  height: 22px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #2980b9, #16a085 45%, #e67e22);
+}
+
+.brand__title {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.search {
+  position: relative;
+  flex: 1 1 220px;
+  min-width: 160px;
+}
+
+.search__input {
+  width: 100%;
+  height: 34px;
+  padding: 0 30px 0 12px;
+  font: inherit;
+  color: var(--ink);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  outline: none;
+}
+
+.search__input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.search__input::-webkit-search-cancel-button { display: none; }
+
+.search__clear {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px; height: 22px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--line);
+  color: var(--ink-soft);
+  cursor: pointer;
+  line-height: 1;
+  font-size: 11px;
+}
+
+.eras {
+  display: flex;
+  gap: 4px;
+  flex: 0 0 auto;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px;
+}
+
+.era-btn {
+  border: 0;
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 13px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.era-btn:hover { color: var(--ink); }
+
+.era-btn.is-active {
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+
+.toolbar__actions {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+  flex: 0 0 auto;
+}
+
+.btn {
+  font: inherit;
+  font-size: 13px;
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  color: var(--ink);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn:hover { border-color: var(--ink-faint); }
+
+.btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+
+.btn--primary:hover { filter: brightness(1.06); }
+
+.btn--ghost { background: transparent; }
+
+.btn--sm { height: 28px; padding: 0 10px; font-size: 12px; }
+
+/* ------------------------------------------------------------ 필터 칩 */
+
+.filter-groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.filter-group__label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-soft);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+.filter-group__label:hover { color: var(--ink); }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: inherit;
+  font-size: 12.5px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-faint);
+  cursor: pointer;
+  transition: background-color .12s, color .12s, border-color .12s;
+}
+
+.chip__dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--chip-color, var(--ink-faint));
+  opacity: .35;
+}
+
+.chip.is-on {
+  color: var(--ink);
+  border-color: var(--chip-color, var(--accent));
+  background: color-mix(in srgb, var(--chip-color, var(--accent)) 12%, var(--surface));
+  font-weight: 600;
+}
+
+.chip.is-on .chip__dot { opacity: 1; }
+
+.chip__count {
+  font-size: 11px;
+  color: var(--ink-faint);
+  font-weight: 400;
+}
+
+.filter-extra {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.switch input { accent-color: var(--accent); }
+
+.hint {
+  font-size: 12px;
+  color: var(--ink-faint);
+}
+
+.status {
+  font-size: 12.5px;
+  color: var(--ink-faint);
+  margin-left: auto;
+}
+
+/* ------------------------------------------------------------ 무대 */
+
+.stage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 10px 14px 14px;
+}
+
+.timeline {
+  height: 100%;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.loading,
+.empty-state {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--ink-soft);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  pointer-events: none;
+}
+
+.empty-state { pointer-events: auto; }
+.loading[hidden], .empty-state[hidden] { display: none; }
+
+.error-box {
+  max-width: 560px;
+  margin: 40px auto;
+  padding: 18px 20px;
+  border: 1px solid var(--danger);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.error-box code {
+  background: var(--surface-2);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+/* ------------------------------------------------------------ vis-timeline 보정
+   vis-timeline 의 standalone 번들은 자기 CSS 를 <style> 태그로 런타임에 주입합니다.
+   그 태그가 우리 stylesheet 보다 뒤에 오기 때문에, 같은 명시도로는 덮어쓸 수 없습니다.
+   그래서 아래 규칙들은 컨테이너 클래스(.timeline)로 한 단계 더 좁혀 둡니다. */
+
+.timeline .vis-timeline {
+  border: 0;
+  font-family: var(--font);
+  font-size: 12.5px;
+  color: var(--ink);
+}
+
+.timeline .vis-panel.vis-center,
+.timeline .vis-panel.vis-left,
+.timeline .vis-panel.vis-right,
+.timeline .vis-panel.vis-top,
+.timeline .vis-panel.vis-bottom {
+  border-color: var(--line);
+}
+
+/* vis-timeline 은 첫 렌더(컨테이너 크기를 아직 못 잰 상태)에서 만들어진 눈금
+   라벨을 DOM 에 남겨두는데, 이것들은 폭이 0에 가깝게 설정되어 있습니다.
+   overflow:hidden 이면 그 잔재가 보이지 않고, 정상 라벨도 눈금 폭을 넘어
+   서로 겹치지 않습니다. */
+.timeline .vis-time-axis .vis-text {
+  color: var(--ink-soft);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.timeline .vis-time-axis .vis-text.vis-major { color: var(--ink); font-weight: 600; }
+.timeline .vis-time-axis .vis-grid.vis-minor { border-color: color-mix(in srgb, var(--line) 60%, transparent); }
+.timeline .vis-time-axis .vis-grid.vis-major { border-color: var(--line); }
+
+.timeline .vis-labelset .vis-label,
+.timeline .vis-foreground .vis-group {
+  border-color: var(--line);
+}
+
+.timeline .vis-labelset .vis-label {
+  color: var(--ink);
+  background: var(--surface);
+}
+
+.timeline .vis-labelset .vis-label.vis-nesting-group {
+  background: var(--surface-2);
+  font-weight: 700;
+}
+
+/* vis 는 중첩 그룹 라벨에 고정 색(#f5f5f5 등)을 깔아두어 다크 모드에서 튄다.
+   레벨별 규칙보다 한 단계 좁혀 우리 배경색으로 통일한다. */
+.timeline .vis-labelset .vis-label.vis-nested-group,
+.timeline .vis-labelset .vis-label.vis-nested-group.vis-group-level-0,
+.timeline .vis-labelset .vis-label.vis-nested-group.vis-group-level-1,
+.timeline .vis-labelset .vis-label.vis-nested-group.vis-group-level-unknown-but-gte1 {
+  background: var(--surface);
+  border: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.timeline .vis-group-level-unknown-but-gte1 { border: 0; }
+
+.timeline .vis-item {
+  border-width: 1px;
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.timeline .vis-item.vis-range { border-left-width: 4px; }
+.timeline .vis-item .vis-item-content { padding: 3px 7px; }
+.timeline .vis-item.vis-selected {
+  box-shadow: 0 0 0 2px var(--accent);
+  border-color: var(--accent) !important;
+  z-index: 5;
+}
+
+.timeline .vis-item.is-draft {
+  border-style: dashed;
+}
+
+.timeline .vis-item.vis-point .vis-dot { border-width: 6px; }
+
+.vis-tooltip {
+  font-family: var(--font) !important;
+  font-size: 12px !important;
+  background: var(--ink) !important;
+  color: #fff !important;
+  border: 0 !important;
+  border-radius: 6px !important;
+  padding: 6px 9px !important;
+  max-width: 320px;
+  white-space: normal !important;
+}
+
+.group-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 2px 0;
+}
+
+.group-label__dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+
+.group-label__count {
+  font-size: 11px;
+  color: var(--ink-faint);
+  font-weight: 400;
+}
+
+/* ------------------------------------------------------------ 상세 패널 */
+
+.panel-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 18, 26, 0.35);
+  z-index: 40;
+}
+
+.panel-backdrop[hidden] { display: none; }
+
+.panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(420px, 100%);
+  z-index: 50;
+  background: var(--surface);
+  border-left: 1px solid var(--line);
+  box-shadow: var(--shadow-2);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(101%);
+  transition: transform .18s ease-out;
+  visibility: hidden;
+}
+
+.panel.is-open {
+  transform: none;
+  visibility: visible;
+}
+
+.panel__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.panel__eyebrow {
+  margin: 0 0 4px;
+  font-size: 12px;
+  color: var(--ink-faint);
+  letter-spacing: .02em;
+}
+
+.panel__title {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.3;
+}
+
+.panel__close {
+  margin-left: auto;
+  border: 0;
+  background: var(--surface-2);
+  color: var(--ink-soft);
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+.panel__body {
+  padding: 14px 16px;
+  overflow-y: auto;
+  flex: 1 1 auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.panel__foot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-top: 1px solid var(--line);
+  padding-bottom: max(10px, env(safe-area-inset-bottom));
+}
+
+.panel__hint { font-size: 12px; color: var(--ink-faint); }
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.badge {
+  font-size: 11.5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+}
+
+.badge--status-draft {
+  color: var(--draft);
+  border-color: color-mix(in srgb, var(--draft) 45%, var(--line));
+  background: color-mix(in srgb, var(--draft) 12%, var(--surface));
+}
+
+.badge--status-reviewed {
+  color: #1e8449;
+  border-color: color-mix(in srgb, #1e8449 45%, var(--line));
+  background: color-mix(in srgb, #1e8449 12%, var(--surface));
+}
+
+.period {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 2px;
+}
+
+.period__sub {
+  font-size: 12.5px;
+  color: var(--ink-faint);
+  margin: 0 0 14px;
+}
+
+.panel__desc {
+  line-height: 1.7;
+  margin: 0 0 16px;
+  font-size: 14px;
+}
+
+.field { margin-bottom: 14px; }
+
+.field__label {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin: 0 0 6px;
+}
+
+.field__list {
+  margin: 0;
+  padding-left: 18px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+.tag-list { display: flex; flex-wrap: wrap; gap: 5px; }
+
+.tag {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--ink-soft);
+  border: 0;
+  cursor: pointer;
+}
+
+.tag:hover { color: var(--ink); }
+
+.meta-id {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11.5px;
+  color: var(--ink-faint);
+}
+
+/* ------------------------------------------------------------ 반응형 */
+
+@media (max-width: 860px) {
+  .toolbar { padding: 8px 10px; gap: 8px; }
+  .brand__title { display: none; }
+  .eras { order: 3; width: 100%; overflow-x: auto; justify-content: flex-start; }
+  .toolbar__actions { order: 2; }
+  .search { order: 1; }
+  .stage { padding: 8px; }
+  .status { width: 100%; margin-left: 0; }
+
+  /* 좁은 화면에서는 레인 이름 칸을 줄여 시간축 공간을 확보한다. */
+  .timeline .vis-labelset .vis-inner { max-width: 104px; }
+  .group-label span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .hint { display: none; }
+
+  .panel {
+    top: auto;
+    left: 0;
+    width: 100%;
+    height: min(76vh, 640px);
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    border-radius: 14px 14px 0 0;
+    transform: translateY(101%);
+  }
+}
+
+@media (max-width: 520px) {
+  .filter-groups { gap: 6px 10px; }
+  .chip { font-size: 12px; padding: 3px 9px; }
+  .btn { padding: 0 10px; font-size: 12px; }
+  .search { flex: 1 1 110px; min-width: 110px; }
+  .timeline .vis-labelset .vis-inner { max-width: 92px; }
+  .group-label__count { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel { transition: none; }
+}

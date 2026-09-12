@@ -1,0 +1,766 @@
+{
+  "$schema": "../schema/entries.schema.json",
+  "dataset": "art",
+  "entries": [
+    {
+      "id": "art-cave",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "라스코·쇼베 동굴벽화",
+      "region": "유럽",
+      "start_year": -17000,
+      "end_year": -15000,
+      "era_note": "기원전 17000년 ~ 기원전 15000년",
+      "description": "구석기인이 남긴 동물 벽화로 인류 최초의 회화적 표현으로 꼽힌다.",
+      "tags": [
+        "선사",
+        "회화"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-egypt-art",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "이집트 벽화와 조각",
+      "region": "북아프리카",
+      "start_year": -3000,
+      "end_year": -1000,
+      "era_note": "기원전 3000년 ~ 기원전 1000년",
+      "description": "정면성의 원리와 위계적 비례로 내세관을 표현한 양식이 3000년간 지속되었다.",
+      "tags": [
+        "고대",
+        "종합"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-archaic-greek",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "그리스 고졸기 조각",
+      "region": "지중해",
+      "start_year": -700,
+      "end_year": -480,
+      "era_note": "기원전 700년 ~ 기원전 480년",
+      "description": "쿠로스 상 등 이집트 영향을 받은 정면 직립 조각이 제작되었다.",
+      "tags": [
+        "고대",
+        "조각"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-classical-greek",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "그리스 고전기 조각",
+      "region": "지중해",
+      "start_year": -480,
+      "end_year": -323,
+      "era_note": "기원전 480년 ~ 기원전 323년",
+      "description": "페이디아스 등이 이상적 인체 비례와 콘트라포스토를 완성했다.",
+      "tags": [
+        "고대",
+        "조각"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-hellenistic-art",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "헬레니즘 조각",
+      "region": "지중해",
+      "start_year": -323,
+      "end_year": -31,
+      "era_note": "기원전 323년 ~ 기원전 31년",
+      "description": "『라오콘』처럼 격렬한 감정과 동세를 표현하는 사실주의가 발달했다.",
+      "tags": [
+        "고대",
+        "조각"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-roman-portrait",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "로마 초상조각과 건축",
+      "region": "지중해",
+      "start_year": -100,
+      "end_year": 300,
+      "era_note": "기원전 100년 ~ 300년",
+      "description": "사실적 초상과 콘크리트 돔 건축으로 실용과 권위를 표현했다.",
+      "tags": [
+        "고대",
+        "종합"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-byzantine-art",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "비잔틴 모자이크와 이콘",
+      "region": "유럽",
+      "start_year": 330,
+      "end_year": 1200,
+      "era_note": "330년 ~ 1200년",
+      "description": "황금 바탕의 평면적 성화로 초월적 신성을 표현했다.",
+      "tags": [
+        "중세",
+        "회화"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-goryeo-celadon",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "고려청자",
+      "region": "동아시아",
+      "start_year": 918,
+      "end_year": 1392,
+      "era_note": "918년 ~ 1392년",
+      "description": "비색과 상감기법으로 동아시아 도자 공예의 정점을 이루었다.",
+      "tags": [
+        "중세",
+        "공예"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-romanesque",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "로마네스크",
+      "region": "유럽",
+      "start_year": 1000,
+      "end_year": 1200,
+      "era_note": "1000년 ~ 1200년",
+      "description": "두꺼운 벽과 반원 아치의 교회 건축과 조각이 유럽 전역에 퍼졌다.",
+      "tags": [
+        "중세",
+        "건축"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-gothic",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "고딕",
+      "region": "유럽",
+      "start_year": 1150,
+      "end_year": 1400,
+      "era_note": "1150년 ~ 1400년",
+      "description": "첨두아치와 스테인드글라스로 빛과 수직성을 강조한 양식이다.",
+      "tags": [
+        "중세",
+        "건축"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-giotto",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "조토",
+      "region": "유럽",
+      "start_year": 1267,
+      "end_year": 1337,
+      "era_note": "1267년 ~ 1337년",
+      "description": "인물에 부피와 감정을 부여해 르네상스 회화의 길을 열었다.",
+      "tags": [
+        "중세",
+        "회화"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-early-renaissance",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "초기 르네상스",
+      "region": "유럽",
+      "start_year": 1400,
+      "end_year": 1490,
+      "era_note": "1400년 ~ 1490년",
+      "description": "원근법과 해부학 연구로 마사초·보티첼리가 사실적 공간을 구현했다.",
+      "tags": [
+        "근세",
+        "회화"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-northern-renaissance",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "북유럽 르네상스",
+      "region": "유럽",
+      "start_year": 1420,
+      "end_year": 1550,
+      "era_note": "1420년 ~ 1550년",
+      "description": "반에이크의 유화 기법과 뒤러의 판화로 세밀한 사실주의가 발전했다.",
+      "tags": [
+        "근세",
+        "회화"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-high-renaissance",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "전성기 르네상스",
+      "region": "유럽",
+      "start_year": 1490,
+      "end_year": 1527,
+      "era_note": "1490년 ~ 1527년",
+      "description": "다빈치·미켈란젤로·라파엘로가 조화와 이상미의 정점을 보여주었다.",
+      "tags": [
+        "근세",
+        "종합"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-mannerism",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "매너리즘",
+      "region": "유럽",
+      "start_year": 1520,
+      "end_year": 1600,
+      "era_note": "1520년 ~ 1600년",
+      "description": "고전적 균형을 의도적으로 비틀어 긴장감과 기교를 강조했다.",
+      "tags": [
+        "근세",
+        "회화"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-baroque-art",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "바로크 미술",
+      "region": "유럽",
+      "start_year": 1600,
+      "end_year": 1700,
+      "era_note": "1600년 ~ 1700년",
+      "description": "강한 명암과 극적 구도로 감정을 압도하는 카라바조·루벤스의 양식이다.",
+      "tags": [
+        "근세",
+        "회화"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-rembrandt",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "렘브란트",
+      "region": "유럽",
+      "start_year": 1606,
+      "end_year": 1669,
+      "era_note": "1606년 ~ 1669년",
+      "description": "빛과 어둠의 심리적 사용으로 인간 내면을 그린 네덜란드의 거장이다.",
+      "tags": [
+        "근세",
+        "회화"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-dutch-golden",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "네덜란드 황금기 회화",
+      "region": "유럽",
+      "start_year": 1600,
+      "end_year": 1700,
+      "era_note": "1600년 ~ 1700년",
+      "description": "시민사회의 성장으로 풍경·정물·풍속화 같은 세속 장르가 번성했다.",
+      "tags": [
+        "근세",
+        "회화"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-jeongseon",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "겸재 정선과 진경산수",
+      "region": "동아시아",
+      "start_year": 1676,
+      "end_year": 1759,
+      "era_note": "1676년 ~ 1759년",
+      "description": "중국 화풍을 넘어 조선의 실제 경치를 그린 화풍을 확립했다.",
+      "tags": [
+        "근세",
+        "회화"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-rococo",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "로코코",
+      "region": "유럽",
+      "start_year": 1720,
+      "end_year": 1780,
+      "era_note": "1720년 ~ 1780년",
+      "description": "곡선과 파스텔 색조로 귀족의 향락적 취향을 표현한 양식이다.",
+      "tags": [
+        "근세",
+        "회화"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-neoclassicism",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "신고전주의",
+      "region": "유럽",
+      "start_year": 1760,
+      "end_year": 1830,
+      "era_note": "1760년 ~ 1830년",
+      "description": "고대 그리스·로마의 절제와 도덕적 주제를 되살린 다비드의 양식이다.",
+      "tags": [
+        "근대",
+        "회화"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-romanticism-art",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "낭만주의 미술",
+      "region": "유럽",
+      "start_year": 1800,
+      "end_year": 1850,
+      "era_note": "1800년 ~ 1850년",
+      "description": "들라크루아·고야 등이 격정과 상상, 숭고를 화면에 담았다.",
+      "tags": [
+        "근대",
+        "회화"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-realism-art",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "사실주의",
+      "region": "유럽",
+      "start_year": 1840,
+      "end_year": 1880,
+      "era_note": "1840년 ~ 1880년",
+      "description": "쿠르베가 '천사를 보여주면 그리겠다'며 일상과 노동을 주제로 삼았다.",
+      "tags": [
+        "근대",
+        "회화"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-impressionism",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "인상주의",
+      "region": "유럽",
+      "start_year": 1874,
+      "end_year": 1886,
+      "era_note": "1874년 ~ 1886년",
+      "description": "빛과 순간의 인상을 옥외에서 포착한 모네·르누아르의 혁신이다.",
+      "tags": [
+        "근대",
+        "회화"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-post-impressionism",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "후기인상주의",
+      "region": "유럽",
+      "start_year": 1880,
+      "end_year": 1905,
+      "era_note": "1880년 ~ 1905년",
+      "description": "세잔·고흐·고갱이 주관과 구조를 강조하며 현대미술의 출발점이 되었다.",
+      "tags": [
+        "근대",
+        "회화"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-artnouveau",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "아르누보",
+      "region": "유럽",
+      "start_year": 1890,
+      "end_year": 1910,
+      "era_note": "1890년 ~ 1910년",
+      "description": "식물 곡선을 응용한 장식 양식으로 건축·공예·포스터에 퍼졌다.",
+      "tags": [
+        "근대",
+        "디자인"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-fauvism",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "야수파",
+      "region": "유럽",
+      "start_year": 1905,
+      "end_year": 1908,
+      "era_note": "1905년 ~ 1908년",
+      "description": "마티스가 색채를 재현에서 해방시켜 강렬한 원색 화면을 만들었다.",
+      "tags": [
+        "현대",
+        "회화"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-expressionism",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "표현주의",
+      "region": "유럽",
+      "start_year": 1905,
+      "end_year": 1930,
+      "era_note": "1905년 ~ 1930년",
+      "description": "내면의 불안과 감정을 왜곡된 형태와 색으로 드러냈다.",
+      "tags": [
+        "현대",
+        "회화"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-cubism",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "입체파",
+      "region": "유럽",
+      "start_year": 1907,
+      "end_year": 1920,
+      "era_note": "1907년 ~ 1920년",
+      "description": "피카소와 브라크가 대상을 다시점으로 해체·재구성했다.",
+      "tags": [
+        "현대",
+        "회화"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-abstract",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "추상미술",
+      "region": "유럽",
+      "start_year": 1910,
+      "end_year": 1940,
+      "era_note": "1910년 ~ 1940년",
+      "description": "칸딘스키·몬드리안이 재현을 버리고 색과 형태 자체를 주제로 삼았다.",
+      "tags": [
+        "현대",
+        "회화"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-dada",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "다다",
+      "region": "유럽",
+      "start_year": 1916,
+      "end_year": 1924,
+      "era_note": "1916년 ~ 1924년",
+      "description": "제1차 세계대전의 참상 속에서 기존 예술 관념을 부정한 운동이다.",
+      "tags": [
+        "현대",
+        "사조"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-bauhaus",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "바우하우스",
+      "region": "유럽",
+      "start_year": 1919,
+      "end_year": 1933,
+      "era_note": "1919년 ~ 1933년",
+      "description": "예술과 공예·산업의 통합을 추구해 현대 디자인의 기초를 세웠다.",
+      "tags": [
+        "현대",
+        "디자인"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-surrealism",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "초현실주의",
+      "region": "유럽",
+      "start_year": 1924,
+      "end_year": 1945,
+      "era_note": "1924년 ~ 1945년",
+      "description": "무의식과 꿈의 논리를 화면에 옮긴 달리·마그리트의 운동이다.",
+      "tags": [
+        "현대",
+        "사조"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-abstract-expressionism",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "추상표현주의",
+      "region": "북아메리카",
+      "start_year": 1945,
+      "end_year": 1960,
+      "era_note": "1945년 ~ 1960년",
+      "description": "폴록 등을 통해 미술의 중심이 파리에서 뉴욕으로 이동했다.",
+      "tags": [
+        "현대",
+        "회화"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-popart",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "팝아트",
+      "region": "북아메리카",
+      "start_year": 1955,
+      "end_year": 1970,
+      "era_note": "1955년 ~ 1970년",
+      "description": "워홀·리히텐슈타인이 대중문화와 소비사회를 미술의 언어로 삼았다.",
+      "tags": [
+        "현대",
+        "사조"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-minimalism",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "미니멀리즘",
+      "region": "북아메리카",
+      "start_year": 1960,
+      "end_year": 1975,
+      "era_note": "1960년 ~ 1975년",
+      "description": "장식을 제거한 기하학적 오브제로 지각 경험 자체를 문제 삼았다.",
+      "tags": [
+        "현대",
+        "사조"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-conceptual",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "개념미술",
+      "region": "세계",
+      "start_year": 1965,
+      "end_year": 1980,
+      "era_note": "1965년 ~ 1980년",
+      "description": "완성된 물체보다 아이디어와 개념을 작품의 본질로 보았다.",
+      "tags": [
+        "현대",
+        "사조"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "art-contemporary",
+      "category": "미술사",
+      "subcategory": "미술",
+      "title": "포스트모던·동시대 미술",
+      "region": "세계",
+      "start_year": 1980,
+      "end_year": 2025,
+      "era_note": "1980년 ~ 2025년",
+      "description": "매체와 경계를 넘나들며 설치·영상·디지털 아트가 주류가 되었다.",
+      "tags": [
+        "현대",
+        "사조"
+      ],
+      "sources": [
+        "곰브리치 『서양미술사』 개괄",
+        "위키백과 미술사 개괄"
+      ],
+      "status": "draft"
+    }
+  ]
+}

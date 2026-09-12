@@ -1,0 +1,786 @@
+{
+  "$schema": "../schema/entries.schema.json",
+  "dataset": "korea",
+  "entries": [
+    {
+      "id": "korea-gojoseon",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "고조선",
+      "region": "동아시아",
+      "start_year": -2333,
+      "end_year": -108,
+      "era_note": "기원전 2333년 ~ 기원전 108년",
+      "description": "단군왕검 건국 전승에서 비롯된 한반도 최초의 국가로, 기원전 108년 한 무제의 침공으로 멸망했다.",
+      "tags": [
+        "고대",
+        "국가형성"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-wiman",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "위만조선",
+      "region": "동아시아",
+      "start_year": -194,
+      "end_year": -108,
+      "era_note": "기원전 194년 ~ 기원전 108년",
+      "description": "연나라 출신 위만이 준왕을 몰아내고 세운 고조선 후기 정권으로, 중계무역으로 번성했다.",
+      "tags": [
+        "고대",
+        "왕조"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-buyeo",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "부여",
+      "region": "동아시아",
+      "start_year": -200,
+      "end_year": 494,
+      "era_note": "기원전 200년 ~ 494년",
+      "description": "만주 송화강 유역에서 일어난 예맥계 국가로, 고구려와 백제 건국 세력의 원류로 여겨진다.",
+      "tags": [
+        "고대",
+        "만주"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-samhan",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "삼한(마한·진한·변한)",
+      "region": "동아시아",
+      "start_year": -100,
+      "end_year": 300,
+      "era_note": "기원전 100년 ~ 300년",
+      "description": "한반도 중남부의 소국 연맹체로, 이후 백제·신라·가야의 모체가 되었다.",
+      "tags": [
+        "고대",
+        "연맹체"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-hansagun",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "한사군(낙랑군 중심)",
+      "region": "동아시아",
+      "start_year": -108,
+      "end_year": 313,
+      "era_note": "기원전 108년 ~ 313년",
+      "description": "고조선 멸망 후 한이 설치한 군현으로, 낙랑군은 313년 고구려에 축출될 때까지 유지되었다.",
+      "tags": [
+        "고대",
+        "중국군현"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-goguryeo",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "고구려",
+      "region": "동아시아",
+      "start_year": -37,
+      "end_year": 668,
+      "era_note": "기원전 37년 ~ 668년",
+      "description": "주몽이 졸본에서 건국해 만주와 한반도 북부를 아우른 강국으로, 668년 나당연합군에 멸망했다.",
+      "tags": [
+        "삼국시대",
+        "왕조"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-baekje",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "백제",
+      "region": "동아시아",
+      "start_year": -18,
+      "end_year": 660,
+      "era_note": "기원전 18년 ~ 660년",
+      "description": "온조가 한강 유역에 세운 나라로, 해상교역과 문화 전파(일본 아스카 문화)에 크게 기여했다.",
+      "tags": [
+        "삼국시대",
+        "왕조"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-silla",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "신라",
+      "region": "동아시아",
+      "start_year": -57,
+      "end_year": 935,
+      "era_note": "기원전 57년 ~ 935년",
+      "description": "경주 사로국에서 출발해 삼국을 통일하고 약 천 년간 존속한 왕조다.",
+      "tags": [
+        "삼국시대",
+        "왕조"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-gaya",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "가야 연맹",
+      "region": "동아시아",
+      "start_year": 42,
+      "end_year": 562,
+      "era_note": "42년 ~ 562년",
+      "description": "낙동강 하류의 철 생산과 해상 교역으로 번영한 연맹체로, 562년 신라에 병합되었다.",
+      "tags": [
+        "고대",
+        "연맹체"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-unified-silla",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "통일신라",
+      "region": "동아시아",
+      "start_year": 676,
+      "end_year": 935,
+      "era_note": "676년 ~ 935년",
+      "description": "나당전쟁 승리로 삼국 통일을 완성한 뒤 불교문화와 율령체제를 꽃피운 시기다.",
+      "tags": [
+        "통일기",
+        "왕조"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-balhae",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "발해",
+      "region": "동아시아",
+      "start_year": 698,
+      "end_year": 926,
+      "era_note": "698년 ~ 926년",
+      "description": "대조영이 고구려 유민과 말갈을 규합해 세운 나라로, '해동성국'이라 불렸다.",
+      "tags": [
+        "남북국",
+        "왕조"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-hubaekje",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "후백제",
+      "region": "동아시아",
+      "start_year": 892,
+      "end_year": 936,
+      "era_note": "892년 ~ 936년",
+      "description": "견훤이 완산주에서 세운 후삼국의 한 축으로, 936년 고려에 병합되었다.",
+      "tags": [
+        "후삼국",
+        "왕조"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-taebong",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "태봉(후고구려)",
+      "region": "동아시아",
+      "start_year": 901,
+      "end_year": 918,
+      "era_note": "901년 ~ 918년",
+      "description": "궁예가 세운 후삼국의 한 축으로, 왕건의 정변으로 고려에 흡수되었다.",
+      "tags": [
+        "후삼국",
+        "왕조"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-goryeo",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "고려",
+      "region": "동아시아",
+      "start_year": 918,
+      "end_year": 1392,
+      "era_note": "918년 ~ 1392년",
+      "description": "왕건이 개경에서 건국해 후삼국을 통일했고, 불교문화와 금속활자·청자를 남겼다.",
+      "tags": [
+        "중세",
+        "왕조"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-musin",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "무신정권",
+      "region": "동아시아",
+      "start_year": 1170,
+      "end_year": 1270,
+      "era_note": "1170년 ~ 1270년",
+      "description": "정중부의 난 이후 무신들이 실권을 잡은 100년간의 시기로, 최씨 정권이 중심이었다.",
+      "tags": [
+        "중세",
+        "정치변동"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-won-interference",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "원 간섭기",
+      "region": "동아시아",
+      "start_year": 1270,
+      "end_year": 1356,
+      "era_note": "1270년 ~ 1356년",
+      "description": "몽골과의 강화 이후 고려가 원의 부마국 체제에 편입된 시기다.",
+      "tags": [
+        "중세",
+        "대외관계"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-joseon",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "조선",
+      "region": "동아시아",
+      "start_year": 1392,
+      "end_year": 1897,
+      "era_note": "1392년 ~ 1897년",
+      "description": "이성계가 건국한 성리학 국가로, 과거제·훈민정음·기록문화를 바탕으로 500년간 존속했다.",
+      "tags": [
+        "근세",
+        "왕조"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-hunminjeongeum",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "훈민정음 반포",
+      "region": "동아시아",
+      "start_year": 1443,
+      "end_year": 1446,
+      "era_note": "1443년 ~ 1446년",
+      "description": "세종이 백성을 위한 문자를 창제·반포해 한국 문자생활의 근간을 세웠다.",
+      "tags": [
+        "문화",
+        "언어"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-imjin",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "임진왜란",
+      "region": "동아시아",
+      "start_year": 1592,
+      "end_year": 1598,
+      "era_note": "1592년 ~ 1598년",
+      "description": "일본의 조선 침공으로 벌어진 7년 전쟁으로, 동아시아 삼국의 질서를 뒤흔들었다.",
+      "tags": [
+        "전쟁",
+        "대외관계"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-byeongja",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "병자호란",
+      "region": "동아시아",
+      "start_year": 1636,
+      "end_year": 1637,
+      "era_note": "1636년 ~ 1637년",
+      "description": "청의 침입으로 인조가 삼전도에서 항복하고 조선이 청의 책봉체제에 들어간 사건이다.",
+      "tags": [
+        "전쟁",
+        "대외관계"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-tangpyeong",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "영·정조 탕평기",
+      "region": "동아시아",
+      "start_year": 1724,
+      "end_year": 1800,
+      "era_note": "1724년 ~ 1800년",
+      "description": "붕당 간 균형을 꾀한 탕평책과 실학의 융성으로 조선 후기 문예부흥이 이루어졌다.",
+      "tags": [
+        "근세",
+        "개혁"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-sedo",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "세도정치기",
+      "region": "동아시아",
+      "start_year": 1800,
+      "end_year": 1863,
+      "era_note": "1800년 ~ 1863년",
+      "description": "외척 가문이 권력을 독점하면서 삼정의 문란과 민란이 이어진 시기다.",
+      "tags": [
+        "근세",
+        "정치"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-daewongun",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "흥선대원군 집권",
+      "region": "동아시아",
+      "start_year": 1863,
+      "end_year": 1873,
+      "era_note": "1863년 ~ 1873년",
+      "description": "왕권 강화와 쇄국정책을 추진하며 서원 철폐·경복궁 중건을 단행했다.",
+      "tags": [
+        "근대",
+        "개혁"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-gaehang",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "개항기",
+      "region": "동아시아",
+      "start_year": 1876,
+      "end_year": 1897,
+      "era_note": "1876년 ~ 1897년",
+      "description": "강화도조약 이후 개화와 척사의 갈등 속에 임오군란·갑신정변·갑오개혁이 이어졌다.",
+      "tags": [
+        "근대",
+        "개항"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-donghak-war",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "동학농민운동",
+      "region": "동아시아",
+      "start_year": 1894,
+      "end_year": 1895,
+      "era_note": "1894년 ~ 1895년",
+      "description": "반봉건·반외세를 내건 농민 봉기로, 청일전쟁과 갑오개혁의 직접적 계기가 되었다.",
+      "tags": [
+        "근대",
+        "민중운동"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-daehan-empire",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "대한제국",
+      "region": "동아시아",
+      "start_year": 1897,
+      "end_year": 1910,
+      "era_note": "1897년 ~ 1910년",
+      "description": "고종이 황제국을 선포하고 광무개혁을 추진했으나 일본의 침탈로 주권을 잃었다.",
+      "tags": [
+        "근대",
+        "국가"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-japanese-rule",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "일제강점기",
+      "region": "동아시아",
+      "start_year": 1910,
+      "end_year": 1945,
+      "era_note": "1910년 ~ 1945년",
+      "description": "국권 피탈 이후 35년간의 식민 통치기로, 무단통치·문화통치·전시동원이 이어졌다.",
+      "tags": [
+        "근대",
+        "식민지"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-samil",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "3·1 운동",
+      "region": "동아시아",
+      "start_year": 1919,
+      "end_year": 1919,
+      "era_note": "1919년",
+      "description": "전국적 비폭력 독립만세운동으로, 임시정부 수립과 국제적 독립 여론의 계기가 되었다.",
+      "tags": [
+        "근대",
+        "독립운동"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-provisional-gov",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "대한민국 임시정부",
+      "region": "동아시아",
+      "start_year": 1919,
+      "end_year": 1948,
+      "era_note": "1919년 ~ 1948년",
+      "description": "상하이에서 수립되어 충칭까지 이동하며 독립운동을 총괄한 망명 정부다.",
+      "tags": [
+        "근대",
+        "독립운동"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-usamgik",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "미군정기",
+      "region": "동아시아",
+      "start_year": 1945,
+      "end_year": 1948,
+      "era_note": "1945년 ~ 1948년",
+      "description": "해방 후 38선 이남을 미군이 통치한 시기로, 분단 체제가 고착되어 갔다.",
+      "tags": [
+        "현대",
+        "분단"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-rok-founded",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "대한민국 정부 수립",
+      "region": "동아시아",
+      "start_year": 1948,
+      "end_year": 1948,
+      "era_note": "1948년",
+      "description": "제헌헌법 공포와 함께 대한민국 정부가 출범하고 같은 해 북한 정권도 수립되었다.",
+      "tags": [
+        "현대",
+        "건국"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-dprk",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "조선민주주의인민공화국",
+      "region": "동아시아",
+      "start_year": 1948,
+      "end_year": 2025,
+      "era_note": "1948년 ~ 2025년",
+      "description": "한반도 북부에 수립된 사회주의 국가로, 분단 체제의 한 축을 이룬다.",
+      "tags": [
+        "현대",
+        "북한"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-korean-war",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "6·25 전쟁",
+      "region": "동아시아",
+      "start_year": 1950,
+      "end_year": 1953,
+      "era_note": "1950년 ~ 1953년",
+      "description": "남북 간 전면전으로 수백만의 사상자를 내고 정전협정으로 분단이 고착되었다.",
+      "tags": [
+        "현대",
+        "전쟁"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-sailgu",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "4·19 혁명",
+      "region": "동아시아",
+      "start_year": 1960,
+      "end_year": 1960,
+      "era_note": "1960년",
+      "description": "부정선거에 항거한 시민·학생 혁명으로 이승만 정권이 붕괴했다.",
+      "tags": [
+        "현대",
+        "민주화"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-park-era",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "제3·4공화국(개발연대)",
+      "region": "동아시아",
+      "start_year": 1961,
+      "end_year": 1979,
+      "era_note": "1961년 ~ 1979년",
+      "description": "5·16 군사정변 이후 경제개발 5개년계획과 유신체제가 이어진 시기다.",
+      "tags": [
+        "현대",
+        "산업화"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-gwangju",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "5·18 광주민주화운동",
+      "region": "동아시아",
+      "start_year": 1980,
+      "end_year": 1980,
+      "era_note": "1980년",
+      "description": "신군부의 집권에 맞선 시민 항쟁으로, 한국 민주화운동의 상징이 되었다.",
+      "tags": [
+        "현대",
+        "민주화"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-fifth-republic",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "제5공화국",
+      "region": "동아시아",
+      "start_year": 1981,
+      "end_year": 1988,
+      "era_note": "1981년 ~ 1988년",
+      "description": "신군부가 주도한 권위주의 정권기로, 경제 안정과 정치적 억압이 병존했다.",
+      "tags": [
+        "현대",
+        "정치"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-june-uprising",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "6월 민주항쟁",
+      "region": "동아시아",
+      "start_year": 1987,
+      "end_year": 1987,
+      "era_note": "1987년",
+      "description": "대통령 직선제를 쟁취한 전국적 시민항쟁으로, 민주화 이행의 분기점이 되었다.",
+      "tags": [
+        "현대",
+        "민주화"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "korea-sixth-republic",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "제6공화국(민주화 이후)",
+      "region": "동아시아",
+      "start_year": 1988,
+      "end_year": 2025,
+      "era_note": "1988년 ~ 2025년",
+      "description": "직선제 개헌 이후의 한국으로, 외환위기·정보화·문화산업 성장 등을 겪었다.",
+      "tags": [
+        "현대",
+        "민주주의"
+      ],
+      "sources": [
+        "국사편찬위원회 한국사 개설",
+        "위키백과 한국사 개괄"
+      ],
+      "status": "draft"
+    }
+  ]
+}

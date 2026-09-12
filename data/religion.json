@@ -1,0 +1,646 @@
+{
+  "$schema": "../schema/entries.schema.json",
+  "dataset": "religion",
+  "entries": [
+    {
+      "id": "religion-vedic",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "베다 시대와 힌두교 형성",
+      "region": "남아시아",
+      "start_year": -1500,
+      "end_year": -500,
+      "era_note": "기원전 1500년 ~ 기원전 500년",
+      "description": "아리아인의 베다 제의에서 브라만교가 성립하고 힌두 전통의 뿌리가 되었다.",
+      "tags": [
+        "고대",
+        "힌두교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-judaism",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "유대교의 형성",
+      "region": "서아시아",
+      "start_year": -1300,
+      "end_year": -539,
+      "era_note": "기원전 1300년 ~ 기원전 539년",
+      "description": "출애굽 전승에서 바빌론 유수까지 유일신 신앙과 율법 전통이 정립되었다.",
+      "tags": [
+        "고대",
+        "유대교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-zoroaster",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "조로아스터교",
+      "region": "서아시아",
+      "start_year": -1200,
+      "end_year": -600,
+      "era_note": "기원전 1200년 ~ 기원전 600년",
+      "description": "선악 이원론과 최후 심판 관념으로 후대 유일신 종교에 영향을 주었다.",
+      "tags": [
+        "고대",
+        "조로아스터교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-upanishad",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "우파니샤드 사상",
+      "region": "남아시아",
+      "start_year": -800,
+      "end_year": -400,
+      "era_note": "기원전 800년 ~ 기원전 400년",
+      "description": "제의 중심에서 벗어나 브라만과 아트만의 합일을 탐구했다.",
+      "tags": [
+        "고대",
+        "힌두교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-jainism",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "자이나교(마하비라)",
+      "region": "남아시아",
+      "start_year": -599,
+      "end_year": -527,
+      "era_note": "기원전 599년 ~ 기원전 527년",
+      "description": "철저한 불살생과 고행을 강조한 인도의 종교 전통이다.",
+      "tags": [
+        "고대",
+        "자이나교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-buddhism",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "불교의 성립(석가모니)",
+      "region": "남아시아",
+      "start_year": -563,
+      "end_year": -483,
+      "era_note": "기원전 563년 ~ 기원전 483년",
+      "description": "고통의 원인과 소멸의 길을 설하며 인도를 넘어 아시아 전역으로 퍼졌다.",
+      "tags": [
+        "고대",
+        "불교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-confucianism-rel",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "유교의 성립(공자)",
+      "region": "동아시아",
+      "start_year": -551,
+      "end_year": -479,
+      "era_note": "기원전 551년 ~ 기원전 479년",
+      "description": "인과 예를 중심으로 한 윤리·정치 사상으로 동아시아의 규범이 되었다.",
+      "tags": [
+        "고대",
+        "유교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-daoism",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "도교의 형성",
+      "region": "동아시아",
+      "start_year": -400,
+      "end_year": 200,
+      "era_note": "기원전 400년 ~ 200년",
+      "description": "노장 사상과 민간 신앙이 결합해 불로장생과 무위자연을 추구했다.",
+      "tags": [
+        "고대",
+        "도교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-ashoka-buddhism",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "아소카왕의 불교 전파",
+      "region": "남아시아",
+      "start_year": -268,
+      "end_year": -232,
+      "era_note": "기원전 268년 ~ 기원전 232년",
+      "description": "마우리아 제국의 후원으로 불교가 인도 밖으로 퍼져나갔다.",
+      "tags": [
+        "고대",
+        "불교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-christianity",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "예수와 기독교의 성립",
+      "region": "서아시아",
+      "start_year": -4,
+      "end_year": 33,
+      "era_note": "기원전 4년 ~ 33년",
+      "description": "예수의 가르침과 부활 신앙에서 출발해 지중해 세계로 확산되었다.",
+      "tags": [
+        "고대",
+        "기독교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-paul",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "바울의 선교",
+      "region": "지중해",
+      "start_year": 33,
+      "end_year": 67,
+      "era_note": "33년 ~ 67년",
+      "description": "이방인 선교로 기독교가 유대교 분파를 넘어 보편 종교가 되었다.",
+      "tags": [
+        "고대",
+        "기독교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-buddhism-china",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "불교의 중국 전래",
+      "region": "동아시아",
+      "start_year": 67,
+      "end_year": 400,
+      "era_note": "67년 ~ 400년",
+      "description": "실크로드를 통해 전해져 역경 사업과 함께 동아시아 종교로 뿌리내렸다.",
+      "tags": [
+        "고대",
+        "불교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-milan-edict",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "밀라노 칙령",
+      "region": "지중해",
+      "start_year": 313,
+      "end_year": 313,
+      "era_note": "313년",
+      "description": "콘스탄티누스가 기독교를 공인해 박해의 시대가 끝났다.",
+      "tags": [
+        "고대",
+        "기독교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-nicaea",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "니케아 공의회",
+      "region": "지중해",
+      "start_year": 325,
+      "end_year": 325,
+      "era_note": "325년",
+      "description": "삼위일체 교리를 정립해 기독교 정통 신조의 기준을 세웠다.",
+      "tags": [
+        "고대",
+        "기독교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-buddhism-korea",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "한반도 불교 전래",
+      "region": "동아시아",
+      "start_year": 372,
+      "end_year": 528,
+      "era_note": "372년 ~ 528년",
+      "description": "고구려·백제·신라가 차례로 불교를 수용해 국가 통합 이념으로 삼았다.",
+      "tags": [
+        "고대",
+        "불교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-state-religion",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "기독교 국교화",
+      "region": "지중해",
+      "start_year": 380,
+      "end_year": 380,
+      "era_note": "380년",
+      "description": "테오도시우스 칙령으로 기독교가 로마의 국교가 되었다.",
+      "tags": [
+        "고대",
+        "기독교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-islam",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "이슬람의 창시(무함마드)",
+      "region": "서아시아",
+      "start_year": 610,
+      "end_year": 632,
+      "era_note": "610년 ~ 632년",
+      "description": "메카와 메디나에서 계시와 공동체(움마)가 형성되며 이슬람이 성립했다.",
+      "tags": [
+        "중세",
+        "이슬람"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-islam-expansion",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "이슬람의 확산",
+      "region": "세계",
+      "start_year": 632,
+      "end_year": 750,
+      "era_note": "632년 ~ 750년",
+      "description": "한 세기 만에 이베리아에서 인더스까지 이르는 종교·정치 공동체가 형성되었다.",
+      "tags": [
+        "중세",
+        "이슬람"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-schism",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "동서교회 대분열",
+      "region": "유럽",
+      "start_year": 1054,
+      "end_year": 1054,
+      "era_note": "1054년",
+      "description": "로마 가톨릭과 동방 정교회가 갈라서며 기독교 세계가 양분되었다.",
+      "tags": [
+        "중세",
+        "기독교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-crusades",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "십자군 운동",
+      "region": "서아시아",
+      "start_year": 1096,
+      "end_year": 1291,
+      "era_note": "1096년 ~ 1291년",
+      "description": "성지 회복을 명분으로 한 원정으로 동서 교류와 갈등이 동시에 심화되었다.",
+      "tags": [
+        "중세",
+        "기독교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-aquinas",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "토마스 아퀴나스와 스콜라 신학",
+      "region": "유럽",
+      "start_year": 1225,
+      "end_year": 1274,
+      "era_note": "1225년 ~ 1274년",
+      "description": "아리스토텔레스 철학과 기독교 신학을 종합해 『신학대전』을 저술했다.",
+      "tags": [
+        "중세",
+        "기독교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-neoconfucian-rel",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "성리학의 확립(주희)",
+      "region": "동아시아",
+      "start_year": 1130,
+      "end_year": 1200,
+      "era_note": "1130년 ~ 1200년",
+      "description": "유교를 형이상학 체계로 재구성해 동아시아 사회 질서의 근간이 되었다.",
+      "tags": [
+        "중세",
+        "유교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-sikh",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "시크교의 성립",
+      "region": "남아시아",
+      "start_year": 1469,
+      "end_year": 1708,
+      "era_note": "1469년 ~ 1708년",
+      "description": "구루 나낙이 힌두교와 이슬람의 요소를 아우른 일신 신앙을 창시했다.",
+      "tags": [
+        "근세",
+        "시크교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-reformation",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "루터의 종교개혁",
+      "region": "유럽",
+      "start_year": 1517,
+      "end_year": 1517,
+      "era_note": "1517년",
+      "description": "95개조 반박문으로 교회 권위에 도전해 개신교 분화가 시작되었다.",
+      "tags": [
+        "근세",
+        "기독교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-calvin",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "칼뱅주의",
+      "region": "유럽",
+      "start_year": 1536,
+      "end_year": 1600,
+      "era_note": "1536년 ~ 1600년",
+      "description": "예정설과 직업소명 윤리로 근대 시민사회 형성에 영향을 주었다.",
+      "tags": [
+        "근세",
+        "기독교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-trent",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "트리엔트 공의회",
+      "region": "유럽",
+      "start_year": 1545,
+      "end_year": 1563,
+      "era_note": "1545년 ~ 1563년",
+      "description": "가톨릭 내부 개혁과 교리 재확인으로 반종교개혁을 이끌었다.",
+      "tags": [
+        "근세",
+        "기독교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-puritan",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "청교도의 신대륙 이주",
+      "region": "북아메리카",
+      "start_year": 1620,
+      "end_year": 1620,
+      "era_note": "1620년",
+      "description": "메이플라워호 이주로 북아메리카에 종교 공동체가 세워졌다.",
+      "tags": [
+        "근세",
+        "기독교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-secularization",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "계몽주의와 세속화",
+      "region": "유럽",
+      "start_year": 1700,
+      "end_year": 1800,
+      "era_note": "1700년 ~ 1800년",
+      "description": "이성과 관용의 확산으로 종교와 정치의 분리가 논의되기 시작했다.",
+      "tags": [
+        "근대",
+        "사상"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-catholic-korea",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "한국 천주교 전래",
+      "region": "동아시아",
+      "start_year": 1784,
+      "end_year": 1886,
+      "era_note": "1784년 ~ 1886년",
+      "description": "자생적 수용으로 시작해 박해를 거쳐 신앙의 자유를 얻었다.",
+      "tags": [
+        "근대",
+        "기독교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-donghak",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "동학의 창시",
+      "region": "동아시아",
+      "start_year": 1860,
+      "end_year": 1894,
+      "era_note": "1860년 ~ 1894년",
+      "description": "최제우가 창시한 민중 종교로 인내천 사상과 농민운동으로 이어졌다.",
+      "tags": [
+        "근대",
+        "신종교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-vatican2",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "제2차 바티칸 공의회",
+      "region": "유럽",
+      "start_year": 1962,
+      "end_year": 1965,
+      "era_note": "1962년 ~ 1965년",
+      "description": "전례 현대화와 종교 간 대화를 표방한 가톨릭의 대대적 쇄신이다.",
+      "tags": [
+        "현대",
+        "기독교"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "religion-pluralism",
+      "category": "종교사",
+      "subcategory": "종교",
+      "title": "현대 종교 다원주의와 세속화",
+      "region": "세계",
+      "start_year": 1900,
+      "end_year": 2025,
+      "era_note": "1900년 ~ 2025년",
+      "description": "세속화와 근본주의, 종교 간 대화가 동시에 진행되는 시대다.",
+      "tags": [
+        "현대",
+        "사상"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 종교사 개괄",
+        "위키백과 종교사 개괄"
+      ],
+      "status": "draft"
+    }
+  ]
+}

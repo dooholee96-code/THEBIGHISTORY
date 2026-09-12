@@ -1,0 +1,7 @@
+node_modules/
+.DS_Store
+*.log
+
+# Capacitor 로 감쌀 때 생성되는 네이티브 프로젝트
+ios/
+android/

@@ -1,0 +1,726 @@
+{
+  "$schema": "../schema/entries.schema.json",
+  "dataset": "music",
+  "entries": [
+    {
+      "id": "music-greek-theory",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "고대 그리스 음악이론",
+      "region": "지중해",
+      "start_year": -500,
+      "end_year": -300,
+      "era_note": "기원전 500년 ~ 기원전 300년",
+      "description": "피타고라스의 음정 비례와 선법(모드) 개념이 서양 음악이론의 뿌리가 되었다.",
+      "tags": [
+        "고대",
+        "이론"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-gregorian",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "그레고리오 성가",
+      "region": "유럽",
+      "start_year": 590,
+      "end_year": 900,
+      "era_note": "590년 ~ 900년",
+      "description": "로마 교회의 단선율 전례 성가로 서양 음악 기보와 선법의 토대가 되었다.",
+      "tags": [
+        "중세",
+        "성악"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-guido",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "귀도 다레초의 기보법",
+      "region": "유럽",
+      "start_year": 1025,
+      "end_year": 1025,
+      "era_note": "1025년",
+      "description": "사선보와 계이름 창안으로 음악을 기록·전승할 수 있게 되었다.",
+      "tags": [
+        "중세",
+        "기보"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-notredame",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "노트르담 악파 다성음악",
+      "region": "유럽",
+      "start_year": 1160,
+      "end_year": 1250,
+      "era_note": "1160년 ~ 1250년",
+      "description": "레오냉·페로탱의 오르가눔으로 다성음악과 리듬 기보가 발전했다.",
+      "tags": [
+        "중세",
+        "다성"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-ars-nova",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "아르스 노바",
+      "region": "유럽",
+      "start_year": 1320,
+      "end_year": 1380,
+      "era_note": "1320년 ~ 1380년",
+      "description": "마쇼 등이 리듬과 형식을 정교화하며 세속 다성음악을 확립했다.",
+      "tags": [
+        "중세",
+        "다성"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-renaissance-poly",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "르네상스 다성음악",
+      "region": "유럽",
+      "start_year": 1450,
+      "end_year": 1600,
+      "era_note": "1450년 ~ 1600년",
+      "description": "조스캥 데프레 등이 모방 대위법으로 균형 잡힌 다성 양식을 완성했다.",
+      "tags": [
+        "근세",
+        "다성"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-palestrina",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "팔레스트리나",
+      "region": "유럽",
+      "start_year": 1525,
+      "end_year": 1594,
+      "era_note": "1525년 ~ 1594년",
+      "description": "가톨릭 개혁기 교회음악의 전범으로 맑은 대위법 양식을 남겼다.",
+      "tags": [
+        "근세",
+        "교회음악"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-jongmyo",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "종묘제례악",
+      "region": "동아시아",
+      "start_year": 1464,
+      "end_year": 2025,
+      "era_note": "1464년 ~ 2025년",
+      "description": "조선 왕실 제례음악으로 현재까지 전승되는 한국 궁중음악의 정수다.",
+      "tags": [
+        "근세",
+        "전통"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-opera-birth",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "오페라의 탄생",
+      "region": "유럽",
+      "start_year": 1600,
+      "end_year": 1643,
+      "era_note": "1600년 ~ 1643년",
+      "description": "피렌체 카메라타와 몬테베르디를 통해 극과 음악이 결합한 장르가 태어났다.",
+      "tags": [
+        "근세",
+        "오페라"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-baroque",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "바로크 시대",
+      "region": "유럽",
+      "start_year": 1600,
+      "end_year": 1750,
+      "era_note": "1600년 ~ 1750년",
+      "description": "통주저음과 조성음악이 확립되고 협주곡·푸가 등 기악 장르가 발전했다.",
+      "tags": [
+        "근세",
+        "양식"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-vivaldi",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "비발디",
+      "region": "유럽",
+      "start_year": 1678,
+      "end_year": 1741,
+      "era_note": "1678년 ~ 1741년",
+      "description": "『사계』 등으로 독주 협주곡 형식을 대중화한 베네치아의 작곡가다.",
+      "tags": [
+        "근세",
+        "작곡가"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-bach",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "J.S. 바흐",
+      "region": "유럽",
+      "start_year": 1685,
+      "end_year": 1750,
+      "era_note": "1685년 ~ 1750년",
+      "description": "대위법과 평균율을 집대성해 서양 음악의 기초 문법을 완성했다.",
+      "tags": [
+        "근세",
+        "작곡가"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-handel",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "헨델",
+      "region": "유럽",
+      "start_year": 1685,
+      "end_year": 1759,
+      "era_note": "1685년 ~ 1759년",
+      "description": "오라토리오 『메시아』 등으로 영국 음악문화를 대중적으로 확장했다.",
+      "tags": [
+        "근세",
+        "작곡가"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-classical-era",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "고전주의 시대",
+      "region": "유럽",
+      "start_year": 1750,
+      "end_year": 1820,
+      "era_note": "1750년 ~ 1820년",
+      "description": "소나타 형식과 교향곡·현악사중주가 확립되며 균형과 명료함이 추구되었다.",
+      "tags": [
+        "근세",
+        "양식"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-haydn",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "하이든",
+      "region": "유럽",
+      "start_year": 1732,
+      "end_year": 1809,
+      "era_note": "1732년 ~ 1809년",
+      "description": "교향곡과 현악사중주 형식을 확립해 '교향곡의 아버지'로 불린다.",
+      "tags": [
+        "근세",
+        "작곡가"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-mozart",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "모차르트",
+      "region": "유럽",
+      "start_year": 1756,
+      "end_year": 1791,
+      "era_note": "1756년 ~ 1791년",
+      "description": "오페라·협주곡·교향곡 전 장르에서 고전주의의 완성을 보여주었다.",
+      "tags": [
+        "근세",
+        "작곡가"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-beethoven",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "베토벤",
+      "region": "유럽",
+      "start_year": 1770,
+      "end_year": 1827,
+      "era_note": "1770년 ~ 1827년",
+      "description": "고전주의를 확장하고 낭만주의의 문을 연 작곡가로 교향곡 9번을 남겼다.",
+      "tags": [
+        "근대",
+        "작곡가"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-romantic",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "낭만주의 음악",
+      "region": "유럽",
+      "start_year": 1820,
+      "end_year": 1900,
+      "era_note": "1820년 ~ 1900년",
+      "description": "개인의 감정과 문학적 표현을 중시하며 표제음악과 악극이 발전했다.",
+      "tags": [
+        "근대",
+        "양식"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-schubert",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "슈베르트와 예술가곡",
+      "region": "유럽",
+      "start_year": 1797,
+      "end_year": 1828,
+      "era_note": "1797년 ~ 1828년",
+      "description": "시와 음악을 결합한 리트 장르를 예술적 정점에 올려놓았다.",
+      "tags": [
+        "근대",
+        "작곡가"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-chopin",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "쇼팽",
+      "region": "유럽",
+      "start_year": 1810,
+      "end_year": 1849,
+      "era_note": "1810년 ~ 1849년",
+      "description": "피아노의 시인으로 불리며 녹턴·마주르카 등 피아노 어법을 확장했다.",
+      "tags": [
+        "근대",
+        "작곡가"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-wagner",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "바그너 악극",
+      "region": "유럽",
+      "start_year": 1813,
+      "end_year": 1883,
+      "era_note": "1813년 ~ 1883년",
+      "description": "유도동기와 총체예술 개념으로 오페라와 화성 어법을 근본적으로 바꿨다.",
+      "tags": [
+        "근대",
+        "작곡가"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-brahms",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "브람스",
+      "region": "유럽",
+      "start_year": 1833,
+      "end_year": 1897,
+      "era_note": "1833년 ~ 1897년",
+      "description": "고전 형식에 낭만적 감성을 결합해 절대음악 전통을 이어갔다.",
+      "tags": [
+        "근대",
+        "작곡가"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-nationalism",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "국민악파",
+      "region": "유럽",
+      "start_year": 1840,
+      "end_year": 1910,
+      "era_note": "1840년 ~ 1910년",
+      "description": "차이콥스키·드보르자크 등이 민족 선율과 전설을 예술음악에 담았다.",
+      "tags": [
+        "근대",
+        "양식"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-debussy",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "드뷔시와 인상주의",
+      "region": "유럽",
+      "start_year": 1862,
+      "end_year": 1918,
+      "era_note": "1862년 ~ 1918년",
+      "description": "전통 화성을 벗어난 음색 중심 어법으로 20세기 음악의 문을 열었다.",
+      "tags": [
+        "근대",
+        "작곡가"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-blues",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "블루스의 형성",
+      "region": "북아메리카",
+      "start_year": 1890,
+      "end_year": 1920,
+      "era_note": "1890년 ~ 1920년",
+      "description": "미국 남부 흑인 공동체에서 태어나 재즈와 록의 뿌리가 되었다.",
+      "tags": [
+        "근대",
+        "대중음악"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-recording",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "음반 산업의 성립",
+      "region": "세계",
+      "start_year": 1890,
+      "end_year": 1930,
+      "era_note": "1890년 ~ 1930년",
+      "description": "축음기와 레코드 보급으로 음악이 상품이자 대중매체가 되었다.",
+      "tags": [
+        "근대",
+        "기술"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-rite-of-spring",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "스트라빈스키 『봄의 제전』",
+      "region": "유럽",
+      "start_year": 1913,
+      "end_year": 1913,
+      "era_note": "1913년",
+      "description": "불규칙 리듬과 불협화음으로 초연에서 소동을 일으킨 20세기의 분기점이다.",
+      "tags": [
+        "현대",
+        "작품"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-jazz",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "재즈의 확산",
+      "region": "북아메리카",
+      "start_year": 1900,
+      "end_year": 1945,
+      "era_note": "1900년 ~ 1945년",
+      "description": "뉴올리언스에서 시작해 스윙 시대에 미국 대중음악의 중심이 되었다.",
+      "tags": [
+        "현대",
+        "대중음악"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-twelve-tone",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "쇤베르크 12음 기법",
+      "region": "유럽",
+      "start_year": 1921,
+      "end_year": 1921,
+      "era_note": "1921년",
+      "description": "조성을 해체한 작곡 체계로 현대음악의 주요 흐름을 만들었다.",
+      "tags": [
+        "현대",
+        "기법"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-electronic",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "전자음악과 신시사이저",
+      "region": "세계",
+      "start_year": 1950,
+      "end_year": 1980,
+      "era_note": "1950년 ~ 1980년",
+      "description": "테이프 음악과 신시사이저로 소리 자체를 설계하는 작곡이 가능해졌다.",
+      "tags": [
+        "현대",
+        "기술"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-rocknroll",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "로큰롤의 탄생",
+      "region": "북아메리카",
+      "start_year": 1954,
+      "end_year": 1965,
+      "era_note": "1954년 ~ 1965년",
+      "description": "블루스와 컨트리가 결합해 청년문화를 대표하는 대중음악이 등장했다.",
+      "tags": [
+        "현대",
+        "대중음악"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-beatles",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "비틀스",
+      "region": "유럽",
+      "start_year": 1960,
+      "end_year": 1970,
+      "era_note": "1960년 ~ 1970년",
+      "description": "대중음악을 예술적 실험의 장으로 끌어올리며 세계적 영향을 남겼다.",
+      "tags": [
+        "현대",
+        "대중음악"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-hiphop",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "힙합의 탄생",
+      "region": "북아메리카",
+      "start_year": 1973,
+      "end_year": 2000,
+      "era_note": "1973년 ~ 2000년",
+      "description": "뉴욕 브롱크스의 블록파티에서 출발해 세계 주류 장르로 성장했다.",
+      "tags": [
+        "현대",
+        "대중음악"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-mtv",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "MTV와 뮤직비디오 시대",
+      "region": "북아메리카",
+      "start_year": 1981,
+      "end_year": 2000,
+      "era_note": "1981년 ~ 2000년",
+      "description": "영상과 음악의 결합으로 음악 소비 방식이 시각 중심으로 바뀌었다.",
+      "tags": [
+        "현대",
+        "미디어"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-kpop",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "K-pop의 성장",
+      "region": "동아시아",
+      "start_year": 1992,
+      "end_year": 2025,
+      "era_note": "1992년 ~ 2025년",
+      "description": "아이돌 시스템과 온라인 확산을 통해 한국 대중음악이 세계 시장에 진출했다.",
+      "tags": [
+        "현대",
+        "대중음악"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "music-streaming",
+      "category": "음악사",
+      "subcategory": "음악",
+      "title": "디지털 음원과 스트리밍",
+      "region": "세계",
+      "start_year": 1999,
+      "end_year": 2025,
+      "era_note": "1999년 ~ 2025년",
+      "description": "MP3 공유와 스트리밍 서비스가 음악 유통과 산업 구조를 재편했다.",
+      "tags": [
+        "현대",
+        "기술"
+      ],
+      "sources": [
+        "Grove Music Online 개괄",
+        "위키백과 음악사 개괄"
+      ],
+      "status": "draft"
+    }
+  ]
+}

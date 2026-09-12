@@ -1,0 +1,406 @@
+{
+  "$schema": "../schema/entries.schema.json",
+  "dataset": "japan",
+  "entries": [
+    {
+      "id": "japan-jomon",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "조몬 시대",
+      "region": "동아시아",
+      "start_year": -10000,
+      "end_year": -300,
+      "era_note": "기원전 10000년 ~ 기원전 300년",
+      "description": "수렵채집과 새끼줄무늬 토기로 대표되는 일본 열도의 신석기 문화다.",
+      "tags": [
+        "선사",
+        "문화"
+      ],
+      "sources": [
+        "Cambridge History of Japan 개괄",
+        "위키백과 일본사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "japan-yayoi",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "야요이 시대",
+      "region": "동아시아",
+      "start_year": -300,
+      "end_year": 250,
+      "era_note": "기원전 300년 ~ 250년",
+      "description": "한반도에서 벼농사와 금속기가 전해지며 농경사회가 성립했다.",
+      "tags": [
+        "고대",
+        "문화"
+      ],
+      "sources": [
+        "Cambridge History of Japan 개괄",
+        "위키백과 일본사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "japan-kofun",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "고훈 시대",
+      "region": "동아시아",
+      "start_year": 250,
+      "end_year": 538,
+      "era_note": "250년 ~ 538년",
+      "description": "거대 고분이 축조되고 야마토 정권이 열도를 통합해 간 시기다.",
+      "tags": [
+        "고대",
+        "국가형성"
+      ],
+      "sources": [
+        "Cambridge History of Japan 개괄",
+        "위키백과 일본사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "japan-asuka",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "아스카 시대",
+      "region": "동아시아",
+      "start_year": 538,
+      "end_year": 710,
+      "era_note": "538년 ~ 710년",
+      "description": "불교 수용과 다이카 개신을 통해 율령국가의 기틀이 마련되었다.",
+      "tags": [
+        "고대",
+        "왕조"
+      ],
+      "sources": [
+        "Cambridge History of Japan 개괄",
+        "위키백과 일본사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "japan-nara",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "나라 시대",
+      "region": "동아시아",
+      "start_year": 710,
+      "end_year": 794,
+      "era_note": "710년 ~ 794년",
+      "description": "헤이조쿄 도읍기로 율령제가 정비되고 『고사기』·『일본서기』가 편찬되었다.",
+      "tags": [
+        "고대",
+        "왕조"
+      ],
+      "sources": [
+        "Cambridge History of Japan 개괄",
+        "위키백과 일본사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "japan-heian",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "헤이안 시대",
+      "region": "동아시아",
+      "start_year": 794,
+      "end_year": 1185,
+      "era_note": "794년 ~ 1185년",
+      "description": "귀족 문화가 만개하고 가나 문자와 『겐지 이야기』가 등장했다.",
+      "tags": [
+        "중세",
+        "왕조"
+      ],
+      "sources": [
+        "Cambridge History of Japan 개괄",
+        "위키백과 일본사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "japan-kamakura",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "가마쿠라 막부",
+      "region": "동아시아",
+      "start_year": 1185,
+      "end_year": 1333,
+      "era_note": "1185년 ~ 1333년",
+      "description": "미나모토노 요리토모가 연 최초의 무가 정권으로 몽골 침입을 막아냈다.",
+      "tags": [
+        "중세",
+        "막부"
+      ],
+      "sources": [
+        "Cambridge History of Japan 개괄",
+        "위키백과 일본사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "japan-kenmu",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "겐무 신정",
+      "region": "동아시아",
+      "start_year": 1333,
+      "end_year": 1336,
+      "era_note": "1333년 ~ 1336년",
+      "description": "고다이고 천황의 왕정복고 시도로, 3년 만에 무너졌다.",
+      "tags": [
+        "중세",
+        "정치"
+      ],
+      "sources": [
+        "Cambridge History of Japan 개괄",
+        "위키백과 일본사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "japan-muromachi",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "무로마치 막부",
+      "region": "동아시아",
+      "start_year": 1336,
+      "end_year": 1573,
+      "era_note": "1336년 ~ 1573년",
+      "description": "아시카가 씨의 무가 정권으로 노·다도 등 일본 전통문화가 형성되었다.",
+      "tags": [
+        "중세",
+        "막부"
+      ],
+      "sources": [
+        "Cambridge History of Japan 개괄",
+        "위키백과 일본사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "japan-sengoku",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "전국시대",
+      "region": "동아시아",
+      "start_year": 1467,
+      "end_year": 1590,
+      "era_note": "1467년 ~ 1590년",
+      "description": "오닌의 난 이후 다이묘들이 패권을 다툰 분열기로, 철포 전래와 남만무역이 이뤄졌다.",
+      "tags": [
+        "중세",
+        "분열기"
+      ],
+      "sources": [
+        "Cambridge History of Japan 개괄",
+        "위키백과 일본사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "japan-azuchi",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "아즈치모모야마 시대",
+      "region": "동아시아",
+      "start_year": 1573,
+      "end_year": 1603,
+      "era_note": "1573년 ~ 1603년",
+      "description": "오다 노부나가와 도요토미 히데요시의 천하통일기로, 임진왜란을 일으켰다.",
+      "tags": [
+        "근세",
+        "통일"
+      ],
+      "sources": [
+        "Cambridge History of Japan 개괄",
+        "위키백과 일본사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "japan-edo",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "에도 막부",
+      "region": "동아시아",
+      "start_year": 1603,
+      "end_year": 1868,
+      "era_note": "1603년 ~ 1868년",
+      "description": "도쿠가와 정권의 260여 년 평화기로 쇄국과 조카마치 도시문화가 발전했다.",
+      "tags": [
+        "근세",
+        "막부"
+      ],
+      "sources": [
+        "Cambridge History of Japan 개괄",
+        "위키백과 일본사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "japan-meiji",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "메이지 시대",
+      "region": "동아시아",
+      "start_year": 1868,
+      "end_year": 1912,
+      "era_note": "1868년 ~ 1912년",
+      "description": "왕정복고 후 급속한 근대화와 산업화, 제국주의 팽창이 이루어졌다.",
+      "tags": [
+        "근대",
+        "국가"
+      ],
+      "sources": [
+        "Cambridge History of Japan 개괄",
+        "위키백과 일본사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "japan-taisho",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "다이쇼 시대",
+      "region": "동아시아",
+      "start_year": 1912,
+      "end_year": 1926,
+      "era_note": "1912년 ~ 1926년",
+      "description": "정당정치와 도시 대중문화가 성장한 '다이쇼 데모크라시' 시기다.",
+      "tags": [
+        "근대",
+        "국가"
+      ],
+      "sources": [
+        "Cambridge History of Japan 개괄",
+        "위키백과 일본사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "japan-showa-prewar",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "쇼와 전전기",
+      "region": "동아시아",
+      "start_year": 1926,
+      "end_year": 1945,
+      "era_note": "1926년 ~ 1945년",
+      "description": "군부의 대두와 대외 침략으로 태평양전쟁 패전에 이른 시기다.",
+      "tags": [
+        "근대",
+        "군국주의"
+      ],
+      "sources": [
+        "Cambridge History of Japan 개괄",
+        "위키백과 일본사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "japan-pacific-war",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "태평양전쟁",
+      "region": "동아시아",
+      "start_year": 1941,
+      "end_year": 1945,
+      "era_note": "1941년 ~ 1945년",
+      "description": "진주만 공격으로 시작해 원폭 투하와 무조건 항복으로 끝난 전쟁이다.",
+      "tags": [
+        "근대",
+        "전쟁"
+      ],
+      "sources": [
+        "Cambridge History of Japan 개괄",
+        "위키백과 일본사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "japan-occupation",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "연합국 점령기",
+      "region": "동아시아",
+      "start_year": 1945,
+      "end_year": 1952,
+      "era_note": "1945년 ~ 1952년",
+      "description": "GHQ 통치 아래 평화헌법 제정과 농지개혁 등 전후 개혁이 단행되었다.",
+      "tags": [
+        "현대",
+        "점령"
+      ],
+      "sources": [
+        "Cambridge History of Japan 개괄",
+        "위키백과 일본사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "japan-showa-postwar",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "전후 고도성장기",
+      "region": "동아시아",
+      "start_year": 1955,
+      "end_year": 1973,
+      "era_note": "1955년 ~ 1973년",
+      "description": "연평균 10%에 가까운 성장으로 세계 2위 경제대국으로 올라섰다.",
+      "tags": [
+        "현대",
+        "경제"
+      ],
+      "sources": [
+        "Cambridge History of Japan 개괄",
+        "위키백과 일본사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "japan-heisei",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "헤이세이 시대",
+      "region": "동아시아",
+      "start_year": 1989,
+      "end_year": 2019,
+      "era_note": "1989년 ~ 2019년",
+      "description": "거품경제 붕괴 후 '잃어버린 20년'과 저성장·고령화를 겪었다.",
+      "tags": [
+        "현대",
+        "국가"
+      ],
+      "sources": [
+        "Cambridge History of Japan 개괄",
+        "위키백과 일본사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "japan-reiwa",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "레이와 시대",
+      "region": "동아시아",
+      "start_year": 2019,
+      "end_year": 2025,
+      "era_note": "2019년 ~ 2025년",
+      "description": "현재 진행 중인 연호로, 인구 감소와 안보정책 전환이 과제로 떠올랐다.",
+      "tags": [
+        "현대",
+        "국가"
+      ],
+      "sources": [
+        "Cambridge History of Japan 개괄",
+        "위키백과 일본사 개괄"
+      ],
+      "status": "draft"
+    }
+  ]
+}

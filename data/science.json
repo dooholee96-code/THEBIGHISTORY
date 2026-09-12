@@ -1,0 +1,926 @@
+{
+  "$schema": "../schema/entries.schema.json",
+  "dataset": "science",
+  "entries": [
+    {
+      "id": "science-thales",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "탈레스와 자연철학",
+      "region": "지중해",
+      "start_year": -624,
+      "end_year": -546,
+      "era_note": "기원전 624년 ~ 기원전 546년",
+      "description": "신화가 아닌 자연 원리로 세계를 설명하려 한 최초의 시도로 평가된다.",
+      "tags": [
+        "고대",
+        "자연철학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-pythagoras",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "피타고라스 학파",
+      "region": "지중해",
+      "start_year": -570,
+      "end_year": -495,
+      "era_note": "기원전 570년 ~ 기원전 495년",
+      "description": "수를 만물의 근원으로 보고 수학과 음악의 비례 관계를 탐구했다.",
+      "tags": [
+        "고대",
+        "수학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-hippocrates",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "히포크라테스 의학",
+      "region": "지중해",
+      "start_year": -460,
+      "end_year": -370,
+      "era_note": "기원전 460년 ~ 기원전 370년",
+      "description": "질병을 초자연이 아닌 자연적 원인으로 설명하며 임상 관찰을 중시했다.",
+      "tags": [
+        "고대",
+        "의학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-aristotle-physics",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "아리스토텔레스 자연학",
+      "region": "지중해",
+      "start_year": -384,
+      "end_year": -322,
+      "era_note": "기원전 384년 ~ 기원전 322년",
+      "description": "관찰과 분류에 기초한 체계적 자연철학으로 2000년간 서구 과학을 지배했다.",
+      "tags": [
+        "고대",
+        "자연철학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-euclid",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "유클리드 『원론』",
+      "region": "지중해",
+      "start_year": -300,
+      "end_year": -300,
+      "era_note": "기원전 300년",
+      "description": "공리에서 정리를 이끌어내는 연역 체계를 세워 수학 서술의 표준이 되었다.",
+      "tags": [
+        "고대",
+        "수학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-archimedes",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "아르키메데스",
+      "region": "지중해",
+      "start_year": -287,
+      "end_year": -212,
+      "era_note": "기원전 287년 ~ 기원전 212년",
+      "description": "부력 원리와 지레의 법칙 등 물리학과 수학의 기초를 놓았다.",
+      "tags": [
+        "고대",
+        "물리학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-eratosthenes",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "에라토스테네스 지구 둘레 측정",
+      "region": "지중해",
+      "start_year": -240,
+      "end_year": -240,
+      "era_note": "기원전 240년",
+      "description": "그림자 각도만으로 지구 둘레를 오차 몇 퍼센트 이내로 계산했다.",
+      "tags": [
+        "고대",
+        "천문학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-ptolemy",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "프톨레마이오스 『알마게스트』",
+      "region": "지중해",
+      "start_year": 150,
+      "end_year": 150,
+      "era_note": "150년",
+      "description": "천동설 체계를 수학적으로 정리해 중세 천문학의 표준이 되었다.",
+      "tags": [
+        "고대",
+        "천문학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-zhang-heng",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "장형의 지동의",
+      "region": "동아시아",
+      "start_year": 132,
+      "end_year": 132,
+      "era_note": "132년",
+      "description": "세계 최초의 지진 감지 장치로 한대 중국 과학기술의 수준을 보여준다.",
+      "tags": [
+        "고대",
+        "지구과학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-islamic-golden",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "이슬람 과학 황금기",
+      "region": "서아시아",
+      "start_year": 800,
+      "end_year": 1258,
+      "era_note": "800년 ~ 1258년",
+      "description": "그리스 문헌 번역과 독자적 연구로 대수학·광학·의학이 크게 발전했다.",
+      "tags": [
+        "중세",
+        "종합"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-al-khwarizmi",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "알콰리즈미 대수학",
+      "region": "서아시아",
+      "start_year": 820,
+      "end_year": 820,
+      "era_note": "820년",
+      "description": "'알고리즘'과 '알제브라'의 어원이 된 체계적 방정식 해법을 정리했다.",
+      "tags": [
+        "중세",
+        "수학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-alhazen",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "이븐 알하이삼 『광학의 서』",
+      "region": "서아시아",
+      "start_year": 1021,
+      "end_year": 1021,
+      "era_note": "1021년",
+      "description": "실험으로 가설을 검증하는 방법을 제시해 근대 과학방법론의 선구가 되었다.",
+      "tags": [
+        "중세",
+        "광학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-copernicus",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "코페르니쿠스 지동설",
+      "region": "유럽",
+      "start_year": 1543,
+      "end_year": 1543,
+      "era_note": "1543년",
+      "description": "『천구의 회전에 관하여』로 태양 중심 체계를 제시해 과학혁명을 열었다.",
+      "tags": [
+        "근세",
+        "천문학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-vesalius",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "베살리우스 인체 해부학",
+      "region": "유럽",
+      "start_year": 1543,
+      "end_year": 1543,
+      "era_note": "1543년",
+      "description": "직접 해부에 근거한 『인체의 구조』로 갈레노스 의학을 교정했다.",
+      "tags": [
+        "근세",
+        "의학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-tycho",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "튀코 브라헤의 정밀 관측",
+      "region": "유럽",
+      "start_year": 1576,
+      "end_year": 1601,
+      "era_note": "1576년 ~ 1601년",
+      "description": "망원경 이전 최고 정밀도의 관측 자료로 케플러 법칙의 토대를 마련했다.",
+      "tags": [
+        "근세",
+        "천문학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-kepler",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "케플러 행성운동 법칙",
+      "region": "유럽",
+      "start_year": 1609,
+      "end_year": 1619,
+      "era_note": "1609년 ~ 1619년",
+      "description": "행성 궤도가 타원임을 밝혀 천체 운동을 수학 법칙으로 환원했다.",
+      "tags": [
+        "근세",
+        "천문학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-galileo",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "갈릴레이 망원경 관측",
+      "region": "유럽",
+      "start_year": 1610,
+      "end_year": 1610,
+      "era_note": "1610년",
+      "description": "목성의 위성과 달 표면을 관측해 지동설의 경험적 근거를 제시했다.",
+      "tags": [
+        "근세",
+        "천문학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-harvey",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "하비 혈액순환론",
+      "region": "유럽",
+      "start_year": 1628,
+      "end_year": 1628,
+      "era_note": "1628년",
+      "description": "심장을 펌프로 보는 순환 이론으로 생리학을 실험과학으로 바꿨다.",
+      "tags": [
+        "근세",
+        "생리학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-descartes-method",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "데카르트 『방법서설』",
+      "region": "유럽",
+      "start_year": 1637,
+      "end_year": 1637,
+      "era_note": "1637년",
+      "description": "수학적 방법과 해석기하학으로 자연을 기술하는 길을 열었다.",
+      "tags": [
+        "근세",
+        "방법론"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-newton",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "뉴턴 『프린키피아』",
+      "region": "유럽",
+      "start_year": 1687,
+      "end_year": 1687,
+      "era_note": "1687년",
+      "description": "만유인력과 운동 법칙으로 지상과 천상의 운동을 하나의 체계로 통합했다.",
+      "tags": [
+        "근세",
+        "물리학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-linnaeus",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "린네 분류 체계",
+      "region": "유럽",
+      "start_year": 1735,
+      "end_year": 1735,
+      "era_note": "1735년",
+      "description": "이명법으로 생물 분류의 표준을 세워 근대 생물학의 언어를 만들었다.",
+      "tags": [
+        "근세",
+        "생물학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-lavoisier",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "라부아지에 화학혁명",
+      "region": "유럽",
+      "start_year": 1789,
+      "end_year": 1789,
+      "era_note": "1789년",
+      "description": "질량보존 법칙과 원소 개념으로 연금술적 화학을 근대 화학으로 전환시켰다.",
+      "tags": [
+        "근대",
+        "화학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-volta",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "볼타 전지",
+      "region": "유럽",
+      "start_year": 1800,
+      "end_year": 1800,
+      "era_note": "1800년",
+      "description": "지속적인 전류원을 최초로 만들어 전기화학과 전자기학의 문을 열었다.",
+      "tags": [
+        "근대",
+        "물리학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-dalton",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "돌턴 원자설",
+      "region": "유럽",
+      "start_year": 1808,
+      "end_year": 1808,
+      "era_note": "1808년",
+      "description": "화학 반응을 원자의 결합으로 설명해 근대 원자론을 확립했다.",
+      "tags": [
+        "근대",
+        "화학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-faraday",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "패러데이 전자기 유도",
+      "region": "유럽",
+      "start_year": 1831,
+      "end_year": 1831,
+      "era_note": "1831년",
+      "description": "자기장 변화로 전류를 만들어 발전기와 전기문명의 원리를 제시했다.",
+      "tags": [
+        "근대",
+        "물리학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-pasteur",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "파스퇴르 세균설",
+      "region": "유럽",
+      "start_year": 1861,
+      "end_year": 1885,
+      "era_note": "1861년 ~ 1885년",
+      "description": "미생물이 질병과 부패의 원인임을 입증하고 백신과 저온살균법을 개발했다.",
+      "tags": [
+        "근대",
+        "의학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-darwin",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "다윈 『종의 기원』",
+      "region": "유럽",
+      "start_year": 1859,
+      "end_year": 1859,
+      "era_note": "1859년",
+      "description": "자연선택에 의한 진화를 제시해 생명 이해의 틀을 근본적으로 바꿨다.",
+      "tags": [
+        "근대",
+        "생물학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-maxwell",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "맥스웰 전자기 방정식",
+      "region": "유럽",
+      "start_year": 1865,
+      "end_year": 1865,
+      "era_note": "1865년",
+      "description": "전기·자기·빛을 하나의 이론으로 통합해 현대 물리학의 기초를 놓았다.",
+      "tags": [
+        "근대",
+        "물리학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-mendel",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "멘델 유전 법칙",
+      "region": "유럽",
+      "start_year": 1866,
+      "end_year": 1866,
+      "era_note": "1866년",
+      "description": "완두 실험으로 형질 전달의 규칙성을 밝혔으나 1900년에야 재발견되었다.",
+      "tags": [
+        "근대",
+        "유전학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-mendeleev",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "멘델레예프 주기율표",
+      "region": "유럽",
+      "start_year": 1869,
+      "end_year": 1869,
+      "era_note": "1869년",
+      "description": "원소를 주기적 성질에 따라 배열하고 미발견 원소를 예측했다.",
+      "tags": [
+        "근대",
+        "화학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-roentgen",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "뢴트겐 X선 발견",
+      "region": "유럽",
+      "start_year": 1895,
+      "end_year": 1895,
+      "era_note": "1895년",
+      "description": "인체 내부를 비추는 새로운 방사선을 발견해 의학 영상의 시대를 열었다.",
+      "tags": [
+        "근대",
+        "물리학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-curie",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "퀴리 부부 방사능 연구",
+      "region": "유럽",
+      "start_year": 1898,
+      "end_year": 1911,
+      "era_note": "1898년 ~ 1911년",
+      "description": "폴로늄과 라듐을 발견하며 방사능 연구와 핵물리학의 기초를 세웠다.",
+      "tags": [
+        "근대",
+        "물리학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-planck",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "플랑크 양자가설",
+      "region": "유럽",
+      "start_year": 1900,
+      "end_year": 1900,
+      "era_note": "1900년",
+      "description": "에너지가 불연속 덩어리로 주고받힌다는 가설로 양자 시대를 열었다.",
+      "tags": [
+        "현대",
+        "물리학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-special-relativity",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "아인슈타인 특수상대성이론",
+      "region": "유럽",
+      "start_year": 1905,
+      "end_year": 1905,
+      "era_note": "1905년",
+      "description": "시간과 공간이 관측자에 따라 달라짐을 보이고 E=mc²을 제시했다.",
+      "tags": [
+        "현대",
+        "물리학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-general-relativity",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "일반상대성이론",
+      "region": "유럽",
+      "start_year": 1915,
+      "end_year": 1915,
+      "era_note": "1915년",
+      "description": "중력을 시공간의 휘어짐으로 설명해 우주론의 토대를 마련했다.",
+      "tags": [
+        "현대",
+        "물리학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-quantum-mechanics",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "양자역학의 성립",
+      "region": "유럽",
+      "start_year": 1925,
+      "end_year": 1927,
+      "era_note": "1925년 ~ 1927년",
+      "description": "하이젠베르크·슈뢰딩거의 이론과 불확정성 원리로 미시세계 법칙이 확립되었다.",
+      "tags": [
+        "현대",
+        "물리학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-penicillin",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "플레밍 페니실린 발견",
+      "region": "유럽",
+      "start_year": 1928,
+      "end_year": 1928,
+      "era_note": "1928년",
+      "description": "최초의 항생제로 감염병 치료를 혁신하고 인류 평균수명을 크게 늘렸다.",
+      "tags": [
+        "현대",
+        "의학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-hubble",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "허블 우주 팽창 발견",
+      "region": "북아메리카",
+      "start_year": 1929,
+      "end_year": 1929,
+      "era_note": "1929년",
+      "description": "은하의 후퇴 속도를 측정해 팽창 우주와 빅뱅 우주론의 근거를 제공했다.",
+      "tags": [
+        "현대",
+        "천문학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-fission",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "핵분열 발견과 맨해튼 계획",
+      "region": "세계",
+      "start_year": 1938,
+      "end_year": 1945,
+      "era_note": "1938년 ~ 1945년",
+      "description": "핵분열 발견이 원자폭탄으로 이어지며 과학과 정치의 관계를 바꾸었다.",
+      "tags": [
+        "현대",
+        "물리학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-dna",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "DNA 이중나선 구조",
+      "region": "유럽",
+      "start_year": 1953,
+      "end_year": 1953,
+      "era_note": "1953년",
+      "description": "왓슨·크릭·프랭클린의 연구로 유전정보의 물리적 구조가 밝혀졌다.",
+      "tags": [
+        "현대",
+        "생물학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-plate-tectonics",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "판구조론 확립",
+      "region": "세계",
+      "start_year": 1960,
+      "end_year": 1968,
+      "era_note": "1960년 ~ 1968년",
+      "description": "해저확장 증거로 대륙이동설이 수용되며 지구과학이 통합되었다.",
+      "tags": [
+        "현대",
+        "지구과학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-standard-model",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "입자물리 표준모형 확립",
+      "region": "세계",
+      "start_year": 1970,
+      "end_year": 1975,
+      "era_note": "1970년 ~ 1975년",
+      "description": "쿼크와 게이지 이론으로 기본 입자와 상호작용 체계가 정리되었다.",
+      "tags": [
+        "현대",
+        "물리학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-genome",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "인간 게놈 프로젝트",
+      "region": "세계",
+      "start_year": 1990,
+      "end_year": 2003,
+      "era_note": "1990년 ~ 2003년",
+      "description": "30억 염기쌍 해독으로 생명과학이 데이터 기반 연구로 전환되었다.",
+      "tags": [
+        "현대",
+        "생물학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-higgs",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "힉스 입자 발견",
+      "region": "유럽",
+      "start_year": 2012,
+      "end_year": 2012,
+      "era_note": "2012년",
+      "description": "CERN 실험으로 표준모형의 마지막 조각이 실험적으로 확인되었다.",
+      "tags": [
+        "현대",
+        "물리학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-gravitational-wave",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "중력파 직접 검출",
+      "region": "북아메리카",
+      "start_year": 2015,
+      "end_year": 2015,
+      "era_note": "2015년",
+      "description": "LIGO가 블랙홀 병합의 시공간 파동을 포착해 새로운 천문학을 열었다.",
+      "tags": [
+        "현대",
+        "천문학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "science-crispr",
+      "category": "과학사",
+      "subcategory": "과학",
+      "title": "CRISPR 유전자 편집",
+      "region": "세계",
+      "start_year": 2012,
+      "end_year": 2020,
+      "era_note": "2012년 ~ 2020년",
+      "description": "정밀한 유전자 교정 기술로 생명공학과 의학의 판도를 바꾸고 있다.",
+      "tags": [
+        "현대",
+        "생명공학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 과학사 개괄",
+        "위키백과 과학사 개괄"
+      ],
+      "status": "draft"
+    }
+  ]
+}

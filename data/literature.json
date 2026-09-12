@@ -1,0 +1,586 @@
+{
+  "$schema": "../schema/entries.schema.json",
+  "dataset": "literature",
+  "entries": [
+    {
+      "id": "literature-gilgamesh",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "『길가메시 서사시』",
+      "region": "서아시아",
+      "start_year": -2100,
+      "end_year": -1200,
+      "era_note": "기원전 2100년 ~ 기원전 1200년",
+      "description": "현존 최고(最古)의 서사시로 죽음과 영생의 문제를 다룬다.",
+      "tags": [
+        "고대",
+        "서사시"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-rigveda",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "『리그베다』",
+      "region": "남아시아",
+      "start_year": -1500,
+      "end_year": -1200,
+      "era_note": "기원전 1500년 ~ 기원전 1200년",
+      "description": "인도 최고의 종교 문헌이자 구전 문학의 원형이다.",
+      "tags": [
+        "고대",
+        "경전"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-shijing",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "『시경』",
+      "region": "동아시아",
+      "start_year": -1000,
+      "end_year": -600,
+      "era_note": "기원전 1000년 ~ 기원전 600년",
+      "description": "중국 최초의 시가집으로 동아시아 시문학의 규범이 되었다.",
+      "tags": [
+        "고대",
+        "시가"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-homer",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "호메로스 서사시",
+      "region": "지중해",
+      "start_year": -800,
+      "end_year": -700,
+      "era_note": "기원전 800년 ~ 기원전 700년",
+      "description": "『일리아스』와 『오디세이아』가 서양 문학의 출발점이 되었다.",
+      "tags": [
+        "고대",
+        "서사시"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-greek-tragedy",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "그리스 비극",
+      "region": "지중해",
+      "start_year": -500,
+      "end_year": -400,
+      "era_note": "기원전 500년 ~ 기원전 400년",
+      "description": "아이스킬로스·소포클레스·에우리피데스가 운명과 인간을 무대에 올렸다.",
+      "tags": [
+        "고대",
+        "희곡"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-indian-epic",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "『마하바라타』와 『라마야나』",
+      "region": "남아시아",
+      "start_year": -400,
+      "end_year": 400,
+      "era_note": "기원전 400년 ~ 400년",
+      "description": "인도 문화의 서사적 토대를 이루는 두 대서사시다.",
+      "tags": [
+        "고대",
+        "서사시"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-virgil",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "베르길리우스 『아이네이스』",
+      "region": "지중해",
+      "start_year": -29,
+      "end_year": -19,
+      "era_note": "기원전 29년 ~ 기원전 19년",
+      "description": "로마 건국 신화를 서사시로 정립해 라틴 문학의 정점을 이루었다.",
+      "tags": [
+        "고대",
+        "서사시"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-tangshi",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "당시(이백·두보)",
+      "region": "동아시아",
+      "start_year": 700,
+      "end_year": 770,
+      "era_note": "700년 ~ 770년",
+      "description": "중국 시문학의 황금기로 동아시아 한시의 전범이 되었다.",
+      "tags": [
+        "중세",
+        "시가"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-genji",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "『겐지 이야기』",
+      "region": "동아시아",
+      "start_year": 1008,
+      "end_year": 1008,
+      "era_note": "1008년",
+      "description": "무라사키 시키부가 쓴 세계 최초의 장편소설로 평가된다.",
+      "tags": [
+        "중세",
+        "소설"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-dante",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "단테 『신곡』",
+      "region": "유럽",
+      "start_year": 1308,
+      "end_year": 1320,
+      "era_note": "1308년 ~ 1320년",
+      "description": "속어(이탈리아어)로 쓰인 대서사시로 중세와 르네상스를 잇는다.",
+      "tags": [
+        "중세",
+        "서사시"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-chaucer",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "초서 『캔터베리 이야기』",
+      "region": "유럽",
+      "start_year": 1387,
+      "end_year": 1400,
+      "era_note": "1387년 ~ 1400년",
+      "description": "중세 영어 문학의 기념비로 다양한 계층의 목소리를 담았다.",
+      "tags": [
+        "중세",
+        "설화"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-hunmin-lit",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "훈민정음과 국문 문학",
+      "region": "동아시아",
+      "start_year": 1443,
+      "end_year": 1600,
+      "era_note": "1443년 ~ 1600년",
+      "description": "문자 창제로 시조·가사 등 한글 문학의 토대가 마련되었다.",
+      "tags": [
+        "근세",
+        "국문학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-shakespeare",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "셰익스피어",
+      "region": "유럽",
+      "start_year": 1564,
+      "end_year": 1616,
+      "era_note": "1564년 ~ 1616년",
+      "description": "희비극 37편으로 근대 영어와 인간 심리 묘사의 기준을 세웠다.",
+      "tags": [
+        "근세",
+        "희곡"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-quixote",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "세르반테스 『돈키호테』",
+      "region": "유럽",
+      "start_year": 1605,
+      "end_year": 1615,
+      "era_note": "1605년 ~ 1615년",
+      "description": "근대 소설의 시초로 이상과 현실의 괴리를 그렸다.",
+      "tags": [
+        "근세",
+        "소설"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-milton",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "밀턴 『실낙원』",
+      "region": "유럽",
+      "start_year": 1667,
+      "end_year": 1667,
+      "era_note": "1667년",
+      "description": "성서 주제를 서사시로 재구성한 영문학의 대작이다.",
+      "tags": [
+        "근세",
+        "서사시"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-chunhyang",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "판소리계 소설(『춘향전』)",
+      "region": "동아시아",
+      "start_year": 1700,
+      "end_year": 1900,
+      "era_note": "1700년 ~ 1900년",
+      "description": "구전 판소리가 소설로 정착하며 조선 후기 서민 문학이 꽃폈다.",
+      "tags": [
+        "근세",
+        "소설"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-enlightenment-lit",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "계몽주의 문학",
+      "region": "유럽",
+      "start_year": 1700,
+      "end_year": 1789,
+      "era_note": "1700년 ~ 1789년",
+      "description": "볼테르·디드로 등이 풍자와 백과사전으로 이성을 확산시켰다.",
+      "tags": [
+        "근세",
+        "사조"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-goethe",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "괴테",
+      "region": "유럽",
+      "start_year": 1749,
+      "end_year": 1832,
+      "era_note": "1749년 ~ 1832년",
+      "description": "『파우스트』로 독일 문학을 세계문학의 반열에 올려놓았다.",
+      "tags": [
+        "근대",
+        "작가"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-romanticism-lit",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "낭만주의 문학",
+      "region": "유럽",
+      "start_year": 1798,
+      "end_year": 1850,
+      "era_note": "1798년 ~ 1850년",
+      "description": "워즈워스·바이런 등이 자연·감정·개인의 상상력을 전면에 내세웠다.",
+      "tags": [
+        "근대",
+        "사조"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-realism-lit",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "사실주의 소설",
+      "region": "유럽",
+      "start_year": 1830,
+      "end_year": 1880,
+      "era_note": "1830년 ~ 1880년",
+      "description": "발자크·디킨스가 산업사회의 계층과 도시를 세밀하게 그렸다.",
+      "tags": [
+        "근대",
+        "사조"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-russian-lit",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "러시아 문학의 황금기",
+      "region": "유라시아",
+      "start_year": 1860,
+      "end_year": 1900,
+      "era_note": "1860년 ~ 1900년",
+      "description": "도스토옙스키·톨스토이가 인간 내면과 도덕 문제를 깊이 파고들었다.",
+      "tags": [
+        "근대",
+        "소설"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-naturalism",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "자연주의(졸라)",
+      "region": "유럽",
+      "start_year": 1870,
+      "end_year": 1900,
+      "era_note": "1870년 ~ 1900년",
+      "description": "과학적 결정론의 시선으로 환경과 유전이 인간을 규정함을 그렸다.",
+      "tags": [
+        "근대",
+        "사조"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-kafka",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "카프카",
+      "region": "유럽",
+      "start_year": 1883,
+      "end_year": 1924,
+      "era_note": "1883년 ~ 1924년",
+      "description": "부조리와 관료제의 악몽을 그려 20세기 문학의 원형이 되었다.",
+      "tags": [
+        "현대",
+        "소설"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-modernism-lit",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "모더니즘 문학",
+      "region": "유럽",
+      "start_year": 1910,
+      "end_year": 1940,
+      "era_note": "1910년 ~ 1940년",
+      "description": "조이스·울프·엘리엇이 의식의 흐름과 파편화된 형식을 실험했다.",
+      "tags": [
+        "현대",
+        "사조"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-korean-modern",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "한국 근대문학의 형성",
+      "region": "동아시아",
+      "start_year": 1917,
+      "end_year": 1935,
+      "era_note": "1917년 ~ 1935년",
+      "description": "『무정』과 김소월·정지용 등을 통해 근대적 국문 문학이 자리잡았다.",
+      "tags": [
+        "현대",
+        "국문학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-korean-contemporary",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "한국 현대문학",
+      "region": "동아시아",
+      "start_year": 1945,
+      "end_year": 2025,
+      "era_note": "1945년 ~ 2025년",
+      "description": "분단·산업화·민주화의 경험을 담아 세계문학 무대로 확장되었다.",
+      "tags": [
+        "현대",
+        "국문학"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-latin-boom",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "라틴아메리카 붐",
+      "region": "남아메리카",
+      "start_year": 1960,
+      "end_year": 1980,
+      "era_note": "1960년 ~ 1980년",
+      "description": "마르케스 등의 마술적 사실주의가 세계문학의 지형을 바꿨다.",
+      "tags": [
+        "현대",
+        "소설"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-postmodern-lit",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "포스트모던 문학",
+      "region": "세계",
+      "start_year": 1960,
+      "end_year": 2000,
+      "era_note": "1960년 ~ 2000년",
+      "description": "메타픽션과 장르 혼합으로 서사의 권위를 해체했다.",
+      "tags": [
+        "현대",
+        "사조"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "literature-digital-lit",
+      "category": "문학사",
+      "subcategory": "문학",
+      "title": "디지털 시대의 문학",
+      "region": "세계",
+      "start_year": 1995,
+      "end_year": 2025,
+      "era_note": "1995년 ~ 2025년",
+      "description": "전자책·웹소설·온라인 연재가 창작과 유통 방식을 바꾸고 있다.",
+      "tags": [
+        "현대",
+        "매체"
+      ],
+      "sources": [
+        "Encyclopaedia Britannica 문학사 개괄",
+        "위키백과 문학사 개괄"
+      ],
+      "status": "draft"
+    }
+  ]
+}

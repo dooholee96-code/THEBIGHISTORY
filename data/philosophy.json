@@ -1,0 +1,726 @@
+{
+  "$schema": "../schema/entries.schema.json",
+  "dataset": "philosophy",
+  "entries": [
+    {
+      "id": "philosophy-thales-phil",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "밀레토스 학파",
+      "region": "지중해",
+      "start_year": -624,
+      "end_year": -546,
+      "era_note": "기원전 624년 ~ 기원전 546년",
+      "description": "만물의 근원(아르케)을 묻는 최초의 철학적 질문이 제기되었다.",
+      "tags": [
+        "고대",
+        "자연철학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-heraclitus",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "헤라클레이토스와 파르메니데스",
+      "region": "지중해",
+      "start_year": -540,
+      "end_year": -450,
+      "era_note": "기원전 540년 ~ 기원전 450년",
+      "description": "변화와 불변을 둘러싼 대립이 이후 존재론의 기본 축이 되었다.",
+      "tags": [
+        "고대",
+        "존재론"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-sophists",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "소피스트",
+      "region": "지중해",
+      "start_year": -450,
+      "end_year": -400,
+      "era_note": "기원전 450년 ~ 기원전 400년",
+      "description": "인간과 사회로 관심을 돌려 상대주의와 수사학을 발전시켰다.",
+      "tags": [
+        "고대",
+        "인식론"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-socrates",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "소크라테스",
+      "region": "지중해",
+      "start_year": -470,
+      "end_year": -399,
+      "era_note": "기원전 470년 ~ 기원전 399년",
+      "description": "'너 자신을 알라'는 문답법으로 윤리적 지식의 탐구를 시작했다.",
+      "tags": [
+        "고대",
+        "윤리학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-plato",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "플라톤",
+      "region": "지중해",
+      "start_year": -427,
+      "end_year": -347,
+      "era_note": "기원전 427년 ~ 기원전 347년",
+      "description": "이데아론과 『국가』로 서양 형이상학·정치철학의 원형을 제시했다.",
+      "tags": [
+        "고대",
+        "형이상학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-aristotle",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "아리스토텔레스",
+      "region": "지중해",
+      "start_year": -384,
+      "end_year": -322,
+      "era_note": "기원전 384년 ~ 기원전 322년",
+      "description": "논리학·형이상학·윤리학의 체계를 세워 학문 분류의 기초를 놓았다.",
+      "tags": [
+        "고대",
+        "논리학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-epicurus",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "에피쿠로스 학파",
+      "region": "지중해",
+      "start_year": -341,
+      "end_year": -270,
+      "era_note": "기원전 341년 ~ 기원전 270년",
+      "description": "원자론에 근거해 평정심(아타락시아)을 최고 선으로 보았다.",
+      "tags": [
+        "고대",
+        "윤리학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-stoicism",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "스토아 학파",
+      "region": "지중해",
+      "start_year": -300,
+      "end_year": 200,
+      "era_note": "기원전 300년 ~ 200년",
+      "description": "이성적 자연법에 따르는 삶을 강조해 로마 지식인과 근대 윤리에 영향을 주었다.",
+      "tags": [
+        "고대",
+        "윤리학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-hundred-schools",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "제자백가",
+      "region": "동아시아",
+      "start_year": -500,
+      "end_year": -221,
+      "era_note": "기원전 500년 ~ 기원전 221년",
+      "description": "공자·노자·묵자·한비자 등이 경쟁하며 동아시아 사상의 원천을 이루었다.",
+      "tags": [
+        "고대",
+        "동양철학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-plotinus",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "신플라톤주의(플로티노스)",
+      "region": "지중해",
+      "start_year": 205,
+      "end_year": 270,
+      "era_note": "205년 ~ 270년",
+      "description": "일자(一者)로부터의 유출 개념으로 중세 신학에 깊은 영향을 남겼다.",
+      "tags": [
+        "고대",
+        "형이상학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-augustine",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "아우구스티누스",
+      "region": "북아프리카",
+      "start_year": 354,
+      "end_year": 430,
+      "era_note": "354년 ~ 430년",
+      "description": "플라톤 철학과 기독교 신앙을 결합해 서양 중세 사상의 기초를 놓았다.",
+      "tags": [
+        "고대",
+        "신학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-islamic-phil",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "이슬람 철학(이븐 시나·이븐 루시드)",
+      "region": "서아시아",
+      "start_year": 980,
+      "end_year": 1198,
+      "era_note": "980년 ~ 1198년",
+      "description": "그리스 철학을 계승·주석해 유럽 스콜라 철학에 전달했다.",
+      "tags": [
+        "중세",
+        "형이상학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-scholastic",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "스콜라 철학",
+      "region": "유럽",
+      "start_year": 1100,
+      "end_year": 1350,
+      "era_note": "1100년 ~ 1350년",
+      "description": "신앙과 이성의 조화를 논증적으로 탐구한 대학 중심의 학문이다.",
+      "tags": [
+        "중세",
+        "신학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-zhuxi",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "주희와 성리학",
+      "region": "동아시아",
+      "start_year": 1130,
+      "end_year": 1200,
+      "era_note": "1130년 ~ 1200년",
+      "description": "이기론으로 유교를 체계화해 동아시아 지식 질서를 재편했다.",
+      "tags": [
+        "중세",
+        "동양철학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-ockham",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "오컴과 유명론",
+      "region": "유럽",
+      "start_year": 1287,
+      "end_year": 1347,
+      "era_note": "1287년 ~ 1347년",
+      "description": "보편은 이름일 뿐이라는 주장으로 근대 경험주의의 길을 열었다.",
+      "tags": [
+        "중세",
+        "인식론"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-humanism",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "르네상스 인문주의",
+      "region": "유럽",
+      "start_year": 1350,
+      "end_year": 1500,
+      "era_note": "1350년 ~ 1500년",
+      "description": "고전 연구를 통해 인간의 존엄과 자유의지를 강조했다.",
+      "tags": [
+        "근세",
+        "인문주의"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-wangyangming",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "왕양명과 양명학",
+      "region": "동아시아",
+      "start_year": 1472,
+      "end_year": 1529,
+      "era_note": "1472년 ~ 1529년",
+      "description": "지행합일과 심즉리를 주장해 성리학의 주지주의를 비판했다.",
+      "tags": [
+        "근세",
+        "동양철학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-toegye",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "퇴계 이황과 율곡 이이",
+      "region": "동아시아",
+      "start_year": 1501,
+      "end_year": 1584,
+      "era_note": "1501년 ~ 1584년",
+      "description": "사단칠정 논쟁을 통해 조선 성리학을 독자적 수준으로 심화시켰다.",
+      "tags": [
+        "근세",
+        "동양철학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-bacon",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "베이컨의 귀납법",
+      "region": "유럽",
+      "start_year": 1561,
+      "end_year": 1626,
+      "era_note": "1561년 ~ 1626년",
+      "description": "경험과 실험에 근거한 새로운 학문 방법을 주창했다.",
+      "tags": [
+        "근세",
+        "방법론"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-descartes",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "데카르트",
+      "region": "유럽",
+      "start_year": 1596,
+      "end_year": 1650,
+      "era_note": "1596년 ~ 1650년",
+      "description": "'생각한다, 고로 존재한다'로 근대 주체 철학을 열었다.",
+      "tags": [
+        "근세",
+        "인식론"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-spinoza",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "스피노자",
+      "region": "유럽",
+      "start_year": 1632,
+      "end_year": 1677,
+      "era_note": "1632년 ~ 1677년",
+      "description": "신 즉 자연이라는 일원론으로 근대 범신론과 결정론을 전개했다.",
+      "tags": [
+        "근세",
+        "형이상학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-locke",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "로크와 경험론",
+      "region": "유럽",
+      "start_year": 1632,
+      "end_year": 1704,
+      "era_note": "1632년 ~ 1704년",
+      "description": "백지설과 사회계약론으로 근대 자유주의 정치철학을 정초했다.",
+      "tags": [
+        "근세",
+        "정치철학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-hume",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "흄",
+      "region": "유럽",
+      "start_year": 1711,
+      "end_year": 1776,
+      "era_note": "1711년 ~ 1776년",
+      "description": "인과를 습관으로 환원하는 회의주의로 칸트를 '독단의 잠'에서 깨웠다.",
+      "tags": [
+        "근세",
+        "인식론"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-rousseau",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "루소",
+      "region": "유럽",
+      "start_year": 1712,
+      "end_year": 1778,
+      "era_note": "1712년 ~ 1778년",
+      "description": "일반의지 개념으로 인민주권 사상과 프랑스 혁명에 영향을 주었다.",
+      "tags": [
+        "근세",
+        "정치철학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-kant",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "칸트",
+      "region": "유럽",
+      "start_year": 1724,
+      "end_year": 1804,
+      "era_note": "1724년 ~ 1804년",
+      "description": "경험론과 합리론을 종합해 인식의 조건과 도덕법칙을 규명했다.",
+      "tags": [
+        "근대",
+        "인식론"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-hegel",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "헤겔",
+      "region": "유럽",
+      "start_year": 1770,
+      "end_year": 1831,
+      "era_note": "1770년 ~ 1831년",
+      "description": "변증법적 역사철학으로 마르크스와 현대 사상에 큰 영향을 남겼다.",
+      "tags": [
+        "근대",
+        "형이상학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-utilitarian",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "공리주의(벤담·밀)",
+      "region": "유럽",
+      "start_year": 1789,
+      "end_year": 1873,
+      "era_note": "1789년 ~ 1873년",
+      "description": "최대 다수의 최대 행복을 기준으로 제도와 윤리를 평가했다.",
+      "tags": [
+        "근대",
+        "윤리학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-marx",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "마르크스",
+      "region": "유럽",
+      "start_year": 1818,
+      "end_year": 1883,
+      "era_note": "1818년 ~ 1883년",
+      "description": "유물사관과 자본 분석으로 사회과학과 정치운동에 지속적 영향을 주었다.",
+      "tags": [
+        "근대",
+        "정치철학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-nietzsche",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "니체",
+      "region": "유럽",
+      "start_year": 1844,
+      "end_year": 1900,
+      "era_note": "1844년 ~ 1900년",
+      "description": "가치의 전도와 힘에의 의지로 근대 형이상학과 도덕을 비판했다.",
+      "tags": [
+        "근대",
+        "윤리학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-pragmatism",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "실용주의",
+      "region": "북아메리카",
+      "start_year": 1870,
+      "end_year": 1920,
+      "era_note": "1870년 ~ 1920년",
+      "description": "퍼스·제임스·듀이가 관념의 의미를 실천적 결과에서 찾았다.",
+      "tags": [
+        "근대",
+        "인식론"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-phenomenology",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "현상학(후설)",
+      "region": "유럽",
+      "start_year": 1900,
+      "end_year": 1938,
+      "era_note": "1900년 ~ 1938년",
+      "description": "의식에 나타나는 현상 자체로 돌아갈 것을 주장한 방법론이다.",
+      "tags": [
+        "현대",
+        "방법론"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-analytic",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "분석철학(러셀·비트겐슈타인)",
+      "region": "유럽",
+      "start_year": 1910,
+      "end_year": 1953,
+      "era_note": "1910년 ~ 1953년",
+      "description": "언어와 논리 분석을 철학의 중심 과제로 삼았다.",
+      "tags": [
+        "현대",
+        "논리학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-existentialism",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "실존주의(사르트르·카뮈)",
+      "region": "유럽",
+      "start_year": 1940,
+      "end_year": 1965,
+      "era_note": "1940년 ~ 1965년",
+      "description": "실존이 본질에 앞선다며 개인의 자유와 책임을 강조했다.",
+      "tags": [
+        "현대",
+        "윤리학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-structuralism",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "구조주의·후기구조주의",
+      "region": "유럽",
+      "start_year": 1960,
+      "end_year": 1990,
+      "era_note": "1960년 ~ 1990년",
+      "description": "레비스트로스·푸코·데리다가 주체와 의미의 구성 방식을 문제 삼았다.",
+      "tags": [
+        "현대",
+        "사조"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-rawls",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "롤스 『정의론』",
+      "region": "북아메리카",
+      "start_year": 1971,
+      "end_year": 1971,
+      "era_note": "1971년",
+      "description": "무지의 베일을 통한 공정으로서의 정의로 정치철학을 부활시켰다.",
+      "tags": [
+        "현대",
+        "정치철학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-applied-ethics",
+      "category": "철학사",
+      "subcategory": "철학",
+      "title": "응용윤리와 기술철학",
+      "region": "세계",
+      "start_year": 1970,
+      "end_year": 2025,
+      "era_note": "1970년 ~ 2025년",
+      "description": "생명윤리·환경윤리·AI 윤리 등 기술 발전이 제기한 문제를 다룬다.",
+      "tags": [
+        "현대",
+        "윤리학"
+      ],
+      "sources": [
+        "Stanford Encyclopedia of Philosophy 개괄",
+        "위키백과 철학사 개괄"
+      ],
+      "status": "draft"
+    }
+  ]
+}

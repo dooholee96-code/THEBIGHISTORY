@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>빅 히스토리 연표</title>
+  <meta name="description" content="왕조·국가사와 주제사를 하나의 시간축 위에서 비교하는 통합 연표" />
+  <meta name="theme-color" content="#1b2733" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="vendor/vis-timeline/vis-timeline-graph2d.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="toolbar" id="toolbar">
+    <div class="toolbar__row">
+      <div class="brand">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <h1 class="brand__title">빅 히스토리 연표</h1>
+      </div>
+
+      <div class="search">
+        <label class="sr-only" for="search-input">검색</label>
+        <input
+          id="search-input"
+          class="search__input"
+          type="search"
+          placeholder="검색 (이름·설명·태그)  —  단축키 /"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button id="search-clear" class="search__clear" type="button" title="검색어 지우기" hidden>✕</button>
+      </div>
+
+      <div class="eras" id="era-presets" role="group" aria-label="시대 이동"></div>
+
+      <div class="toolbar__actions">
+        <button id="filters-toggle" class="btn btn--ghost" type="button" aria-expanded="true" aria-controls="filters">
+          필터
+        </button>
+        <button id="reset-all" class="btn btn--primary" type="button" title="필터·검색·줌 상태를 모두 되돌립니다">
+          전체 초기화
+        </button>
+      </div>
+    </div>
+
+    <div class="toolbar__row toolbar__row--filters" id="filters">
+      <div class="filter-groups" id="filter-groups"></div>
+      <div class="filter-extra">
+        <label class="switch">
+          <input type="checkbox" id="draft-only" />
+          <span>검토 전(draft)만</span>
+        </label>
+        <span class="hint">휠: 확대·축소 &nbsp;·&nbsp; 드래그: 시간 이동 &nbsp;·&nbsp; 항목 클릭: 상세</span>
+        <span class="status" id="status-text">불러오는 중…</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="stage">
+    <div id="timeline" class="timeline" aria-label="연표"></div>
+    <div id="empty-state" class="empty-state" hidden>
+      <p>조건에 맞는 항목이 없습니다.</p>
+      <button class="btn btn--primary" type="button" data-action="reset">전체 초기화</button>
+    </div>
+    <div id="loading" class="loading">데이터를 불러오는 중…</div>
+  </main>
+
+  <div id="panel-backdrop" class="panel-backdrop" hidden></div>
+
+  <aside id="detail-panel" class="panel" aria-hidden="true" aria-labelledby="panel-title" role="dialog">
+    <div class="panel__head">
+      <div>
+        <p class="panel__eyebrow" id="panel-eyebrow"></p>
+        <h2 class="panel__title" id="panel-title"></h2>
+      </div>
+      <button id="panel-close" class="panel__close" type="button" aria-label="닫기">✕</button>
+    </div>
+    <div class="panel__body" id="panel-body"></div>
+    <div class="panel__foot">
+      <button id="copy-json" class="btn btn--ghost btn--sm" type="button">이 항목 JSON 복사</button>
+      <span class="panel__hint" id="copy-hint" aria-live="polite"></span>
+    </div>
+  </aside>
+
+  <script src="vendor/vis-timeline/vis-timeline-graph2d.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/timeline.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
