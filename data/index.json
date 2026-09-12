@@ -7,6 +7,7 @@
     "start_year": -3000,
     "end_year": 2040
   },
+  "default_axis": "vertical",
   "tracks": [
     {
       "id": "nation",

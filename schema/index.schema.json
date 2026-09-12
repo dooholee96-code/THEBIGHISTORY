@@ -35,6 +35,11 @@
         "end_year": { "type": "integer" }
       }
     },
+    "default_axis": {
+      "type": "string",
+      "description": "앱을 열었을 때의 시간축 방향. vertical = y축이 연도(세로), horizontal = x축이 연도(가로).",
+      "enum": ["vertical", "horizontal"]
+    },
     "era_presets": {
       "type": "array",
       "items": {

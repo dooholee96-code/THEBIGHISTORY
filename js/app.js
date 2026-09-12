@@ -65,7 +65,8 @@
     draftOnly: false,
     showSummary: true,
     scrollMode: 'zoom',
-    axis: 'horizontal',       // 'horizontal' = 시간이 좌우, 'vertical' = 시간이 위아래
+    axis: 'vertical',         // 'vertical' = 시간이 위아래(기본), 'horizontal' = 시간이 좌우
+                              // 실제 시작값은 data/index.json 의 default_axis 를 따른다
     era: null,
     selected: null,
     clusters: {},      // clusterId -> 묶음 정보
@@ -365,7 +366,7 @@
     });
     closePanel();
     closePopup();
-    setAxis('horizontal');
+    setAxis(state.data.defaultAxis);
     setScrollMode('zoom');
     render();
     applyDefaultWindow(false);
@@ -768,7 +769,7 @@
     buildEraPresets(data.eraPresets);
     buildFilters(data.tracks);
     bindEvents();
-    setAxis('horizontal', true);
+    setAxis(data.defaultAxis, true);
     setScrollMode('zoom');
     setFiltersOpen(window.innerWidth > 860);
 

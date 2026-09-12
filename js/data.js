@@ -139,6 +139,7 @@
       range: all.length ? years : { min: -3000, max: 2030 },
       eraPresets: manifest.era_presets || [],
       defaultWindow: manifest.default_window || null,
+      defaultAxis: manifest.default_axis === 'horizontal' ? 'horizontal' : 'vertical',
       source: source
     };
   }
