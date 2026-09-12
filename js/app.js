@@ -21,6 +21,7 @@
     draftOnly: document.getElementById('draft-only'),
     showSummary: document.getElementById('show-summary'),
     scrollMode: document.getElementById('scroll-mode'),
+    orientation: document.getElementById('orientation'),
     modeHint: document.getElementById('mode-hint'),
     statusText: document.getElementById('status-text'),
     reset: document.getElementById('reset-all'),
@@ -45,9 +46,16 @@
   };
 
   var MODE_HINTS = {
-    zoom: '휠·핀치: 확대·축소 · 드래그: 이동',
-    horizontal: '휠: 좌우(시간) 이동 · Ctrl+휠·핀치: 확대',
-    vertical: '휠: 위아래(레인) 이동 · Ctrl+휠·핀치: 확대'
+    horizontal: {   // 가로 축(시간이 좌우)
+      zoom: '휠·핀치: 확대·축소 · 드래그: 이동',
+      horizontal: '휠: 좌우(시간) 이동 · Ctrl+휠·핀치: 확대',
+      vertical: '휠: 위아래(레인) 이동 · Ctrl+휠·핀치: 확대'
+    },
+    vertical: {     // 세로 축(시간이 위아래)
+      zoom: '휠·핀치: 확대·축소 · 드래그: 이동',
+      horizontal: '휠: 좌우(레인) 이동 · Ctrl+휠·핀치: 확대',
+      vertical: '휠: 위아래(시간) 이동 · Ctrl+휠·핀치: 확대'
+    }
   };
 
   var state = {
@@ -57,6 +65,7 @@
     draftOnly: false,
     showSummary: true,
     scrollMode: 'zoom',
+    axis: 'horizontal',       // 'horizontal' = 시간이 좌우, 'vertical' = 시간이 위아래
     era: null,
     selected: null,
     clusters: {},      // clusterId -> 묶음 정보
@@ -304,7 +313,44 @@
       btn.classList.toggle('is-active', btn.getAttribute('data-mode') === mode);
       btn.setAttribute('aria-pressed', String(btn.getAttribute('data-mode') === mode));
     });
-    el.modeHint.textContent = MODE_HINTS[mode] || '';
+    el.modeHint.textContent = (MODE_HINTS[state.axis] || {})[mode] || '';
+  }
+
+  /** 가로 보기(vis-timeline)와 세로 보기(직접 그린 렌더러)를 같은 API 로 만든다. */
+  function createView(axis, win) {
+    var factory = axis === 'vertical' ? window.BigHistoryVTimeline : T;
+    return factory.create(el.timeline, {
+      window: win,
+      onSelect: handleSelect,
+      onRangeChanged: onRangeChanged
+    });
+  }
+
+  /** 시간축 방향 전환 — 보고 있던 연도 구간과 필터 상태를 그대로 옮긴다. */
+  function setAxis(axis, force) {
+    if (!force && axis === state.axis) return;
+
+    var win = chart ? chart.windowYears() : null;
+    if (chart) chart.destroy();
+
+    state.axis = axis;
+    chart = createView(axis, win
+      ? { start_year: win.start, end_year: win.end }
+      : state.data.defaultWindow);
+
+    var pad = Math.max(50, Math.round((state.data.range.max - state.data.range.min) * 0.03));
+    chart.setLimits(state.data.range.min - pad, state.data.range.max + pad);
+    chart.setScrollMode(state.scrollMode);
+
+    Array.prototype.forEach.call(el.orientation.querySelectorAll('.seg-btn'), function (btn) {
+      var on = btn.getAttribute('data-axis') === axis;
+      btn.classList.toggle('is-active', on);
+      btn.setAttribute('aria-pressed', String(on));
+    });
+    el.modeHint.textContent = (MODE_HINTS[axis] || {})[state.scrollMode] || '';
+
+    render();
+    if (win) chart.focusYears(win.start, win.end, false);
   }
 
   function resetAll() {
@@ -319,6 +365,7 @@
     });
     closePanel();
     closePopup();
+    setAxis('horizontal');
     setScrollMode('zoom');
     render();
     applyDefaultWindow(false);
@@ -626,6 +673,11 @@
       renderItems();
     });
 
+    el.orientation.addEventListener('click', function (e) {
+      var btn = e.target.closest ? e.target.closest('.seg-btn') : null;
+      if (btn) setAxis(btn.getAttribute('data-axis'));
+    });
+
     el.scrollMode.addEventListener('click', function (e) {
       var btn = e.target.closest ? e.target.closest('.seg-btn') : null;
       if (btn) setScrollMode(btn.getAttribute('data-mode'));
@@ -690,41 +742,34 @@
 
   // ------------------------------------------------------------ 시작
 
+  function handleSelect(id) {
+    if (!id) {
+      if (!isPopupOpen()) closePanel();
+      return;
+    }
+    if (state.clusters[id]) {          // 묶음 → 세부 연표 팝업
+      closePanel();
+      openPopup(state.clusters[id]);
+      return;
+    }
+    var entry = state.data.entries.filter(function (e) { return e.id === id; })[0];
+    if (entry) {
+      closePopup();
+      openPanel(entry);
+    }
+  }
+
   function start(data) {
     state.data = data;
     data.datasets.forEach(function (ds) {
       state.active[ds.id] = !ds.hidden_by_default;
     });
 
-    chart = T.create(el.timeline, {
-      window: data.defaultWindow,
-      onSelect: function (id) {
-        if (!id) {
-          if (!isPopupOpen()) closePanel();
-          return;
-        }
-        if (state.clusters[id]) {      // 묶음 → 세부 연표 팝업
-          closePanel();
-          openPopup(state.clusters[id]);
-          return;
-        }
-        var entry = data.entries.filter(function (e) { return e.id === id; })[0];
-        if (entry) {
-          closePopup();
-          openPanel(entry);
-        }
-      },
-      onRangeChanged: onRangeChanged
-    });
-
-    var pad = Math.max(50, Math.round((data.range.max - data.range.min) * 0.03));
-    chart.setLimits(data.range.min - pad, data.range.max + pad);
-
     buildEraPresets(data.eraPresets);
     buildFilters(data.tracks);
     bindEvents();
+    setAxis('horizontal', true);
     setScrollMode('zoom');
-    render();
     setFiltersOpen(window.innerWidth > 860);
 
     // 첫 페인트 직후 한 번 더 그려 레인 라벨 폭이 반영된 시간축을 얻는다.

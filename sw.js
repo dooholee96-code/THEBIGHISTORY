@@ -3,7 +3,7 @@
    - data/*.json 같은 나머지 동일 출처 GET 요청은 처음 불러온 뒤 캐시에 채웁니다.
    - 데이터를 고쳤는데 옛 화면이 보이면 CACHE_VERSION 을 올리세요. */
 
-const CACHE_VERSION = 'bighistory-v1';
+const CACHE_VERSION = 'bighistory-v2';
 
 const PRECACHE = [
   './',
@@ -11,6 +11,7 @@ const PRECACHE = [
   './css/styles.css',
   './js/data.js',
   './js/timeline.js',
+  './js/vtimeline.js',
   './js/app.js',
   './vendor/vis-timeline/vis-timeline-graph2d.min.js',
   './vendor/vis-timeline/vis-timeline-graph2d.min.css',

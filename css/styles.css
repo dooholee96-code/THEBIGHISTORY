@@ -724,6 +724,202 @@ body {
   color: var(--ink-faint);
 }
 
+/* ------------------------------------------------- 세로 연표 (y축 = 연도) */
+
+.timeline.vt-host { position: relative; }
+
+.vt {
+  position: absolute;
+  inset: 0;
+  background: var(--surface);
+  font-size: 12.5px;
+  color: var(--ink);
+  overflow: hidden;
+}
+
+.vt__corner {
+  position: absolute;
+  left: 0; top: 0;
+  width: 74px; height: 46px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 0 8px 6px 0;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-faint);
+  background: var(--surface-2);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  z-index: 3;
+}
+
+.vt__head {
+  position: absolute;
+  left: 74px; right: 0; top: 0;
+  height: 46px;
+  overflow: hidden;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--line);
+  z-index: 2;
+}
+
+.vt__head-inner { position: relative; height: 100%; }
+
+.vt__track-band {
+  position: absolute;
+  top: 0;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-faint);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.vt__lane-head {
+  position: absolute;
+  top: 18px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 9px;
+  box-sizing: border-box;
+  border-right: 1px solid var(--line);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.vt__lane-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+
+.vt__lane-name {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vt__lane-count { font-size: 11px; color: var(--ink-faint); }
+
+.vt__axis {
+  position: absolute;
+  left: 0; top: 46px; bottom: 0;
+  width: 74px;
+  overflow: hidden;
+  background: var(--surface-2);
+  border-right: 1px solid var(--line);
+  z-index: 1;
+}
+
+.vt__axis-inner { position: relative; height: 100%; }
+
+.vt__tick {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%;
+  padding-right: 8px;
+  box-sizing: border-box;
+  text-align: right;
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  transform-origin: 0 0;
+  margin-top: 3px;      /* 눈금선 바로 아래에 붙여 맨 위 라벨이 잘리지 않게 */
+  white-space: nowrap;
+}
+
+.vt__body {
+  position: absolute;
+  left: 74px; top: 46px; right: 0; bottom: 0;
+  overflow: hidden;
+  touch-action: none;          /* 드래그·핀치를 우리가 직접 처리한다 */
+  cursor: grab;
+}
+
+.vt__body:active { cursor: grabbing; }
+
+.vt__grid, .vt__lanes {
+  position: absolute;
+  inset: 0;
+}
+
+.vt__gridline {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%;
+  height: 0;
+  border-top: 1px solid color-mix(in srgb, var(--line) 65%, transparent);
+}
+
+.vt__item {
+  position: absolute;
+  left: 0; top: 0;
+  box-sizing: border-box;
+  border: 1px solid;
+  border-left-width: 4px;
+  border-radius: var(--radius-sm);
+  padding: 2px 5px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  line-height: 1.25;
+}
+
+.vt__item.is-draft { border-style: dashed; }
+
+.vt__item.is-cluster {
+  border-style: dashed;
+  border-width: 1.5px;
+  font-weight: 700;
+}
+
+.vt__item.is-selected {
+  box-shadow: 0 0 0 2px var(--accent);
+  border-color: var(--accent) !important;
+  z-index: 5;
+}
+
+.vt__item-title {
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 0 0 auto;       /* 상자가 짧아도 제목 줄은 찌그러지지 않게 */
+}
+
+.vt__item-sub {
+  font-size: 11px;
+  line-height: 1.35;
+  opacity: .62;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  /* 상자 높이에 걸려 잘리는 마지막 줄을 부드럽게 흐리게 처리 */
+  -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 9px), transparent);
+  mask-image: linear-gradient(180deg, #000 calc(100% - 9px), transparent);
+}
+
+.vt.has-overflow .vt__head::after {
+  content: "";
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 18px;
+  background: linear-gradient(90deg, transparent, var(--surface-2));
+  pointer-events: none;
+}
+
 /* ------------------------------------------------- 세부 연표 팝업 */
 
 .popup {
