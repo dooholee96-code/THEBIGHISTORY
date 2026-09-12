@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------------
-   앱 조립부 — 툴바 / 필터 / 검색 / 상세 패널과 연표를 연결합니다.
+   앱 조립부 — 툴바 / 필터 / 검색 / 상세 패널 / 세부 연표 팝업을 연표와 연결합니다.
    데이터 구조를 모르는 코드가 없도록, 화면에 필요한 정보는 모두
    data/index.json(매니페스트)에서 흘러나옵니다.
    ------------------------------------------------------------------ */
@@ -8,8 +8,10 @@
 
   var T = window.BigHistoryTimeline;
 
+  /** 이 픽셀 폭 안에 몰린 단일 연도 사건들을 하나로 묶는다. */
+  var CLUSTER_PX = 76;
+
   var el = {
-    toolbar: document.getElementById('toolbar'),
     search: document.getElementById('search-input'),
     searchClear: document.getElementById('search-clear'),
     eras: document.getElementById('era-presets'),
@@ -17,6 +19,9 @@
     filtersToggle: document.getElementById('filters-toggle'),
     filterGroups: document.getElementById('filter-groups'),
     draftOnly: document.getElementById('draft-only'),
+    showSummary: document.getElementById('show-summary'),
+    scrollMode: document.getElementById('scroll-mode'),
+    modeHint: document.getElementById('mode-hint'),
     statusText: document.getElementById('status-text'),
     reset: document.getElementById('reset-all'),
     timeline: document.getElementById('timeline'),
@@ -30,7 +35,19 @@
     panelBody: document.getElementById('panel-body'),
     panelClose: document.getElementById('panel-close'),
     copyJson: document.getElementById('copy-json'),
-    copyHint: document.getElementById('copy-hint')
+    copyHint: document.getElementById('copy-hint'),
+    popup: document.getElementById('cluster-popup'),
+    popupEyebrow: document.getElementById('cluster-eyebrow'),
+    popupTitle: document.getElementById('cluster-title'),
+    popupBody: document.getElementById('cluster-body'),
+    popupClose: document.getElementById('cluster-close'),
+    popupZoom: document.getElementById('cluster-zoom')
+  };
+
+  var MODE_HINTS = {
+    zoom: '휠·핀치: 확대·축소 · 드래그: 이동',
+    horizontal: '휠: 좌우(시간) 이동 · Ctrl+휠·핀치: 확대',
+    vertical: '휠: 위아래(레인) 이동 · Ctrl+휠·핀치: 확대'
   };
 
   var state = {
@@ -38,8 +55,13 @@
     active: {},        // datasetId -> boolean
     query: '',
     draftOnly: false,
+    showSummary: true,
+    scrollMode: 'zoom',
     era: null,
-    selected: null
+    selected: null,
+    clusters: {},      // clusterId -> 묶음 정보
+    lastBucket: null,
+    visible: []
   };
 
   var chart = null;
@@ -146,19 +168,85 @@
     render();
   }
 
+  // -------------------------------------------------- 묶음(클러스터) 계산
+
+  /**
+   * 지금 확대 수준에서 몇 년을 한 덩어리로 볼지.
+   * 화면에서 약 CLUSTER_PX 픽셀 안에 들어오는 기간이며, 최소 1년입니다.
+   * 확대할수록 값이 작아지므로 묶음이 자연스럽게 쪼개집니다.
+   */
+  function bucketYears() {
+    if (!chart) return 1;
+    return Math.max(1, Math.round(chart.yearsPerPixel() * CLUSTER_PX));
+  }
+
+  /**
+   * 지금 확대 수준에서 사실상 점으로 보이는 항목인지.
+   * 단일 연도 사건과, 묶음 단위에 비해 아주 짧은 사건(전쟁·혁명 등)이 해당한다.
+   * 왕조처럼 긴 항목은 연표의 뼈대이므로 절대 묶이지 않는다.
+   */
+  function isDotLike(entry, bucket) {
+    if (entry._isPoint) return true;
+    return (entry.end_year - entry.start_year) <= bucket * 0.25;
+  }
+
+  /** 같은 레인에서 같은 구간에 몰린 사건들을 하나로 묶는다. */
+  function clusterize(entries, bucket) {
+    var loose = [];
+    var buckets = {};
+
+    entries.forEach(function (entry) {
+      if (!isDotLike(entry, bucket)) { loose.push(entry); return; }
+      var key = entry._dataset + '@' + Math.floor(entry.start_year / bucket);
+      (buckets[key] || (buckets[key] = [])).push(entry);
+    });
+
+    var clusters = [];
+    Object.keys(buckets).forEach(function (key) {
+      var list = buckets[key];
+      if (list.length < 2) { loose.push(list[0]); return; }
+
+      list.sort(function (a, b) { return a.start_year - b.start_year; });
+      var last = list.reduce(function (max, e) { return Math.max(max, e.end_year); }, list[0].end_year);
+
+      clusters.push({
+        id: 'cluster:' + key,
+        dataset: list[0]._dataset,
+        label: list[0]._label,
+        color: list[0]._color,
+        startYear: list[0].start_year,
+        endYear: last,
+        entries: list
+      });
+    });
+
+    return { entries: loose, clusters: clusters };
+  }
+
   // ------------------------------------------------------------ 렌더
+
+  /** 필터 결과를 연표에 올린다. (묶음 계산 포함) */
+  function renderItems() {
+    var bucket = bucketYears();
+    var grouped = clusterize(state.visible, bucket);
+
+    state.lastBucket = bucket;
+    state.clusters = {};
+    grouped.clusters.forEach(function (cluster) { state.clusters[cluster.id] = cluster; });
+
+    chart.setEntries(grouped.entries, grouped.clusters, { showSummary: state.showSummary });
+  }
 
   function render() {
     var data = state.data;
     if (!data) return;
 
-    var visible = data.entries.filter(matches);
+    state.visible = data.entries.filter(matches);
 
     var counts = {};
     data.datasets.forEach(function (ds) { counts[ds.id] = 0; });
-    visible.forEach(function (e) { counts[e._dataset] += 1; });
+    state.visible.forEach(function (e) { counts[e._dataset] += 1; });
 
-    // 칩 상태 갱신
     data.datasets.forEach(function (ds) {
       var node = chipNodes[ds.id];
       if (!node) return;
@@ -169,20 +257,26 @@
     });
 
     chart.setStructure(data.tracks, activeIds(), counts);
-    chart.setEntries(visible);
+    renderItems();
 
-    var draftCount = visible.filter(function (e) { return e.status === 'draft'; }).length;
+    var draftCount = state.visible.filter(function (e) { return e.status === 'draft'; }).length;
     el.statusText.textContent =
-      '총 ' + data.entries.length + '개 중 ' + visible.length + '개 표시' +
+      '총 ' + data.entries.length + '개 중 ' + state.visible.length + '개 표시' +
       ' · 검토 전 ' + draftCount + '개';
 
-    el.emptyState.hidden = visible.length > 0;
+    el.emptyState.hidden = state.visible.length > 0;
     el.searchClear.hidden = !state.query;
 
-    if (state.selected && !visible.some(function (e) { return e.id === state.selected.id; })) {
+    if (state.selected && !state.visible.some(function (e) { return e.id === state.selected.id; })) {
       closePanel();
     }
   }
+
+  /** 확대/이동으로 묶음 단위가 바뀌었을 때만 다시 그린다. */
+  var onRangeChanged = debounce(function () {
+    if (!chart || !state.data) return;
+    if (bucketYears() !== state.lastBucket) renderItems();
+  }, 170);
 
   /** 처음 열었을 때 / 전체 초기화 시 보여줄 범위. */
   function applyDefaultWindow(animate) {
@@ -203,15 +297,29 @@
     }
   }
 
+  function setScrollMode(mode) {
+    state.scrollMode = mode;
+    chart.setScrollMode(mode);
+    Array.prototype.forEach.call(el.scrollMode.querySelectorAll('.seg-btn'), function (btn) {
+      btn.classList.toggle('is-active', btn.getAttribute('data-mode') === mode);
+      btn.setAttribute('aria-pressed', String(btn.getAttribute('data-mode') === mode));
+    });
+    el.modeHint.textContent = MODE_HINTS[mode] || '';
+  }
+
   function resetAll() {
     state.query = '';
     state.draftOnly = false;
+    state.showSummary = true;
     el.search.value = '';
     el.draftOnly.checked = false;
+    el.showSummary.checked = true;
     state.data.datasets.forEach(function (ds) {
       state.active[ds.id] = !ds.hidden_by_default;
     });
     closePanel();
+    closePopup();
+    setScrollMode('zoom');
     render();
     applyDefaultWindow(false);
   }
@@ -278,6 +386,14 @@
     sub.textContent = subParts.join('  ·  ');
     body.appendChild(sub);
 
+    // 항목에 summary 를 직접 적어 둔 경우에만 한 줄 요약을 따로 보여준다.
+    if (entry.summary) {
+      var lead = document.createElement('p');
+      lead.className = 'panel__lead';
+      lead.textContent = entry.summary;
+      body.appendChild(lead);
+    }
+
     var desc = document.createElement('p');
     desc.className = 'panel__desc';
     desc.textContent = entry.description;
@@ -321,7 +437,7 @@
     state.selected = null;
     el.panel.classList.remove('is-open');
     el.panel.setAttribute('aria-hidden', 'true');
-    el.panelBackdrop.hidden = true;
+    if (!isPopupOpen()) el.panelBackdrop.hidden = true;
     if (chart) chart.select(null);
   }
 
@@ -356,14 +472,136 @@
     }
   }
 
+  // -------------------------------------------------- 세부 연표 팝업
+
+  function isPopupOpen() {
+    return el.popup.classList.contains('is-open');
+  }
+
+  /** 세부 연표 한 줄 */
+  function miniRow(entry, showLane) {
+    var row = document.createElement('li');
+    row.className = 'minitl__row';
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'minitl__btn';
+    btn.addEventListener('click', function () {
+      closePopup();
+      openPanel(entry);
+      chart.select(entry.id);
+    });
+
+    var year = document.createElement('span');
+    year.className = 'minitl__year';
+    year.textContent = entry._isPoint
+      ? T.yearLabel(entry.start_year)
+      : T.yearLabel(entry.start_year) + ' ~';
+    if (!entry._isPoint) year.title = T.periodLabel(entry.start_year, entry.end_year);
+    btn.appendChild(year);
+
+    var dot = document.createElement('span');
+    dot.className = 'minitl__dot';
+    dot.style.backgroundColor = entry._color;
+    btn.appendChild(dot);
+
+    var text = document.createElement('span');
+    text.className = 'minitl__text';
+
+    var title = document.createElement('b');
+    title.textContent = entry.title;
+    text.appendChild(title);
+
+    if (showLane) {
+      var lane = document.createElement('span');
+      lane.className = 'minitl__lane';
+      lane.textContent = entry._label;
+      title.appendChild(lane);
+    }
+
+    var summary = document.createElement('em');
+    summary.textContent = entry._summary;
+    text.appendChild(summary);
+
+    btn.appendChild(text);
+    row.appendChild(btn);
+    return row;
+  }
+
+  function openPopup(cluster) {
+    var period = T.periodLabel(cluster.startYear, cluster.endYear);
+
+    el.popupEyebrow.textContent = cluster.label + ' · 세부 연표';
+    el.popupTitle.textContent = period + ' · ' + cluster.entries.length + '건';
+
+    var body = el.popupBody;
+    body.textContent = '';
+
+    var list = document.createElement('ol');
+    list.className = 'minitl';
+    cluster.entries.forEach(function (entry) { list.appendChild(miniRow(entry, false)); });
+    body.appendChild(list);
+
+    // 같은 기간에 다른 트랙에서 무슨 일이 있었는지 — 빅 히스토리의 핵심 비교.
+    // 이 구간에서 "시작한" 사건을 먼저 보여주고, 걸쳐 있기만 한 긴 항목은 뒤로 민다.
+    var others = state.visible.filter(function (entry) {
+      if (entry._dataset === cluster.dataset) return false;
+      return entry.start_year <= cluster.endYear && entry.end_year >= cluster.startYear;
+    }).sort(function (a, b) {
+      var aIn = a.start_year >= cluster.startYear ? 0 : 1;
+      var bIn = b.start_year >= cluster.startYear ? 0 : 1;
+      if (aIn !== bIn) return aIn - bIn;
+      return a.start_year - b.start_year;
+    });
+
+    if (others.length) {
+      var shown = others.slice(0, 14);
+      var otherList = document.createElement('ol');
+      otherList.className = 'minitl minitl--muted';
+      shown.forEach(function (entry) { otherList.appendChild(miniRow(entry, true)); });
+
+      var wrap = document.createElement('div');
+      wrap.className = 'field';
+      var label = document.createElement('p');
+      label.className = 'field__label';
+      label.textContent = '같은 기간 다른 트랙 (' + others.length + '건 중 ' + shown.length + '건)';
+      wrap.appendChild(label);
+      wrap.appendChild(otherList);
+      if (others.length > shown.length) {
+        var more = document.createElement('p');
+        more.className = 'minitl__more';
+        more.textContent = '나머지 ' + (others.length - shown.length) + '건은 연표에서 확인하세요.';
+        wrap.appendChild(more);
+      }
+      body.appendChild(wrap);
+    }
+
+    el.popupZoom.onclick = function () {
+      var pad = Math.max(2, Math.round((cluster.endYear - cluster.startYear) * 0.2));
+      closePopup();
+      chart.focusYears(cluster.startYear - pad, cluster.endYear + pad, true);
+    };
+
+    el.popup.classList.add('is-open');
+    el.popup.setAttribute('aria-hidden', 'false');
+    el.panelBackdrop.hidden = false;
+  }
+
+  function closePopup() {
+    el.popup.classList.remove('is-open');
+    el.popup.setAttribute('aria-hidden', 'true');
+    if (!state.selected) el.panelBackdrop.hidden = true;
+    if (chart) chart.select(null);
+  }
+
+  // ------------------------------------------------------------ 이벤트
+
   /** 좁은 화면에서는 필터 줄을 접어 연표에 화면을 내준다. */
   function setFiltersOpen(open) {
     el.filters.hidden = !open;
     el.filtersToggle.setAttribute('aria-expanded', String(open));
     if (chart) setTimeout(function () { chart.redraw(); }, 0);
   }
-
-  // ------------------------------------------------------------ 이벤트
 
   function bindEvents() {
     el.search.addEventListener('input', debounce(function () {
@@ -383,6 +621,16 @@
       render();
     });
 
+    el.showSummary.addEventListener('change', function () {
+      state.showSummary = el.showSummary.checked;
+      renderItems();
+    });
+
+    el.scrollMode.addEventListener('click', function (e) {
+      var btn = e.target.closest ? e.target.closest('.seg-btn') : null;
+      if (btn) setScrollMode(btn.getAttribute('data-mode'));
+    });
+
     el.reset.addEventListener('click', resetAll);
     el.emptyState.querySelector('[data-action="reset"]').addEventListener('click', resetAll);
 
@@ -391,12 +639,17 @@
     });
 
     el.panelClose.addEventListener('click', closePanel);
-    el.panelBackdrop.addEventListener('click', closePanel);
+    el.popupClose.addEventListener('click', closePopup);
+    el.panelBackdrop.addEventListener('click', function () {
+      closePopup();
+      closePanel();
+    });
     el.copyJson.addEventListener('click', copySelectedJson);
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
-        if (state.selected) closePanel();
+        if (isPopupOpen()) closePopup();
+        else if (state.selected) closePanel();
         else if (state.query) { el.search.value = ''; state.query = ''; render(); }
         return;
       }
@@ -409,8 +662,10 @@
     });
 
     window.addEventListener('resize', debounce(function () {
-      if (chart) chart.redraw();
-    }, 150));
+      if (!chart) return;
+      chart.redraw();
+      if (bucketYears() !== state.lastBucket) renderItems();
+    }, 200));
   }
 
   function showError(err) {
@@ -444,10 +699,22 @@
     chart = T.create(el.timeline, {
       window: data.defaultWindow,
       onSelect: function (id) {
-        if (!id) { closePanel(); return; }
+        if (!id) {
+          if (!isPopupOpen()) closePanel();
+          return;
+        }
+        if (state.clusters[id]) {      // 묶음 → 세부 연표 팝업
+          closePanel();
+          openPopup(state.clusters[id]);
+          return;
+        }
         var entry = data.entries.filter(function (e) { return e.id === id; })[0];
-        if (entry) openPanel(entry);
-      }
+        if (entry) {
+          closePopup();
+          openPanel(entry);
+        }
+      },
+      onRangeChanged: onRangeChanged
     });
 
     var pad = Math.max(50, Math.round((data.range.max - data.range.min) * 0.03));
@@ -456,11 +723,15 @@
     buildEraPresets(data.eraPresets);
     buildFilters(data.tracks);
     bindEvents();
+    setScrollMode('zoom');
     render();
     setFiltersOpen(window.innerWidth > 860);
 
     // 첫 페인트 직후 한 번 더 그려 레인 라벨 폭이 반영된 시간축을 얻는다.
-    setTimeout(function () { chart.redraw(); }, 120);
+    setTimeout(function () {
+      chart.redraw();
+      if (bucketYears() !== state.lastBucket) renderItems();
+    }, 120);
 
     el.loading.hidden = true;
     if (data.source === 'bundle') {

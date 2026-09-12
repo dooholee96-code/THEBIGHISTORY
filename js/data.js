@@ -38,6 +38,30 @@
     });
   }
 
+  /**
+   * 연표 막대에 함께 보여줄 "한 줄 요약".
+   * 항목에 summary 가 있으면 그대로 쓰고, 없으면 description 의 첫 문장을
+   * 한 줄 길이로 줄여서 만든다. (원본 JSON 은 건드리지 않는다)
+   */
+  function oneLineSummary(entry) {
+    if (entry.summary) return entry.summary;
+
+    var text = String(entry.description || '').trim();
+    var stop = text.indexOf('. ');
+    if (stop > 0) text = text.slice(0, stop + 1);
+
+    var LIMIT = 44;
+    if (text.length <= LIMIT) return text;
+
+    // 쉼표 → 띄어쓰기 순으로 자연스러운 끊는 지점을 찾는다.
+    var cut = text.slice(0, LIMIT);
+    var comma = cut.lastIndexOf(', ');
+    var space = cut.lastIndexOf(' ');
+    if (comma > LIMIT * 0.4) cut = cut.slice(0, comma);
+    else if (space > LIMIT * 0.6) cut = cut.slice(0, space);
+    return cut + '…';
+  }
+
   /** 매니페스트 + 파일 내용을 앱이 쓰기 좋은 형태로 정리한다. */
   function normalize(manifest, fileContents, source) {
     var datasets = (manifest.datasets || [])
@@ -55,6 +79,8 @@
           copy._color = ds.color;
           copy._track = ds.track;
           copy._file = ds.file;
+          copy._summary = oneLineSummary(entry);
+          copy._isPoint = entry.start_year === entry.end_year;
           copy._search = [
             entry.title,
             entry.description,
@@ -62,6 +88,7 @@
             entry.subcategory,
             entry.region,
             entry.era_note,
+            entry.summary,
             (entry.tags || []).join(' ')
           ].join(' ').toLowerCase();
           return copy;

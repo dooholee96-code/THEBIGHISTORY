@@ -52,7 +52,19 @@
           <input type="checkbox" id="draft-only" />
           <span>검토 전(draft)만</span>
         </label>
-        <span class="hint">휠: 확대·축소 &nbsp;·&nbsp; 드래그: 시간 이동 &nbsp;·&nbsp; 항목 클릭: 상세</span>
+        <label class="switch">
+          <input type="checkbox" id="show-summary" checked />
+          <span>한 줄 요약</span>
+        </label>
+
+        <div class="segmented" id="scroll-mode" role="group" aria-label="휠 동작 전환">
+          <span class="segmented__label">휠</span>
+          <button type="button" class="seg-btn is-active" data-mode="zoom">확대·축소</button>
+          <button type="button" class="seg-btn" data-mode="horizontal">가로 스크롤</button>
+          <button type="button" class="seg-btn" data-mode="vertical">세로 스크롤</button>
+        </div>
+
+        <span class="hint" id="mode-hint"></span>
         <span class="status" id="status-text">불러오는 중…</span>
       </div>
     </div>
@@ -68,6 +80,21 @@
   </main>
 
   <div id="panel-backdrop" class="panel-backdrop" hidden></div>
+
+  <div id="cluster-popup" class="popup" role="dialog" aria-hidden="true" aria-labelledby="cluster-title">
+    <div class="popup__head">
+      <div>
+        <p class="popup__eyebrow" id="cluster-eyebrow"></p>
+        <h2 class="popup__title" id="cluster-title"></h2>
+      </div>
+      <button id="cluster-close" class="panel__close" type="button" aria-label="닫기">✕</button>
+    </div>
+    <div class="popup__body" id="cluster-body"></div>
+    <div class="popup__foot">
+      <button id="cluster-zoom" class="btn btn--primary btn--sm" type="button">이 구간 확대</button>
+      <span class="panel__hint">항목을 누르면 상세가 열립니다 · 핀치/휠로 확대해도 나뉩니다</span>
+    </div>
+  </div>
 
   <aside id="detail-panel" class="panel" aria-hidden="true" aria-labelledby="panel-title" role="dialog">
     <div class="panel__head">

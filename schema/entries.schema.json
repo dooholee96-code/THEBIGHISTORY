@@ -74,6 +74,12 @@
           "description": "BC/AD 등 표기 보조 설명. 비워두면 검증 스크립트가 자동으로 채운다."
         },
         "description": { "type": "string", "minLength": 1 },
+        "summary": {
+          "type": "string",
+          "description": "연표 막대에 함께 표시할 한 줄 요약(선택). 비워두면 description 의 첫 문장을 줄여서 자동으로 만든다.",
+          "minLength": 1,
+          "maxLength": 60
+        },
         "tags": {
           "type": "array",
           "items": { "type": "string", "minLength": 1 }
