@@ -41,13 +41,18 @@ python3 -m http.server 5173
 > 자동으로 그쪽을 읽습니다. **JSON 을 고쳤다면 `npm run build` 를 한 번 실행**해서
 > 사본을 갱신해 주세요. (로컬 서버로만 쓸 거라면 없어도 됩니다.)
 
-### 데이터 검증
+### 데이터 검증 / 배포 준비
 
 ```bash
 npm run validate       # 스키마 + 교차 검사 (오류가 있으면 종료 코드 1)
 npm run fix            # era_note 같은 자동 채움 가능한 항목을 채운 뒤 재검증
-npm run build          # validate + data/bundle.js 재생성
+npm run build          # validate + 버전 스탬프 + data/bundle.js 재생성
 ```
+
+**코드나 데이터를 고쳤으면 배포 전에 반드시 `npm run build` 를 돌리세요.**
+`scripts/stamp.js` 가 css/js 참조에 `?v=<해시>` 를 붙이고 `sw.js` 의 캐시 이름을
+같은 해시로 맞춥니다. 이게 없으면 브라우저·서비스워커가 예전 파일을 계속 써서
+**배포해도 화면이 그대로인** 문제가 생깁니다. (해시는 소스 내용에서 자동 계산)
 
 의존성 설치(`npm install`)는 필요 없습니다. 검증기는 Node 기본 기능만 씁니다.
 
@@ -71,6 +76,7 @@ schema/index.schema.json    매니페스트 JSON Schema
 schema/entries.schema.json  항목 JSON Schema
 scripts/validate.js         검증 스크립트
 scripts/bundle.js           bundle.js 생성기
+scripts/stamp.js            배포 버전 스탬프(캐시 무효화) 찍기
 scripts/lib/jsonschema.js   의존성 없는 초소형 스키마 검증기
 
 vendor/vis-timeline/        vis-timeline 7.7.3 (오프라인 동작을 위해 동봉)
@@ -254,8 +260,16 @@ npm run build     # 검증 + bundle.js 갱신
 
 `manifest.webmanifest` 와 `sw.js` 가 이미 들어 있습니다. **https 또는 localhost** 로 열면
 서비스워커가 등록되어 오프라인에서도 동작하고, 모바일 브라우저에서 "홈 화면에 추가"를 하면
-주소창 없는 앱처럼 실행됩니다. 데이터를 바꾼 뒤 화면이 갱신되지 않으면 `sw.js` 의
-`CACHE_VERSION` 값을 올리세요.
+주소창 없는 앱처럼 실행됩니다.
+
+서비스워커는 **네트워크 우선**으로 동작합니다. 온라인이면 항상 서버의 최신 파일을 쓰고,
+네트워크가 없거나 느릴 때만(4초) 캐시 사본으로 대체합니다. 배포 때마다 `npm run build` 로
+버전 스탬프가 바뀌므로 새 코드가 곧바로 반영됩니다.
+
+> **예전 버전이 계속 보인다면** (캐시 우선이던 옛 서비스워커가 남아 있는 경우)
+> 주소 뒤에 `?v=2` 를 붙여 한 번 열거나, 새로고침을 두 번 하세요.
+> 그래도 그대로면 개발자도구 → Application → Service workers → **Unregister** 후 새로고침.
+> 지금 어떤 빌드가 떠 있는지는 브라우저 콘솔의 `[app] 빅 히스토리 연표 <해시>` 줄로 확인합니다.
 
 ### 5-3. Capacitor (iOS / Android 앱스토어)
 

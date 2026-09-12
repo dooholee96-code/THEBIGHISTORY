@@ -8,6 +8,15 @@
 
   var T = window.BigHistoryTimeline;
 
+  /** 콘솔에서 어떤 빌드가 떠 있는지 확인하는 용도.
+      값은 index.html 의 <script src="js/app.js?v=…"> 에서 읽으므로
+      npm run build 가 찍는 스탬프와 항상 일치한다. */
+  var APP_VERSION = (function () {
+    var src = (document.currentScript && document.currentScript.src) || '';
+    var m = /[?&]v=([0-9a-z]+)/.exec(src);
+    return m ? m[1] : 'dev';
+  })();
+
   /** 이 픽셀 폭 안에 몰린 단일 연도 사건들을 하나로 묶는다. */
   var CLUSTER_PX = 76;
 
@@ -780,9 +789,11 @@
     }, 120);
 
     el.loading.hidden = true;
-    if (data.source === 'bundle') {
-      console.info('[app] data/bundle.js 에서 데이터를 읽었습니다 (file:// 모드).');
-    }
+    console.info(
+      '[app] 빅 히스토리 연표 ' + APP_VERSION +
+      ' · 기본 축: ' + data.defaultAxis +
+      ' · 데이터: ' + (data.source === 'bundle' ? 'data/bundle.js (file:// 모드)' : 'data/*.json')
+    );
   }
 
   window.BigHistoryData.load().then(start).catch(function (err) {
@@ -792,8 +803,18 @@
 
   // 오프라인 캐시(PWA). file:// 이나 서비스워커 미지원 환경에서는 조용히 건너뜁니다.
   if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
+    // 새 서비스워커가 넘겨받으면 한 번 새로고침해서 항상 최신 코드로 맞춘다.
+    var reloading = false;
+    navigator.serviceWorker.addEventListener('controllerchange', function () {
+      if (reloading) return;
+      reloading = true;
+      location.reload();
+    });
+
     window.addEventListener('load', function () {
-      navigator.serviceWorker.register('sw.js').catch(function (err) {
+      navigator.serviceWorker.register('sw.js').then(function (reg) {
+        reg.update();   // 방문할 때마다 새 버전이 있는지 확인
+      }).catch(function (err) {
         console.info('[pwa] 서비스워커 등록을 건너뜁니다.', err && err.message);
       });
     });
