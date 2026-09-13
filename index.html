@@ -10,7 +10,7 @@
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
   <link rel="stylesheet" href="vendor/vis-timeline/vis-timeline-graph2d.min.css" />
-  <link rel="stylesheet" href="css/styles.css?v=e5d82404" />
+  <link rel="stylesheet" href="css/styles.css?v=662e0746" />
 </head>
 <body>
   <header class="toolbar" id="toolbar">
@@ -41,6 +41,9 @@
         </button>
         <button id="reset-all" class="btn btn--primary" type="button" title="필터·검색·줌 상태를 모두 되돌립니다">
           전체 초기화
+        </button>
+        <button id="about-open" class="btn btn--ghost btn--icon" type="button" title="이 연표에 대하여 · 출처 · 라이선스" aria-label="정보">
+          ⓘ
         </button>
       </div>
     </div>
@@ -87,6 +90,57 @@
 
   <div id="panel-backdrop" class="panel-backdrop" hidden></div>
 
+  <div id="about-popup" class="popup" role="dialog" aria-hidden="true" aria-labelledby="about-title">
+    <div class="popup__head">
+      <div>
+        <p class="popup__eyebrow">이 연표에 대하여</p>
+        <h2 class="popup__title" id="about-title">빅 히스토리 연표</h2>
+      </div>
+      <button id="about-close" class="panel__close" type="button" aria-label="닫기">✕</button>
+    </div>
+    <div class="popup__body">
+      <p class="note note--warn">
+        <strong>내용 신뢰도</strong> — 이 연표의 항목은 개설 수준의 통설을 요약한
+        <strong>초안(draft)</strong>이며, 아직 자료로 대조하지 않았습니다.
+        연도·설명에 오류가 있을 수 있고, 특히 고대사의 여러 연도는 문헌 전승이나 추정치입니다.
+        각 항목의 팝업에서 <em>연대 주석</em>과 출처 상태를 확인하세요.
+      </p>
+
+      <div class="field">
+        <p class="field__label">데이터</p>
+        <ul class="field__list">
+          <li>연표 데이터: <strong>CC BY 4.0</strong> — 저작자 표시만 지키면 상업적 이용·수정·재배포 가능</li>
+          <li>설명문은 이 프로젝트에서 직접 작성했습니다. 다른 저작물의 문장을 옮기지 않습니다.</li>
+        </ul>
+      </div>
+
+      <div class="field">
+        <p class="field__label">소프트웨어</p>
+        <ul class="field__list">
+          <li>앱 코드: <strong>MIT License</strong></li>
+          <li>
+            연표 렌더링(가로 보기): <strong>vis-timeline 7.7.3</strong> —
+            Apache-2.0 OR MIT<br />
+            Copyright (c) 2014-2017 Almende B.V. and contributors<br />
+            Copyright (c) 2017-2019 vis.js contributors
+          </li>
+          <li>세로 보기 렌더러와 아이콘은 이 프로젝트에서 직접 만들었습니다.</li>
+        </ul>
+      </div>
+
+      <div class="field">
+        <p class="field__label">개인정보</p>
+        <ul class="field__list">
+          <li>외부로 나가는 요청이 없습니다. 분석 도구·추적 스크립트·웹폰트를 쓰지 않습니다.</li>
+          <li>쿠키를 사용하지 않으며, 이용자 정보를 수집·저장하지 않습니다.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="popup__foot">
+      <span class="panel__hint">자세한 고지는 저장소의 LICENSE · THIRD-PARTY-NOTICES.md · data/LICENSE.md 에 있습니다.</span>
+    </div>
+  </div>
+
   <div id="cluster-popup" class="popup" role="dialog" aria-hidden="true" aria-labelledby="cluster-title">
     <div class="popup__head">
       <div>
@@ -118,9 +172,9 @@
   </div>
 
   <script src="vendor/vis-timeline/vis-timeline-graph2d.min.js"></script>
-  <script src="js/data.js?v=e5d82404"></script>
-  <script src="js/timeline.js?v=e5d82404"></script>
-  <script src="js/vtimeline.js?v=e5d82404"></script>
-  <script src="js/app.js?v=e5d82404"></script>
+  <script src="js/data.js?v=662e0746"></script>
+  <script src="js/timeline.js?v=662e0746"></script>
+  <script src="js/vtimeline.js?v=662e0746"></script>
+  <script src="js/app.js?v=662e0746"></script>
 </body>
 </html>

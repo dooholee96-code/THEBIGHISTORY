@@ -20,9 +20,13 @@
   var TRACK_H = 18;       // 위쪽 트랙 띠 높이
   var LANE_H = 28;        // 위쪽 레인 이름 높이
   var HEAD_H = TRACK_H + LANE_H;
-  var COL_W = 86;         // 레인 안에서 겹친 항목 한 칸의 폭
-  var LANE_MIN_W = 120;
-  var LANE_GAP = 8;
+  var LANE_MIN_W = 132;   // 열 하나의 최소 폭 (이보다 좁아지면 가로 스크롤)
+  var LANE_MAX_W = 480;   // 열이 지나치게 넓어지지 않게
+  var LANE_GAP = 8;       // 열 안쪽 여백
+  var SLOT_MIN_W = 62;    // 칸 하나가 이보다 좁아지면 글자를 읽을 수 없다
+  var OVERFLOW_GAP_PX = 70;  // 열에 못 들어간 항목을 묶는 화면상 간격
+  var OVERFLOW_W = 26;       // '+N' 묶음을 얹어 두는 열 오른쪽 띠의 폭
+  var SUB_MIN_W = 104;       // 칸이 이보다 좁으면 요약은 접는다(제목만)
   var ITEM_MIN_H = 4;
   var TICK_MIN_PX = 52;   // 눈금 라벨 최소 간격
 
@@ -95,7 +99,7 @@
       scrollMode: 'zoom'
     };
 
-    var pools = { items: [], ticks: [], grid: [], heads: [], tracks: [] };
+    var pools = { items: [], ticks: [], grid: [], vlines: [], heads: [], tracks: [] };
     var frame = null;
     var destroyed = false;
 
@@ -132,9 +136,14 @@
 
     // --------------------------------------------------- 레인 폭 계산
 
-    /** 한 레인 안에서 시기가 겹치는 항목을 옆 칸으로 밀어낸다. */
-    function packLane(list) {
+    /**
+     * 한 열 안에서 시기가 겹치는 항목을 옆 칸으로 밀어낸다.
+     * 칸은 글자가 읽히는 폭(SLOT_MIN_W)을 지킬 수 있는 개수까지만 만들고,
+     * 그래도 자리가 없는 항목은 overflow 로 빼서 '+N건' 묶음으로 접는다.
+     */
+    function packLane(list, maxCols) {
       var columns = [];   // 각 칸의 마지막 끝 y
+      var overflow = [];
       var perPx = pxPerYear();
       list.sort(function (a, b) { return a._start - b._start; });
 
@@ -150,12 +159,42 @@
             break;
           }
         }
-        if (!placed) {
+        if (placed) return;
+        if (columns.length < maxCols) {
           columns.push(bottom);
           item._col = columns.length - 1;
+        } else {
+          overflow.push(item);
         }
       });
-      return columns.length;
+
+      return { cols: Math.max(1, columns.length), overflow: overflow };
+    }
+
+    /** 열에 못 들어간 항목들을 시기별로 묶어 '+N건' 아이템으로 만든다. */
+    function groupOverflow(overflow, lane) {
+      var perPx = pxPerYear();
+      var groups = [];
+
+      overflow.sort(function (a, b) { return a._start - b._start; });
+      overflow.forEach(function (item) {
+        var last = groups[groups.length - 1];
+        if (last && (item._start - last.startYear) * perPx < OVERFLOW_GAP_PX) {
+          last.entries.push(item.entry);
+          last.endYear = Math.max(last.endYear, item._end);
+        } else {
+          groups.push({
+            id: 'overflow:' + lane.id + ':' + item._start,
+            dataset: lane.id,
+            label: lane.label,
+            color: lane.color,
+            startYear: item._start,
+            endYear: item._end,
+            entries: [item.entry]
+          });
+        }
+      });
+      return groups;
     }
 
     /** 화면에 그릴 항목들을 레인별로 모으고 배치까지 끝낸다. */
@@ -175,6 +214,7 @@
         payload._start = start;
         payload._end = end;
         payload._id = id;
+        payload._col = null;
         bucket.push(payload);
       }
 
@@ -191,15 +231,39 @@
         });
       });
 
+      // 카테고리 하나 = 같은 폭의 열 하나.
+      // 화면을 열 개수로 균등하게 나누되, 너무 좁아지면 최소 폭을 쓰고 가로로 스크롤한다.
+      var laneCount = state.lanes.length || 1;
+      var laneW = clamp(Math.floor(viewWidth() / laneCount), LANE_MIN_W, LANE_MAX_W);
+
+      var maxCols = Math.max(1, Math.floor((laneW - LANE_GAP) / SLOT_MIN_W));
+
       var x = 0;
       state.lanes.forEach(function (lane) {
         var list = byLane[lane.id];
-        var cols = list.length ? packLane(list) : 1;
-        lane.items = list;
-        lane.cols = cols;
-        lane.width = Math.max(LANE_MIN_W, cols * COL_W + LANE_GAP);
+        lane.width = laneW;
         lane.x = x;
-        x += lane.width;
+        x += laneW;
+
+        if (!list.length) { lane.items = []; lane.cols = 1; return; }
+
+        // 같은 시기에 겹치는 항목은 이 열 '안에서' 칸을 나눠 담는다(열 폭은 그대로).
+        var packed = packLane(list, maxCols);
+        lane.cols = packed.cols;
+        lane.items = list.filter(function (item) { return item._col != null; });
+
+        // 자리가 없어 밀려난 항목은 묶어서 마지막 칸에 얹는다.
+        groupOverflow(packed.overflow, lane).forEach(function (group) {
+          lane.items.push({
+            kind: 'overflow',
+            cluster: group,
+            entry: null,
+            _id: group.id,
+            _start: group.startYear,
+            _end: group.endYear,
+            _col: packed.cols - 1
+          });
+        });
       });
       state.totalW = x;
     }
@@ -294,31 +358,54 @@
       hideRest(pools.tracks, t);
     }
 
+    /** 열(카테고리) 경계를 세로선으로 그려 격자를 만든다. */
+    function drawLaneLines() {
+      var n = 0;
+      state.lanes.forEach(function (lane) {
+        var line = takeNode(pools.vlines, n, 'vt__lane-line', grid);
+        line.style.transform = 'translateX(' + (lane.x + lane.width - state.scrollX).toFixed(1) + 'px)';
+        n += 1;
+      });
+      hideRest(pools.vlines, n);
+    }
+
     function drawItems() {
       var perPx = pxPerYear();
       var height = viewHeight();
       var n = 0;
 
       state.lanes.forEach(function (lane) {
-        var colW = (lane.width - LANE_GAP) / lane.cols;
+        var hasOverflow = (lane.items || []).some(function (i) { return i.kind === 'overflow'; });
+        // '+N' 묶음은 열 오른쪽 끝 좁은 띠에 따로 얹어, 본문 항목과 겹치지 않게 한다.
+        var usable = lane.width - LANE_GAP - (hasOverflow ? OVERFLOW_W : 0);
+        var colW = Math.max(SLOT_MIN_W, usable / lane.cols);
+        var step = lane.cols > 1 ? Math.min(colW, (usable - colW) / (lane.cols - 1)) : colW;
+        // '요약 항상 표시' 를 켜면 좁은 칸에서도 보여준다(그래도 글자가 뭉개질 만큼
+        // 좁으면 제목만 남긴다).
+        var showSub = colW >= (state.summaryMode === 'always' ? 56 : SUB_MIN_W);
 
         (lane.items || []).forEach(function (item) {
           var top = (item._start - state.startYear) * perPx;
           var boxH = Math.max(ITEM_MIN_H, (item._end - item._start) * perPx);
           if (top > height + 40 || top + boxH < -40) return;
 
-          var left = lane.x - state.scrollX + item._col * colW;
-          var isCluster = item.kind === 'cluster';
-          var source = isCluster ? item.cluster : item.entry;
+          var left = isOverflowItem(item)
+            ? lane.x - state.scrollX + lane.width - LANE_GAP - OVERFLOW_W
+            : lane.x - state.scrollX + item._col * step;
+          var isCluster = item.kind === 'cluster' || item.kind === 'overflow';
+          var isOverflow = isOverflowItem(item);
           var color = isCluster ? item.cluster.color : item.entry._color;
 
-          var cls = 'vt__item' + (isCluster ? ' is-cluster' : '') +
+          var cls = 'vt__item' +
+            (isCluster ? ' is-cluster' : '') +
+            (isOverflow ? ' is-overflow' : '') +
             (!isCluster && item.entry.status === 'draft' ? ' is-draft' : '') +
             (state.selectedId === item._id ? ' is-selected' : '');
 
           var node = takeNode(pools.items, n, cls, lanesEl);
           node.style.transform = 'translate(' + left.toFixed(1) + 'px,' + top.toFixed(1) + 'px)';
-          node.style.width = Math.max(18, colW - 6) + 'px';
+          node.style.width = (isOverflow ? OVERFLOW_W : Math.max(18, colW - 6)) + 'px';
+          node.style.zIndex = String(isOverflow ? 40 : 10 + (item._col || 0));
           node.style.height = boxH.toFixed(1) + 'px';
           // 화면 위로 넘어간 긴 항목은 글자를 아래로 내려 이름이 보이게 한다.
           node.style.paddingTop = (top < 0 ? clamp(-top, 0, boxH - 20) + 2 : 2) + 'px';
@@ -328,8 +415,9 @@
           node.setAttribute('data-id', item._id);
 
           if (isCluster) {
-            node.title = periodLabel(item._start, item._end) + ' · 주요 사건 ' +
-              item.cluster.entries.length + '건 — 누르면 세부 연표가 열립니다';
+            node.title = periodLabel(item._start, item._end) + ' · ' +
+              item.cluster.entries.length + '건 — 누르면 세부 연표가 열립니다' +
+              (isOverflow ? ' (열 폭이 좁아 접어 둔 항목들)' : '');
           } else {
             node.title = item.entry.title + ' · ' + periodLabel(item._start, item._end) +
               (item.entry.description ? ' — ' + item.entry.description : '');
@@ -340,15 +428,17 @@
           var summaryAt = state.summaryMode === 'always'
             ? 34
             : Math.max(90, viewHeight() / 6);   // 화면의 1/6 이상 차지할 때만
-          var level = boxH >= summaryAt ? 2 : (boxH >= 15 ? 1 : 0);
-          var sig = item._id + '|' + level;
+          var level = (boxH >= summaryAt && showSub && !isOverflow) ? 2 : (boxH >= 15 ? 1 : 0);
+          var sig = item._id + '|' + level + '|' + (isCluster ? item.cluster.entries.length : 0);
           if (node._sig !== sig) {
             node._sig = sig;
             node.textContent = '';
             if (level >= 1) {
               var label = document.createElement('span');
               label.className = 'vt__item-title';
-              label.textContent = isCluster ? item.cluster.entries.length + '건' : item.entry.title;
+              label.textContent = isCluster
+                ? (isOverflow ? '+' + item.cluster.entries.length : item.cluster.entries.length + '건')
+                : item.entry.title;
               node.appendChild(label);
             }
             if (level >= 2) {
@@ -378,6 +468,7 @@
       state.scrollX = clamp(state.scrollX, 0, maxScroll);
 
       drawAxis();
+      drawLaneLines();
       drawHead();
       drawItems();
       root.classList.toggle('has-overflow', maxScroll > 0);
@@ -486,13 +577,34 @@
       // 끌지 않고 뗐으면 선택으로 본다. (빈 곳이면 id 가 null → 선택 해제)
       if (e.type === 'pointerup' && !wasDragged && pointerList().length === 0) {
         var id = downItem ? downItem.getAttribute('data-id') : null;
-        if (options.onSelect) options.onSelect(id);
-        api.select(id);
+        var group = id && id.indexOf('overflow:') === 0 ? findOverflow(id) : null;
+        if (group && options.onOverflow) {
+          options.onOverflow(group);
+          api.select(id);
+        } else {
+          if (options.onSelect) options.onSelect(id);
+          api.select(id);
+        }
       }
       downItem = null;
     }
     body.addEventListener('pointerup', endPointer);
     body.addEventListener('pointercancel', endPointer);
+
+    function isOverflowItem(item) {
+      return item.kind === 'overflow';
+    }
+
+    /** 화면에 그려진 '+N건' 묶음을 id 로 찾는다. */
+    function findOverflow(id) {
+      for (var i = 0; i < state.lanes.length; i += 1) {
+        var items = state.lanes[i].items || [];
+        for (var j = 0; j < items.length; j += 1) {
+          if (items[j].kind === 'overflow' && items[j]._id === id) return items[j].cluster;
+        }
+      }
+      return null;
+    }
 
     var onResize = function () { schedule(); };
     window.addEventListener('resize', onResize);

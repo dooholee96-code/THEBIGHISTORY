@@ -228,6 +228,13 @@ body {
 
 .btn--sm { height: 28px; padding: 0 10px; font-size: 12px; }
 
+.btn--icon {
+  width: 34px;
+  padding: 0;
+  font-size: 15px;
+  line-height: 1;
+}
+
 /* ------------------------------------------------------------ 필터 칩 */
 
 .filter-groups {
@@ -818,6 +825,15 @@ body {
   inset: 0;
 }
 
+/* 열(카테고리) 경계 */
+.vt__lane-line {
+  position: absolute;
+  left: 0; top: 0;
+  width: 0;
+  height: 100%;
+  border-left: 1px solid var(--line);
+}
+
 .vt__gridline {
   position: absolute;
   left: 0; top: 0;
@@ -825,6 +841,10 @@ body {
   height: 0;
   border-top: 1px solid color-mix(in srgb, var(--line) 65%, transparent);
 }
+
+/* 렌더러가 재사용하는 노드는 hidden 으로 감춘다.
+   아래 요소들은 display:flex/absolute 라 UA 의 [hidden] 규칙을 이기므로 명시한다. */
+.vt [hidden] { display: none !important; }
 
 .vt__item {
   position: absolute;
@@ -849,6 +869,17 @@ body {
   border-width: 1.5px;
   font-weight: 700;
 }
+
+/* 열 폭이 모자라 접어 둔 묶음 */
+.vt__item.is-overflow {
+  border-style: dotted;
+  border-left-width: 1px;
+  font-weight: 700;
+  padding: 2px 2px;
+  align-items: center;
+}
+
+.vt__item.is-overflow .vt__item-title { font-size: 11px; }
 
 .vt__item.is-selected {
   box-shadow: 0 0 0 2px var(--accent);

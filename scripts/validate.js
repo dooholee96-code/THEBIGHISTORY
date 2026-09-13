@@ -161,6 +161,14 @@ for (const ds of manifest.datasets || []) {
       }
     }
 
+    // 라이선스 주의: 위키 계열은 CC BY-SA 라 문장을 옮기면 데이터 전체가 묶인다.
+    // 링크를 '확인용 자료'로 적는 것은 문제가 없으므로 경고로만 알린다.
+    (entry.sources || []).forEach(function (src) {
+      if (/wikipedia\.org|namu\.wiki|wikiwand/i.test(src)) {
+        warn(file, `${where} — 위키 계열 자료(${src}) 는 확인용으로만 쓰고 문장을 옮기지 마세요. (data/LICENSE.md 참고)`);
+      }
+    });
+
     // 출처 정책: draft 는 출처가 없어도 되지만, reviewed 로 올리려면 반드시 있어야 한다.
     if (entry.status === 'reviewed' && (!entry.sources || entry.sources.length === 0)) {
       fail(file, `${where} — status 가 reviewed 인데 sources 가 비어 있습니다. 확인한 자료를 적거나 draft 로 되돌리세요.`);

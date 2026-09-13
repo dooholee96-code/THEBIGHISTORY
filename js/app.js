@@ -51,7 +51,10 @@
     popupTitle: document.getElementById('cluster-title'),
     popupBody: document.getElementById('cluster-body'),
     popupClose: document.getElementById('cluster-close'),
-    popupZoom: document.getElementById('cluster-zoom')
+    popupZoom: document.getElementById('cluster-zoom'),
+    about: document.getElementById('about-popup'),
+    aboutOpen: document.getElementById('about-open'),
+    aboutClose: document.getElementById('about-close')
   };
 
   var MODE_HINTS = {
@@ -338,7 +341,12 @@
     return factory.create(el.timeline, {
       window: win,
       onSelect: handleSelect,
-      onRangeChanged: onRangeChanged
+      onRangeChanged: onRangeChanged,
+      // 세로 보기에서 열 폭이 모자라 접힌 항목 묶음도 같은 세부 연표 팝업으로 연다.
+      onOverflow: function (group) {
+        closePanel();
+        openPopup(group);
+      }
     });
   }
 
@@ -414,6 +422,7 @@
 
   function openPanel(entry) {
     closePopup();                 // 세부 연표 팝업과 겹치지 않게
+    closeAbout();
     state.selected = entry;
     el.panelEyebrow.textContent = entry.category + ' · ' + entry.subcategory;
     el.panelTitle.textContent = entry.title;
@@ -555,7 +564,21 @@
   // -------------------------------------------------- 세부 연표 팝업
 
   function isPopupOpen() {
-    return el.popup.classList.contains('is-open');
+    return el.popup.classList.contains('is-open') || el.about.classList.contains('is-open');
+  }
+
+  function openAbout() {
+    closePanel();
+    closePopup();
+    el.about.classList.add('is-open');
+    el.about.setAttribute('aria-hidden', 'false');
+    el.panelBackdrop.hidden = false;
+  }
+
+  function closeAbout() {
+    el.about.classList.remove('is-open');
+    el.about.setAttribute('aria-hidden', 'true');
+    if (!state.selected && !el.popup.classList.contains('is-open')) el.panelBackdrop.hidden = true;
   }
 
   /** 세부 연표 한 줄 */
@@ -738,7 +761,10 @@
 
     el.panelClose.addEventListener('click', closePanel);
     el.popupClose.addEventListener('click', closePopup);
+    el.aboutOpen.addEventListener('click', openAbout);
+    el.aboutClose.addEventListener('click', closeAbout);
     el.panelBackdrop.addEventListener('click', function () {
+      closeAbout();
       closePopup();
       closePanel();
     });
@@ -746,7 +772,8 @@
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
-        if (isPopupOpen()) closePopup();
+        if (el.about.classList.contains('is-open')) closeAbout();
+        else if (isPopupOpen()) closePopup();
         else if (state.selected) closePanel();
         else if (state.query) { el.search.value = ''; state.query = ''; render(); }
         return;
