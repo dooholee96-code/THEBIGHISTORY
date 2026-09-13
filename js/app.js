@@ -26,9 +26,12 @@
     eras: document.getElementById('era-presets'),
     filters: document.getElementById('filters'),
     filtersToggle: document.getElementById('filters-toggle'),
-    filterGroups: document.getElementById('filter-groups'),
+    categoryOpen: document.getElementById('category-open'),
+    categoryPanel: document.getElementById('category-panel'),
+    categoryList: document.getElementById('category-list'),
+    categoryCount: document.getElementById('category-count'),
+    categorySummary: document.getElementById('category-summary'),
     draftOnly: document.getElementById('draft-only'),
-    showSummary: document.getElementById('show-summary'),
     scrollMode: document.getElementById('scroll-mode'),
     orientation: document.getElementById('orientation'),
     modeHint: document.getElementById('mode-hint'),
@@ -75,7 +78,6 @@
     active: {},        // datasetId -> boolean
     query: '',
     draftOnly: false,
-    summaryAlways: false,     // 기본은 확대했을 때만 요약을 보여준다
     scrollMode: 'zoom',
     axis: 'vertical',         // 'vertical' = 시간이 위아래(기본), 'horizontal' = 시간이 좌우
                               // 실제 시작값은 data/index.json 의 default_axis 를 따른다
@@ -88,6 +90,7 @@
 
   var chart = null;
   var chipNodes = {};
+  var trackNodes = [];
   var eraNodes = {};
 
   // ------------------------------------------------------------ 유틸
@@ -135,59 +138,92 @@
     });
   }
 
+  /**
+   * 카테고리 선택 패널.
+   * 트랙(왕조·국가사 / 주제사)별로 묶고, 트랙 전체 체크와 개별 체크를 함께 둔다.
+   * 위쪽에 전체 선택 / 전체 해제가 있다.
+   */
   function buildFilters(tracks) {
-    el.filterGroups.textContent = '';
+    el.categoryList.textContent = '';
     chipNodes = {};
+    trackNodes = [];
 
     tracks.forEach(function (track) {
       var group = document.createElement('div');
-      group.className = 'filter-group';
+      group.className = 'pick-group';
 
-      var label = document.createElement('button');
-      label.type = 'button';
-      label.className = 'filter-group__label';
-      label.textContent = track.label;
-      label.title = track.label + ' 전체 켜기/끄기';
-      label.addEventListener('click', function () { toggleTrack(track); });
-      group.appendChild(label);
+      // 트랙 전체 토글
+      var head = document.createElement('label');
+      head.className = 'pick-row pick-row--track';
+
+      var trackBox = document.createElement('input');
+      trackBox.type = 'checkbox';
+      trackBox.addEventListener('change', function () {
+        var on = trackBox.checked;
+        track.datasets.forEach(function (ds) { state.active[ds.id] = on; });
+        render();
+      });
+      head.appendChild(trackBox);
+
+      var trackName = document.createElement('span');
+      trackName.className = 'pick-row__name';
+      trackName.textContent = track.label;
+      head.appendChild(trackName);
+
+      var trackCount = document.createElement('span');
+      trackCount.className = 'pick-row__count';
+      head.appendChild(trackCount);
+
+      group.appendChild(head);
+      trackNodes.push({ track: track, box: trackBox, count: trackCount });
 
       track.datasets.forEach(function (ds) {
-        var chip = document.createElement('button');
-        chip.type = 'button';
-        chip.className = 'chip';
-        chip.style.setProperty('--chip-color', ds.color);
-        chip.setAttribute('aria-pressed', 'true');
+        var row = document.createElement('label');
+        row.className = 'pick-row';
 
-        var dot = document.createElement('span');
-        dot.className = 'chip__dot';
-        chip.appendChild(dot);
-
-        var name = document.createElement('span');
-        name.textContent = ds.label;
-        chip.appendChild(name);
-
-        var count = document.createElement('span');
-        count.className = 'chip__count';
-        chip.appendChild(count);
-
-        chip.addEventListener('click', function () {
-          state.active[ds.id] = !state.active[ds.id];
+        var box = document.createElement('input');
+        box.type = 'checkbox';
+        box.addEventListener('change', function () {
+          state.active[ds.id] = box.checked;
           render();
         });
+        row.appendChild(box);
 
-        chipNodes[ds.id] = { chip: chip, count: count };
-        group.appendChild(chip);
+        var dot = document.createElement('span');
+        dot.className = 'pick-row__dot';
+        dot.style.backgroundColor = ds.color;
+        row.appendChild(dot);
+
+        var name = document.createElement('span');
+        name.className = 'pick-row__name';
+        name.textContent = ds.label;
+        row.appendChild(name);
+
+        var count = document.createElement('span');
+        count.className = 'pick-row__count';
+        row.appendChild(count);
+
+        chipNodes[ds.id] = { box: box, count: count, row: row };
+        group.appendChild(row);
       });
 
-      el.filterGroups.appendChild(group);
+      el.categoryList.appendChild(group);
     });
   }
 
-  function toggleTrack(track) {
-    var ids = track.datasets.map(function (ds) { return ds.id; });
-    var allOn = ids.every(function (id) { return state.active[id]; });
-    ids.forEach(function (id) { state.active[id] = !allOn; });
+  function setAllCategories(on) {
+    state.data.datasets.forEach(function (ds) { state.active[ds.id] = on; });
     render();
+  }
+
+  function openCategoryPanel() {
+    el.categoryPanel.hidden = false;
+    el.categoryOpen.setAttribute('aria-expanded', 'true');
+  }
+
+  function closeCategoryPanel() {
+    el.categoryPanel.hidden = true;
+    el.categoryOpen.setAttribute('aria-expanded', 'false');
   }
 
   // -------------------------------------------------- 묶음(클러스터) 계산
@@ -257,9 +293,8 @@
     grouped.clusters.forEach(function (cluster) { state.clusters[cluster.id] = cluster; });
 
     state.lastYpp = chart.yearsPerPixel();
-    chart.setEntries(grouped.entries, grouped.clusters, {
-      summaryMode: state.summaryAlways ? 'always' : 'auto'
-    });
+    // 연표 막대에는 사건명만 둔다. 설명은 항목을 눌렀을 때 팝업에서 본다.
+    chart.setEntries(grouped.entries, grouped.clusters, { summaryMode: 'off' });
   }
 
   function render() {
@@ -276,10 +311,27 @@
       var node = chipNodes[ds.id];
       if (!node) return;
       var on = !!state.active[ds.id];
-      node.chip.classList.toggle('is-on', on);
-      node.chip.setAttribute('aria-pressed', String(on));
-      node.count.textContent = on ? String(counts[ds.id]) : '';
+      node.box.checked = on;
+      node.row.classList.toggle('is-on', on);
+      node.count.textContent = String(counts[ds.id]);
     });
+
+    // 트랙 전체 체크: 일부만 켜져 있으면 중간 상태로 보여준다.
+    trackNodes.forEach(function (node) {
+      var ids = node.track.datasets.map(function (ds) { return ds.id; });
+      var onCount = ids.filter(function (id) { return state.active[id]; }).length;
+      node.box.checked = onCount === ids.length;
+      node.box.indeterminate = onCount > 0 && onCount < ids.length;
+      node.count.textContent = onCount + '/' + ids.length;
+    });
+
+    var total = data.datasets.length;
+    var picked = activeIds().length;
+    el.categoryCount.textContent = picked + '/' + total;
+    el.categoryOpen.classList.toggle('is-partial', picked > 0 && picked < total);
+    el.categorySummary.textContent = picked === 0
+      ? '아무것도 선택하지 않아 연표가 비어 있습니다.'
+      : picked + '개 카테고리 · ' + state.visible.length + '개 항목';
 
     chart.setStructure(data.tracks, activeIds(), counts);
     renderItems();
@@ -300,10 +352,7 @@
   /** 확대/이동으로 묶음 단위가 바뀌었을 때만 다시 그린다. */
   var onRangeChanged = debounce(function () {
     if (!chart || !state.data) return;
-    var ypp = chart.yearsPerPixel();
-    var zoomChanged = !state.lastYpp || ypp / state.lastYpp > 1.25 || state.lastYpp / ypp > 1.25;
-    // 묶음 단위가 바뀌었거나, 요약이 나타날/사라질 만큼 확대가 달라졌으면 다시 그린다.
-    if (bucketYears() !== state.lastBucket || zoomChanged) renderItems();
+    if (bucketYears() !== state.lastBucket) renderItems();
   }, 170);
 
   /** 처음 열었을 때 / 전체 초기화 시 보여줄 범위. */
@@ -381,10 +430,9 @@
   function resetAll() {
     state.query = '';
     state.draftOnly = false;
-    state.summaryAlways = false;
     el.search.value = '';
     el.draftOnly.checked = false;
-    el.showSummary.checked = false;
+    closeCategoryPanel();
     state.data.datasets.forEach(function (ds) {
       state.active[ds.id] = !ds.hidden_by_default;
     });
@@ -737,9 +785,25 @@
       render();
     });
 
-    el.showSummary.addEventListener('change', function () {
-      state.summaryAlways = el.showSummary.checked;
-      renderItems();
+    el.categoryOpen.addEventListener('click', function () {
+      if (el.categoryPanel.hidden) openCategoryPanel();
+      else closeCategoryPanel();
+    });
+
+    el.categoryPanel.addEventListener('click', function (e) {
+      var btn = e.target.closest ? e.target.closest('[data-pick]') : null;
+      if (!btn) return;
+      var action = btn.getAttribute('data-pick');
+      if (action === 'all') setAllCategories(true);
+      else if (action === 'none') setAllCategories(false);
+      else if (action === 'close') closeCategoryPanel();
+    });
+
+    // 패널 바깥을 누르면 닫는다.
+    document.addEventListener('click', function (e) {
+      if (el.categoryPanel.hidden) return;
+      if (el.categoryPanel.contains(e.target) || el.categoryOpen.contains(e.target)) return;
+      closeCategoryPanel();
     });
 
     el.orientation.addEventListener('click', function (e) {
@@ -772,7 +836,8 @@
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
-        if (el.about.classList.contains('is-open')) closeAbout();
+        if (!el.categoryPanel.hidden) closeCategoryPanel();
+        else if (el.about.classList.contains('is-open')) closeAbout();
         else if (isPopupOpen()) closePopup();
         else if (state.selected) closePanel();
         else if (state.query) { el.search.value = ''; state.query = ''; render(); }

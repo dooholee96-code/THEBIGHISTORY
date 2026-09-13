@@ -88,7 +88,7 @@
       lanes: [],            // {id, label, color, track, x, width, cols}
       entries: [],
       clusters: [],
-      summaryMode: 'auto',        // 'auto' = 확대했을 때만, 'always' = 되도록 항상
+      summaryMode: 'off',         // 'off' = 사건명만(기본), 'always' = 요약도 함께
       startYear: options.window ? options.window.start_year : -3000,
       endYear: options.window ? options.window.end_year : 2040,
       minYear: -50000,
@@ -380,9 +380,8 @@
         var usable = lane.width - LANE_GAP - (hasOverflow ? OVERFLOW_W : 0);
         var colW = Math.max(SLOT_MIN_W, usable / lane.cols);
         var step = lane.cols > 1 ? Math.min(colW, (usable - colW) / (lane.cols - 1)) : colW;
-        // '요약 항상 표시' 를 켜면 좁은 칸에서도 보여준다(그래도 글자가 뭉개질 만큼
-        // 좁으면 제목만 남긴다).
-        var showSub = colW >= (state.summaryMode === 'always' ? 56 : SUB_MIN_W);
+        // 막대에는 사건명만 둔다(설명은 팝업에서). 'always' 로 넘어오면 옛 동작을 쓴다.
+        var showSub = state.summaryMode === 'always' && colW >= 56;
 
         (lane.items || []).forEach(function (item) {
           var top = (item._start - state.startYear) * perPx;
@@ -425,10 +424,7 @@
 
           // 같은 항목·같은 표시 단계면 내부 DOM 을 다시 만들지 않는다.
           // 기본은 사건명만, 확대해서 막대가 충분히 길어지면 요약까지 보여준다.
-          var summaryAt = state.summaryMode === 'always'
-            ? 34
-            : Math.max(90, viewHeight() / 6);   // 화면의 1/6 이상 차지할 때만
-          var level = (boxH >= summaryAt && showSub && !isOverflow) ? 2 : (boxH >= 15 ? 1 : 0);
+          var level = (boxH >= 34 && showSub && !isOverflow) ? 2 : (boxH >= 15 ? 1 : 0);
           var sig = item._id + '|' + level + '|' + (isCluster ? item.cluster.entries.length : 0);
           if (node._sig !== sig) {
             node._sig = sig;
@@ -638,7 +634,7 @@
       setEntries: function (entries, clusters, opts) {
         state.entries = entries || [];
         state.clusters = clusters || [];
-        state.summaryMode = (opts && opts.summaryMode) || 'auto';
+        state.summaryMode = (opts && opts.summaryMode) || 'off';
         schedule();
       },
 

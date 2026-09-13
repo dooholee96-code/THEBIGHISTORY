@@ -10,7 +10,7 @@
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
   <link rel="stylesheet" href="vendor/vis-timeline/vis-timeline-graph2d.min.css" />
-  <link rel="stylesheet" href="css/styles.css?v=662e0746" />
+  <link rel="stylesheet" href="css/styles.css?v=94a7f8b7" />
 </head>
 <body>
   <header class="toolbar" id="toolbar">
@@ -49,15 +49,34 @@
     </div>
 
     <div class="toolbar__row toolbar__row--filters" id="filters">
-      <div class="filter-groups" id="filter-groups"></div>
       <div class="filter-extra">
+        <div class="picker">
+          <button id="category-open" class="btn btn--pick" type="button" aria-expanded="false" aria-controls="category-panel">
+            <span class="picker__icon" aria-hidden="true">▤</span>
+            <span>카테고리</span>
+            <span class="picker__count" id="category-count">0/0</span>
+            <span class="picker__caret" aria-hidden="true">▾</span>
+          </button>
+
+          <div class="picker__panel" id="category-panel" hidden>
+            <div class="picker__head">
+              <strong>표시할 카테고리</strong>
+              <div class="picker__actions">
+                <button type="button" class="btn btn--ghost btn--sm" data-pick="all">전체 선택</button>
+                <button type="button" class="btn btn--ghost btn--sm" data-pick="none">전체 해제</button>
+              </div>
+            </div>
+            <div class="picker__body" id="category-list"></div>
+            <div class="picker__foot">
+              <span class="picker__hint" id="category-summary"></span>
+              <button type="button" class="btn btn--primary btn--sm" data-pick="close">닫기</button>
+            </div>
+          </div>
+        </div>
+
         <label class="switch">
           <input type="checkbox" id="draft-only" />
           <span>검토 전(draft)만</span>
-        </label>
-        <label class="switch">
-          <input type="checkbox" id="show-summary" />
-          <span>요약 항상 표시</span>
         </label>
 
         <div class="segmented" id="orientation" role="group" aria-label="시간축 방향">
@@ -172,9 +191,9 @@
   </div>
 
   <script src="vendor/vis-timeline/vis-timeline-graph2d.min.js"></script>
-  <script src="js/data.js?v=662e0746"></script>
-  <script src="js/timeline.js?v=662e0746"></script>
-  <script src="js/vtimeline.js?v=662e0746"></script>
-  <script src="js/app.js?v=662e0746"></script>
+  <script src="js/data.js?v=94a7f8b7"></script>
+  <script src="js/timeline.js?v=94a7f8b7"></script>
+  <script src="js/vtimeline.js?v=94a7f8b7"></script>
+  <script src="js/app.js?v=94a7f8b7"></script>
 </body>
 </html>

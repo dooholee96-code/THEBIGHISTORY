@@ -122,25 +122,12 @@
   }
 
   /**
-   * 막대에는 기본적으로 사건명만 적는다.
-   * 확대해서 막대가 충분히 길어졌을 때만 한 줄 요약이 따라 나온다.
-   * (opts.summaryMode === 'always' 면 기준을 낮춰 웬만하면 보여준다)
+   * 막대에는 사건명만 적는다.
+   * 설명·요약은 항목을 눌렀을 때 팝업에서 보여준다(화면을 읽기 쉽게 두기 위해).
    */
-  function wantsSummary(entry, opts) {
-    if (!entry._summary || entry.start_year === entry.end_year) return false;
-    var widthPx = (entry.end_year - entry.start_year) / (opts.yearsPerPixel || 1);
-    var need = opts.summaryMode === 'always'
-      ? 150
-      : Math.max(300, (opts.viewWidth || 1200) / 4.5);   // 화면의 1/4.5 이상
-    return widthPx >= need;
-  }
-
-  function entryToItem(entry, opts) {
+  function entryToItem(entry) {
     var isPoint = entry.start_year === entry.end_year;
     var content = escapeHtml(entry.title);
-    if (wantsSummary(entry, opts)) {
-      content += ' <span>' + escapeHtml(entry._summary) + '</span>';
-    }
 
     var item = {
       id: entry.id,
@@ -320,13 +307,7 @@
 
       /** 개별 항목 + 묶음(클러스터)을 한 번에 올린다. */
       setEntries: function (entries, clusters, opts) {
-        opts = Object.assign({}, opts, {
-          yearsPerPixel: api.yearsPerPixel(),
-          viewWidth: container.clientWidth || 1200
-        });
-        var items = entries.map(function (entry) {
-          return entryToItem(entry, opts);
-        });
+        var items = entries.map(entryToItem);
         (clusters || []).forEach(function (cluster) {
           items.push(clusterToItem(cluster));
         });
