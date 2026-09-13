@@ -16,11 +16,9 @@
         "고대",
         "자연철학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "고대 전승에 따른 생몰 연대로 확실하지 않다."
     },
     {
       "id": "philosophy-heraclitus",
@@ -36,10 +34,7 @@
         "고대",
         "존재론"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -56,10 +51,7 @@
         "고대",
         "인식론"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -76,10 +68,7 @@
         "고대",
         "윤리학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -96,11 +85,9 @@
         "고대",
         "형이상학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "생몰 연대에 기원전 428/427년설 등 이설이 있다."
     },
     {
       "id": "philosophy-aristotle",
@@ -116,10 +103,7 @@
         "고대",
         "논리학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -136,10 +120,7 @@
         "고대",
         "윤리학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -156,10 +137,7 @@
         "고대",
         "윤리학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -176,10 +154,7 @@
         "고대",
         "동양철학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -196,10 +171,7 @@
         "고대",
         "형이상학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -216,10 +188,7 @@
         "고대",
         "신학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -236,10 +205,7 @@
         "중세",
         "형이상학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -256,10 +222,7 @@
         "중세",
         "신학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -276,10 +239,7 @@
         "중세",
         "동양철학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -296,10 +256,7 @@
         "중세",
         "인식론"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -316,10 +273,7 @@
         "근세",
         "인문주의"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -336,10 +290,7 @@
         "근세",
         "동양철학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -356,10 +307,7 @@
         "근세",
         "동양철학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -376,10 +324,7 @@
         "근세",
         "방법론"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -396,10 +341,7 @@
         "근세",
         "인식론"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -416,10 +358,7 @@
         "근세",
         "형이상학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -436,10 +375,7 @@
         "근세",
         "정치철학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -456,10 +392,7 @@
         "근세",
         "인식론"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -476,10 +409,7 @@
         "근세",
         "정치철학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -496,10 +426,7 @@
         "근대",
         "인식론"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -516,10 +443,7 @@
         "근대",
         "형이상학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -536,10 +460,7 @@
         "근대",
         "윤리학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -556,10 +477,7 @@
         "근대",
         "정치철학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -576,10 +494,7 @@
         "근대",
         "윤리학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -596,10 +511,7 @@
         "근대",
         "인식론"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -616,10 +528,7 @@
         "현대",
         "방법론"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -636,10 +545,7 @@
         "현대",
         "논리학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -656,10 +562,7 @@
         "현대",
         "윤리학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -676,10 +579,7 @@
         "현대",
         "사조"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -696,10 +596,7 @@
         "현대",
         "정치철학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -716,10 +613,7 @@
         "현대",
         "윤리학"
       ],
-      "sources": [
-        "Stanford Encyclopedia of Philosophy 개괄",
-        "위키백과 철학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     }
   ]

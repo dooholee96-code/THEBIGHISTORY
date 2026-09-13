@@ -72,7 +72,7 @@
     active: {},        // datasetId -> boolean
     query: '',
     draftOnly: false,
-    showSummary: true,
+    summaryAlways: false,     // 기본은 확대했을 때만 요약을 보여준다
     scrollMode: 'zoom',
     axis: 'vertical',         // 'vertical' = 시간이 위아래(기본), 'horizontal' = 시간이 좌우
                               // 실제 시작값은 data/index.json 의 default_axis 를 따른다
@@ -253,7 +253,10 @@
     state.clusters = {};
     grouped.clusters.forEach(function (cluster) { state.clusters[cluster.id] = cluster; });
 
-    chart.setEntries(grouped.entries, grouped.clusters, { showSummary: state.showSummary });
+    state.lastYpp = chart.yearsPerPixel();
+    chart.setEntries(grouped.entries, grouped.clusters, {
+      summaryMode: state.summaryAlways ? 'always' : 'auto'
+    });
   }
 
   function render() {
@@ -294,7 +297,10 @@
   /** 확대/이동으로 묶음 단위가 바뀌었을 때만 다시 그린다. */
   var onRangeChanged = debounce(function () {
     if (!chart || !state.data) return;
-    if (bucketYears() !== state.lastBucket) renderItems();
+    var ypp = chart.yearsPerPixel();
+    var zoomChanged = !state.lastYpp || ypp / state.lastYpp > 1.25 || state.lastYpp / ypp > 1.25;
+    // 묶음 단위가 바뀌었거나, 요약이 나타날/사라질 만큼 확대가 달라졌으면 다시 그린다.
+    if (bucketYears() !== state.lastBucket || zoomChanged) renderItems();
   }, 170);
 
   /** 처음 열었을 때 / 전체 초기화 시 보여줄 범위. */
@@ -361,15 +367,16 @@
 
     render();
     if (win) chart.focusYears(win.start, win.end, false);
+    settleView();
   }
 
   function resetAll() {
     state.query = '';
     state.draftOnly = false;
-    state.showSummary = true;
+    state.summaryAlways = false;
     el.search.value = '';
     el.draftOnly.checked = false;
-    el.showSummary.checked = true;
+    el.showSummary.checked = false;
     state.data.datasets.forEach(function (ds) {
       state.active[ds.id] = !ds.hidden_by_default;
     });
@@ -406,6 +413,7 @@
   }
 
   function openPanel(entry) {
+    closePopup();                 // 세부 연표 팝업과 겹치지 않게
     state.selected = entry;
     el.panelEyebrow.textContent = entry.category + ' · ' + entry.subcategory;
     el.panelTitle.textContent = entry.title;
@@ -456,6 +464,14 @@
     desc.textContent = entry.description;
     body.appendChild(desc);
 
+    // 연대의 근거·한계가 적혀 있으면 눈에 띄게 보여준다.
+    if (entry.dating_note) {
+      var dating = document.createElement('p');
+      dating.className = 'note note--dating';
+      dating.textContent = '연대 주석 — ' + entry.dating_note;
+      body.appendChild(dating);
+    }
+
     if (entry.tags && entry.tags.length) {
       var tags = document.createElement('div');
       tags.className = 'tag-list';
@@ -476,7 +492,14 @@
     }
 
     if (entry.sources && entry.sources.length) {
-      body.appendChild(field('참고 자료', listOf(entry.sources)));
+      body.appendChild(field('확인한 자료', listOf(entry.sources)));
+    } else {
+      // 출처가 비어 있다는 사실을 숨기지 않는다.
+      var noSrc = document.createElement('p');
+      noSrc.className = 'note note--warn';
+      noSrc.textContent =
+        '출처 미확인 — 이 항목은 개설 수준의 통설을 요약한 초안이며, 아직 자료로 대조하지 않았습니다.';
+      body.appendChild(noSrc);
     }
 
     var meta = document.createElement('p');
@@ -653,6 +676,19 @@
 
   // ------------------------------------------------------------ 이벤트
 
+  /**
+   * 첫 렌더 직후 한 번 더 그린다.
+   * vis-timeline 은 컨테이너 크기를 재기 전에 만든 아이템을 visibility:hidden 으로
+   * 두었다가 다음 redraw 에서 드러내므로, 이 호출이 없으면 막대가 보이지 않는다.
+   */
+  function settleView() {
+    setTimeout(function () {
+      if (!chart) return;
+      chart.redraw();
+      if (bucketYears() !== state.lastBucket) renderItems();
+    }, 120);
+  }
+
   /** 좁은 화면에서는 필터 줄을 접어 연표에 화면을 내준다. */
   function setFiltersOpen(open) {
     el.filters.hidden = !open;
@@ -679,7 +715,7 @@
     });
 
     el.showSummary.addEventListener('change', function () {
-      state.showSummary = el.showSummary.checked;
+      state.summaryAlways = el.showSummary.checked;
       renderItems();
     });
 
@@ -782,11 +818,7 @@
     setScrollMode('zoom');
     setFiltersOpen(window.innerWidth > 860);
 
-    // 첫 페인트 직후 한 번 더 그려 레인 라벨 폭이 반영된 시간축을 얻는다.
-    setTimeout(function () {
-      chart.redraw();
-      if (bucketYears() !== state.lastBucket) renderItems();
-    }, 120);
+    settleView();
 
     el.loading.hidden = true;
     console.info(

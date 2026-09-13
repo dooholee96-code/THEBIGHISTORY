@@ -8,19 +8,17 @@
       "subcategory": "일본",
       "title": "조몬 시대",
       "region": "동아시아",
-      "start_year": -10000,
+      "start_year": -14000,
       "end_year": -300,
-      "era_note": "기원전 10000년 ~ 기원전 300년",
+      "era_note": "기원전 14000년 ~ 기원전 300년",
       "description": "수렵채집과 새끼줄무늬 토기로 대표되는 일본 열도의 신석기 문화다.",
       "tags": [
         "선사",
         "문화"
       ],
-      "sources": [
-        "Cambridge History of Japan 개괄",
-        "위키백과 일본사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "토기 연대 측정에 따라 기원전 14000년경 시작으로 보는 견해가 일반적이나 편차가 크다."
     },
     {
       "id": "japan-yayoi",
@@ -36,11 +34,9 @@
         "고대",
         "문화"
       ],
-      "sources": [
-        "Cambridge History of Japan 개괄",
-        "위키백과 일본사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "시작 시기를 기원전 10세기로 올려 보는 견해도 있어 학설 차이가 크다."
     },
     {
       "id": "japan-kofun",
@@ -56,10 +52,7 @@
         "고대",
         "국가형성"
       ],
-      "sources": [
-        "Cambridge History of Japan 개괄",
-        "위키백과 일본사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -76,10 +69,7 @@
         "고대",
         "왕조"
       ],
-      "sources": [
-        "Cambridge History of Japan 개괄",
-        "위키백과 일본사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -96,10 +86,7 @@
         "고대",
         "왕조"
       ],
-      "sources": [
-        "Cambridge History of Japan 개괄",
-        "위키백과 일본사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -116,10 +103,7 @@
         "중세",
         "왕조"
       ],
-      "sources": [
-        "Cambridge History of Japan 개괄",
-        "위키백과 일본사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -136,10 +120,7 @@
         "중세",
         "막부"
       ],
-      "sources": [
-        "Cambridge History of Japan 개괄",
-        "위키백과 일본사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -156,10 +137,7 @@
         "중세",
         "정치"
       ],
-      "sources": [
-        "Cambridge History of Japan 개괄",
-        "위키백과 일본사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -176,10 +154,7 @@
         "중세",
         "막부"
       ],
-      "sources": [
-        "Cambridge History of Japan 개괄",
-        "위키백과 일본사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -196,10 +171,7 @@
         "중세",
         "분열기"
       ],
-      "sources": [
-        "Cambridge History of Japan 개괄",
-        "위키백과 일본사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -216,10 +188,7 @@
         "근세",
         "통일"
       ],
-      "sources": [
-        "Cambridge History of Japan 개괄",
-        "위키백과 일본사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -236,10 +205,7 @@
         "근세",
         "막부"
       ],
-      "sources": [
-        "Cambridge History of Japan 개괄",
-        "위키백과 일본사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -256,10 +222,7 @@
         "근대",
         "국가"
       ],
-      "sources": [
-        "Cambridge History of Japan 개괄",
-        "위키백과 일본사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -276,10 +239,7 @@
         "근대",
         "국가"
       ],
-      "sources": [
-        "Cambridge History of Japan 개괄",
-        "위키백과 일본사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -296,10 +256,7 @@
         "근대",
         "군국주의"
       ],
-      "sources": [
-        "Cambridge History of Japan 개괄",
-        "위키백과 일본사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -316,10 +273,7 @@
         "근대",
         "전쟁"
       ],
-      "sources": [
-        "Cambridge History of Japan 개괄",
-        "위키백과 일본사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -336,10 +290,7 @@
         "현대",
         "점령"
       ],
-      "sources": [
-        "Cambridge History of Japan 개괄",
-        "위키백과 일본사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -356,10 +307,7 @@
         "현대",
         "경제"
       ],
-      "sources": [
-        "Cambridge History of Japan 개괄",
-        "위키백과 일본사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -376,10 +324,7 @@
         "현대",
         "국가"
       ],
-      "sources": [
-        "Cambridge History of Japan 개괄",
-        "위키백과 일본사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -396,10 +341,7 @@
         "현대",
         "국가"
       ],
-      "sources": [
-        "Cambridge History of Japan 개괄",
-        "위키백과 일본사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     }
   ]

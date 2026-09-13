@@ -16,11 +16,9 @@
         "고대",
         "문명"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "도시문명의 시작·쇠퇴 시점을 대략적으로 잡은 값이다."
     },
     {
       "id": "world-egypt",
@@ -36,11 +34,9 @@
         "고대",
         "문명"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "통일 왕조의 시작 연대(기원전 3100년경)는 추정치다."
     },
     {
       "id": "world-indus",
@@ -56,11 +52,9 @@
         "고대",
         "문명"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "유적 연대에 근거한 대략적인 존속 기간이다."
     },
     {
       "id": "world-akkad",
@@ -76,11 +70,9 @@
         "고대",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "메소포타미아 절대연대는 중간연대기(middle chronology)를 따른 값으로, 단·장연대기에서는 수십 년 차이가 난다."
     },
     {
       "id": "world-babylon",
@@ -96,11 +88,9 @@
         "고대",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "중간연대기 기준 값. 채택하는 연대기에 따라 차이가 난다."
     },
     {
       "id": "world-hittite",
@@ -116,11 +106,9 @@
         "고대",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "왕국의 성립·멸망 시점을 대략적으로 잡은 값이다."
     },
     {
       "id": "world-mycenae",
@@ -136,10 +124,7 @@
         "고대",
         "문명"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -156,10 +141,7 @@
         "고대",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -176,10 +158,7 @@
         "고대",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -196,10 +175,7 @@
         "고대",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -216,10 +192,7 @@
         "고대",
         "문명"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -236,10 +209,7 @@
         "고대",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -256,10 +226,7 @@
         "고대",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -276,10 +243,7 @@
         "고대",
         "공화정"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -296,10 +260,7 @@
         "고대",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -316,10 +277,7 @@
         "고대",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -336,10 +294,7 @@
         "교류",
         "무역"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -356,10 +311,7 @@
         "중세",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -376,10 +328,7 @@
         "중세",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -396,10 +345,7 @@
         "중세",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -416,10 +362,7 @@
         "중세",
         "왕국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -436,10 +379,7 @@
         "중세",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -456,10 +396,7 @@
         "중세",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -476,10 +413,7 @@
         "중세",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -496,10 +430,7 @@
         "중세",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -516,10 +447,7 @@
         "중세",
         "전쟁"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -536,10 +464,7 @@
         "중세",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -556,10 +481,7 @@
         "근세",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -576,10 +498,7 @@
         "근세",
         "문화"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -596,10 +515,7 @@
         "근세",
         "교류"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -616,10 +532,7 @@
         "근세",
         "종교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -636,10 +549,7 @@
         "근세",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -656,10 +566,7 @@
         "근세",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -676,10 +583,7 @@
         "근세",
         "전쟁"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -696,10 +600,7 @@
         "근대",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -716,10 +617,7 @@
         "근대",
         "경제"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -736,10 +634,7 @@
         "근대",
         "혁명"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -756,10 +651,7 @@
         "근대",
         "혁명"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -776,10 +668,7 @@
         "근대",
         "제국"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -796,10 +685,7 @@
         "근대",
         "제국주의"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -816,10 +702,7 @@
         "근대",
         "전쟁"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -836,10 +719,7 @@
         "현대",
         "국가"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -856,10 +736,7 @@
         "현대",
         "경제"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -876,10 +753,7 @@
         "현대",
         "전쟁"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -896,10 +770,7 @@
         "현대",
         "국제질서"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -916,10 +787,7 @@
         "현대",
         "독립"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -936,10 +804,7 @@
         "현대",
         "세계화"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 개괄",
-        "위키백과 세계사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     }
   ]

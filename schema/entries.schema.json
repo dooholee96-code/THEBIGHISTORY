@@ -86,11 +86,17 @@
         },
         "sources": {
           "type": "array",
+          "description": "이 항목의 연도·내용을 실제로 확인한 자료만 적는다. 가능하면 확인 가능한 URL 또는 '저자, 책이름, 쪽수' 처럼 되짚을 수 있는 형태로. 확인하지 않았다면 비워 둔다(빈 배열 = 출처 미확인). status 를 reviewed 로 올리려면 최소 1개가 있어야 한다.",
           "items": { "type": "string", "minLength": 1 }
+        },
+        "dating_note": {
+          "type": "string",
+          "description": "연대의 근거나 한계를 적는 자리. 문헌 전승 연대, 추정치, 학설이 갈리는 연대라면 여기에 밝힌다.",
+          "minLength": 1
         },
         "status": {
           "type": "string",
-          "description": "draft = 검토 전, reviewed = 검토 완료",
+          "description": "draft = 검토 전(출처 미확인), reviewed = 자료로 직접 확인함(sources 필수)",
           "enum": ["draft", "reviewed"]
         },
         "note": {

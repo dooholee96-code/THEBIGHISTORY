@@ -16,11 +16,9 @@
         "고대",
         "자연철학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "고대 전승에 따른 생몰 연대로 확실하지 않다."
     },
     {
       "id": "science-pythagoras",
@@ -36,10 +34,7 @@
         "고대",
         "수학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -56,10 +51,7 @@
         "고대",
         "의학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -76,10 +68,7 @@
         "고대",
         "자연철학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -96,10 +85,7 @@
         "고대",
         "수학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -116,10 +102,7 @@
         "고대",
         "물리학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -136,10 +119,7 @@
         "고대",
         "천문학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -156,10 +136,7 @@
         "고대",
         "천문학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -176,10 +153,7 @@
         "고대",
         "지구과학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -196,10 +170,7 @@
         "중세",
         "종합"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -216,10 +187,7 @@
         "중세",
         "수학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -236,10 +204,7 @@
         "중세",
         "광학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -256,10 +221,7 @@
         "근세",
         "천문학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -276,10 +238,7 @@
         "근세",
         "의학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -296,10 +255,7 @@
         "근세",
         "천문학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -316,10 +272,7 @@
         "근세",
         "천문학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -336,10 +289,7 @@
         "근세",
         "천문학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -356,10 +306,7 @@
         "근세",
         "생리학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -376,10 +323,7 @@
         "근세",
         "방법론"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -396,10 +340,7 @@
         "근세",
         "물리학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -416,10 +357,7 @@
         "근세",
         "생물학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -436,10 +374,7 @@
         "근대",
         "화학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -456,10 +391,7 @@
         "근대",
         "물리학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -476,10 +408,7 @@
         "근대",
         "화학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -496,10 +425,7 @@
         "근대",
         "물리학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -516,10 +442,7 @@
         "근대",
         "의학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -536,10 +459,7 @@
         "근대",
         "생물학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -556,10 +476,7 @@
         "근대",
         "물리학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -576,10 +493,7 @@
         "근대",
         "유전학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -596,10 +510,7 @@
         "근대",
         "화학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -616,10 +527,7 @@
         "근대",
         "물리학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -636,10 +544,7 @@
         "근대",
         "물리학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -656,10 +561,7 @@
         "현대",
         "물리학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -676,10 +578,7 @@
         "현대",
         "물리학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -696,10 +595,7 @@
         "현대",
         "물리학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -716,10 +612,7 @@
         "현대",
         "물리학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -736,10 +629,7 @@
         "현대",
         "의학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -756,10 +646,7 @@
         "현대",
         "천문학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -776,10 +663,7 @@
         "현대",
         "물리학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -796,10 +680,7 @@
         "현대",
         "생물학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -816,10 +697,7 @@
         "현대",
         "지구과학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -836,10 +714,7 @@
         "현대",
         "물리학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -856,10 +731,7 @@
         "현대",
         "생물학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -876,10 +748,7 @@
         "현대",
         "물리학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -896,10 +765,7 @@
         "현대",
         "천문학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -916,10 +782,7 @@
         "현대",
         "생명공학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 과학사 개괄",
-        "위키백과 과학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     }
   ]

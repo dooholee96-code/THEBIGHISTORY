@@ -95,6 +95,7 @@ for (const ds of manifest.datasets || []) {
 const globalIds = new Map();
 let entryCount = 0;
 let draftCount = 0;
+let sourcedCount = 0;
 
 for (const ds of manifest.datasets || []) {
   const file = path.join(DATA_DIR, ds.file);
@@ -120,6 +121,7 @@ for (const ds of manifest.datasets || []) {
     const where = `entries[${i}] "${entry.id}"`;
     entryCount += 1;
     if (entry.status === 'draft') draftCount += 1;
+    if (entry.sources && entry.sources.length) sourcedCount += 1;
 
     if (globalIds.has(entry.id)) {
       fail(file, `${where} — id 가 ${globalIds.get(entry.id)} 와 중복됩니다.`);
@@ -159,8 +161,9 @@ for (const ds of manifest.datasets || []) {
       }
     }
 
-    if (!entry.sources || entry.sources.length === 0) {
-      warn(file, `${where} — sources 가 비어 있습니다.`);
+    // 출처 정책: draft 는 출처가 없어도 되지만, reviewed 로 올리려면 반드시 있어야 한다.
+    if (entry.status === 'reviewed' && (!entry.sources || entry.sources.length === 0)) {
+      fail(file, `${where} — status 가 reviewed 인데 sources 가 비어 있습니다. 확인한 자료를 적거나 draft 로 되돌리세요.`);
     }
   });
 
@@ -199,5 +202,11 @@ function report() {
     `\n검증 통과 — 데이터셋 ${seenDatasetIds.size}개, 항목 ${entryCount}개 ` +
     `(draft ${draftCount}개 / reviewed ${entryCount - draftCount}개), 경고 ${warnings.length}건`
   );
+  if (sourcedCount < entryCount) {
+    console.log(
+      `출처 표기: ${sourcedCount}/${entryCount}개 항목에 확인한 자료가 적혀 있습니다. ` +
+      `나머지 ${entryCount - sourcedCount}개는 '출처 미확인' 상태입니다.`
+    );
+  }
   process.exit(0);
 }

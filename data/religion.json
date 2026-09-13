@@ -16,11 +16,9 @@
         "고대",
         "힌두교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "문헌 성립 시기에 근거한 폭넓은 추정 구간이다."
     },
     {
       "id": "religion-judaism",
@@ -36,10 +34,7 @@
         "고대",
         "유대교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -56,11 +51,9 @@
         "고대",
         "조로아스터교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "창시 시기에 대해 기원전 1200년설과 기원전 600년설 등 편차가 매우 크다."
     },
     {
       "id": "religion-upanishad",
@@ -76,10 +69,7 @@
         "고대",
         "힌두교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -96,11 +86,9 @@
         "고대",
         "자이나교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "전통 전승에 따른 생몰 연대로, 학설 차이가 있다."
     },
     {
       "id": "religion-buddhism",
@@ -116,11 +104,9 @@
         "고대",
         "불교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "북방 전승의 전통 연대(기원전 563~483년)다. 남방 전승과 현대 학설은 이보다 100년 안팎 늦게 보기도 한다."
     },
     {
       "id": "religion-confucianism-rel",
@@ -136,10 +122,7 @@
         "고대",
         "유교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -156,10 +139,7 @@
         "고대",
         "도교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -176,10 +156,7 @@
         "고대",
         "불교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -196,11 +173,9 @@
         "고대",
         "기독교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "예수의 생몰 연대는 복음서 기록에 근거한 추정치다."
     },
     {
       "id": "religion-paul",
@@ -216,10 +191,7 @@
         "고대",
         "기독교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -236,10 +208,7 @@
         "고대",
         "불교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -256,10 +225,7 @@
         "고대",
         "기독교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -276,10 +242,7 @@
         "고대",
         "기독교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -296,10 +259,7 @@
         "고대",
         "불교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -316,10 +276,7 @@
         "고대",
         "기독교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -336,10 +293,7 @@
         "중세",
         "이슬람"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -356,10 +310,7 @@
         "중세",
         "이슬람"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -376,10 +327,7 @@
         "중세",
         "기독교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -396,10 +344,7 @@
         "중세",
         "기독교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -416,10 +361,7 @@
         "중세",
         "기독교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -436,10 +378,7 @@
         "중세",
         "유교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -456,10 +395,7 @@
         "근세",
         "시크교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -476,10 +412,7 @@
         "근세",
         "기독교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -496,10 +429,7 @@
         "근세",
         "기독교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -516,10 +446,7 @@
         "근세",
         "기독교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -536,10 +463,7 @@
         "근세",
         "기독교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -556,10 +480,7 @@
         "근대",
         "사상"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -576,10 +497,7 @@
         "근대",
         "기독교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -596,10 +514,7 @@
         "근대",
         "신종교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -616,10 +531,7 @@
         "현대",
         "기독교"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -636,10 +548,7 @@
         "현대",
         "사상"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 종교사 개괄",
-        "위키백과 종교사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     }
   ]

@@ -10,7 +10,7 @@
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
   <link rel="stylesheet" href="vendor/vis-timeline/vis-timeline-graph2d.min.css" />
-  <link rel="stylesheet" href="css/styles.css?v=6175a918" />
+  <link rel="stylesheet" href="css/styles.css?v=e5d82404" />
 </head>
 <body>
   <header class="toolbar" id="toolbar">
@@ -53,8 +53,8 @@
           <span>검토 전(draft)만</span>
         </label>
         <label class="switch">
-          <input type="checkbox" id="show-summary" checked />
-          <span>한 줄 요약</span>
+          <input type="checkbox" id="show-summary" />
+          <span>요약 항상 표시</span>
         </label>
 
         <div class="segmented" id="orientation" role="group" aria-label="시간축 방향">
@@ -102,25 +102,25 @@
     </div>
   </div>
 
-  <aside id="detail-panel" class="panel" aria-hidden="true" aria-labelledby="panel-title" role="dialog">
-    <div class="panel__head">
+  <div id="detail-panel" class="popup" aria-hidden="true" aria-labelledby="panel-title" role="dialog">
+    <div class="popup__head">
       <div>
-        <p class="panel__eyebrow" id="panel-eyebrow"></p>
-        <h2 class="panel__title" id="panel-title"></h2>
+        <p class="popup__eyebrow" id="panel-eyebrow"></p>
+        <h2 class="popup__title" id="panel-title"></h2>
       </div>
       <button id="panel-close" class="panel__close" type="button" aria-label="닫기">✕</button>
     </div>
-    <div class="panel__body" id="panel-body"></div>
-    <div class="panel__foot">
+    <div class="popup__body" id="panel-body"></div>
+    <div class="popup__foot">
       <button id="copy-json" class="btn btn--ghost btn--sm" type="button">이 항목 JSON 복사</button>
       <span class="panel__hint" id="copy-hint" aria-live="polite"></span>
     </div>
-  </aside>
+  </div>
 
   <script src="vendor/vis-timeline/vis-timeline-graph2d.min.js"></script>
-  <script src="js/data.js?v=6175a918"></script>
-  <script src="js/timeline.js?v=6175a918"></script>
-  <script src="js/vtimeline.js?v=6175a918"></script>
-  <script src="js/app.js?v=6175a918"></script>
+  <script src="js/data.js?v=e5d82404"></script>
+  <script src="js/timeline.js?v=e5d82404"></script>
+  <script src="js/vtimeline.js?v=e5d82404"></script>
+  <script src="js/app.js?v=e5d82404"></script>
 </body>
 </html>

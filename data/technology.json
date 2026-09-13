@@ -16,11 +16,9 @@
         "선사",
         "농업"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "농경은 지역마다 독립적으로 시작되어, 여기 적은 구간은 서남아시아를 기준으로 한 대략값이다."
     },
     {
       "id": "technology-wheel",
@@ -36,11 +34,9 @@
         "고대",
         "운송"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "최초 사용 시점은 유적에 따라 달라 대략값이다."
     },
     {
       "id": "technology-writing",
@@ -56,11 +52,9 @@
         "고대",
         "정보"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "쐐기문자의 성립 시점은 유물 해석에 따라 다소 달라진다."
     },
     {
       "id": "technology-bronze",
@@ -76,11 +70,9 @@
         "고대",
         "금속"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "청동기 시작 시기는 지역마다 1000년 이상 차이가 난다."
     },
     {
       "id": "technology-iron",
@@ -96,11 +88,9 @@
         "고대",
         "금속"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "철기 확산 시기는 지역마다 크게 다르다."
     },
     {
       "id": "technology-aqueduct",
@@ -116,10 +106,7 @@
         "고대",
         "토목"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -136,10 +123,7 @@
         "고대",
         "정보"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -156,10 +140,7 @@
         "중세",
         "정보"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -176,10 +157,7 @@
         "중세",
         "군사"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -196,10 +174,7 @@
         "중세",
         "항해"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -216,10 +191,7 @@
         "중세",
         "계측"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -236,10 +208,7 @@
         "중세",
         "정보"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -256,10 +225,7 @@
         "근세",
         "정보"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -276,10 +242,7 @@
         "근세",
         "계측"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -296,10 +259,7 @@
         "근대",
         "산업"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -316,10 +276,7 @@
         "근대",
         "동력"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -336,10 +293,7 @@
         "근대",
         "운송"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -356,10 +310,7 @@
         "근대",
         "매체"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -376,10 +327,7 @@
         "근대",
         "통신"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -396,10 +344,7 @@
         "근대",
         "통신"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -416,10 +361,7 @@
         "근대",
         "에너지"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -436,10 +378,7 @@
         "근대",
         "운송"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -456,10 +395,7 @@
         "근대",
         "통신"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -476,10 +412,7 @@
         "근대",
         "운송"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -496,10 +429,7 @@
         "현대",
         "산업"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -516,10 +446,7 @@
         "현대",
         "화학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -536,10 +463,7 @@
         "현대",
         "정보"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -556,10 +480,7 @@
         "현대",
         "전자"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -576,10 +497,7 @@
         "현대",
         "우주"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -596,10 +514,7 @@
         "현대",
         "전자"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -616,10 +531,7 @@
         "현대",
         "우주"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -636,10 +548,7 @@
         "현대",
         "정보"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -656,10 +565,7 @@
         "현대",
         "정보"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -676,10 +582,7 @@
         "현대",
         "정보"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -696,10 +599,7 @@
         "현대",
         "통신"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -716,10 +616,7 @@
         "현대",
         "에너지"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -736,10 +633,7 @@
         "현대",
         "인공지능"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -756,10 +650,7 @@
         "현대",
         "인공지능"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 기술사 개괄",
-        "위키백과 기술사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     }
   ]

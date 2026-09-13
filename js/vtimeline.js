@@ -84,7 +84,7 @@
       lanes: [],            // {id, label, color, track, x, width, cols}
       entries: [],
       clusters: [],
-      showSummary: true,
+      summaryMode: 'auto',        // 'auto' = 확대했을 때만, 'always' = 되도록 항상
       startYear: options.window ? options.window.start_year : -3000,
       endYear: options.window ? options.window.end_year : 2040,
       minYear: -50000,
@@ -336,8 +336,12 @@
           }
 
           // 같은 항목·같은 표시 단계면 내부 DOM 을 다시 만들지 않는다.
-          var level = boxH >= 34 ? 2 : (boxH >= 15 ? 1 : 0);
-          var sig = item._id + '|' + level + '|' + (state.showSummary ? 1 : 0);
+          // 기본은 사건명만, 확대해서 막대가 충분히 길어지면 요약까지 보여준다.
+          var summaryAt = state.summaryMode === 'always'
+            ? 34
+            : Math.max(90, viewHeight() / 6);   // 화면의 1/6 이상 차지할 때만
+          var level = boxH >= summaryAt ? 2 : (boxH >= 15 ? 1 : 0);
+          var sig = item._id + '|' + level;
           if (node._sig !== sig) {
             node._sig = sig;
             node.textContent = '';
@@ -350,7 +354,7 @@
             if (level >= 2) {
               var subText = isCluster
                 ? periodLabel(item._start, item._end)
-                : (state.showSummary ? item.entry._summary : '');
+                : item.entry._summary;
               if (subText) {
                 var sub = document.createElement('span');
                 sub.className = 'vt__item-sub';
@@ -522,7 +526,7 @@
       setEntries: function (entries, clusters, opts) {
         state.entries = entries || [];
         state.clusters = clusters || [];
-        state.showSummary = !(opts && opts.showSummary === false);
+        state.summaryMode = (opts && opts.summaryMode) || 'auto';
         schedule();
       },
 

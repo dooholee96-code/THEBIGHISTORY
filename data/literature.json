@@ -16,11 +16,9 @@
         "고대",
         "서사시"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "여러 판본이 오랜 기간에 걸쳐 성립해 시작·완성 시점을 특정하기 어렵다."
     },
     {
       "id": "literature-rigveda",
@@ -36,11 +34,9 @@
         "고대",
         "경전"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "구전 성립 시기에 근거한 추정 구간이다."
     },
     {
       "id": "literature-shijing",
@@ -56,10 +52,7 @@
         "고대",
         "시가"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -76,11 +69,9 @@
         "고대",
         "서사시"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
-      "status": "draft"
+      "sources": [],
+      "status": "draft",
+      "dating_note": "실존 여부와 생몰 연대 모두 논쟁 대상이며, 서사시 성립 시기를 대략 잡은 값이다."
     },
     {
       "id": "literature-greek-tragedy",
@@ -96,10 +87,7 @@
         "고대",
         "희곡"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -116,10 +104,7 @@
         "고대",
         "서사시"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -136,10 +121,7 @@
         "고대",
         "서사시"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -156,10 +138,7 @@
         "중세",
         "시가"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -176,10 +155,7 @@
         "중세",
         "소설"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -196,10 +172,7 @@
         "중세",
         "서사시"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -216,10 +189,7 @@
         "중세",
         "설화"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -236,10 +206,7 @@
         "근세",
         "국문학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -256,10 +223,7 @@
         "근세",
         "희곡"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -276,10 +240,7 @@
         "근세",
         "소설"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -296,10 +257,7 @@
         "근세",
         "서사시"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -316,10 +274,7 @@
         "근세",
         "소설"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -336,10 +291,7 @@
         "근세",
         "사조"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -356,10 +308,7 @@
         "근대",
         "작가"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -376,10 +325,7 @@
         "근대",
         "사조"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -396,10 +342,7 @@
         "근대",
         "사조"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -416,10 +359,7 @@
         "근대",
         "소설"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -436,10 +376,7 @@
         "근대",
         "사조"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -456,10 +393,7 @@
         "현대",
         "소설"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -476,10 +410,7 @@
         "현대",
         "사조"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -496,10 +427,7 @@
         "현대",
         "국문학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -516,10 +444,7 @@
         "현대",
         "국문학"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -536,10 +461,7 @@
         "현대",
         "소설"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -556,10 +478,7 @@
         "현대",
         "사조"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     },
     {
@@ -576,10 +495,7 @@
         "현대",
         "매체"
       ],
-      "sources": [
-        "Encyclopaedia Britannica 문학사 개괄",
-        "위키백과 문학사 개괄"
-      ],
+      "sources": [],
       "status": "draft"
     }
   ]
