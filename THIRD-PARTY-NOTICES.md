@@ -1,32 +1,26 @@
 # 제3자 구성요소 고지
 
-이 앱과 함께 배포되는 외부 저작물은 아래 하나뿐입니다.
-**상업적 이용(광고 게재 포함)에 제약이 없는 라이선스**이며, 아래 고지를 유지하는 것이
-유일한 의무입니다.
+**상업적 이용(광고 게재 포함)에 제약이 없는 구성만 씁니다.**
 
-## vis-timeline (vis.js)
+## 글꼴 — Gowun Batang · Gowun Dodum
 
-- 경로: `vendor/vis-timeline/`
-- 버전: 7.7.3
-- 홈페이지: https://visjs.github.io/vis-timeline/
-- 라이선스: **Apache-2.0 OR MIT** (둘 중 하나를 선택해 사용 가능)
-- 저작권:
-  - Copyright (c) 2014-2017 Almende B.V. and contributors
-  - Copyright (c) 2017-2019 vis.js contributors
-- 라이선스 전문: `vendor/vis-timeline/LICENSE.Apache-2.0.txt`,
-  `vendor/vis-timeline/LICENSE.MIT.txt`, `vendor/vis-timeline/LICENSE.md`
+- 출처: Google Fonts (<https://fonts.google.com/specimen/Gowun+Batang>)
+- 라이선스: **SIL Open Font License 1.1** — 상업적 이용·재배포 가능
+- 불러오는 방식: `index.html` 의 `<link href="https://fonts.googleapis.com/css2?...">`
+  글꼴 파일을 저장소에 담아 재배포하지는 않습니다.
 
-> 의무 사항: 저작권 고지와 라이선스 전문을 배포물에 포함할 것.
-> 이 저장소는 `vendor/vis-timeline/` 안에 원본 라이선스 파일을 그대로 두고,
-> 앱 화면의 `ⓘ 정보` 팝업에서도 이 고지를 볼 수 있게 했습니다.
+> **이 링크가 이 앱의 유일한 외부 요청입니다.**
+> 링크를 지우면 외부 요청이 완전히 사라지고, 화면은 시스템 글꼴로 대체됩니다
+> (`css/styles.css` 의 `--serif` / `--sans` 에 폴백이 지정되어 있습니다).
+> 오프라인·홈 화면 실행에서도 자동으로 폴백됩니다.
 
 ## 그 밖에
 
+- **자바스크립트 라이브러리 없음** — 화면(표·시대 배경·시트·팝업)을 직접 구현했습니다.
+  이전 버전에서 쓰던 vis-timeline 은 표 기반 화면으로 바뀌면서 제거했습니다.
 - **런타임 의존성 없음** — `package.json` 에 dependencies / devDependencies 가 없습니다.
   (`npx serve` 는 로컬에서 띄울 때만 쓰는 편의 명령입니다)
-- **웹폰트 없음** — 사용자의 기기에 이미 있는 시스템 글꼴만 지정합니다.
-  (`-apple-system`, `Segoe UI`, `Apple SD Gothic Neo`, `Noto Sans KR`, `Malgun Gothic` 등)
-  폰트 파일을 내려받거나 재배포하지 않으므로 폰트 라이선스 문제가 없습니다.
-- **외부 호출 없음** — CDN, 분석 도구, 폰트 서버 등 바깥으로 나가는 요청이 하나도 없습니다.
-  (`grep -rn "https\?://" index.html css js sw.js` 로 확인 가능)
-- **아이콘·이미지** — `icons/` 의 SVG·PNG 는 이 저장소에서 직접 만든 것으로 외부 저작물이 아닙니다.
+- **분석 도구·추적 스크립트 없음**, 쿠키 사용 없음.
+- **아이콘·이미지** — `icons/` 의 SVG·PNG 는 이 저장소에서 직접 만든 것입니다.
+  시대 삽화는 아직 CSS 그라데이션 자리표시자이며, 실제 그림을 넣을 때는
+  그 그림의 라이선스를 여기에 추가해야 합니다.

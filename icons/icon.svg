@@ -1,10 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="빅 히스토리 연표">
-  <rect width="512" height="512" rx="96" fill="#1b2733"/>
-  <g>
-    <rect x="72" y="118" width="300" height="40" rx="20" fill="#2980b9"/>
-    <rect x="128" y="186" width="252" height="40" rx="20" fill="#16a085"/>
-    <rect x="96"  y="254" width="330" height="40" rx="20" fill="#e67e22"/>
-    <rect x="160" y="322" width="200" height="40" rx="20" fill="#8e44ad"/>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fbf1dc"/><stop offset="1" stop-color="#e2ddf3"/>
+    </linearGradient>
+    <linearGradient id="orb" x1="0.2" y1="0.15" x2="0.8" y2="0.9">
+      <stop offset="0" stop-color="#f6c9b6"/><stop offset="0.55" stop-color="#b9c8e8"/><stop offset="1" stop-color="#cbbfe6"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#sky)"/>
+  <circle cx="256" cy="150" r="62" fill="url(#orb)"/>
+  <g fill="none" stroke="#8f83c4" stroke-width="14" stroke-linecap="round" opacity="0.75">
+    <path d="M120 268h272"/><path d="M120 340h200"/><path d="M120 412h248"/>
   </g>
-  <rect x="248" y="86" width="8" height="316" rx="4" fill="#f4f6f8" opacity="0.55"/>
+  <g fill="#fff" stroke="#8f83c4" stroke-width="8">
+    <circle cx="150" cy="268" r="13"/><circle cx="150" cy="340" r="13"/><circle cx="150" cy="412" r="13"/>
+  </g>
 </svg>

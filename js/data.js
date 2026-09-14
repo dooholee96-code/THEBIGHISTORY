@@ -124,22 +124,14 @@
       });
     }
 
-    var years = all.reduce(function (acc, e) {
-      return {
-        min: Math.min(acc.min, e.start_year),
-        max: Math.max(acc.max, e.end_year)
-      };
-    }, { min: Infinity, max: -Infinity });
-
     return {
       manifest: manifest,
       datasets: datasets,
       tracks: tracks,
       entries: all,
-      range: all.length ? years : { min: -3000, max: 2030 },
-      eraPresets: manifest.era_presets || [],
-      defaultWindow: manifest.default_window || null,
-      defaultAxis: manifest.default_axis === 'horizontal' ? 'horizontal' : 'vertical',
+      eras: (manifest.eras || []).slice().sort(function (a, b) {
+        return a.start_year - b.start_year;
+      }),
       source: source
     };
   }

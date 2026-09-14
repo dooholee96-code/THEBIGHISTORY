@@ -4,196 +4,141 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>빅 히스토리 연표</title>
-  <meta name="description" content="왕조·국가사와 주제사를 하나의 시간축 위에서 비교하는 통합 연표" />
-  <meta name="theme-color" content="#1b2733" />
+  <meta name="description" content="시대의 색을 따라 흐르는 통합 역사 연표 — 왕조·국가사와 주제사를 한 표에서 비교합니다" />
+  <meta name="theme-color" content="#f3ddc0" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
-  <link rel="stylesheet" href="vendor/vis-timeline/vis-timeline-graph2d.min.css" />
-  <link rel="stylesheet" href="css/styles.css?v=94a7f8b7" />
+  <!-- 글꼴은 Google Fonts 에서 불러옵니다. 링크를 지우면 시스템 글꼴로 대체됩니다. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css?v=f2a0f721" />
 </head>
 <body>
-  <header class="toolbar" id="toolbar">
-    <div class="toolbar__row">
-      <div class="brand">
-        <span class="brand__mark" aria-hidden="true"></span>
-        <h1 class="brand__title">빅 히스토리 연표</h1>
-      </div>
+  <div class="app" id="app">
+    <!-- 배경 3겹: 시대 그라데이션 · 블롭 · 종이결 -->
+    <div class="bg-gradient" id="bg-gradient"></div>
+    <div class="bg-blob" id="bg-blob"></div>
+    <div class="bg-grain" aria-hidden="true"></div>
 
-      <div class="search">
-        <label class="sr-only" for="search-input">검색</label>
-        <input
-          id="search-input"
-          class="search__input"
-          type="search"
-          placeholder="검색 (이름·설명·태그)  —  단축키 /"
-          autocomplete="off"
-          spellcheck="false"
-        />
-        <button id="search-clear" class="search__clear" type="button" title="검색어 지우기" hidden>✕</button>
-      </div>
+    <div class="shell">
+      <header class="head">
+        <div class="brand">
+          <span class="brand__mark" aria-hidden="true"></span>
+          <h1 class="brand__title">빅 히스토리 연표</h1>
+          <span class="era-tag" id="era-tag">고대</span>
+        </div>
+        <button class="pill-btn" id="night-toggle" type="button" aria-pressed="false">☀ 낮</button>
+      </header>
 
-      <div class="eras" id="era-presets" role="group" aria-label="시대 이동"></div>
+      <div class="era-chips" id="era-chips" role="tablist" aria-label="시대 이동"></div>
 
-      <div class="toolbar__actions">
-        <button id="filters-toggle" class="btn btn--ghost" type="button" aria-expanded="true" aria-controls="filters">
-          필터
-        </button>
-        <button id="reset-all" class="btn btn--primary" type="button" title="필터·검색·줌 상태를 모두 되돌립니다">
-          전체 초기화
-        </button>
-        <button id="about-open" class="btn btn--ghost btn--icon" type="button" title="이 연표에 대하여 · 출처 · 라이선스" aria-label="정보">
-          ⓘ
-        </button>
-      </div>
-    </div>
-
-    <div class="toolbar__row toolbar__row--filters" id="filters">
-      <div class="filter-extra">
-        <div class="picker">
-          <button id="category-open" class="btn btn--pick" type="button" aria-expanded="false" aria-controls="category-panel">
-            <span class="picker__icon" aria-hidden="true">▤</span>
-            <span>카테고리</span>
-            <span class="picker__count" id="category-count">0/0</span>
-            <span class="picker__caret" aria-hidden="true">▾</span>
-          </button>
-
-          <div class="picker__panel" id="category-panel" hidden>
-            <div class="picker__head">
-              <strong>표시할 카테고리</strong>
-              <div class="picker__actions">
-                <button type="button" class="btn btn--ghost btn--sm" data-pick="all">전체 선택</button>
-                <button type="button" class="btn btn--ghost btn--sm" data-pick="none">전체 해제</button>
-              </div>
-            </div>
-            <div class="picker__body" id="category-list"></div>
-            <div class="picker__foot">
-              <span class="picker__hint" id="category-summary"></span>
-              <button type="button" class="btn btn--primary btn--sm" data-pick="close">닫기</button>
-            </div>
+      <!-- 1. 연표 -->
+      <main class="view view--timeline" id="view-timeline">
+        <div class="scroll" id="scroll">
+          <div class="scroll__inner">
+            <div id="chapters"></div>
+            <p class="notice" id="draft-notice">
+              모든 항목은 검토 전 초안이며 출처가 확인되지 않았습니다. 삽화 자리는 나중에 실제 그림으로 채웁니다.
+            </p>
           </div>
         </div>
+      </main>
 
-        <label class="switch">
-          <input type="checkbox" id="draft-only" />
-          <span>검토 전(draft)만</span>
-        </label>
-
-        <div class="segmented" id="orientation" role="group" aria-label="시간축 방향">
-          <span class="segmented__label">축</span>
-          <button type="button" class="seg-btn" data-axis="horizontal">가로 ↔</button>
-          <button type="button" class="seg-btn is-active" data-axis="vertical">세로 ↕</button>
+      <!-- 2. 카테고리 -->
+      <section class="view view--pane" id="view-category" hidden>
+        <div class="pane">
+          <p class="pane__lead">보고 싶은 이야기만 남겨 두세요. 끈 것은 연표에서 사라집니다.</p>
+          <div class="pane__actions">
+            <button class="pill-btn" type="button" data-pick="all">전체 선택</button>
+            <button class="pill-btn" type="button" data-pick="none">전체 해제</button>
+            <span class="pane__count" id="category-count"></span>
+          </div>
+          <div id="category-groups"></div>
         </div>
+      </section>
 
-        <div class="segmented" id="scroll-mode" role="group" aria-label="휠 동작 전환">
-          <span class="segmented__label">휠</span>
-          <button type="button" class="seg-btn is-active" data-mode="zoom">확대·축소</button>
-          <button type="button" class="seg-btn" data-mode="horizontal">가로 스크롤</button>
-          <button type="button" class="seg-btn" data-mode="vertical">세로 스크롤</button>
+      <!-- 3. 검색 -->
+      <section class="view view--pane" id="view-search" hidden>
+        <div class="pane">
+          <label class="sr-only" for="search-input">검색</label>
+          <input id="search-input" class="search" type="search" placeholder="이름·설명·태그로 찾기"
+                 autocomplete="off" spellcheck="false" />
+          <div class="suggest" id="search-suggest"></div>
+          <p class="pane__count" id="search-count">먼저 둘러보기</p>
+          <div class="results" id="search-results"></div>
         </div>
+      </section>
 
-        <span class="hint" id="mode-hint"></span>
-        <span class="status" id="status-text">불러오는 중…</span>
-      </div>
+      <!-- 4. 정보 -->
+      <section class="view view--pane" id="view-info" hidden>
+        <div class="pane pane--narrow">
+          <div class="card">
+            <p class="note note--warn">
+              <strong>내용 신뢰도</strong> — 이 연표의 항목은 개설 수준의 통설을 요약한 초안(draft)이며,
+              아직 자료로 대조하지 않았습니다. 고대사의 여러 연도는 문헌 전승이나 추정치입니다.
+              항목을 열면 <em>연대 주석</em>과 출처 상태를 볼 수 있습니다.
+            </p>
+
+            <p class="card__label">데이터</p>
+            <p class="card__text">
+              연표 데이터는 <strong>CC BY 4.0</strong>, 앱 코드는 <strong>MIT</strong> 라이선스입니다.
+              설명문은 이 프로젝트에서 직접 작성했으며 다른 저작물의 문장을 옮기지 않습니다.
+            </p>
+
+            <p class="card__label">소프트웨어</p>
+            <p class="card__text">
+              화면은 외부 라이브러리 없이 직접 만들었습니다. 글꼴은 Google Fonts 의
+              <strong>Gowun Batang · Gowun Dodum</strong>(SIL OFL)을 씁니다.
+            </p>
+
+            <p class="card__label">개인정보</p>
+            <p class="card__text">
+              분석 도구와 추적 스크립트를 쓰지 않고, 쿠키도 사용하지 않으며, 이용자 정보를 수집·저장하지 않습니다.
+              바깥으로 나가는 요청은 위 글꼴을 받아오는 것뿐이며, 홈 화면에 추가하면 오프라인에서도 열립니다.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <nav class="tabbar" role="tablist" aria-label="화면 전환">
+        <div class="tabbar__inner" id="tabs"></div>
+      </nav>
     </div>
-  </header>
 
-  <main class="stage">
-    <div id="timeline" class="timeline" aria-label="연표"></div>
-    <div id="empty-state" class="empty-state" hidden>
-      <p>조건에 맞는 항목이 없습니다.</p>
-      <button class="btn btn--primary" type="button" data-action="reset">전체 초기화</button>
-    </div>
-    <div id="loading" class="loading">데이터를 불러오는 중…</div>
-  </main>
-
-  <div id="panel-backdrop" class="panel-backdrop" hidden></div>
-
-  <div id="about-popup" class="popup" role="dialog" aria-hidden="true" aria-labelledby="about-title">
-    <div class="popup__head">
-      <div>
-        <p class="popup__eyebrow">이 연표에 대하여</p>
-        <h2 class="popup__title" id="about-title">빅 히스토리 연표</h2>
+    <!-- 월·일 팝업 -->
+    <div class="scrim" id="day-scrim" hidden></div>
+    <div class="daydlg" id="day-dialog" role="dialog" aria-labelledby="day-year" hidden>
+      <div class="daydlg__head">
+        <span class="dot" id="day-dot"></span>
+        <div class="daydlg__title">
+          <p class="daydlg__cat" id="day-cat"></p>
+          <h2 class="daydlg__year" id="day-year"></h2>
+        </div>
+        <button class="icon-btn" id="day-close" type="button" aria-label="닫기">✕</button>
       </div>
-      <button id="about-close" class="panel__close" type="button" aria-label="닫기">✕</button>
+      <div class="daydlg__body" id="day-rows"></div>
     </div>
-    <div class="popup__body">
-      <p class="note note--warn">
-        <strong>내용 신뢰도</strong> — 이 연표의 항목은 개설 수준의 통설을 요약한
-        <strong>초안(draft)</strong>이며, 아직 자료로 대조하지 않았습니다.
-        연도·설명에 오류가 있을 수 있고, 특히 고대사의 여러 연도는 문헌 전승이나 추정치입니다.
-        각 항목의 팝업에서 <em>연대 주석</em>과 출처 상태를 확인하세요.
-      </p>
 
-      <div class="field">
-        <p class="field__label">데이터</p>
-        <ul class="field__list">
-          <li>연표 데이터: <strong>CC BY 4.0</strong> — 저작자 표시만 지키면 상업적 이용·수정·재배포 가능</li>
-          <li>설명문은 이 프로젝트에서 직접 작성했습니다. 다른 저작물의 문장을 옮기지 않습니다.</li>
-        </ul>
+    <!-- 상세 시트 -->
+    <div class="scrim" id="sheet-scrim" hidden></div>
+    <div class="sheet" id="sheet" role="dialog" aria-labelledby="sheet-title" hidden>
+      <div class="sheet__head">
+        <div class="sheet__titles">
+          <p class="sheet__eyebrow" id="sheet-eyebrow"></p>
+          <h2 class="sheet__title" id="sheet-title"></h2>
+        </div>
+        <button class="icon-btn" id="sheet-close" type="button" aria-label="닫기">✕</button>
       </div>
-
-      <div class="field">
-        <p class="field__label">소프트웨어</p>
-        <ul class="field__list">
-          <li>앱 코드: <strong>MIT License</strong></li>
-          <li>
-            연표 렌더링(가로 보기): <strong>vis-timeline 7.7.3</strong> —
-            Apache-2.0 OR MIT<br />
-            Copyright (c) 2014-2017 Almende B.V. and contributors<br />
-            Copyright (c) 2017-2019 vis.js contributors
-          </li>
-          <li>세로 보기 렌더러와 아이콘은 이 프로젝트에서 직접 만들었습니다.</li>
-        </ul>
-      </div>
-
-      <div class="field">
-        <p class="field__label">개인정보</p>
-        <ul class="field__list">
-          <li>외부로 나가는 요청이 없습니다. 분석 도구·추적 스크립트·웹폰트를 쓰지 않습니다.</li>
-          <li>쿠키를 사용하지 않으며, 이용자 정보를 수집·저장하지 않습니다.</li>
-        </ul>
-      </div>
+      <div class="sheet__body" id="sheet-body"></div>
     </div>
-    <div class="popup__foot">
-      <span class="panel__hint">자세한 고지는 저장소의 LICENSE · THIRD-PARTY-NOTICES.md · data/LICENSE.md 에 있습니다.</span>
-    </div>
+
+    <div class="loading" id="loading">불러오는 중…</div>
   </div>
 
-  <div id="cluster-popup" class="popup" role="dialog" aria-hidden="true" aria-labelledby="cluster-title">
-    <div class="popup__head">
-      <div>
-        <p class="popup__eyebrow" id="cluster-eyebrow"></p>
-        <h2 class="popup__title" id="cluster-title"></h2>
-      </div>
-      <button id="cluster-close" class="panel__close" type="button" aria-label="닫기">✕</button>
-    </div>
-    <div class="popup__body" id="cluster-body"></div>
-    <div class="popup__foot">
-      <button id="cluster-zoom" class="btn btn--primary btn--sm" type="button">이 구간 확대</button>
-      <span class="panel__hint">항목을 누르면 상세가 열립니다 · 핀치/휠로 확대해도 나뉩니다</span>
-    </div>
-  </div>
-
-  <div id="detail-panel" class="popup" aria-hidden="true" aria-labelledby="panel-title" role="dialog">
-    <div class="popup__head">
-      <div>
-        <p class="popup__eyebrow" id="panel-eyebrow"></p>
-        <h2 class="popup__title" id="panel-title"></h2>
-      </div>
-      <button id="panel-close" class="panel__close" type="button" aria-label="닫기">✕</button>
-    </div>
-    <div class="popup__body" id="panel-body"></div>
-    <div class="popup__foot">
-      <button id="copy-json" class="btn btn--ghost btn--sm" type="button">이 항목 JSON 복사</button>
-      <span class="panel__hint" id="copy-hint" aria-live="polite"></span>
-    </div>
-  </div>
-
-  <script src="vendor/vis-timeline/vis-timeline-graph2d.min.js"></script>
-  <script src="js/data.js?v=94a7f8b7"></script>
-  <script src="js/timeline.js?v=94a7f8b7"></script>
-  <script src="js/vtimeline.js?v=94a7f8b7"></script>
-  <script src="js/app.js?v=94a7f8b7"></script>
+  <script src="js/data.js?v=f2a0f721"></script>
+  <script src="js/chapters.js?v=f2a0f721"></script>
+  <script src="js/app.js?v=f2a0f721"></script>
 </body>
 </html>

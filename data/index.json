@@ -3,11 +3,152 @@
   "schema_version": 1,
   "title": "빅 히스토리 연표",
   "description": "왕조·국가사와 주제사를 하나의 시간축 위에서 비교하는 통합 연표.",
-  "default_window": {
-    "start_year": -3000,
-    "end_year": 2040
-  },
-  "default_axis": "vertical",
+  "eras": [
+    {
+      "id": "prehistory",
+      "label": "선사",
+      "range": "기원전 30000 – 기원전 3500",
+      "start_year": -32000,
+      "end_year": -3500,
+      "art": "동굴 벽 앞의 작은 불빛",
+      "day": [
+        "#f7ecdd",
+        "#efdcc6"
+      ],
+      "day_blob": [
+        "rgba(233,196,158,.55)",
+        "rgba(203,176,146,.4)"
+      ],
+      "night": [
+        "#2b2434",
+        "#231d2c"
+      ],
+      "night_blob": [
+        "rgba(120,92,120,.45)",
+        "rgba(72,60,96,.5)"
+      ]
+    },
+    {
+      "id": "ancient",
+      "label": "고대",
+      "range": "기원전 3500 – 500",
+      "start_year": -3500,
+      "end_year": 500,
+      "art": "나일강과 갈대밭, 멀리 피라미드",
+      "day": [
+        "#fbf1dc",
+        "#f3ddc0"
+      ],
+      "day_blob": [
+        "rgba(245,214,160,.55)",
+        "rgba(166,201,214,.45)"
+      ],
+      "night": [
+        "#2a2738",
+        "#211f2f"
+      ],
+      "night_blob": [
+        "rgba(130,116,86,.4)",
+        "rgba(70,86,110,.5)"
+      ]
+    },
+    {
+      "id": "medieval",
+      "label": "중세",
+      "range": "500 – 1400",
+      "start_year": 500,
+      "end_year": 1400,
+      "art": "숲 사이 첨탑과 낮은 안개",
+      "day": [
+        "#eef2e6",
+        "#dfe8d9"
+      ],
+      "day_blob": [
+        "rgba(178,203,170,.5)",
+        "rgba(214,198,224,.4)"
+      ],
+      "night": [
+        "#232b30",
+        "#1d242a"
+      ],
+      "night_blob": [
+        "rgba(84,112,96,.45)",
+        "rgba(66,80,104,.45)"
+      ]
+    },
+    {
+      "id": "earlymodern",
+      "label": "근세",
+      "range": "1400 – 1760",
+      "start_year": 1400,
+      "end_year": 1760,
+      "art": "수평선을 넘는 범선과 해도",
+      "day": [
+        "#e9f0f8",
+        "#dae6f2"
+      ],
+      "day_blob": [
+        "rgba(160,192,226,.5)",
+        "rgba(226,206,178,.45)"
+      ],
+      "night": [
+        "#1f2734",
+        "#1a212d"
+      ],
+      "night_blob": [
+        "rgba(64,92,130,.5)",
+        "rgba(96,84,120,.4)"
+      ]
+    },
+    {
+      "id": "modern",
+      "label": "근대",
+      "range": "1760 – 1914",
+      "start_year": 1760,
+      "end_year": 1914,
+      "art": "증기기관선과 노을빛 부두",
+      "day": [
+        "#f8ece6",
+        "#f0dbd1"
+      ],
+      "day_blob": [
+        "rgba(230,176,152,.5)",
+        "rgba(196,190,220,.45)"
+      ],
+      "night": [
+        "#2e2530",
+        "#261f29"
+      ],
+      "night_blob": [
+        "rgba(150,96,84,.4)",
+        "rgba(88,76,116,.45)"
+      ]
+    },
+    {
+      "id": "contemporary",
+      "label": "현대",
+      "range": "1914 – 2025",
+      "start_year": 1914,
+      "end_year": 2030,
+      "art": "도시의 밤과 위성 궤도",
+      "day": [
+        "#f0edf9",
+        "#e2ddf3"
+      ],
+      "day_blob": [
+        "rgba(176,166,222,.5)",
+        "rgba(166,206,214,.45)"
+      ],
+      "night": [
+        "#232038",
+        "#1c1a2e"
+      ],
+      "night_blob": [
+        "rgba(104,92,168,.5)",
+        "rgba(72,110,130,.45)"
+      ]
+    }
+  ],
   "tracks": [
     {
       "id": "nation",
@@ -20,38 +161,6 @@
       "order": 2
     }
   ],
-  "era_presets": [
-    {
-      "id": "all",
-      "label": "전체",
-      "start_year": null,
-      "end_year": null
-    },
-    {
-      "id": "ancient",
-      "label": "고대",
-      "start_year": -3500,
-      "end_year": 500
-    },
-    {
-      "id": "medieval",
-      "label": "중세",
-      "start_year": 400,
-      "end_year": 1500
-    },
-    {
-      "id": "earlymodern",
-      "label": "근세",
-      "start_year": 1400,
-      "end_year": 1800
-    },
-    {
-      "id": "modern",
-      "label": "근현대",
-      "start_year": 1750,
-      "end_year": 2030
-    }
-  ],
   "datasets": [
     {
       "id": "world",
@@ -60,7 +169,7 @@
       "category": "왕조사",
       "subcategory": "세계",
       "label": "세계사(제국·문명)",
-      "color": "#2980b9",
+      "color": "#7fa6cf",
       "region": "세계",
       "order": 10
     },
@@ -71,7 +180,7 @@
       "category": "왕조사",
       "subcategory": "한국",
       "label": "한국사",
-      "color": "#c0392b",
+      "color": "#d99a92",
       "region": "동아시아",
       "order": 30
     },
@@ -82,7 +191,7 @@
       "category": "왕조사",
       "subcategory": "중국",
       "label": "중국사",
-      "color": "#d35400",
+      "color": "#d9a37e",
       "region": "동아시아",
       "order": 31
     },
@@ -93,7 +202,7 @@
       "category": "왕조사",
       "subcategory": "일본",
       "label": "일본사",
-      "color": "#8e44ad",
+      "color": "#b9a3d4",
       "region": "동아시아",
       "order": 32
     },
@@ -104,7 +213,7 @@
       "category": "과학사",
       "subcategory": "과학",
       "label": "과학사",
-      "color": "#16a085",
+      "color": "#8fc4bb",
       "region": "세계",
       "order": 50
     },
@@ -115,7 +224,7 @@
       "category": "음악사",
       "subcategory": "음악",
       "label": "음악사",
-      "color": "#8e44ad",
+      "color": "#c3a9dd",
       "region": "세계",
       "order": 51
     },
@@ -126,7 +235,7 @@
       "category": "미술사",
       "subcategory": "미술",
       "label": "미술사",
-      "color": "#e67e22",
+      "color": "#e6b083",
       "region": "세계",
       "order": 52
     },
@@ -137,7 +246,7 @@
       "category": "종교사",
       "subcategory": "종교",
       "label": "종교사",
-      "color": "#2c3e50",
+      "color": "#9aa7b8",
       "region": "세계",
       "order": 53
     },
@@ -148,7 +257,7 @@
       "category": "철학사",
       "subcategory": "철학",
       "label": "철학사",
-      "color": "#34495e",
+      "color": "#a3aebd",
       "region": "세계",
       "order": 54
     },
@@ -159,7 +268,7 @@
       "category": "문학사",
       "subcategory": "문학",
       "label": "문학사",
-      "color": "#27ae60",
+      "color": "#9cc4a2",
       "region": "세계",
       "order": 55
     },
@@ -170,7 +279,7 @@
       "category": "기술사",
       "subcategory": "기술",
       "label": "기술사",
-      "color": "#7f8c8d",
+      "color": "#9fb5a8",
       "region": "세계",
       "order": 56
     }

@@ -1,923 +1,639 @@
 /* ------------------------------------------------------------------
-   앱 조립부 — 툴바 / 필터 / 검색 / 상세 패널 / 세부 연표 팝업을 연표와 연결합니다.
-   데이터 구조를 모르는 코드가 없도록, 화면에 필요한 정보는 모두
-   data/index.json(매니페스트)에서 흘러나옵니다.
+   앱 조립부 — 탭 전환, 시대 배경, 카테고리/검색, 상세 시트, 월·일 팝업
+
+   배경은 스크롤할 때마다 다시 그려야 하므로 상태가 아니라 DOM 스타일을
+   직접 씁니다(프레임마다 전체를 다시 만들지 않기 위함).
    ------------------------------------------------------------------ */
 (function () {
   'use strict';
 
-  var T = window.BigHistoryTimeline;
-
-  /** 콘솔에서 어떤 빌드가 떠 있는지 확인하는 용도.
-      값은 index.html 의 <script src="js/app.js?v=…"> 에서 읽으므로
-      npm run build 가 찍는 스탬프와 항상 일치한다. */
-  var APP_VERSION = (function () {
-    var src = (document.currentScript && document.currentScript.src) || '';
-    var m = /[?&]v=([0-9a-z]+)/.exec(src);
-    return m ? m[1] : 'dev';
-  })();
-
-  /** 이 픽셀 폭 안에 몰린 단일 연도 사건들을 하나로 묶는다. */
-  var CLUSTER_PX = 76;
+  var C = window.BigHistoryChapters;
 
   var el = {
-    search: document.getElementById('search-input'),
-    searchClear: document.getElementById('search-clear'),
-    eras: document.getElementById('era-presets'),
-    filters: document.getElementById('filters'),
-    filtersToggle: document.getElementById('filters-toggle'),
-    categoryOpen: document.getElementById('category-open'),
-    categoryPanel: document.getElementById('category-panel'),
-    categoryList: document.getElementById('category-list'),
-    categoryCount: document.getElementById('category-count'),
-    categorySummary: document.getElementById('category-summary'),
-    draftOnly: document.getElementById('draft-only'),
-    scrollMode: document.getElementById('scroll-mode'),
-    orientation: document.getElementById('orientation'),
-    modeHint: document.getElementById('mode-hint'),
-    statusText: document.getElementById('status-text'),
-    reset: document.getElementById('reset-all'),
-    timeline: document.getElementById('timeline'),
+    app: document.getElementById('app'),
+    bgGradient: document.getElementById('bg-gradient'),
+    bgBlob: document.getElementById('bg-blob'),
+    eraTag: document.getElementById('era-tag'),
+    eraChips: document.getElementById('era-chips'),
+    nightToggle: document.getElementById('night-toggle'),
+    scroll: document.getElementById('scroll'),
+    chapters: document.getElementById('chapters'),
+    tabs: document.getElementById('tabs'),
     loading: document.getElementById('loading'),
-    emptyState: document.getElementById('empty-state'),
-    stage: document.querySelector('.stage'),
-    panel: document.getElementById('detail-panel'),
-    panelBackdrop: document.getElementById('panel-backdrop'),
-    panelEyebrow: document.getElementById('panel-eyebrow'),
-    panelTitle: document.getElementById('panel-title'),
-    panelBody: document.getElementById('panel-body'),
-    panelClose: document.getElementById('panel-close'),
-    copyJson: document.getElementById('copy-json'),
-    copyHint: document.getElementById('copy-hint'),
-    popup: document.getElementById('cluster-popup'),
-    popupEyebrow: document.getElementById('cluster-eyebrow'),
-    popupTitle: document.getElementById('cluster-title'),
-    popupBody: document.getElementById('cluster-body'),
-    popupClose: document.getElementById('cluster-close'),
-    popupZoom: document.getElementById('cluster-zoom'),
-    about: document.getElementById('about-popup'),
-    aboutOpen: document.getElementById('about-open'),
-    aboutClose: document.getElementById('about-close')
+
+    categoryGroups: document.getElementById('category-groups'),
+    categoryCount: document.getElementById('category-count'),
+
+    search: document.getElementById('search-input'),
+    searchSuggest: document.getElementById('search-suggest'),
+    searchCount: document.getElementById('search-count'),
+    searchResults: document.getElementById('search-results'),
+
+    sheet: document.getElementById('sheet'),
+    sheetScrim: document.getElementById('sheet-scrim'),
+    sheetEyebrow: document.getElementById('sheet-eyebrow'),
+    sheetTitle: document.getElementById('sheet-title'),
+    sheetBody: document.getElementById('sheet-body'),
+    sheetClose: document.getElementById('sheet-close'),
+
+    day: document.getElementById('day-dialog'),
+    dayScrim: document.getElementById('day-scrim'),
+    dayDot: document.getElementById('day-dot'),
+    dayCat: document.getElementById('day-cat'),
+    dayYear: document.getElementById('day-year'),
+    dayRows: document.getElementById('day-rows'),
+    dayClose: document.getElementById('day-close')
   };
 
-  var MODE_HINTS = {
-    horizontal: {   // 가로 축(시간이 좌우)
-      zoom: '휠·핀치: 확대·축소 · 드래그: 이동',
-      horizontal: '휠: 좌우(시간) 이동 · Ctrl+휠·핀치: 확대',
-      vertical: '휠: 위아래(레인) 이동 · Ctrl+휠·핀치: 확대'
-    },
-    vertical: {     // 세로 축(시간이 위아래)
-      zoom: '휠·핀치: 확대·축소 · 드래그: 이동',
-      horizontal: '휠: 좌우(레인) 이동 · Ctrl+휠·핀치: 확대',
-      vertical: '휠: 위아래(시간) 이동 · Ctrl+휠·핀치: 확대'
-    }
-  };
+  var TABS = [
+    { id: 'timeline', label: '연표', view: document.getElementById('view-timeline') },
+    { id: 'category', label: '카테고리', view: document.getElementById('view-category') },
+    { id: 'search', label: '검색', view: document.getElementById('view-search') },
+    { id: 'info', label: '정보', view: document.getElementById('view-info') }
+  ];
+
+  var SUGGESTIONS = ['증기기관', '청자', '피카소', '전쟁', '인쇄'];
 
   var state = {
     data: null,
-    active: {},        // datasetId -> boolean
+    tab: 'timeline',
+    night: false,
+    eraIndex: 0,
+    off: {},          // 꺼진 카테고리 id
     query: '',
-    draftOnly: false,
-    scrollMode: 'zoom',
-    axis: 'vertical',         // 'vertical' = 시간이 위아래(기본), 'horizontal' = 시간이 좌우
-                              // 실제 시작값은 data/index.json 의 default_axis 를 따른다
-    era: null,
-    selected: null,
-    clusters: {},      // clusterId -> 묶음 정보
-    lastBucket: null,
-    visible: []
+    progress: 0       // 현재 시대 안에서의 스크롤 진행도 (상태가 아니라 값만 보관)
   };
 
-  var chart = null;
-  var chipNodes = {};
-  var trackNodes = [];
-  var eraNodes = {};
+  var chipNodes = [];
+  var pickNodes = {};
+  var tabNodes = {};
 
   // ------------------------------------------------------------ 유틸
 
   function debounce(fn, ms) {
-    var t;
+    var timer;
     return function () {
       var args = arguments, self = this;
-      clearTimeout(t);
-      t = setTimeout(function () { fn.apply(self, args); }, ms);
+      clearTimeout(timer);
+      timer = setTimeout(function () { fn.apply(self, args); }, ms);
     };
   }
 
-  function activeIds() {
-    return Object.keys(state.active).filter(function (id) { return state.active[id]; });
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
   }
 
-  function matches(entry) {
-    if (!state.active[entry._dataset]) return false;
-    if (state.draftOnly && entry.status !== 'draft') return false;
-    if (state.query && entry._search.indexOf(state.query) === -1) return false;
-    return true;
+  function activeColumns() {
+    return state.data.datasets.filter(function (ds) { return !state.off[ds.id]; });
   }
 
-  // ------------------------------------------------------- 툴바 만들기
-
-  function buildEraPresets(presets) {
-    el.eras.textContent = '';
-    eraNodes = {};
-    (presets.length ? presets : [{ id: 'all', label: '전체' }]).forEach(function (preset) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'era-btn';
-      btn.textContent = preset.label;
-      btn.addEventListener('click', function () { applyEra(preset); });
-      eraNodes[preset.id] = btn;
-      el.eras.appendChild(btn);
-    });
-    markActiveEra(state.era);
+  function visibleEntries() {
+    return state.data.entries.filter(function (e) { return !state.off[e._dataset]; });
   }
 
-  function markActiveEra(id) {
-    Object.keys(eraNodes).forEach(function (key) {
-      eraNodes[key].classList.toggle('is-active', key === id);
-    });
-  }
-
-  /**
-   * 카테고리 선택 패널.
-   * 트랙(왕조·국가사 / 주제사)별로 묶고, 트랙 전체 체크와 개별 체크를 함께 둔다.
-   * 위쪽에 전체 선택 / 전체 해제가 있다.
-   */
-  function buildFilters(tracks) {
-    el.categoryList.textContent = '';
-    chipNodes = {};
-    trackNodes = [];
-
-    tracks.forEach(function (track) {
-      var group = document.createElement('div');
-      group.className = 'pick-group';
-
-      // 트랙 전체 토글
-      var head = document.createElement('label');
-      head.className = 'pick-row pick-row--track';
-
-      var trackBox = document.createElement('input');
-      trackBox.type = 'checkbox';
-      trackBox.addEventListener('change', function () {
-        var on = trackBox.checked;
-        track.datasets.forEach(function (ds) { state.active[ds.id] = on; });
-        render();
-      });
-      head.appendChild(trackBox);
-
-      var trackName = document.createElement('span');
-      trackName.className = 'pick-row__name';
-      trackName.textContent = track.label;
-      head.appendChild(trackName);
-
-      var trackCount = document.createElement('span');
-      trackCount.className = 'pick-row__count';
-      head.appendChild(trackCount);
-
-      group.appendChild(head);
-      trackNodes.push({ track: track, box: trackBox, count: trackCount });
-
-      track.datasets.forEach(function (ds) {
-        var row = document.createElement('label');
-        row.className = 'pick-row';
-
-        var box = document.createElement('input');
-        box.type = 'checkbox';
-        box.addEventListener('change', function () {
-          state.active[ds.id] = box.checked;
-          render();
-        });
-        row.appendChild(box);
-
-        var dot = document.createElement('span');
-        dot.className = 'pick-row__dot';
-        dot.style.backgroundColor = ds.color;
-        row.appendChild(dot);
-
-        var name = document.createElement('span');
-        name.className = 'pick-row__name';
-        name.textContent = ds.label;
-        row.appendChild(name);
-
-        var count = document.createElement('span');
-        count.className = 'pick-row__count';
-        row.appendChild(count);
-
-        chipNodes[ds.id] = { box: box, count: count, row: row };
-        group.appendChild(row);
-      });
-
-      el.categoryList.appendChild(group);
-    });
-  }
-
-  function setAllCategories(on) {
-    state.data.datasets.forEach(function (ds) { state.active[ds.id] = on; });
-    render();
-  }
-
-  function openCategoryPanel() {
-    el.categoryPanel.hidden = false;
-    el.categoryOpen.setAttribute('aria-expanded', 'true');
-  }
-
-  function closeCategoryPanel() {
-    el.categoryPanel.hidden = true;
-    el.categoryOpen.setAttribute('aria-expanded', 'false');
-  }
-
-  // -------------------------------------------------- 묶음(클러스터) 계산
-
-  /**
-   * 지금 확대 수준에서 몇 년을 한 덩어리로 볼지.
-   * 화면에서 약 CLUSTER_PX 픽셀 안에 들어오는 기간이며, 최소 1년입니다.
-   * 확대할수록 값이 작아지므로 묶음이 자연스럽게 쪼개집니다.
-   */
-  function bucketYears() {
-    if (!chart) return 1;
-    return Math.max(1, Math.round(chart.yearsPerPixel() * CLUSTER_PX));
-  }
-
-  /**
-   * 지금 확대 수준에서 사실상 점으로 보이는 항목인지.
-   * 단일 연도 사건과, 묶음 단위에 비해 아주 짧은 사건(전쟁·혁명 등)이 해당한다.
-   * 왕조처럼 긴 항목은 연표의 뼈대이므로 절대 묶이지 않는다.
-   */
-  function isDotLike(entry, bucket) {
-    if (entry._isPoint) return true;
-    return (entry.end_year - entry.start_year) <= bucket * 0.25;
-  }
-
-  /** 같은 레인에서 같은 구간에 몰린 사건들을 하나로 묶는다. */
-  function clusterize(entries, bucket) {
-    var loose = [];
-    var buckets = {};
-
-    entries.forEach(function (entry) {
-      if (!isDotLike(entry, bucket)) { loose.push(entry); return; }
-      var key = entry._dataset + '@' + Math.floor(entry.start_year / bucket);
-      (buckets[key] || (buckets[key] = [])).push(entry);
-    });
-
-    var clusters = [];
-    Object.keys(buckets).forEach(function (key) {
-      var list = buckets[key];
-      if (list.length < 2) { loose.push(list[0]); return; }
-
-      list.sort(function (a, b) { return a.start_year - b.start_year; });
-      var last = list.reduce(function (max, e) { return Math.max(max, e.end_year); }, list[0].end_year);
-
-      clusters.push({
-        id: 'cluster:' + key,
-        dataset: list[0]._dataset,
-        label: list[0]._label,
-        color: list[0]._color,
-        startYear: list[0].start_year,
-        endYear: last,
-        entries: list
-      });
-    });
-
-    return { entries: loose, clusters: clusters };
-  }
-
-  // ------------------------------------------------------------ 렌더
-
-  /** 필터 결과를 연표에 올린다. (묶음 계산 포함) */
-  function renderItems() {
-    var bucket = bucketYears();
-    var grouped = clusterize(state.visible, bucket);
-
-    state.lastBucket = bucket;
-    state.clusters = {};
-    grouped.clusters.forEach(function (cluster) { state.clusters[cluster.id] = cluster; });
-
-    state.lastYpp = chart.yearsPerPixel();
-    // 연표 막대에는 사건명만 둔다. 설명은 항목을 눌렀을 때 팝업에서 본다.
-    chart.setEntries(grouped.entries, grouped.clusters, { summaryMode: 'off' });
-  }
-
-  function render() {
-    var data = state.data;
-    if (!data) return;
-
-    state.visible = data.entries.filter(matches);
-
-    var counts = {};
-    data.datasets.forEach(function (ds) { counts[ds.id] = 0; });
-    state.visible.forEach(function (e) { counts[e._dataset] += 1; });
-
-    data.datasets.forEach(function (ds) {
-      var node = chipNodes[ds.id];
-      if (!node) return;
-      var on = !!state.active[ds.id];
-      node.box.checked = on;
-      node.row.classList.toggle('is-on', on);
-      node.count.textContent = String(counts[ds.id]);
-    });
-
-    // 트랙 전체 체크: 일부만 켜져 있으면 중간 상태로 보여준다.
-    trackNodes.forEach(function (node) {
-      var ids = node.track.datasets.map(function (ds) { return ds.id; });
-      var onCount = ids.filter(function (id) { return state.active[id]; }).length;
-      node.box.checked = onCount === ids.length;
-      node.box.indeterminate = onCount > 0 && onCount < ids.length;
-      node.count.textContent = onCount + '/' + ids.length;
-    });
-
-    var total = data.datasets.length;
-    var picked = activeIds().length;
-    el.categoryCount.textContent = picked + '/' + total;
-    el.categoryOpen.classList.toggle('is-partial', picked > 0 && picked < total);
-    el.categorySummary.textContent = picked === 0
-      ? '아무것도 선택하지 않아 연표가 비어 있습니다.'
-      : picked + '개 카테고리 · ' + state.visible.length + '개 항목';
-
-    chart.setStructure(data.tracks, activeIds(), counts);
-    renderItems();
-
-    var draftCount = state.visible.filter(function (e) { return e.status === 'draft'; }).length;
-    el.statusText.textContent =
-      '총 ' + data.entries.length + '개 중 ' + state.visible.length + '개 표시' +
-      ' · 검토 전 ' + draftCount + '개';
-
-    el.emptyState.hidden = state.visible.length > 0;
-    el.searchClear.hidden = !state.query;
-
-    if (state.selected && !state.visible.some(function (e) { return e.id === state.selected.id; })) {
-      closePanel();
+  function eraOf(entry) {
+    var eras = state.data.eras;
+    for (var i = 0; i < eras.length; i += 1) {
+      if (entry.start_year >= eras[i].start_year && entry.start_year < eras[i].end_year) return i;
     }
+    return entry.start_year < eras[0].start_year ? 0 : eras.length - 1;
   }
 
-  /** 확대/이동으로 묶음 단위가 바뀌었을 때만 다시 그린다. */
-  var onRangeChanged = debounce(function () {
-    if (!chart || !state.data) return;
-    if (bucketYears() !== state.lastBucket) renderItems();
-  }, 170);
+  // --------------------------------------------------------- 배경 칠하기
 
-  /** 처음 열었을 때 / 전체 초기화 시 보여줄 범위. */
-  function applyDefaultWindow(animate) {
-    var win = state.data.defaultWindow;
-    state.era = null;
-    markActiveEra(null);
-    if (win) chart.focusYears(win.start_year, win.end_year, animate === true);
-    else chart.fit();
+  /**
+   * 시대 i 의 팔레트로 배경을 칠한다.
+   * t 는 그 시대 안에서의 진행도(0~1)로, 블롭 위치를 움직이고
+   * 0.55 를 넘으면 다음 시대 색으로 서서히 넘긴다.
+   */
+  function paint(index, t) {
+    var eras = state.data.eras;
+    var a = eras[index];
+    var b = eras[Math.min(eras.length - 1, index + 1)];
+    if (!a) return;
+
+    var night = state.night;
+    var A = night ? a.night : a.day;
+    var B = night ? b.night : b.day;
+    var blobA = night ? a.night_blob : a.day_blob;
+    var blobB = night ? b.night_blob : b.day_blob;
+
+    var f = clamp((t - 0.55) / 0.35, 0, 1);
+    var top = f > 0.5 ? B[0] : A[0];
+    var bottom = f > 0.5 ? B[1] : A[1];
+    var c1 = (f > 0.5 ? blobB : blobA)[0];
+    var c2 = (f > 0.5 ? blobB : blobA)[1];
+
+    el.bgGradient.style.backgroundImage = 'linear-gradient(180deg,' + top + ',' + bottom + ')';
+    el.bgBlob.style.backgroundImage = [
+      'radial-gradient(60% 42% at 18% ' + (16 + t * 20).toFixed(0) + '%,' + c1 + ',transparent 70%)',
+      'radial-gradient(52% 38% at 84% ' + (62 - t * 18).toFixed(0) + '%,' + c2 + ',transparent 72%)',
+      'radial-gradient(40% 30% at 52% ' + (88 - t * 30).toFixed(0) + '%,' + c1 + ',transparent 74%)'
+    ].join(',');
+
+    el.eraTag.textContent = a.label;
   }
 
-  function applyEra(preset) {
-    state.era = preset.id;
-    markActiveEra(preset.id);
-    if (preset.start_year == null || preset.end_year == null) {
-      chart.fit();
-    } else {
-      chart.focusYears(preset.start_year, preset.end_year, true);
-    }
-  }
-
-  function setScrollMode(mode) {
-    state.scrollMode = mode;
-    chart.setScrollMode(mode);
-    Array.prototype.forEach.call(el.scrollMode.querySelectorAll('.seg-btn'), function (btn) {
-      btn.classList.toggle('is-active', btn.getAttribute('data-mode') === mode);
-      btn.setAttribute('aria-pressed', String(btn.getAttribute('data-mode') === mode));
+  function markEraChip(index) {
+    chipNodes.forEach(function (chip, i) {
+      chip.classList.toggle('is-active', i === index);
+      chip.setAttribute('aria-selected', String(i === index));
     });
-    el.modeHint.textContent = (MODE_HINTS[state.axis] || {})[mode] || '';
   }
 
-  /** 가로 보기(vis-timeline)와 세로 보기(직접 그린 렌더러)를 같은 API 로 만든다. */
-  function createView(axis, win) {
-    var factory = axis === 'vertical' ? window.BigHistoryVTimeline : T;
-    return factory.create(el.timeline, {
-      window: win,
-      onSelect: handleSelect,
-      onRangeChanged: onRangeChanged,
-      // 세로 보기에서 열 폭이 모자라 접힌 항목 묶음도 같은 세부 연표 팝업으로 연다.
-      onOverflow: function (group) {
-        closePanel();
-        openPopup(group);
+  var onScroll = function () {
+    var sections = el.chapters.querySelectorAll('.chapter');
+    if (!sections.length) return;
+
+    var y = el.scroll.scrollTop + el.scroll.clientHeight * 0.32;
+    var index = 0;
+    var t = 0;
+
+    for (var i = 0; i < sections.length; i += 1) {
+      var s = sections[i];
+      if (s.offsetTop <= y) {
+        index = i;
+        t = clamp((y - s.offsetTop) / Math.max(1, s.offsetHeight), 0, 1);
+      }
+    }
+
+    state.progress = t;
+    paint(index, t);
+    if (index !== state.eraIndex) {
+      state.eraIndex = index;
+      markEraChip(index);
+    }
+  };
+
+  // ------------------------------------------------------------ 화면
+
+  function setTab(id) {
+    state.tab = id;
+    TABS.forEach(function (tab) {
+      var on = tab.id === id;
+      tab.view.hidden = !on;
+      if (tabNodes[tab.id]) {
+        tabNodes[tab.id].classList.toggle('is-active', on);
+        tabNodes[tab.id].setAttribute('aria-selected', String(on));
       }
     });
+    if (id === 'timeline') onScroll();
+    if (id === 'search') el.search.focus();
   }
 
-  /** 시간축 방향 전환 — 보고 있던 연도 구간과 필터 상태를 그대로 옮긴다. */
-  function setAxis(axis, force) {
-    if (!force && axis === state.axis) return;
-
-    var win = chart ? chart.windowYears() : null;
-    if (chart) chart.destroy();
-
-    state.axis = axis;
-    chart = createView(axis, win
-      ? { start_year: win.start, end_year: win.end }
-      : state.data.defaultWindow);
-
-    var pad = Math.max(50, Math.round((state.data.range.max - state.data.range.min) * 0.03));
-    chart.setLimits(state.data.range.min - pad, state.data.range.max + pad);
-    chart.setScrollMode(state.scrollMode);
-
-    Array.prototype.forEach.call(el.orientation.querySelectorAll('.seg-btn'), function (btn) {
-      var on = btn.getAttribute('data-axis') === axis;
-      btn.classList.toggle('is-active', on);
-      btn.setAttribute('aria-pressed', String(on));
+  function buildTabs() {
+    TABS.forEach(function (tab) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'tab';
+      btn.setAttribute('role', 'tab');
+      btn.setAttribute('data-tab', tab.id);
+      var icon = document.createElement('span');
+      icon.className = 'tab__icon';
+      btn.appendChild(icon);
+      var label = document.createElement('span');
+      label.textContent = tab.label;
+      btn.appendChild(label);
+      btn.addEventListener('click', function () { setTab(tab.id); });
+      tabNodes[tab.id] = btn;
+      el.tabs.appendChild(btn);
     });
-    el.modeHint.textContent = (MODE_HINTS[axis] || {})[state.scrollMode] || '';
-
-    render();
-    if (win) chart.focusYears(win.start, win.end, false);
-    settleView();
   }
 
-  function resetAll() {
-    state.query = '';
-    state.draftOnly = false;
-    el.search.value = '';
-    el.draftOnly.checked = false;
-    closeCategoryPanel();
+  function buildEraChips() {
+    el.eraChips.textContent = '';
+    chipNodes = state.data.eras.map(function (era, i) {
+      var chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'era-chip';
+      chip.setAttribute('role', 'tab');
+      chip.textContent = era.label;
+      chip.addEventListener('click', function () {
+        setTab('timeline');
+        var section = document.getElementById('era-' + era.id);
+        if (section) el.scroll.scrollTo({ top: section.offsetTop - 6, behavior: 'smooth' });
+      });
+      el.eraChips.appendChild(chip);
+      return chip;
+    });
+    markEraChip(state.eraIndex);
+  }
+
+  /**
+   * 시대마다 표가 따로 있으면 가로 스크롤도 따로 논다.
+   * 한 표를 옆으로 밀면 나머지도 같은 위치로 맞춰 하나의 표처럼 읽히게 한다.
+   */
+  var syncingScroll = false;
+
+  function linkHorizontalScroll() {
+    var wraps = Array.prototype.slice.call(el.chapters.querySelectorAll('.table-wrap'));
+    wraps.forEach(function (wrap) {
+      wrap.addEventListener('scroll', function () {
+        if (syncingScroll) return;
+        syncingScroll = true;
+        var left = wrap.scrollLeft;
+        wraps.forEach(function (other) {
+          if (other !== wrap && other.scrollLeft !== left) other.scrollLeft = left;
+        });
+        requestAnimationFrame(function () { syncingScroll = false; });
+      }, { passive: true });
+    });
+  }
+
+  /** 연표(시대 섹션 + 표)를 다시 그린다. */
+  function renderTimeline() {
+    var columns = activeColumns();
+    var entries = visibleEntries();
+    var handlers = { openEntry: openSheet, openDay: openDay };
+
+    var frag = document.createDocumentFragment();
+    state.data.eras.forEach(function (era) {
+      var inEra = entries.filter(function (e) {
+        return e.start_year >= era.start_year && e.start_year < era.end_year;
+      });
+      // 빈 연도로 행을 만들지 않는 것과 같은 이유로, 이 시대에 사건이 하나도 없는
+      // 카테고리는 열도 세우지 않는다. (좁은 화면에서 빈 열부터 보이는 것을 막는다)
+      var eraColumns = columns.filter(function (col) {
+        return inEra.some(function (e) { return e._dataset === col.id; });
+      });
+      frag.appendChild(C.render(era, inEra, eraColumns, handlers, state.night));
+    });
+
+    el.chapters.textContent = '';
+    el.chapters.appendChild(frag);
+    linkHorizontalScroll();
+    onScroll();
+  }
+
+  // -------------------------------------------------------- 카테고리 탭
+
+  function buildCategories() {
+    el.categoryGroups.textContent = '';
+    pickNodes = {};
+
+    state.data.tracks.forEach(function (track) {
+      var group = document.createElement('div');
+      group.className = 'pick-track';
+
+      var label = document.createElement('p');
+      label.className = 'pick-track__label';
+      label.textContent = track.label;
+      group.appendChild(label);
+
+      var grid = document.createElement('div');
+      grid.className = 'pick-grid';
+
+      track.datasets.forEach(function (ds) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'pick';
+        btn.setAttribute('aria-pressed', 'true');
+
+        var dot = document.createElement('span');
+        dot.className = 'pick__dot';
+        dot.style.backgroundColor = ds.color;
+        btn.appendChild(dot);
+
+        var name = document.createElement('span');
+        name.className = 'pick__name';
+        name.textContent = ds.label;
+        btn.appendChild(name);
+
+        var count = document.createElement('span');
+        count.className = 'pick__count';
+        count.textContent = ds.entries.length + '건';
+        btn.appendChild(count);
+
+        btn.addEventListener('click', function () {
+          state.off[ds.id] = !state.off[ds.id];
+          syncCategories();
+          renderTimeline();
+        });
+
+        pickNodes[ds.id] = btn;
+        grid.appendChild(btn);
+      });
+
+      group.appendChild(grid);
+      el.categoryGroups.appendChild(group);
+    });
+  }
+
+  function syncCategories() {
+    var total = state.data.datasets.length;
+    var on = 0;
     state.data.datasets.forEach(function (ds) {
-      state.active[ds.id] = !ds.hidden_by_default;
+      var active = !state.off[ds.id];
+      if (active) on += 1;
+      var node = pickNodes[ds.id];
+      if (node) {
+        node.classList.toggle('is-on', active);
+        node.setAttribute('aria-pressed', String(active));
+      }
     });
-    closePanel();
-    closePopup();
-    setAxis(state.data.defaultAxis);
-    setScrollMode('zoom');
-    render();
-    applyDefaultWindow(false);
+    el.categoryCount.textContent = on + '/' + total + '개 표시 중';
   }
 
-  // ------------------------------------------------------- 상세 패널
-
-  function field(labelText, node) {
-    var wrap = document.createElement('div');
-    wrap.className = 'field';
-    var label = document.createElement('p');
-    label.className = 'field__label';
-    label.textContent = labelText;
-    wrap.appendChild(label);
-    wrap.appendChild(node);
-    return wrap;
+  function setAllCategories(value) {
+    state.data.datasets.forEach(function (ds) { state.off[ds.id] = value; });
+    syncCategories();
+    renderTimeline();
   }
 
-  function listOf(values) {
-    var ul = document.createElement('ul');
-    ul.className = 'field__list';
-    values.forEach(function (v) {
-      var li = document.createElement('li');
-      li.textContent = v;
-      ul.appendChild(li);
+  // ------------------------------------------------------------ 검색 탭
+
+  function buildSuggestions() {
+    SUGGESTIONS.forEach(function (word) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = word;
+      btn.addEventListener('click', function () {
+        el.search.value = word;
+        state.query = word;
+        renderSearch();
+      });
+      el.searchSuggest.appendChild(btn);
     });
-    return ul;
   }
 
-  function openPanel(entry) {
-    closePopup();                 // 세부 연표 팝업과 겹치지 않게
-    closeAbout();
-    state.selected = entry;
-    el.panelEyebrow.textContent = entry.category + ' · ' + entry.subcategory;
-    el.panelTitle.textContent = entry.title;
+  function renderSearch() {
+    var query = state.query.trim().toLowerCase();
+    var pool = state.data.entries;
+    var results = query
+      ? pool.filter(function (e) { return e._search.indexOf(query) !== -1; })
+      : pool.slice(0, 6);
 
-    var body = el.panelBody;
+    el.searchCount.textContent = query
+      ? '검색 결과 ' + results.length + '건' + (results.length > 20 ? ' (20건까지 표시)' : '')
+      : '먼저 둘러보기';
+
+    var frag = document.createDocumentFragment();
+    results.slice(0, 20).forEach(function (entry) {
+      var card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'result';
+
+      var meta = document.createElement('div');
+      meta.className = 'result__meta';
+      var dot = document.createElement('span');
+      dot.className = 'dot';
+      dot.style.backgroundColor = entry._color;
+      meta.appendChild(dot);
+      var years = document.createElement('span');
+      years.className = 'result__years';
+      years.textContent = C.yearLabel(entry.start_year) +
+        (entry.end_year !== entry.start_year ? ' – ' + C.yearLabel(entry.end_year) : '');
+      meta.appendChild(years);
+      var cat = document.createElement('span');
+      cat.className = 'result__cat';
+      cat.textContent = entry._label;
+      meta.appendChild(cat);
+      card.appendChild(meta);
+
+      var title = document.createElement('h3');
+      title.className = 'result__title';
+      title.textContent = entry.title;
+      card.appendChild(title);
+
+      var summary = document.createElement('p');
+      summary.className = 'result__summary';
+      summary.textContent = entry._summary;
+      card.appendChild(summary);
+
+      card.addEventListener('click', function () { openSheet(entry); });
+      frag.appendChild(card);
+    });
+
+    el.searchResults.textContent = '';
+    el.searchResults.appendChild(frag);
+  }
+
+  // -------------------------------------------------------- 상세 시트
+
+  function openSheet(entry) {
+    closeDay();
+    el.sheetEyebrow.textContent = entry._label + ' · ' + entry.region;
+    el.sheetTitle.textContent = entry.title;
+
+    var body = el.sheetBody;
     body.textContent = '';
 
-    var badges = document.createElement('div');
-    badges.className = 'badges';
-    [entry._label, entry.region].forEach(function (text) {
-      if (!text) return;
-      var b = document.createElement('span');
-      b.className = 'badge';
-      b.textContent = text;
-      badges.appendChild(b);
-    });
-    var status = document.createElement('span');
-    status.className = 'badge badge--status-' + entry.status;
-    status.textContent = entry.status === 'draft' ? '검토 전 (draft)' : '검토 완료 (reviewed)';
-    badges.appendChild(status);
-    body.appendChild(badges);
+    var era = document.createElement('p');
+    era.className = 'sheet__era';
+    era.textContent = entry.era_note || C.periodLabel(entry.start_year, entry.end_year);
+    body.appendChild(era);
 
-    var period = document.createElement('p');
-    period.className = 'period';
-    period.textContent = T.periodLabel(entry.start_year, entry.end_year);
-    body.appendChild(period);
+    var length = entry.end_year - entry.start_year;
+    var period = C.periodLabel(entry.start_year, entry.end_year);
+    var spanParts = [];
+    if (era.textContent !== period) spanParts.push(period);
+    if (length > 0) spanParts.push('약 ' + length + '년간');
+    if (spanParts.length) {
+      var span = document.createElement('p');
+      span.className = 'sheet__span';
+      span.textContent = spanParts.join(' · ');
+      body.appendChild(span);
+    }
 
-    var sub = document.createElement('p');
-    sub.className = 'period__sub';
-    var span = entry.end_year - entry.start_year;
-    var subParts = [];
-    // era_note 가 자동 생성 문구와 같으면 위 줄과 중복이므로 생략한다.
-    if (entry.era_note && entry.era_note !== period.textContent) subParts.push(entry.era_note);
-    if (span > 0) subParts.push('약 ' + span + '년간');
-    sub.textContent = subParts.join('  ·  ');
-    body.appendChild(sub);
-
-    // 항목에 summary 를 직접 적어 둔 경우에만 한 줄 요약을 따로 보여준다.
-    if (entry.summary) {
-      var lead = document.createElement('p');
-      lead.className = 'panel__lead';
-      lead.textContent = entry.summary;
-      body.appendChild(lead);
+    if (entry.art) {
+      var art = document.createElement('div');
+      art.className = 'sheet__art';
+      art.textContent = entry.art;
+      body.appendChild(art);
     }
 
     var desc = document.createElement('p');
-    desc.className = 'panel__desc';
+    desc.className = 'sheet__desc';
     desc.textContent = entry.description;
     body.appendChild(desc);
 
-    // 연대의 근거·한계가 적혀 있으면 눈에 띄게 보여준다.
     if (entry.dating_note) {
       var dating = document.createElement('p');
       dating.className = 'note note--dating';
-      dating.textContent = '연대 주석 — ' + entry.dating_note;
+      var strong = document.createElement('strong');
+      strong.textContent = '연대 주석';
+      dating.appendChild(strong);
+      dating.appendChild(document.createTextNode(' — ' + entry.dating_note));
       body.appendChild(dating);
     }
 
+    var source = document.createElement('p');
+    if (entry.sources && entry.sources.length) {
+      source.className = 'note note--dating';
+      source.textContent = '확인한 자료 — ' + entry.sources.join(' · ');
+    } else {
+      source.className = 'note note--source';
+      source.textContent = '출처 미확인 — 검토 전 초안입니다.';
+    }
+    body.appendChild(source);
+
     if (entry.tags && entry.tags.length) {
       var tags = document.createElement('div');
-      tags.className = 'tag-list';
+      tags.className = 'tags';
       entry.tags.forEach(function (tag) {
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'tag';
-        btn.textContent = '#' + tag;
-        btn.title = '"' + tag + '" 로 검색';
-        btn.addEventListener('click', function () {
+        var chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'tag';
+        chip.textContent = '#' + tag;
+        chip.addEventListener('click', function () {
+          closeSheet();
           el.search.value = tag;
-          state.query = tag.toLowerCase();
-          render();
+          state.query = tag;
+          renderSearch();
+          setTab('search');
         });
-        tags.appendChild(btn);
+        tags.appendChild(chip);
       });
-      body.appendChild(field('태그', tags));
+      body.appendChild(tags);
     }
 
-    if (entry.sources && entry.sources.length) {
-      body.appendChild(field('확인한 자료', listOf(entry.sources)));
-    } else {
-      // 출처가 비어 있다는 사실을 숨기지 않는다.
-      var noSrc = document.createElement('p');
-      noSrc.className = 'note note--warn';
-      noSrc.textContent =
-        '출처 미확인 — 이 항목은 개설 수준의 통설을 요약한 초안이며, 아직 자료로 대조하지 않았습니다.';
-      body.appendChild(noSrc);
-    }
-
-    var meta = document.createElement('p');
-    meta.className = 'meta-id';
-    meta.textContent = 'id: ' + entry.id + '  ·  파일: data/' + entry._file;
-    body.appendChild(meta);
-
-    el.panel.classList.add('is-open');
-    el.panel.setAttribute('aria-hidden', 'false');
-    el.panelBackdrop.hidden = false;
-    el.copyHint.textContent = '';
+    el.sheet.hidden = false;
+    el.sheetScrim.hidden = false;
   }
 
-  function closePanel() {
-    state.selected = null;
-    el.panel.classList.remove('is-open');
-    el.panel.setAttribute('aria-hidden', 'true');
-    if (!isPopupOpen()) el.panelBackdrop.hidden = true;
-    if (chart) chart.select(null);
+  function closeSheet() {
+    el.sheet.hidden = true;
+    el.sheetScrim.hidden = true;
   }
 
-  function copySelectedJson() {
-    if (!state.selected) return;
-    var clean = {};
-    Object.keys(state.selected).forEach(function (key) {
-      if (key.charAt(0) !== '_') clean[key] = state.selected[key];
-    });
-    var text = JSON.stringify(clean, null, 2);
+  // ------------------------------------------------------- 월·일 팝업
 
-    var done = function (ok) {
-      el.copyHint.textContent = ok ? '복사했습니다.' : '복사에 실패했습니다.';
-      setTimeout(function () { el.copyHint.textContent = ''; }, 2500);
-    };
+  function openDay(group) {
+    closeSheet();
+    el.dayDot.style.backgroundColor = group.column.color;
+    el.dayCat.textContent = group.column.label;
+    el.dayYear.textContent = C.yearLabel(group.year) + '년';
 
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(false); });
-    } else {
-      // 클립보드 API 가 없는 환경(오래된 웹뷰 등)을 위한 대비책
-      var ta = document.createElement('textarea');
-      ta.value = text;
-      ta.setAttribute('readonly', '');
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      var ok = false;
-      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
-      document.body.removeChild(ta);
-      done(ok);
-    }
-  }
+    var rows = document.createDocumentFragment();
+    group.entries.slice().sort(C.sortByMd).forEach(function (entry) {
+      var row = document.createElement('button');
+      row.type = 'button';
+      row.className = 'dayrow';
 
-  // -------------------------------------------------- 세부 연표 팝업
+      var md = document.createElement('span');
+      md.className = 'dayrow__md';
+      md.textContent = entry.start_md ? C.mdLabel(entry.start_md) + '.' : '연중';
+      row.appendChild(md);
 
-  function isPopupOpen() {
-    return el.popup.classList.contains('is-open') || el.about.classList.contains('is-open');
-  }
+      var text = document.createElement('span');
+      text.className = 'dayrow__text';
+      var title = document.createElement('span');
+      title.className = 'dayrow__title';
+      title.textContent = entry.title;
+      text.appendChild(title);
+      var summary = document.createElement('span');
+      summary.className = 'dayrow__summary';
+      summary.textContent = entry._summary;
+      text.appendChild(summary);
+      row.appendChild(text);
 
-  function openAbout() {
-    closePanel();
-    closePopup();
-    el.about.classList.add('is-open');
-    el.about.setAttribute('aria-hidden', 'false');
-    el.panelBackdrop.hidden = false;
-  }
-
-  function closeAbout() {
-    el.about.classList.remove('is-open');
-    el.about.setAttribute('aria-hidden', 'true');
-    if (!state.selected && !el.popup.classList.contains('is-open')) el.panelBackdrop.hidden = true;
-  }
-
-  /** 세부 연표 한 줄 */
-  function miniRow(entry, showLane) {
-    var row = document.createElement('li');
-    row.className = 'minitl__row';
-
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'minitl__btn';
-    btn.addEventListener('click', function () {
-      closePopup();
-      openPanel(entry);
-      chart.select(entry.id);
+      row.addEventListener('click', function () {
+        closeDay();
+        openSheet(entry);
+      });
+      rows.appendChild(row);
     });
 
-    var year = document.createElement('span');
-    year.className = 'minitl__year';
-    year.textContent = entry._isPoint
-      ? T.yearLabel(entry.start_year)
-      : T.yearLabel(entry.start_year) + ' ~';
-    if (!entry._isPoint) year.title = T.periodLabel(entry.start_year, entry.end_year);
-    btn.appendChild(year);
-
-    var dot = document.createElement('span');
-    dot.className = 'minitl__dot';
-    dot.style.backgroundColor = entry._color;
-    btn.appendChild(dot);
-
-    var text = document.createElement('span');
-    text.className = 'minitl__text';
-
-    var title = document.createElement('b');
-    title.textContent = entry.title;
-    text.appendChild(title);
-
-    if (showLane) {
-      var lane = document.createElement('span');
-      lane.className = 'minitl__lane';
-      lane.textContent = entry._label;
-      title.appendChild(lane);
-    }
-
-    var summary = document.createElement('em');
-    summary.textContent = entry._summary;
-    text.appendChild(summary);
-
-    btn.appendChild(text);
-    row.appendChild(btn);
-    return row;
+    el.dayRows.textContent = '';
+    el.dayRows.appendChild(rows);
+    el.day.hidden = false;
+    el.dayScrim.hidden = false;
   }
 
-  function openPopup(cluster) {
-    var period = T.periodLabel(cluster.startYear, cluster.endYear);
-
-    el.popupEyebrow.textContent = cluster.label + ' · 세부 연표';
-    el.popupTitle.textContent = period + ' · ' + cluster.entries.length + '건';
-
-    var body = el.popupBody;
-    body.textContent = '';
-
-    var list = document.createElement('ol');
-    list.className = 'minitl';
-    cluster.entries.forEach(function (entry) { list.appendChild(miniRow(entry, false)); });
-    body.appendChild(list);
-
-    // 같은 기간에 다른 트랙에서 무슨 일이 있었는지 — 빅 히스토리의 핵심 비교.
-    // 이 구간에서 "시작한" 사건을 먼저 보여주고, 걸쳐 있기만 한 긴 항목은 뒤로 민다.
-    var others = state.visible.filter(function (entry) {
-      if (entry._dataset === cluster.dataset) return false;
-      return entry.start_year <= cluster.endYear && entry.end_year >= cluster.startYear;
-    }).sort(function (a, b) {
-      var aIn = a.start_year >= cluster.startYear ? 0 : 1;
-      var bIn = b.start_year >= cluster.startYear ? 0 : 1;
-      if (aIn !== bIn) return aIn - bIn;
-      return a.start_year - b.start_year;
-    });
-
-    if (others.length) {
-      var shown = others.slice(0, 14);
-      var otherList = document.createElement('ol');
-      otherList.className = 'minitl minitl--muted';
-      shown.forEach(function (entry) { otherList.appendChild(miniRow(entry, true)); });
-
-      var wrap = document.createElement('div');
-      wrap.className = 'field';
-      var label = document.createElement('p');
-      label.className = 'field__label';
-      label.textContent = '같은 기간 다른 트랙 (' + others.length + '건 중 ' + shown.length + '건)';
-      wrap.appendChild(label);
-      wrap.appendChild(otherList);
-      if (others.length > shown.length) {
-        var more = document.createElement('p');
-        more.className = 'minitl__more';
-        more.textContent = '나머지 ' + (others.length - shown.length) + '건은 연표에서 확인하세요.';
-        wrap.appendChild(more);
-      }
-      body.appendChild(wrap);
-    }
-
-    el.popupZoom.onclick = function () {
-      var pad = Math.max(2, Math.round((cluster.endYear - cluster.startYear) * 0.2));
-      closePopup();
-      chart.focusYears(cluster.startYear - pad, cluster.endYear + pad, true);
-    };
-
-    el.popup.classList.add('is-open');
-    el.popup.setAttribute('aria-hidden', 'false');
-    el.panelBackdrop.hidden = false;
+  function closeDay() {
+    el.day.hidden = true;
+    el.dayScrim.hidden = true;
   }
 
-  function closePopup() {
-    el.popup.classList.remove('is-open');
-    el.popup.setAttribute('aria-hidden', 'true');
-    if (!state.selected) el.panelBackdrop.hidden = true;
-    if (chart) chart.select(null);
+  // ------------------------------------------------------------ 낮/야경
+
+  function setNight(night) {
+    state.night = night;
+    el.app.classList.toggle('is-night', night);
+    el.nightToggle.textContent = night ? '☾ 야경' : '☀ 낮';
+    el.nightToggle.setAttribute('aria-pressed', String(night));
+    renderTimeline();
+    paint(state.eraIndex, state.progress);
   }
 
   // ------------------------------------------------------------ 이벤트
 
-  /**
-   * 첫 렌더 직후 한 번 더 그린다.
-   * vis-timeline 은 컨테이너 크기를 재기 전에 만든 아이템을 visibility:hidden 으로
-   * 두었다가 다음 redraw 에서 드러내므로, 이 호출이 없으면 막대가 보이지 않는다.
-   */
-  function settleView() {
-    setTimeout(function () {
-      if (!chart) return;
-      chart.redraw();
-      if (bucketYears() !== state.lastBucket) renderItems();
-    }, 120);
-  }
-
-  /** 좁은 화면에서는 필터 줄을 접어 연표에 화면을 내준다. */
-  function setFiltersOpen(open) {
-    el.filters.hidden = !open;
-    el.filtersToggle.setAttribute('aria-expanded', String(open));
-    if (chart) setTimeout(function () { chart.redraw(); }, 0);
-  }
-
   function bindEvents() {
+    el.scroll.addEventListener('scroll', onScroll, { passive: true });
+    el.nightToggle.addEventListener('click', function () { setNight(!state.night); });
+
+    document.querySelectorAll('[data-pick]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        setAllCategories(btn.getAttribute('data-pick') === 'none');
+      });
+    });
+
     el.search.addEventListener('input', debounce(function () {
-      state.query = el.search.value.trim().toLowerCase();
-      render();
+      state.query = el.search.value;
+      renderSearch();
     }, 120));
 
-    el.searchClear.addEventListener('click', function () {
-      el.search.value = '';
-      state.query = '';
-      el.search.focus();
-      render();
-    });
-
-    el.draftOnly.addEventListener('change', function () {
-      state.draftOnly = el.draftOnly.checked;
-      render();
-    });
-
-    el.categoryOpen.addEventListener('click', function () {
-      if (el.categoryPanel.hidden) openCategoryPanel();
-      else closeCategoryPanel();
-    });
-
-    el.categoryPanel.addEventListener('click', function (e) {
-      var btn = e.target.closest ? e.target.closest('[data-pick]') : null;
-      if (!btn) return;
-      var action = btn.getAttribute('data-pick');
-      if (action === 'all') setAllCategories(true);
-      else if (action === 'none') setAllCategories(false);
-      else if (action === 'close') closeCategoryPanel();
-    });
-
-    // 패널 바깥을 누르면 닫는다.
-    document.addEventListener('click', function (e) {
-      if (el.categoryPanel.hidden) return;
-      if (el.categoryPanel.contains(e.target) || el.categoryOpen.contains(e.target)) return;
-      closeCategoryPanel();
-    });
-
-    el.orientation.addEventListener('click', function (e) {
-      var btn = e.target.closest ? e.target.closest('.seg-btn') : null;
-      if (btn) setAxis(btn.getAttribute('data-axis'));
-    });
-
-    el.scrollMode.addEventListener('click', function (e) {
-      var btn = e.target.closest ? e.target.closest('.seg-btn') : null;
-      if (btn) setScrollMode(btn.getAttribute('data-mode'));
-    });
-
-    el.reset.addEventListener('click', resetAll);
-    el.emptyState.querySelector('[data-action="reset"]').addEventListener('click', resetAll);
-
-    el.filtersToggle.addEventListener('click', function () {
-      setFiltersOpen(el.filters.hidden);
-    });
-
-    el.panelClose.addEventListener('click', closePanel);
-    el.popupClose.addEventListener('click', closePopup);
-    el.aboutOpen.addEventListener('click', openAbout);
-    el.aboutClose.addEventListener('click', closeAbout);
-    el.panelBackdrop.addEventListener('click', function () {
-      closeAbout();
-      closePopup();
-      closePanel();
-    });
-    el.copyJson.addEventListener('click', copySelectedJson);
+    el.sheetClose.addEventListener('click', closeSheet);
+    el.sheetScrim.addEventListener('click', closeSheet);
+    el.dayClose.addEventListener('click', closeDay);
+    el.dayScrim.addEventListener('click', closeDay);
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
-        if (!el.categoryPanel.hidden) closeCategoryPanel();
-        else if (el.about.classList.contains('is-open')) closeAbout();
-        else if (isPopupOpen()) closePopup();
-        else if (state.selected) closePanel();
-        else if (state.query) { el.search.value = ''; state.query = ''; render(); }
+        if (!el.day.hidden) closeDay();
+        else if (!el.sheet.hidden) closeSheet();
         return;
       }
-      var typingTarget = e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName);
-      if (e.key === '/' && !typingTarget) {
+      var typing = e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName);
+      if (e.key === '/' && !typing) {
         e.preventDefault();
-        el.search.focus();
-        el.search.select();
+        setTab('search');
       }
     });
 
-    window.addEventListener('resize', debounce(function () {
-      if (!chart) return;
-      chart.redraw();
-      if (bucketYears() !== state.lastBucket) renderItems();
-    }, 200));
-  }
-
-  function showError(err) {
-    el.loading.hidden = true;
-    el.timeline.hidden = true;
-    var box = document.createElement('div');
-    box.className = 'error-box';
-    var h = document.createElement('h2');
-    h.textContent = '데이터를 불러오지 못했습니다';
-    var p = document.createElement('p');
-    p.textContent = String(err && err.message ? err.message : err);
-    var hint = document.createElement('p');
-    hint.innerHTML =
-      'index.html 을 파일로 바로 열었다면 <code>npm run build</code> 로 ' +
-      '<code>data/bundle.js</code> 를 만들어 주세요. ' +
-      '또는 <code>npx serve</code> 로 간단한 로컬 서버를 띄우면 바로 동작합니다.';
-    box.appendChild(h);
-    box.appendChild(p);
-    box.appendChild(hint);
-    el.stage.appendChild(box);
+    window.addEventListener('resize', debounce(onScroll, 150));
   }
 
   // ------------------------------------------------------------ 시작
 
-  function handleSelect(id) {
-    if (!id) {
-      if (!isPopupOpen()) closePanel();
-      return;
-    }
-    if (state.clusters[id]) {          // 묶음 → 세부 연표 팝업
-      closePanel();
-      openPopup(state.clusters[id]);
-      return;
-    }
-    var entry = state.data.entries.filter(function (e) { return e.id === id; })[0];
-    if (entry) {
-      closePopup();
-      openPanel(entry);
-    }
-  }
-
   function start(data) {
     state.data = data;
-    data.datasets.forEach(function (ds) {
-      state.active[ds.id] = !ds.hidden_by_default;
-    });
 
-    buildEraPresets(data.eraPresets);
-    buildFilters(data.tracks);
+    buildTabs();
+    buildEraChips();
+    buildCategories();
+    buildSuggestions();
     bindEvents();
-    setAxis(data.defaultAxis, true);
-    setScrollMode('zoom');
-    setFiltersOpen(window.innerWidth > 860);
 
-    settleView();
+    syncCategories();
+    renderTimeline();
+    renderSearch();
+    setTab('timeline');
+    paint(0, 0);
 
     el.loading.hidden = true;
-    console.info(
-      '[app] 빅 히스토리 연표 ' + APP_VERSION +
-      ' · 기본 축: ' + data.defaultAxis +
-      ' · 데이터: ' + (data.source === 'bundle' ? 'data/bundle.js (file:// 모드)' : 'data/*.json')
-    );
+    console.info('[app] 빅 히스토리 연표 · 항목 ' + data.entries.length + '개 · 시대 ' + data.eras.length + '구간');
+  }
+
+  function showError(err) {
+    el.loading.hidden = true;
+    el.chapters.textContent = '';
+    var box = document.createElement('div');
+    box.className = 'card';
+    var title = document.createElement('p');
+    title.className = 'card__label';
+    title.textContent = '데이터를 불러오지 못했습니다';
+    var message = document.createElement('p');
+    message.className = 'card__text';
+    message.textContent = String(err && err.message ? err.message : err);
+    var hint = document.createElement('p');
+    hint.className = 'card__text';
+    hint.textContent = 'index.html 을 파일로 바로 열었다면 npm run build 로 data/bundle.js 를 만들거나, ' +
+      'npx serve 로 로컬 서버를 띄워 주세요.';
+    box.appendChild(title);
+    box.appendChild(message);
+    box.appendChild(hint);
+    el.chapters.appendChild(box);
   }
 
   window.BigHistoryData.load().then(start).catch(function (err) {
@@ -925,22 +641,17 @@
     showError(err);
   });
 
-  // 오프라인 캐시(PWA). file:// 이나 서비스워커 미지원 환경에서는 조용히 건너뜁니다.
+  // 오프라인 캐시(PWA)
   if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
-    // 새 서비스워커가 넘겨받으면 한 번 새로고침해서 항상 최신 코드로 맞춘다.
     var reloading = false;
     navigator.serviceWorker.addEventListener('controllerchange', function () {
       if (reloading) return;
       reloading = true;
       location.reload();
     });
-
     window.addEventListener('load', function () {
-      navigator.serviceWorker.register('sw.js').then(function (reg) {
-        reg.update();   // 방문할 때마다 새 버전이 있는지 확인
-      }).catch(function (err) {
-        console.info('[pwa] 서비스워커 등록을 건너뜁니다.', err && err.message);
-      });
+      navigator.serviceWorker.register('sw.js').then(function (reg) { reg.update(); })
+        .catch(function (err) { console.info('[pwa] 서비스워커 등록을 건너뜁니다.', err && err.message); });
     });
   }
 })();

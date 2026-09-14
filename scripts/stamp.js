@@ -24,8 +24,7 @@ const ROOT = path.resolve(__dirname, '..');
 const ASSETS = [
   'css/styles.css',
   'js/data.js',
-  'js/timeline.js',
-  'js/vtimeline.js',
+  'js/chapters.js',
   'js/app.js'
 ];
 

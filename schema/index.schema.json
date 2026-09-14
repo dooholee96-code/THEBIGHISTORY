@@ -4,7 +4,7 @@
   "title": "빅 히스토리 연표 매니페스트",
   "description": "data/index.json. 어떤 데이터 파일이 존재하고 각각 어떤 트랙/카테고리/표시이름/색상에 속하는지 등록한다.",
   "type": "object",
-  "required": ["schema_version", "tracks", "datasets"],
+  "required": ["schema_version", "tracks", "datasets", "eras"],
   "additionalProperties": false,
   "properties": {
     "$schema": { "type": "string" },
@@ -25,32 +25,25 @@
         }
       }
     },
-    "default_window": {
-      "type": "object",
-      "description": "앱을 처음 열었을 때(그리고 전체 초기화 시) 보여줄 연도 범위.",
-      "required": ["start_year", "end_year"],
-      "additionalProperties": false,
-      "properties": {
-        "start_year": { "type": "integer" },
-        "end_year": { "type": "integer" }
-      }
-    },
-    "default_axis": {
-      "type": "string",
-      "description": "앱을 열었을 때의 시간축 방향. vertical = y축이 연도(세로), horizontal = x축이 연도(가로).",
-      "enum": ["vertical", "horizontal"]
-    },
-    "era_presets": {
+    "eras": {
       "type": "array",
+      "description": "연표를 나누는 시대 구간. 화면의 시대 칩·섹션·배경 팔레트가 모두 여기서 만들어진다.",
+      "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["id", "label"],
+        "required": ["id", "label", "start_year", "end_year"],
         "additionalProperties": false,
         "properties": {
           "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
           "label": { "type": "string", "minLength": 1 },
-          "start_year": { "type": ["integer", "null"] },
-          "end_year": { "type": ["integer", "null"] }
+          "range": { "type": "string", "description": "칩·제목 옆에 표시할 연도 범위 문구" },
+          "start_year": { "type": "integer" },
+          "end_year": { "type": "integer" },
+          "art": { "type": "string", "description": "이 시대에 들어갈 삽화의 의도(자리표시자 라벨)" },
+          "day": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "string" } },
+          "day_blob": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "string" } },
+          "night": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "string" } },
+          "night_blob": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "string" } }
         }
       }
     },
