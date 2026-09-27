@@ -311,6 +311,25 @@
       "status": "draft"
     },
     {
+      "id": "japan-recovery",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "전후 부흥기",
+      "kind": "era",
+      "region": "동아시아",
+      "start_year": 1952,
+      "end_year": 1955,
+      "era_note": "1952년 ~ 1955년",
+      "description": "강화조약 발효로 주권을 되찾은 뒤 한국전쟁 특수로 경제가 살아났고, 1955년 자유민주당 창당과 함께 이른바 55년 체제가 시작되기까지의 시기다.",
+      "tags": [
+        "현대",
+        "경제"
+      ],
+      "sources": [],
+      "dating_note": "전후 부흥기는 흔히 패전 직후인 1945년부터 잡지만, 여기서는 연합국 점령기 항목과 겹치지 않도록 주권을 회복한 1952년부터로 잡았다.",
+      "status": "draft"
+    },
+    {
       "id": "japan-showa-postwar",
       "category": "왕조사",
       "subcategory": "일본",
