@@ -10,8 +10,11 @@
      · 휠     — 한 칸씩 끊기지 않고 목표 위치로 부드럽게 따라간다.
      · 이동   — 시대 점프는 가속·감속 곡선으로 날아간다.
 
-   세로는 내용물을 transform 으로 옮기고(합성만 하므로 가볍다),
-   가로는 표마다 scrollLeft 를 맞춘다(연도 축이 sticky 로 붙어 있어야 해서).
+   두 가지 모드가 있습니다.
+     · 'image'  (기본) — 연도 축까지 표 전체가 한 장의 그림처럼 움직인다.
+                         가로·세로 모두 내용물 하나를 transform 으로 옮기고, 끌면 어느 방향으로든 자유롭게.
+     · 'pinned'         — 연도 축은 왼쪽에 붙어 있고 칸만 옆으로 넘어간다.
+                         세로는 transform, 가로는 표마다 scrollLeft(연도 축이 sticky 라서).
    ------------------------------------------------------------------ */
 (function (global) {
   'use strict';
@@ -136,6 +139,7 @@
     var raf = 0;
     var lastT = 0;
     var applied = { top: NaN, oy: NaN, left: NaN, ox: NaN };
+    var mode = opts.mode === 'pinned' ? 'pinned' : 'image';
     var drag = null;
     var suppressClick = false;
     var wheelTimer = 0;
@@ -162,28 +166,49 @@
       };
     }
 
+    function setWrapLeft(i, sx) {
+      wraps[i].scrollLeft = sx;
+      if (wraps[i]._sx !== sx) {
+        wraps[i]._sx = sx;
+        wraps[i].style.setProperty('--sx', sx + 'px');
+      }
+    }
+
     function apply(force) {
       var top = y.clamped();
       var oy = rubber(y.pos - top, y.dim);
       var shown = top + oy;
+      var left = x.clamped();
+      var ox = rubber(x.pos - left, x.dim * 0.6);
+
+      if (mode === 'image') {
+        // 한 장의 그림 — 가로·세로를 transform 하나로
+        var shownX = left + ox;
+        if (force || shown !== applied.top || shownX !== applied.left) {
+          applied.top = shown;
+          applied.left = shownX;
+          content.style.transform = 'translate3d(' + (-shownX).toFixed(2) + 'px,' + (-shown).toFixed(2) + 'px,0)';
+        }
+        if (force) {
+          for (var w = 0; w < wraps.length; w += 1) setWrapLeft(w, 0);
+          applied.ox = 0;
+          content.style.setProperty('--ox', '0px');
+        }
+        if (opts.onFrame) opts.onFrame(info());
+        return;
+      }
+
       if (force || shown !== applied.top) {
         applied.top = shown;
         content.style.transform = 'translate3d(0,' + (-shown).toFixed(2) + 'px,0)';
       }
 
-      var left = x.clamped();
-      var ox = rubber(x.pos - left, x.dim * 0.6);
       if (force || Math.round(left) !== applied.left) {
         applied.left = Math.round(left);
         for (var i = 0; i < wraps.length; i += 1) {
           // 표마다 옆으로 갈 수 있는 폭이 달라서, 실제로 밀린 만큼을 표에 적어 둔다.
           // (밀린 칸이 붙어 있는 연도 축 밑으로 비치지 않게 CSS 가 그만큼 잘라낸다)
-          var sx = Math.min(applied.left, wrapMax[i]);
-          wraps[i].scrollLeft = sx;
-          if (wraps[i]._sx !== sx) {
-            wraps[i]._sx = sx;
-            wraps[i].style.setProperty('--sx', sx + 'px');
-          }
+          setWrapLeft(i, Math.min(applied.left, wrapMax[i]));
         }
       }
       if (force || Math.abs(ox - applied.ox) > 0.05 || (ox === 0 && applied.ox !== 0)) {
@@ -210,7 +235,11 @@
     }
 
     function measureX() {
-      wrapMax = wraps.map(function (w) { return Math.max(0, w.scrollWidth - w.clientWidth); });
+      // 표 자체의 너비로 잰다(그림 모드에서는 표가 틀 밖으로 넘쳐 보이므로 scrollWidth 대신)
+      wrapMax = wraps.map(function (w) {
+        var table = w.firstElementChild;
+        return Math.max(0, (table ? table.offsetWidth : w.scrollWidth) - w.clientWidth);
+      });
       return wrapMax.reduce(function (m, v) { return Math.max(m, v); }, 0);
     }
 
@@ -222,6 +251,7 @@
       x.dim = viewport.clientWidth;
       y.max = Math.max(0, content.offsetHeight - viewport.clientHeight);
       x.max = Math.max(0, measureX());
+      content.style.setProperty('--pan-max', x.max + 'px');
       if (y.mode === 'idle' || y.mode === 'hold') y.pos = clamp(y.pos, y.min, y.max);
       if (x.mode === 'idle' || x.mode === 'hold') x.pos = clamp(x.pos, x.min, x.max);
       if (y.mode === 'tween' && y.tween) y.tween.to = clamp(y.tween.to, y.min, y.max);
@@ -348,7 +378,9 @@
         var canX = x.max > x.min;
         var ax = Math.abs(dx);
         var ay = Math.abs(dy);
-        drag.lock = !canX ? 'y' : (ax > ay * 1.2 ? 'x' : (ay > ax * 1.2 ? 'y' : 'xy'));
+        // 그림 모드는 어느 방향으로든 자유롭게, 고정 모드는 처음 방향으로 축을 고정
+        drag.lock = !canX ? 'y' : (mode === 'image' ? 'xy' :
+          (ax > ay * 1.2 ? 'x' : (ay > ax * 1.2 ? 'y' : 'xy')));
         // 문턱만큼 튀지 않도록 기준점을 지금 위치로 옮긴다
         drag.sx = e.clientX;
         drag.sy = e.clientY;
@@ -427,6 +459,12 @@
       var bottomLimit = v.bottom - (opts.bottomInset ? opts.bottomInset() : 0) - 40;
       if (r.top < topLimit) scrollTo(y.pos - (topLimit - r.top));
       else if (r.bottom > bottomLimit) scrollTo(y.pos + (r.bottom - bottomLimit));
+      // 그림 모드에서는 표가 스스로 옆으로 넘어가지 않으니 가로도 직접 데려온다
+      if (mode === 'image') {
+        var leftLimit = v.left + (opts.leftInset ? opts.leftInset() : 0);
+        if (r.left < leftLimit) nudge(0, r.left - leftLimit - 12);
+        else if (r.right > v.right - 12) nudge(0, r.right - v.right + 24);
+      }
     });
 
     // 표 안으로 초점이 가면 브라우저가 가로 scrollLeft 를 바꾼다 → 그 값을 따른다.
@@ -439,7 +477,7 @@
         }
         return;
       }
-      if (drag || x.mode !== 'idle' || wraps.indexOf(node) === -1) return;
+      if (mode === 'image' || drag || x.mode !== 'idle' || wraps.indexOf(node) === -1) return;
       var expected = Math.min(applied.left, wrapMax[wraps.indexOf(node)] || 0);
       if (Math.abs(node.scrollLeft - expected) > 1.5) {
         x.pos = node.scrollLeft;
@@ -456,6 +494,13 @@
       stop: stop,
       info: info,
       setEnabled: function (on) { enabled = !!on; },
+      /** 'image' 또는 'pinned'. 가로 위치는 그대로 유지한다. */
+      setMode: function (next) {
+        mode = next === 'pinned' ? 'pinned' : 'image';
+        applied.left = NaN;
+        refresh();
+      },
+      get mode() { return mode; },
       get y() { return y.clamped(); },
       get x() { return x.clamped(); }
     };

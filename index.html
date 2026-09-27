@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=2b52b544" />
+  <link rel="stylesheet" href="css/styles.css?v=f3593486" />
 </head>
 <body>
   <div class="app" id="app">
@@ -28,7 +28,14 @@
           <span class="brand__mark" aria-hidden="true"></span>
           <h1 class="brand__title">빅 히스토리 연표</h1>
         </div>
-        <button class="pill-btn" id="night-toggle" type="button" aria-pressed="false">☀ 낮</button>
+        <div class="head__actions">
+          <!-- 기본은 연도 축까지 표 전체가 한 장처럼 움직이고, 켜면 연도 축만 왼쪽에 붙는다 -->
+          <button class="pill-btn pin-btn" id="pin-toggle" type="button" aria-pressed="false"
+                  title="연도 축을 왼쪽에 고정하고 칸만 옆으로 넘기기">
+            <span class="pin-btn__box" aria-hidden="true"></span>연도 고정
+          </button>
+          <button class="pill-btn" id="night-toggle" type="button" aria-pressed="false">☀ 낮</button>
+        </div>
       </header>
 
       <!-- 1. 연표 — 끌기·던지기는 js/motion.js, 아래 계기판은 js/hud.js -->
@@ -55,6 +62,8 @@
 
         <!-- 초점선: 여기에 걸린 줄의 해가 계기판 숫자가 된다 -->
         <div class="focus-line" id="focus-line" aria-hidden="true"><span></span></div>
+
+        <p class="toast" id="toast" role="status" hidden></p>
 
         <div class="hud" id="hud">
           <div class="hud__x" hidden><i></i></div>
@@ -126,7 +135,7 @@
 
             <p class="card__label">개인정보</p>
             <p class="card__text">
-              분석 도구와 추적 스크립트를 쓰지 않고, 쿠키도 사용하지 않으며, 이용자 정보를 수집·저장하지 않습니다.
+              분석 도구와 추적 스크립트를 쓰지 않고, 쿠키도 사용하지 않으며, 이용자 정보를 수집하지 않습니다. '연도 고정' 선택만 이 기기의 브라우저 저장소에 남고 어디로도 보내지 않습니다.
               바깥으로 나가는 요청은 위 글꼴을 받아오는 것뿐이며, 홈 화면에 추가하면 오프라인에서도 열립니다.
             </p>
           </div>
@@ -169,10 +178,10 @@
     <div class="loading" id="loading">불러오는 중…</div>
   </div>
 
-  <script src="js/data.js?v=2b52b544"></script>
-  <script src="js/chapters.js?v=2b52b544"></script>
-  <script src="js/motion.js?v=2b52b544"></script>
-  <script src="js/hud.js?v=2b52b544"></script>
-  <script src="js/app.js?v=2b52b544"></script>
+  <script src="js/data.js?v=f3593486"></script>
+  <script src="js/chapters.js?v=f3593486"></script>
+  <script src="js/motion.js?v=f3593486"></script>
+  <script src="js/hud.js?v=f3593486"></script>
+  <script src="js/app.js?v=f3593486"></script>
 </body>
 </html>

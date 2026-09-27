@@ -173,6 +173,79 @@ body {
 
 .pill-btn:hover { background: rgba(255, 255, 255, .85); }
 
+.head__actions {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 7px;
+}
+
+/* 연도 고정 스위치 — 켜지면 작은 상자에 체크가 톡 */
+.pin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.pin-btn__box {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 1.5px solid rgba(120, 105, 150, .55);
+  background: rgba(255, 255, 255, .7);
+  position: relative;
+  transition: background-color .2s ease, border-color .2s ease;
+}
+
+.pin-btn__box::after {
+  content: "";
+  position: absolute;
+  left: 3.5px;
+  top: 0.5px;
+  width: 4px;
+  height: 8px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  transition: transform .4s var(--spring);
+}
+
+.pin-btn[aria-pressed="true"] {
+  background: rgba(255, 255, 255, .88);
+  font-weight: 700;
+}
+
+.pin-btn[aria-pressed="true"] .pin-btn__box {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.pin-btn[aria-pressed="true"] .pin-btn__box::after { transform: rotate(45deg) scale(1); }
+
+/* 잠깐 떴다 사라지는 안내 */
+.toast {
+  position: absolute;
+  z-index: 30;
+  left: 50%;
+  top: 10px;
+  margin: 0;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(61, 53, 71, .86);
+  color: #fff;
+  font-size: 12.5px;
+  white-space: nowrap;
+  pointer-events: none;
+  transform: translateX(-50%);
+  animation: toast-in .4s var(--spring);
+}
+
+.toast[hidden] { display: none; }
+.toast.is-leaving { animation: fade-out .25s ease forwards; }
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translate(-50%, -10px) scale(.9); }
+}
+
 /* 누르면 쏙 들어갔다가 통 튀어나오는 손맛 */
 .pill-btn, .pick, .tab, .event, .more-chip, .result, .tag, .suggest button,
 .hud__step, .icon-btn, .dayrow {
@@ -507,6 +580,16 @@ body {
 .row--head.is-stuck .axis {
   background: none;
 }
+
+/* 그림 모드(기본) — 연도 축까지 표 전체가 한 장처럼 움직인다.
+   표는 틀 밖으로 넘쳐 그대로 보이고, 연도 축은 붙지 않으며, 칸을 잘라낼 필요도 없다. */
+.is-image .table-wrap { overflow: visible; }
+.is-image .table-wrap::after { display: none; }
+.is-image .axis { position: relative; left: auto; }
+.is-image .cells { clip-path: none; }
+/* 옆으로 민 만큼 시대 삽화가 끊겨 보이지 않게 양옆으로 늘린다 */
+.is-image .chapter__art { width: calc(100vw + 2 * var(--pan-max, 0px)); }
+.is-image .focus-line::before { right: -3000px; }
 
 /* 창 안으로 들어올 때 통 튀어나오는 등장 */
 .row--body,
@@ -1453,6 +1536,8 @@ body {
   .hud__num { font-size: 24px; }
   .hud__step { width: 30px; height: 30px; font-size: 19px; }
   .intro { padding-left: 84px; padding-right: 8px; }
+  .head { gap: 8px; }
+  .head__actions .pill-btn { padding: 0 11px; font-size: 12.5px; }
   .chapter__head { padding-left: 88px; }
   .chapter__title { font-size: 22px; }
   .view--pane { padding: 4px 12px 96px; }

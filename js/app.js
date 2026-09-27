@@ -20,6 +20,8 @@
     bgGradient: document.getElementById('bg-gradient'),
     bgBlob: document.getElementById('bg-blob'),
     nightToggle: document.getElementById('night-toggle'),
+    pinToggle: document.getElementById('pin-toggle'),
+    toast: document.getElementById('toast'),
     viewTimeline: document.getElementById('view-timeline'),
     scroll: document.getElementById('scroll'),
     inner: document.getElementById('scroll-inner'),
@@ -68,6 +70,7 @@
     data: null,
     tab: 'timeline',
     night: false,
+    pinned: false,    // true 면 연도 축 고정, false 면 표 전체가 한 장처럼(기본)
     eraIndex: 0,
     off: {},          // 꺼진 카테고리 id
     query: '',
@@ -365,6 +368,10 @@
     hud.setMeta(state.data.eras[eraIndex].label, row ? row.count : 0);
     hud.setRatio(ratioOf(fy));
     hud.setX(info.x, info.maxX, info.viewW, Math.abs(info.x - live.x) > 0.5);
+    // 그림 모드에서는 연도 축도 옆으로 가므로 초점선의 고리도 함께 따라간다
+    if (!state.pinned && info.x !== live.x) {
+      el.focusLine.style.transform = info.x ? 'translate3d(' + (-info.x).toFixed(1) + 'px,0,0)' : '';
+    }
     live.x = info.x;
 
     // 3) 시대 머리행이 창 위에 붙어 따라온다
@@ -917,10 +924,51 @@
     paint(state.eraIndex, state.progress);
   }
 
+  // ------------------------------------------------------ 연도 고정 옵션
+
+  var PIN_KEY = 'bighistory.pinYears';
+
+  function loadPinned() {
+    try { return localStorage.getItem(PIN_KEY) === '1'; } catch (err) { return false; }
+  }
+
+  /** 연도 축을 왼쪽에 붙일지(pinned), 표 전체를 한 장처럼 움직일지(기본). */
+  function setPinned(pinned, announce) {
+    state.pinned = pinned;
+    el.pinToggle.setAttribute('aria-pressed', String(pinned));
+    el.viewTimeline.classList.toggle('is-image', !pinned);
+    el.focusLine.style.transform = '';
+    live.x = -1;
+    if (scroller) {
+      scroller.setMode(pinned ? 'pinned' : 'image');
+      onFrame(scroller.info());
+    }
+    try { localStorage.setItem(PIN_KEY, pinned ? '1' : '0'); } catch (err) { /* 저장 못 해도 동작엔 지장 없음 */ }
+    if (announce) {
+      showToast(pinned ? '연도 축을 왼쪽에 고정했어요' : '표 전체가 한 장처럼 움직여요');
+    }
+  }
+
+  function showToast(text) {
+    var t = el.toast;
+    clearTimeout(t._leave);
+    clearTimeout(t._hold);
+    t.classList.remove('is-leaving');
+    t.textContent = text;
+    t.hidden = true;
+    void t.offsetWidth;   // 같은 안내를 연달아 띄워도 등장 동작이 다시 나오게
+    t.hidden = false;
+    t._hold = setTimeout(function () { conceal(t, 'is-leaving', 250); }, 1500);
+  }
+
   // ------------------------------------------------------------ 이벤트
 
   function bindEvents() {
     el.nightToggle.addEventListener('click', function () { setNight(!state.night); });
+    el.pinToggle.addEventListener('click', function () {
+      setTab('timeline');
+      setPinned(!state.pinned, true);
+    });
 
     document.querySelectorAll('[data-pick]').forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -942,7 +990,9 @@
     document.addEventListener('keydown', onKey);
 
     var remeasure = debounce(function () {
-      if (live.year != null && scroller.y > 1 && !scroller.info().dragging) layout.anchorYear = live.year;
+      // 움직이는 중(날아가기·미끄러지기)에 다시 맞추면 그 움직임이 끊기므로, 멈춰 있을 때만
+      var now = scroller.info();
+      if (live.year != null && scroller.y > 1 && !now.moving && !now.dragging) layout.anchorYear = live.year;
       measure();
       placeTabPill();
       hud.measure();
@@ -996,7 +1046,12 @@
   function start(data) {
     state.data = data;
 
+    state.pinned = loadPinned();
+    el.pinToggle.setAttribute('aria-pressed', String(state.pinned));
+    el.viewTimeline.classList.toggle('is-image', !state.pinned);
+
     scroller = M.create(el.scroll, el.inner, {
+      mode: state.pinned ? 'pinned' : 'image',
       wraps: '.table-wrap',
       onFrame: onFrame,
       onDrag: function (phase, type) { if (type) live.pointer = type; },
