@@ -329,6 +329,25 @@
       "status": "draft"
     },
     {
+      "id": "japan-stable-growth",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "안정성장기(쇼와 후기)",
+      "kind": "era",
+      "region": "동아시아",
+      "start_year": 1973,
+      "end_year": 1989,
+      "era_note": "1973년 ~ 1989년",
+      "description": "석유파동으로 고도성장이 끝난 뒤 성장률이 낮아진 채 수출 산업이 커졌고, 1980년대 후반에는 자산 가격이 크게 부풀었다.",
+      "tags": [
+        "현대",
+        "경제"
+      ],
+      "sources": [],
+      "dating_note": "안정성장기는 흔히 1973년 석유파동부터 1991년 무렵 버블 붕괴까지로 보지만, 여기서는 헤이세이 시대 항목과 겹치지 않도록 쇼와 시대가 끝난 1989년까지로 잡았다.",
+      "status": "draft"
+    },
+    {
       "id": "japan-heisei",
       "category": "왕조사",
       "subcategory": "일본",

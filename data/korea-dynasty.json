@@ -586,6 +586,24 @@
       "status": "draft"
     },
     {
+      "id": "korea-first-republic",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "제1공화국",
+      "kind": "era",
+      "region": "동아시아",
+      "start_year": 1948,
+      "end_year": 1960,
+      "era_note": "1948년 ~ 1960년",
+      "description": "정부 수립부터 이승만 정부가 이어진 시기로, 6·25 전쟁과 전후 복구를 거쳐 4·19 혁명으로 막을 내렸다.",
+      "tags": [
+        "현대",
+        "정치"
+      ],
+      "sources": [],
+      "status": "draft"
+    },
+    {
       "id": "korea-dprk",
       "category": "왕조사",
       "subcategory": "한국",
@@ -635,6 +653,24 @@
       "tags": [
         "현대",
         "민주화"
+      ],
+      "sources": [],
+      "status": "draft"
+    },
+    {
+      "id": "korea-second-republic",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "제2공화국",
+      "kind": "era",
+      "region": "동아시아",
+      "start_year": 1960,
+      "end_year": 1961,
+      "era_note": "1960년 ~ 1961년",
+      "description": "4·19 혁명 뒤 내각책임제로 출범한 정부 시기로, 이듬해 5·16 군사정변으로 끝났다.",
+      "tags": [
+        "현대",
+        "정치"
       ],
       "sources": [],
       "status": "draft"
