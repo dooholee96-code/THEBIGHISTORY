@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=f2a0f721" />
+  <link rel="stylesheet" href="css/styles.css?v=2b52b544" />
 </head>
 <body>
   <div class="app" id="app">
@@ -27,21 +27,52 @@
         <div class="brand">
           <span class="brand__mark" aria-hidden="true"></span>
           <h1 class="brand__title">빅 히스토리 연표</h1>
-          <span class="era-tag" id="era-tag">고대</span>
         </div>
         <button class="pill-btn" id="night-toggle" type="button" aria-pressed="false">☀ 낮</button>
       </header>
 
-      <div class="era-chips" id="era-chips" role="tablist" aria-label="시대 이동"></div>
-
-      <!-- 1. 연표 -->
+      <!-- 1. 연표 — 끌기·던지기는 js/motion.js, 아래 계기판은 js/hud.js -->
       <main class="view view--timeline" id="view-timeline">
         <div class="scroll" id="scroll">
-          <div class="scroll__inner">
+          <div class="scroll__inner" id="scroll-inner">
+            <div class="intro" id="intro">
+              <p class="intro__eyebrow">동굴벽화에서 오늘까지</p>
+              <p class="intro__title">시간의 강을 따라<br />내려가 보세요</p>
+              <p class="intro__hint">
+                <span class="intro__arrow" aria-hidden="true">↓</span>
+                끌어서 던지거나 휠을 굴려 보세요. 아래 막대를 밀면 시대를 건너뜁니다.
+              </p>
+            </div>
             <div id="chapters"></div>
-            <p class="notice" id="draft-notice">
-              모든 항목은 검토 전 초안이며 출처가 확인되지 않았습니다. 삽화 자리는 나중에 실제 그림으로 채웁니다.
+            <div class="outro" id="outro">
+              <p class="outro__title">여기까지가 지금입니다</p>
+              <p class="notice" id="draft-notice">
+                모든 항목은 검토 전 초안이며 출처가 확인되지 않았습니다. 삽화 자리는 나중에 실제 그림으로 채웁니다.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 초점선: 여기에 걸린 줄의 해가 계기판 숫자가 된다 -->
+        <div class="focus-line" id="focus-line" aria-hidden="true"><span></span></div>
+
+        <div class="hud" id="hud">
+          <div class="hud__x" hidden><i></i></div>
+          <div class="hud__top">
+            <button class="hud__step" type="button" data-step="-1" aria-label="이전 시대">‹</button>
+            <p class="hud__read" aria-live="off">
+              <span class="hud__pre"></span><span class="hud__num">0</span><span class="hud__suf">년</span>
             </p>
+            <p class="hud__meta">
+              <span class="hud__era"></span>
+              <span class="hud__count"></span>
+            </p>
+            <button class="hud__step" type="button" data-step="1" aria-label="다음 시대">›</button>
+          </div>
+          <div class="scrub" role="slider" tabindex="0" aria-label="연표 위치"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="scrub__track"></div>
+            <div class="scrub__knob"><i></i></div>
           </div>
         </div>
       </main>
@@ -124,6 +155,7 @@
     <!-- 상세 시트 -->
     <div class="scrim" id="sheet-scrim" hidden></div>
     <div class="sheet" id="sheet" role="dialog" aria-labelledby="sheet-title" hidden>
+      <div class="sheet__grab" aria-hidden="true"><span></span></div>
       <div class="sheet__head">
         <div class="sheet__titles">
           <p class="sheet__eyebrow" id="sheet-eyebrow"></p>
@@ -137,8 +169,10 @@
     <div class="loading" id="loading">불러오는 중…</div>
   </div>
 
-  <script src="js/data.js?v=f2a0f721"></script>
-  <script src="js/chapters.js?v=f2a0f721"></script>
-  <script src="js/app.js?v=f2a0f721"></script>
+  <script src="js/data.js?v=2b52b544"></script>
+  <script src="js/chapters.js?v=2b52b544"></script>
+  <script src="js/motion.js?v=2b52b544"></script>
+  <script src="js/hud.js?v=2b52b544"></script>
+  <script src="js/app.js?v=2b52b544"></script>
 </body>
 </html>

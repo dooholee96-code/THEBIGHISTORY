@@ -123,11 +123,18 @@
   }
 
   function renderRow(row, handlers, parent) {
-    var node = el('div', 'row', parent);
+    var node = el('div', 'row row--body', parent);
+    node.setAttribute('data-year', String(row.year));
+    node.setAttribute('data-count', String(row.cells.reduce(function (n, c) { return n + c.entries.length; }, 0)));
 
     var axis = el('div', 'axis', node);
+    // '기원전'은 작은 글씨로 위에 얹어, 긴 연도도 축 너비(88px) 안에 들어가게 한다
+    if (row.year < 0) {
+      var era = el('span', 'axis__pre', axis);
+      era.textContent = '기원전';
+    }
     var year = el('span', 'axis__year', axis);
-    year.textContent = yearLabel(row.year);
+    year.textContent = String(Math.abs(row.year));
     if (row.until != null) {
       var until = el('span', 'axis__until', axis);
       until.textContent = '– ' + yearLabel(row.until);
@@ -147,6 +154,7 @@
   function renderChapter(era, entries, columns, handlers, night) {
     var section = el('section', 'chapter');
     section.id = 'era-' + era.id;
+    section.setAttribute('data-era', era.id);
 
     // 삽화 자리 — 좌우 레터박스에서 진해지고 표 뒤에서는 흐려진다.
     var art = el('div', 'chapter__art', section);
