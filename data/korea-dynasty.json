@@ -568,6 +568,24 @@
       "status": "draft"
     },
     {
+      "id": "korea-rok",
+      "category": "왕조사",
+      "subcategory": "한국",
+      "title": "대한민국",
+      "kind": "polity",
+      "region": "동아시아",
+      "start_year": 1948,
+      "end_year": 2025,
+      "era_note": "1948년 ~ 2025년",
+      "description": "한반도 남부에 수립된 민주공화국으로, 여러 차례 헌법 개정을 거치며 제1공화국부터 오늘의 제6공화국까지 이어지고 있다.",
+      "tags": [
+        "현대",
+        "국가"
+      ],
+      "sources": [],
+      "status": "draft"
+    },
+    {
       "id": "korea-dprk",
       "category": "왕조사",
       "subcategory": "한국",
@@ -626,7 +644,7 @@
       "category": "왕조사",
       "subcategory": "한국",
       "title": "제3·4공화국(개발연대)",
-      "kind": "polity",
+      "kind": "era",
       "region": "동아시아",
       "start_year": 1961,
       "end_year": 1979,
@@ -662,7 +680,7 @@
       "category": "왕조사",
       "subcategory": "한국",
       "title": "제5공화국",
-      "kind": "polity",
+      "kind": "era",
       "region": "동아시아",
       "start_year": 1981,
       "end_year": 1988,
@@ -698,7 +716,7 @@
       "category": "왕조사",
       "subcategory": "한국",
       "title": "제6공화국(민주화 이후)",
-      "kind": "polity",
+      "kind": "era",
       "region": "동아시아",
       "start_year": 1988,
       "end_year": 2025,
