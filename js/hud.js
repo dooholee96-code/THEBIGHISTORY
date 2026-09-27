@@ -26,7 +26,7 @@
 
   /**
    * @param root      #hud
-   * @param handlers  { scrub(ratio, phase), step(dir), pick(entry) }  phase: 'move' | 'tap'
+   * @param handlers  { scrub(ratio, phase), step(dir), pick(entry) }  phase: 'move' | 'end' | 'tap'
    */
   function create(root, handlers) {
     var $ = function (sel) { return root.querySelector(sel); };
@@ -114,7 +114,8 @@
       list.forEach(function (entry, i) {
         var chip = document.createElement('button');
         chip.type = 'button';
-        chip.className = 'hud__chip';
+        // 나라·왕조가 없어 시대 구분으로 대신한 칩은 테두리만 — 구분이 보이게
+        chip.className = 'hud__chip' + (entry.kind === 'era' ? ' is-era' : '');
         chip.title = entry._label + ' · ' + entry.title;
         var dot = document.createElement('i');
         dot.style.backgroundColor = entry._color;
@@ -202,7 +203,7 @@
       if (!g || e.pointerId !== g.id) return;
       s.grab = null;
       root.classList.remove('is-grabbed');
-      if (!g.moved) handlers.scrub(g.ratio, 'tap', g.type);
+      handlers.scrub(g.ratio, g.moved ? 'end' : 'tap', g.type);
       placeKnob(s.ratio);
     }
 

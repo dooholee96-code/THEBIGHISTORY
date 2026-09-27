@@ -169,6 +169,11 @@ for (const ds of manifest.datasets || []) {
       }
     });
 
+    // 왕조·국가사는 kind 가 있어야 색 띠와 '지금 이때'에 들어간다(없으면 빠진다).
+    if (ds.track === 'nation' && !entry.kind) {
+      warn(file, `${where} — kind 가 없습니다. 왕조·국가사 항목은 polity / era / trend / event 중 하나를 적어 주세요.`);
+    }
+
     // 출처 정책: draft 는 출처가 없어도 되지만, reviewed 로 올리려면 반드시 있어야 한다.
     if (entry.status === 'reviewed' && (!entry.sources || entry.sources.length === 0)) {
       fail(file, `${where} — status 가 reviewed 인데 sources 가 비어 있습니다. 확인한 자료를 적거나 draft 로 되돌리세요.`);

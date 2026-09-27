@@ -52,6 +52,11 @@
           "minLength": 1
         },
         "title": { "type": "string", "minLength": 1 },
+        "kind": {
+          "type": "string",
+          "description": "항목의 종류. polity = 나라·왕조·제국·정권(문명 단위 국가 포함), era = 정치사 시대 구분(나라 대신 시대 이름으로 부르는 기간: 헤이안 시대, 춘추시대, 일제강점기 등), trend = 흐름·변화(르네상스, 산업혁명, 냉전 등), event = 사건(전쟁, 혁명, 반포 등). 왕조·국가사 항목에는 꼭 적는다 — 타임라인의 나라별 색 띠와 계기판의 '지금 이때'가 이 값으로 고른다.",
+          "enum": ["polity", "era", "trend", "event"]
+        },
         "region": {
           "type": "string",
           "description": "대륙/지역. 예: 동아시아, 유럽, 세계",

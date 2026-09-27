@@ -476,6 +476,11 @@
   function onScrub(ratio, phase, type) {
     live.pointer = type || live.pointer;
     var y = focusOf(ratio) - layout.focus;
+    // 놓거나 톡 칠 때는 가장 가까운 해의 점에 맞춰 내려앉는다
+    if (phase !== 'move') {
+      var r = nearestRow(y + layout.focus);
+      if (r >= 0) y = layout.rows[r].mid - layout.focus;
+    }
     if (phase === 'tap') scroller.scrollTo(y);
     else scroller.follow(y, 15);
   }
@@ -603,13 +608,20 @@
     return rows[rows.length - 1].mid + 24;
   }
 
-  var LANE_MIN_YEARS = 50;
   var laneBars = [];
+
+  // 항목 종류(kind) — 왕조·국가사 데이터에 적혀 있다(schema/entries.schema.json)
+  var KIND_LABEL = { polity: '나라·왕조', era: '시대', trend: '흐름', event: '사건' };
+
+  /** 그 해에 이어지고 있었나 — 끝나는 해에는 다음 왕조에 자리를 넘긴다 */
+  function covers(e, year) {
+    return e.start_year <= year && (year < e.end_year || (year === e.end_year && e.start_year === e.end_year));
+  }
 
   /**
    * 타임라인 왼쪽의 나라별 색 띠 — Histomap 처럼 '어느 왕조·시대가 동시에 이어졌나'를 보여 준다.
-   * 왕조·국가사 카테고리 하나가 한 줄(lane), 50년 이상 이어진 항목만.
-   * 겹치는 기간은 긴 것 위에 짧은 것을 얹어 그린다.
+   * 왕조·국가사 카테고리 하나가 한 줄(lane). 나라·왕조(polity)와 시대 구분(era)만 그리고,
+   * 흐름(trend)·사건(event)은 뺀다. 겹치는 기간은 긴 것 위에 짧은 것을 얹어 그린다.
    */
   function buildLanes() {
     var box = el.lanes;
@@ -623,7 +635,7 @@
 
     nations.forEach(function (ds, lane) {
       ds.entries
-        .filter(function (e) { return e.end_year - e.start_year >= LANE_MIN_YEARS; })
+        .filter(function (e) { return (e.kind === 'polity' || e.kind === 'era') && e.end_year > e.start_year; })
         .sort(function (a, b) { return (b.end_year - b.start_year) - (a.end_year - a.start_year); })
         .forEach(function (entry) {
           var top = yOfYear(entry.start_year);
@@ -652,18 +664,29 @@
     }
   }
 
-  /** 초점선의 해에 이어지고 있던 나라별 왕조·시대(가장 긴 것 하나씩) — 계기판의 '지금 이때' */
+  /**
+   * 계기판의 '지금 이때' — 초점선의 해에 카테고리(나라)마다 이어지던 나라·왕조.
+   *  · 나라·왕조(polity)만, 긴 것부터 최대 2개(고구려·백제, 남북한처럼 같은 때 여럿인 경우)
+   *    한 나라 안의 시기(통일신라, 위만조선)는 데이터에서 era 로 적어 두어 겹치지 않게 한다
+   *  · 그 해에 나라·왕조 항목이 없으면(헤이안 시대, 춘추시대 등) 시대 구분(era) 하나로 대신한다
+   */
   function ongoingAt(year) {
     var out = [];
+    var len = function (e) { return e.end_year - e.start_year; };
     state.data.datasets.forEach(function (ds) {
       if (ds.track !== 'nation' || state.off[ds.id]) return;
-      var best = null;
-      ds.entries.forEach(function (e) {
-        var len = e.end_year - e.start_year;
-        if (len < LANE_MIN_YEARS || e.start_year > year || e.end_year < year) return;
-        if (!best || len > best.end_year - best.start_year) best = e;
-      });
-      if (best) out.push(best);
+      var polities = ds.entries
+        .filter(function (e) { return e.kind === 'polity' && covers(e, year); })
+        .sort(function (a, b) { return len(b) - len(a); });
+      var picked = polities.slice(0, 2);
+      if (!picked.length) {
+        var eras = ds.entries
+          .filter(function (e) { return e.kind === 'era' && covers(e, year); })
+          .sort(function (a, b) { return len(a) - len(b); });
+        if (eras.length) picked.push(eras[0]);
+      }
+      picked.sort(function (a, b) { return a.start_year - b.start_year; });
+      out.push.apply(out, picked);
     });
     return out;
   }
@@ -815,7 +838,8 @@
 
   function openSheet(entry) {
     closeDay();
-    el.sheetEyebrow.textContent = entry._label + ' · ' + entry.region;
+    el.sheetEyebrow.textContent = entry._label + ' · ' + entry.region +
+      (entry.kind ? ' · ' + KIND_LABEL[entry.kind] : '');
     el.sheetTitle.textContent = entry.title;
 
     var body = el.sheetBody;

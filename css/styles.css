@@ -1822,15 +1822,19 @@ body {
   gap: 5px;
   min-height: 22px;
   margin-top: 6px;
-  overflow: hidden;
+  overflow-x: auto;       /* 칩이 많으면(최대 나라마다 2개) 옆으로 밀어 본다 */
+  overflow-y: hidden;
+  scrollbar-width: none;
+  touch-action: pan-x;
   -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
   mask-image: linear-gradient(90deg, #000 88%, transparent);
 }
 
+.hud__now::-webkit-scrollbar { display: none; }
+
 .hud__chip {
-  flex: 0 1 auto;
-  min-width: 0;
-  max-width: 48%;
+  flex: 0 0 auto;
+  max-width: 70%;
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -1846,6 +1850,11 @@ body {
 }
 
 .hud__chip i { width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto; }
+
+.hud__chip.is-era {
+  background: transparent;
+  border: 1px dashed rgba(120, 105, 150, .45);
+}
 
 .hud__chip span {
   overflow: hidden;
