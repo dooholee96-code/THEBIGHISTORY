@@ -25,6 +25,7 @@ const ASSETS = [
   'css/styles.css',
   'js/data.js',
   'js/chapters.js',
+  'js/timeline.js',
   'js/motion.js',
   'js/hud.js',
   'js/app.js'

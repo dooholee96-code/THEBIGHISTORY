@@ -140,6 +140,7 @@
     var lastT = 0;
     var applied = { top: NaN, oy: NaN, left: NaN, ox: NaN };
     var mode = opts.mode === 'pinned' ? 'pinned' : 'image';
+    var snapPending = false;   // 던지기·휠이 멈추면 가까운 눈금에 톡 걸리게
     var drag = null;
     var suppressClick = false;
     var wheelTimer = 0;
@@ -226,6 +227,15 @@
       var a = y.step(dt, t);
       var b = x.step(dt, t);
       apply(false);
+      if (!moving() && snapPending) {
+        // 멈춘 자리에서 가까운 해의 점으로 살짝 끌려간다(톱니처럼 걸리는 손맛)
+        snapPending = false;
+        var to = opts.snap ? opts.snap(y.clamped()) : null;
+        if (to != null && Math.abs(to - y.pos) > 0.5 && !reduced) {
+          y.lerpTo(clamp(to, y.min, y.max), 13);
+          a = true;
+        }
+      }
       if (a || b || moving()) raf = global.requestAnimationFrame(frame);
       else lastT = 0;
     }
@@ -310,6 +320,7 @@
     }
 
     function settleWheel() {
+      snapPending = true;
       [y, x].forEach(function (axis) {
         var p = axis.mode === 'lerp' ? axis.target : axis.pos;
         if (axis.over(p)) axis.lerpTo(clamp(p, axis.min, axis.max), 9);
@@ -358,6 +369,7 @@
       };
       y.hold();
       x.hold();
+      snapPending = false;
       clearTimeout(wheelTimer);
     });
 
@@ -418,6 +430,7 @@
         }
         y.fling(d.lock === 'x' ? 0 : vy);
         x.fling(d.lock === 'y' ? 0 : vx);
+        if (d.lock !== 'x') snapPending = true;
         if (opts.onDrag) opts.onDrag('end', d.type);
       } else {
         if (d.caught) suppressClick = true;

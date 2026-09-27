@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=f3593486" />
+  <link rel="stylesheet" href="css/styles.css?v=239d2ff5" />
 </head>
 <body>
   <div class="app" id="app">
@@ -29,12 +29,20 @@
           <h1 class="brand__title">빅 히스토리 연표</h1>
         </div>
         <div class="head__actions">
-          <!-- 기본은 연도 축까지 표 전체가 한 장처럼 움직이고, 켜면 연도 축만 왼쪽에 붙는다 -->
+          <!-- 보기 방식: 타임라인(기본) / 표 -->
+          <div class="seg" id="view-seg" role="radiogroup" aria-label="보기 방식">
+            <span class="seg__pill" aria-hidden="true"></span>
+            <button class="seg__btn is-active" type="button" role="radio" aria-checked="true" data-view="timeline">타임라인</button>
+            <button class="seg__btn" type="button" role="radio" aria-checked="false" data-view="table">표</button>
+          </div>
+          <!-- 표 보기에서만: 기본은 연도 축까지 표 전체가 한 장처럼, 켜면 연도 축만 왼쪽에 붙는다 -->
           <button class="pill-btn pin-btn" id="pin-toggle" type="button" aria-pressed="false"
                   title="연도 축을 왼쪽에 고정하고 칸만 옆으로 넘기기">
             <span class="pin-btn__box" aria-hidden="true"></span>연도 고정
           </button>
-          <button class="pill-btn" id="night-toggle" type="button" aria-pressed="false">☀ 낮</button>
+          <button class="pill-btn night-btn" id="night-toggle" type="button" aria-pressed="false" aria-label="낮/야경 전환">
+            <span class="night__icon" aria-hidden="true">☀</span><span class="night__text">낮</span>
+          </button>
         </div>
       </header>
 
@@ -48,8 +56,11 @@
               <p class="intro__hint">
                 <span class="intro__arrow" aria-hidden="true">↓</span>
                 끌어서 던지거나 휠을 굴려 보세요. 아래 막대를 밀면 시대를 건너뜁니다.
+                왼쪽 색 띠는 나라마다 왕조·시대가 이어진 기간입니다.
               </p>
             </div>
+            <!-- 나라별 왕조·시대 색 띠(타임라인 보기) — 줄 위치를 잰 뒤 app.js 가 그린다 -->
+            <div class="lanes" id="lanes" aria-hidden="true" hidden></div>
             <div id="chapters"></div>
             <div class="outro" id="outro">
               <p class="outro__title">여기까지가 지금입니다</p>
@@ -78,6 +89,8 @@
             </p>
             <button class="hud__step" type="button" data-step="1" aria-label="다음 시대">›</button>
           </div>
+          <!-- 지금 이때: 같은 해에 나라마다 이어지던 왕조·시대 -->
+          <div class="hud__now" aria-label="이 무렵 나라별 왕조·시대"></div>
           <div class="scrub" role="slider" tabindex="0" aria-label="연표 위치"
                aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
             <div class="scrub__track"></div>
@@ -164,7 +177,6 @@
     <!-- 상세 시트 -->
     <div class="scrim" id="sheet-scrim" hidden></div>
     <div class="sheet" id="sheet" role="dialog" aria-labelledby="sheet-title" hidden>
-      <div class="sheet__grab" aria-hidden="true"><span></span></div>
       <div class="sheet__head">
         <div class="sheet__titles">
           <p class="sheet__eyebrow" id="sheet-eyebrow"></p>
@@ -178,10 +190,11 @@
     <div class="loading" id="loading">불러오는 중…</div>
   </div>
 
-  <script src="js/data.js?v=f3593486"></script>
-  <script src="js/chapters.js?v=f3593486"></script>
-  <script src="js/motion.js?v=f3593486"></script>
-  <script src="js/hud.js?v=f3593486"></script>
-  <script src="js/app.js?v=f3593486"></script>
+  <script src="js/data.js?v=239d2ff5"></script>
+  <script src="js/chapters.js?v=239d2ff5"></script>
+  <script src="js/timeline.js?v=239d2ff5"></script>
+  <script src="js/motion.js?v=239d2ff5"></script>
+  <script src="js/hud.js?v=239d2ff5"></script>
+  <script src="js/app.js?v=239d2ff5"></script>
 </body>
 </html>

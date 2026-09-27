@@ -155,6 +155,8 @@ body {
   font-weight: 700;
   letter-spacing: -0.01em;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: var(--ink-bg);
 }
 
@@ -176,12 +178,57 @@ body {
 .head__actions {
   flex: 0 0 auto;
   display: flex;
+  align-items: center;
   gap: 7px;
 }
 
+/* 보기 방식 스위치 — 흰 알약이 통통 튀며 옮겨 간다 */
+.seg {
+  position: relative;
+  display: inline-flex;
+  height: 34px;
+  padding: 3px;
+  border-radius: 999px;
+  background: var(--surf-w);
+  border: 1px solid rgba(255, 255, 255, .85);
+}
+
+.seg__pill {
+  position: absolute;
+  left: 0;
+  top: 3px;
+  bottom: 3px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(80, 65, 110, .16);
+}
+
+.seg.is-ready .seg__pill { transition: transform .5s var(--spring), width .5s var(--spring); }
+
+.seg__btn {
+  position: relative;
+  z-index: 1;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  padding: 0 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.seg__btn.is-active { font-weight: 700; }
+
+/* '연도 고정'은 표 보기에서만 의미가 있다 */
+.pin-btn { display: none; }
+.is-view-table .pin-btn { display: inline-flex; }
+
+.night-btn { display: inline-flex; align-items: center; gap: 5px; }
+
 /* 연도 고정 스위치 — 켜지면 작은 상자에 체크가 톡 */
 .pin-btn {
-  display: inline-flex;
   align-items: center;
   gap: 7px;
 }
@@ -248,24 +295,25 @@ body {
 
 /* 누르면 쏙 들어갔다가 통 튀어나오는 손맛 */
 .pill-btn, .pick, .tab, .event, .more-chip, .result, .tag, .suggest button,
-.hud__step, .icon-btn, .dayrow {
+.hud__step, .icon-btn, .dayrow, .tl-card, .hud__chip, .seg__btn {
   transition: transform .42s var(--spring), background-color .18s ease, opacity .2s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
 .pill-btn:active, .pick:active, .tab:active, .more-chip:active, .tag:active,
-.suggest button:active, .hud__step:active, .icon-btn:active {
+.suggest button:active, .hud__step:active, .icon-btn:active, .hud__chip:active, .seg__btn:active {
   transform: scale(.9);
   transition-duration: .08s;
 }
 
-.event:active, .result:active, .dayrow:active {
+.event:active, .result:active, .dayrow:active, .tl-card:active {
   transform: scale(.97);
   transition-duration: .08s;
 }
 
 /* 연표를 끄는 중에는 눌린 효과를 주지 않는다 */
 .scroll.is-dragging .event:active,
+.scroll.is-dragging .tl-card:active,
 .scroll.is-dragging .more-chip:active { transform: none; }
 
 /* ------------------------------------------------------------ 화면 */
@@ -298,6 +346,7 @@ body {
 
 .scroll.is-dragging { cursor: grabbing; }
 .scroll.is-dragging .event,
+.scroll.is-dragging .tl-card,
 .scroll.is-dragging .more-chip { cursor: grabbing; }
 
 .scroll__inner {
@@ -371,15 +420,13 @@ body {
   height: 0;
   pointer-events: none;
   z-index: 8;
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 0 16px;
 }
 
+/* --ring-x: 시간축 점의 가로 위치(app.js 가 잰다) */
 .focus-line::before {
   content: "";
   position: absolute;
-  left: 104px;
+  left: calc(var(--ring-x, 94px) + 16px);
   right: 16px;
   top: 0;
   border-top: 1.5px dashed rgba(143, 131, 196, .35);
@@ -388,7 +435,7 @@ body {
 /* 연도 축 위의 '지금 여기' 고리 — 숨 쉬듯 퍼진다 */
 .focus-line span {
   position: absolute;
-  left: 81px;
+  left: calc(var(--ring-x, 94px) - 13px);
   top: -13px;
   width: 26px;
   height: 26px;
@@ -535,6 +582,299 @@ body {
   color: var(--ink-bg);
 }
 
+/* ------------------------------------------------------- 타임라인 */
+
+/* 모바일 우선: [색 띠][연도│점][카드]  /  넓은 화면: [색 띠][국가사 카드][연도][주제사 카드] */
+.scroll__inner {
+  --lane-w: 6px;
+  --lane-gap: 2px;
+  --gutter: calc(var(--lanes, 0) * (var(--lane-w) + var(--lane-gap)) + 8px);
+  --mark-w: 68px;
+}
+
+/* 나라별 왕조·시대 색 띠 */
+.lanes {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 16px;
+  width: var(--gutter);
+  height: 0;
+}
+
+.lanes[hidden] { display: none; }
+
+.lane-bar {
+  position: absolute;
+  left: calc(var(--lane) * (var(--lane-w) + var(--lane-gap)));
+  width: var(--lane-w);
+  border-radius: 3px;
+  opacity: .5;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .75);
+  cursor: pointer;
+  transform-origin: 50% 50%;
+  transition: opacity .25s ease, transform .4s var(--spring);
+}
+
+.lane-bar:hover { opacity: .85; }
+.lane-bar.is-live { opacity: 1; transform: scaleX(1.4); }
+
+.tl {
+  position: relative;
+  padding-bottom: 6px;
+}
+
+/* 시간축 세로선 */
+.tl::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  bottom: 0;
+  left: calc(var(--gutter) + var(--mark-w) - 11px);
+  width: 2px;
+  border-radius: 1px;
+  background: var(--rail);
+}
+
+.chapter__head.tl-head { padding-left: calc(var(--gutter) + var(--mark-w) + 6px); }
+
+.tl-head__mark {
+  position: absolute;
+  left: calc(var(--gutter) + var(--mark-w) - 21px);
+  top: 6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(120, 105, 150, .55);
+  background: rgba(255, 255, 255, .9);
+}
+
+.is-night .tl-head__mark {
+  border-color: rgba(220, 210, 245, .7);
+  background: rgba(35, 30, 50, .85);
+}
+
+.tl-year {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--gutter) var(--mark-w) minmax(0, 1fr);
+  align-items: start;
+}
+
+.tl-mark {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  position: relative;
+  padding: 9px 22px 0 0;
+  text-align: right;
+  color: var(--ink-bg);
+}
+
+.tl-mark__pre {
+  display: block;
+  font-size: 9.5px;
+  line-height: 1.2;
+  opacity: .6;
+}
+
+.tl-mark__num {
+  display: inline-block;
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  transform-origin: 100% 50%;
+  transition: transform .45s var(--spring);
+}
+
+.tl-dot {
+  position: absolute;
+  right: 4px;
+  top: 13px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2.5px solid rgba(140, 124, 178, .85);
+  box-sizing: border-box;
+  transition: transform .45s var(--spring), background-color .2s ease, border-color .2s ease;
+}
+
+.tl-year.is-focus .tl-dot {
+  transform: scale(1.5);
+  background: var(--accent);
+  border-color: #fff;
+  box-shadow: 0 0 0 4px rgba(143, 131, 196, .22);
+}
+
+.tl-year.is-focus .tl-mark__num { transform: scale(1.1); color: #5f5294; }
+.is-night .tl-year.is-focus .tl-mark__num { color: #fff; }
+
+.tl-side {
+  grid-column: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  padding: 4px 0 4px 4px;
+  min-width: 0;
+}
+
+.tl-side--nation { grid-row: 1; }
+.tl-side--theme { grid-row: 2; }
+.tl-side.is-empty { display: none; }
+.tl-side--nation:not(.is-empty) + .tl-side--theme { padding-top: 0; }
+
+.tl-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  max-width: 440px;
+  padding: 7px 12px 8px;
+  text-align: left;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, .9);
+  border-left: 4px solid var(--c);
+  background: var(--glass-strong);
+  box-shadow: 0 3px 10px rgba(90, 75, 120, .07);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.tl-card:hover { background: var(--glass-focus); }
+
+.tl-year.is-focus .tl-card {
+  background: var(--glass-focus);
+  box-shadow: 0 6px 18px rgba(80, 65, 110, .14);
+}
+
+.tl-card__cat {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  opacity: .65;
+}
+
+.tl-card__cat .dot { width: 7px; height: 7px; }
+.tl-card__md { margin-left: auto; font-variant-numeric: tabular-nums; }
+
+.tl-card__title {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+.tl-card__span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 2px;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.tl-card__bar {
+  display: block;
+  flex: 0 0 auto;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--c);
+}
+
+.tl-card__len { opacity: .6; white-space: nowrap; }
+
+/* 해와 해 사이 — 오래 비면 '⋯ 350년' */
+.tl-gap { position: relative; }
+
+.tl-gap__label {
+  position: absolute;
+  top: 50%;
+  left: var(--gutter);
+  width: calc(var(--mark-w) - 22px);
+  transform: translateY(-50%);
+  text-align: right;
+  font-size: 10px;
+  white-space: nowrap;
+  opacity: .5;
+  color: var(--ink-bg);
+}
+
+.tl-empty {
+  margin: 0 0 0 calc(var(--gutter) + var(--mark-w));
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--glass);
+  font-size: 12.5px;
+}
+
+/* 넓은 화면: 가운데 축을 두고 왼쪽 국가사, 오른쪽 주제사 */
+@media (min-width: 900px) {
+  .scroll__inner { --lane-w: 8px; --lane-gap: 3px; --mark-w: 104px; }
+
+  .tl::before { left: calc(var(--gutter) + (100% - var(--gutter) - var(--mark-w)) / 2 + var(--mark-w) / 2 - 1px); }
+
+  .tl-year { grid-template-columns: var(--gutter) minmax(0, 1fr) var(--mark-w) minmax(0, 1fr); }
+
+  .tl-mark {
+    grid-column: 3;
+    grid-row: 1;
+    padding: 26px 0 0;
+    text-align: center;
+  }
+
+  .tl-mark__pre,
+  .tl-mark__num {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 0 6px;
+    border-radius: 7px;
+    background: var(--glass);
+  }
+
+  .tl-mark__num { transform-origin: 50% 50%; }
+
+  .tl-dot { right: auto; left: 50%; margin-left: -6px; top: 8px; }
+
+  .tl-side { grid-row: 1; padding: 4px 0; }
+  .tl-side.is-empty { display: block; }
+  .tl-side--nation { grid-column: 2; align-items: flex-end; padding-right: 10px; }
+  .tl-side--theme { grid-column: 4; align-items: flex-start; padding-left: 10px; }
+  .tl-side--nation:not(.is-empty) + .tl-side--theme { padding-top: 4px; }
+
+  .tl-side--nation .tl-card {
+    text-align: right;
+    border-left: 1px solid rgba(255, 255, 255, .9);
+    border-right: 4px solid var(--c);
+  }
+
+  .tl-side--nation .tl-card__cat { flex-direction: row-reverse; }
+  .tl-side--nation .tl-card__md { margin-left: 0; margin-right: auto; }
+  .tl-side--nation .tl-card__span { flex-direction: row-reverse; }
+
+  .chapter__head.tl-head {
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 28px 0 0 var(--gutter);
+  }
+
+  .tl-head__mark { left: calc(var(--gutter) + (100% - var(--gutter)) / 2 - 10px); top: 0; }
+
+  .tl-gap__label {
+    left: calc(var(--gutter) + (100% - var(--gutter) - var(--mark-w)) / 2);
+    width: var(--mark-w);
+    text-align: center;
+  }
+
+  .tl-empty { margin: 0 auto; width: fit-content; }
+}
+
 /* ------------------------------------------------------------ 표 */
 
 .table-wrap {
@@ -593,6 +933,7 @@ body {
 
 /* 창 안으로 들어올 때 통 튀어나오는 등장 */
 .row--body,
+.tl-year,
 .empty-row,
 .chapter__head {
   opacity: 0;
@@ -601,6 +942,7 @@ body {
 }
 
 .row--body.is-in,
+.tl-year.is-in,
 .empty-row.is-in,
 .chapter__head.is-in {
   opacity: 1;
@@ -1094,54 +1436,28 @@ body {
 .sheet {
   position: absolute;
   z-index: 60;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: 0 auto;
-  width: min(560px, 100%);
-  max-height: 82%;
+  inset: 0;
+  margin: auto;
+  height: fit-content;
+  width: min(520px, calc(100% - 28px));
+  max-height: min(82%, 720px);
   display: flex;
   flex-direction: column;
   background: rgba(255, 255, 255, .92);
   border: 1px solid rgba(255, 255, 255, .95);
-  border-radius: 26px 26px 0 0;
-  box-shadow: var(--shadow-sheet);
+  border-radius: 24px;
+  box-shadow: var(--shadow-3);
   color: var(--ink);
 }
 
 .sheet[hidden] { display: none; }
-.sheet:not([hidden]) { animation: sheet-in .52s var(--spring-soft); }
-.sheet.is-leaving { animation: sheet-out .23s cubic-bezier(.4, 0, 1, 1) forwards; }
+/* 화면 가운데에 톡 떠오르는 카드. 머리 부분을 아래로 끌어내려도 닫힌다 */
+.sheet:not([hidden]) { animation: pop-in .46s var(--spring); }
+.sheet.is-leaving { animation: pop-out .2s ease-in forwards; }
 .sheet.is-dragging { animation: none; }
 
-@keyframes sheet-in {
-  from { transform: translate3d(0, 100%, 0); }
-}
-
-@keyframes sheet-out {
-  to { transform: translate3d(0, 100%, 0); }
-}
-
-/* 손잡이 — 끌어내리면 닫힌다 */
-.sheet__grab {
-  flex: 0 0 auto;
-  height: 18px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  cursor: grab;
-  touch-action: none;
-}
-
-.sheet__grab span {
-  width: 42px;
-  height: 5px;
-  border-radius: 3px;
-  background: rgba(120, 105, 150, .3);
-}
-
 .sheet__head {
-  padding: 6px 20px 10px;
+  padding: 16px 18px 10px 20px;
   touch-action: none;
   cursor: grab;
   display: flex;
@@ -1500,6 +1816,43 @@ body {
 .hud.is-grabbed .scrub__knob i { transform: scale(1.3, 1.22); }
 .hud.is-grabbed .scrub { cursor: grabbing; }
 
+/* 지금 이때 — 같은 해에 나라마다 이어지던 왕조·시대 */
+.hud__now {
+  display: flex;
+  gap: 5px;
+  min-height: 22px;
+  margin-top: 6px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, #000 88%, transparent);
+}
+
+.hud__chip {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 48%;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 22px;
+  padding: 0 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .95);
+  background: rgba(255, 255, 255, .72);
+  color: var(--ink);
+  font: inherit;
+  font-size: 11.5px;
+  cursor: pointer;
+}
+
+.hud__chip i { width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto; }
+
+.hud__chip span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* 가로로 넘길 열이 있을 때만 보이는 얇은 위치 막대 */
 .hud__x {
   position: absolute;
@@ -1530,18 +1883,26 @@ body {
   .head { padding: max(12px, env(safe-area-inset-top)) 14px 8px; }
   .brand__title { font-size: 17px; }
   .scroll__inner { padding: 0 10px; }
-  .focus-line span { left: 75px; }
-  .focus-line::before { left: 98px; right: 10px; }
+  .focus-line::before { right: 10px; }
   .hud { padding: 7px 10px 8px; }
   .hud__num { font-size: 24px; }
   .hud__step { width: 30px; height: 30px; font-size: 19px; }
   .intro { padding-left: 84px; padding-right: 8px; }
   .head { gap: 8px; }
-  .head__actions .pill-btn { padding: 0 11px; font-size: 12.5px; }
+  .head__actions { gap: 5px; }
+  .head__actions .pill-btn { padding: 0 10px; font-size: 12.5px; }
+  .seg__btn { padding: 0 10px; font-size: 12.5px; }
+  .night__text { display: none; }
+  .lanes { left: 10px; }
   .chapter__head { padding-left: 88px; }
   .chapter__title { font-size: 22px; }
   .view--pane { padding: 4px 12px 96px; }
   .tab { padding: 0 13px; }
+}
+
+/* 아주 좁은 화면의 표 보기: 스위치가 많아지므로 제목은 로고만 남긴다 */
+@media (max-width: 480px) {
+  .is-view-table .brand__title { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1550,5 +1911,5 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 1ms !important;
   }
-  .row--body, .empty-row, .chapter__head { opacity: 1; transform: none; }
+  .row--body, .tl-year, .empty-row, .chapter__head { opacity: 1; transform: none; }
 }

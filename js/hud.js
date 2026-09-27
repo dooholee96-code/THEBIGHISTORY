@@ -26,7 +26,7 @@
 
   /**
    * @param root      #hud
-   * @param handlers  { scrub(ratio, phase), step(dir) }  phase: 'move' | 'tap'
+   * @param handlers  { scrub(ratio, phase), step(dir), pick(entry) }  phase: 'move' | 'tap'
    */
   function create(root, handlers) {
     var $ = function (sel) { return root.querySelector(sel); };
@@ -39,6 +39,7 @@
     var knob = $('.scrub__knob');
     var xbar = $('.hud__x');
     var xthumb = $('.hud__x i');
+    var now = $('.hud__now');
 
     var s = {
       target: 0,
@@ -96,6 +97,38 @@
         pop(era, 'translateY(-7px) scale(1.15)');
       }
       count.textContent = n ? '사건 ' + n + '건' : '';
+    }
+
+    // ------------------------------------------------------ 지금 이때
+
+    /**
+     * 초점선의 해에 나라마다 이어지던 왕조·시대. Histomap 의 한 단면처럼
+     * '같은 때 다른 곳에서는'을 한눈에 보여 주고, 누르면 그 항목을 연다.
+     */
+    function setOngoing(list) {
+      if (!now) return;
+      var key = list.map(function (e) { return e.id; }).join('|');
+      if (key === now._key) return;
+      now._key = key;
+      now.textContent = '';
+      list.forEach(function (entry, i) {
+        var chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'hud__chip';
+        chip.title = entry._label + ' · ' + entry.title;
+        var dot = document.createElement('i');
+        dot.style.backgroundColor = entry._color;
+        chip.appendChild(dot);
+        var name = document.createElement('span');
+        name.textContent = entry.title;
+        chip.appendChild(name);
+        chip.addEventListener('click', function () { if (handlers.pick) handlers.pick(entry); });
+        now.appendChild(chip);
+        if (!reduced && chip.animate) {
+          chip.animate([{ opacity: 0, transform: 'translateY(6px) scale(.9)' }, { opacity: 1, transform: 'none' }],
+            { duration: 360, delay: i * 40, easing: SPRING, fill: 'backwards' });
+        }
+      });
     }
 
     // ------------------------------------------------------------- 막대
@@ -217,6 +250,7 @@
       setYear: setYear,
       setMeta: setMeta,
       setX: setX,
+      setOngoing: setOngoing,
       get grabbing() { return !!s.grab; }
     };
   }

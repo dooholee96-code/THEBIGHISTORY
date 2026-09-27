@@ -10,6 +10,7 @@
   'use strict';
 
   var C = window.BigHistoryChapters;
+  var T = window.BigHistoryTimeline;
   var M = window.BigHistoryMotion;
   var H = window.BigHistoryHud;
 
@@ -21,6 +22,8 @@
     bgBlob: document.getElementById('bg-blob'),
     nightToggle: document.getElementById('night-toggle'),
     pinToggle: document.getElementById('pin-toggle'),
+    viewSeg: document.getElementById('view-seg'),
+    lanes: document.getElementById('lanes'),
     toast: document.getElementById('toast'),
     viewTimeline: document.getElementById('view-timeline'),
     scroll: document.getElementById('scroll'),
@@ -70,7 +73,8 @@
     data: null,
     tab: 'timeline',
     night: false,
-    pinned: false,    // true 면 연도 축 고정, false 면 표 전체가 한 장처럼(기본)
+    view: 'timeline', // 'timeline'(기본) | 'table'
+    pinned: false,    // 표 보기에서 true 면 연도 축 고정, false 면 표 전체가 한 장처럼(기본)
     eraIndex: 0,
     off: {},          // 꺼진 카테고리 id
     query: '',
@@ -204,6 +208,7 @@
     var reveal = [];
 
     Array.prototype.forEach.call(el.chapters.querySelectorAll('.chapter'), function (sec, index) {
+      // 표 보기에만 붙어 따라오는 머리행이 있다
       var head = sec.querySelector('.row--head');
       var table = sec.querySelector('.table');
       var top = offsetIn(sec, inner);
@@ -213,20 +218,22 @@
         top: top,
         bottom: top + sec.offsetHeight,
         head: head,
-        headTop: offsetIn(head, inner),
-        headH: head.offsetHeight,
-        tableBottom: offsetIn(table, inner) + table.offsetHeight,
-        stuck: old && old.head === head ? old.stuck : 0
+        headTop: head ? offsetIn(head, inner) : 0,
+        headH: head ? head.offsetHeight : 0,
+        tableBottom: table ? offsetIn(table, inner) + table.offsetHeight : 0,
+        stuck: old && head && old.head === head ? old.stuck : 0
       });
 
       var title = sec.querySelector('.chapter__head');
       reveal.push({ node: title, top: offsetIn(title, inner), h: title.offsetHeight });
 
-      Array.prototype.forEach.call(sec.querySelectorAll('.row--body, .empty-row'), function (node) {
+      Array.prototype.forEach.call(sec.querySelectorAll('[data-year], .empty-row'), function (node) {
         var item = { node: node, top: offsetIn(node, inner), h: node.offsetHeight };
         reveal.push(item);
         if (!node.hasAttribute('data-year')) return;
-        item.mid = item.top + item.h / 2;
+        // 초점선에 맞출 기준점 — 타임라인은 해의 점, 표는 줄 가운데
+        var dot = node.querySelector('.tl-dot');
+        item.mid = dot ? offsetIn(dot, inner) + dot.offsetHeight / 2 : item.top + item.h / 2;
         item.year = Number(node.getAttribute('data-year'));
         item.count = Number(node.getAttribute('data-count'));
         item.era = index;
@@ -242,8 +249,10 @@
     layout.reveal = reveal;
     if (live.row >= rows.length) live.row = -1;
 
+    placeFocusRing();
     scroller.refresh();
     buildScrubber();
+    buildLanes();
 
     if (layout.anchorYear != null) {
       var year = layout.anchorYear;
@@ -363,13 +372,18 @@
     }
     var row = layout.rows[r];
     var eraIndex = row ? row.era : index;
-    live.year = row ? row.year : state.data.eras[index].start_year;
+    var year = row ? row.year : state.data.eras[index].start_year;
+    if (year !== live.year) {
+      live.year = year;
+      markLiveLanes(year);
+      hud.setOngoing(ongoingAt(year));
+    }
     hud.setYear(live.year);
     hud.setMeta(state.data.eras[eraIndex].label, row ? row.count : 0);
     hud.setRatio(ratioOf(fy));
     hud.setX(info.x, info.maxX, info.viewW, Math.abs(info.x - live.x) > 0.5);
     // 그림 모드에서는 연도 축도 옆으로 가므로 초점선의 고리도 함께 따라간다
-    if (!state.pinned && info.x !== live.x) {
+    if (state.view === 'table' && !state.pinned && info.x !== live.x) {
       el.focusLine.style.transform = info.x ? 'translate3d(' + (-info.x).toFixed(1) + 'px,0,0)' : '';
     }
     live.x = info.x;
@@ -377,6 +391,7 @@
     // 3) 시대 머리행이 창 위에 붙어 따라온다
     for (var c = 0; c < chapters.length; c += 1) {
       var cc = chapters[c];
+      if (!cc.head) continue;
       var room = Math.max(0, cc.tableBottom - cc.headTop - cc.headH);
       var off = Math.round(clamp(info.y - cc.headTop, 0, room) * 2) / 2;
       if (off !== cc.stuck) {
@@ -525,6 +540,11 @@
     var entries = visibleEntries();
     var handlers = { openEntry: openSheet, openDay: openDay };
 
+    // 타임라인 왼쪽 색 띠의 폭(나라 수)을 먼저 정해 두어야 줄 위치를 한 번에 잴 수 있다
+    var laneCount = state.view === 'timeline'
+      ? columns.filter(function (col) { return col.track === 'nation'; }).length : 0;
+    el.inner.style.setProperty('--lanes', String(laneCount));
+
     var frag = document.createDocumentFragment();
     state.data.eras.forEach(function (era) {
       var inEra = entries.filter(function (e) {
@@ -535,7 +555,8 @@
       var eraColumns = columns.filter(function (col) {
         return inEra.some(function (e) { return e._dataset === col.id; });
       });
-      frag.appendChild(C.render(era, inEra, eraColumns, handlers, state.night));
+      var R = state.view === 'table' ? C : T;
+      frag.appendChild(R.render(era, inEra, eraColumns, handlers, state.night));
     });
 
     el.chapters.textContent = '';
@@ -544,7 +565,107 @@
     layout.rows = [];
     layout.reveal = [];
     live.row = -1;
+    live.year = null;
     measure();
+  }
+
+  // ------------------------------------------------- 초점 고리 · 색 띠
+
+  /** 초점선의 고리를 시간축의 점 위에 맞춘다(표·타임라인, 화면 폭마다 축 위치가 다르다). */
+  function placeFocusRing() {
+    var dot = el.chapters.querySelector('.axis__dot, .tl-dot');
+    if (!dot) return;
+    var x = el.inner.offsetLeft + offsetLeftIn(dot, el.inner) + dot.offsetWidth / 2;
+    el.focusLine.style.setProperty('--ring-x', Math.round(x) + 'px');
+  }
+
+  function offsetLeftIn(node, ancestor) {
+    var left = 0;
+    while (node && node !== ancestor) {
+      left += node.offsetLeft;
+      node = node.offsetParent;
+    }
+    return left;
+  }
+
+  /** 줄 위치를 보간해 어떤 해든 세로 좌표로 바꾼다(비례 축이 아니라 줄 사이를 잇는다). */
+  function yOfYear(year) {
+    var rows = layout.rows;
+    if (!rows.length) return 0;
+    if (year <= rows[0].year) return rows[0].mid;
+    for (var i = 1; i < rows.length; i += 1) {
+      var b = rows[i];
+      if (year <= b.year) {
+        var a = rows[i - 1];
+        return a.mid + (b.mid - a.mid) * (year - a.year) / Math.max(1, b.year - a.year);
+      }
+    }
+    return rows[rows.length - 1].mid + 24;
+  }
+
+  var LANE_MIN_YEARS = 50;
+  var laneBars = [];
+
+  /**
+   * 타임라인 왼쪽의 나라별 색 띠 — Histomap 처럼 '어느 왕조·시대가 동시에 이어졌나'를 보여 준다.
+   * 왕조·국가사 카테고리 하나가 한 줄(lane), 50년 이상 이어진 항목만.
+   * 겹치는 기간은 긴 것 위에 짧은 것을 얹어 그린다.
+   */
+  function buildLanes() {
+    var box = el.lanes;
+    box.textContent = '';
+    laneBars = [];
+    if (state.view !== 'timeline' || !layout.rows.length) { box.hidden = true; return; }
+
+    var nations = state.data.datasets.filter(function (ds) { return ds.track === 'nation' && !state.off[ds.id]; });
+    box.hidden = !nations.length;
+    var frag = document.createDocumentFragment();
+
+    nations.forEach(function (ds, lane) {
+      ds.entries
+        .filter(function (e) { return e.end_year - e.start_year >= LANE_MIN_YEARS; })
+        .sort(function (a, b) { return (b.end_year - b.start_year) - (a.end_year - a.start_year); })
+        .forEach(function (entry) {
+          var top = yOfYear(entry.start_year);
+          var bottom = Math.max(top + 10, yOfYear(entry.end_year));
+          var bar = document.createElement('div');
+          bar.className = 'lane-bar';
+          bar.style.setProperty('--lane', String(lane));
+          bar.style.backgroundColor = entry._color;
+          bar.style.top = top.toFixed(1) + 'px';
+          bar.style.height = (bottom - top).toFixed(1) + 'px';
+          bar.title = entry.title + ' · ' + C.periodLabel(entry.start_year, entry.end_year);
+          bar.addEventListener('click', function () { openSheet(entry); });
+          frag.appendChild(bar);
+          laneBars.push({ node: bar, entry: entry });
+        });
+    });
+
+    box.appendChild(frag);
+    if (live.year != null) markLiveLanes(live.year);
+  }
+
+  function markLiveLanes(year) {
+    for (var i = 0; i < laneBars.length; i += 1) {
+      var e = laneBars[i].entry;
+      laneBars[i].node.classList.toggle('is-live', e.start_year <= year && year <= e.end_year);
+    }
+  }
+
+  /** 초점선의 해에 이어지고 있던 나라별 왕조·시대(가장 긴 것 하나씩) — 계기판의 '지금 이때' */
+  function ongoingAt(year) {
+    var out = [];
+    state.data.datasets.forEach(function (ds) {
+      if (ds.track !== 'nation' || state.off[ds.id]) return;
+      var best = null;
+      ds.entries.forEach(function (e) {
+        var len = e.end_year - e.start_year;
+        if (len < LANE_MIN_YEARS || e.start_year > year || e.end_year < year) return;
+        if (!best || len > best.end_year - best.start_year) best = e;
+      });
+      if (best) out.push(best);
+    });
+    return out;
   }
 
   // -------------------------------------------------------- 카테고리 탭
@@ -772,6 +893,7 @@
     body.scrollTop = 0;
     el.sheet.style.transform = '';
     el.sheet.style.transition = '';
+    el.sheet.style.opacity = '';
     reveal(el.sheet);
     reveal(el.sheetScrim);
   }
@@ -800,6 +922,7 @@
       node.classList.remove('is-leaving', 'is-flung');
       node.style.transform = '';
       node.style.transition = '';
+      node.style.opacity = '';
     }, ms);
   }
 
@@ -845,8 +968,9 @@
       var s1 = d.samples[d.samples.length - 1];
       var v = s0 && s1 && s1.t > s0.t ? (s1.y - s0.y) / (s1.t - s0.t) * 1000 : 0;
       if (d.dy > 110 || (v > 650 && d.dy > 20)) {
-        el.sheet.style.transition = 'transform .26s cubic-bezier(.4,0,1,1)';
-        el.sheet.style.transform = 'translate3d(0,110%,0)';
+        el.sheet.style.transition = 'transform .26s cubic-bezier(.4,0,1,1), opacity .26s ease';
+        el.sheet.style.transform = 'translate3d(0,' + Math.round(window.innerHeight * 0.6) + 'px,0) scale(.94)';
+        el.sheet.style.opacity = '0';
         closeSheet(true);
       } else {
         el.sheet.style.transition = 'transform .5s cubic-bezier(.34,1.56,.64,1)';
@@ -854,7 +978,7 @@
       }
     }
 
-    [el.sheet.querySelector('.sheet__grab'), el.sheet.querySelector('.sheet__head')].forEach(function (zone) {
+    [el.sheet.querySelector('.sheet__head')].forEach(function (zone) {
       zone.addEventListener('pointerdown', down);
       zone.addEventListener('pointermove', move);
       zone.addEventListener('pointerup', up);
@@ -917,7 +1041,8 @@
   function setNight(night) {
     state.night = night;
     el.app.classList.toggle('is-night', night);
-    el.nightToggle.textContent = night ? '☾ 야경' : '☀ 낮';
+    el.nightToggle.querySelector('.night__icon').textContent = night ? '☾' : '☀';
+    el.nightToggle.querySelector('.night__text').textContent = night ? '야경' : '낮';
     el.nightToggle.setAttribute('aria-pressed', String(night));
     paint.gradient = paint.blobs = null;
     renderTimeline();
@@ -936,7 +1061,7 @@
   function setPinned(pinned, announce) {
     state.pinned = pinned;
     el.pinToggle.setAttribute('aria-pressed', String(pinned));
-    el.viewTimeline.classList.toggle('is-image', !pinned);
+    el.viewTimeline.classList.toggle('is-image', !pinned && state.view === 'table');
     el.focusLine.style.transform = '';
     live.x = -1;
     if (scroller) {
@@ -947,6 +1072,43 @@
     if (announce) {
       showToast(pinned ? '연도 축을 왼쪽에 고정했어요' : '표 전체가 한 장처럼 움직여요');
     }
+  }
+
+  // ------------------------------------------------------ 보기 방식
+
+  var VIEW_KEY = 'bighistory.view';
+
+  function loadView() {
+    try { return localStorage.getItem(VIEW_KEY) === 'table' ? 'table' : 'timeline'; } catch (err) { return 'timeline'; }
+  }
+
+  /** 타임라인(기본) ↔ 표. 보던 해는 그대로 초점선에 둔다. */
+  function setView(view, announce) {
+    state.view = view === 'table' ? 'table' : 'timeline';
+    el.app.classList.toggle('is-view-table', state.view === 'table');
+    el.viewTimeline.classList.toggle('is-image', state.view === 'table' && !state.pinned);
+    Array.prototype.forEach.call(el.viewSeg.querySelectorAll('[data-view]'), function (btn) {
+      var on = btn.getAttribute('data-view') === state.view;
+      btn.classList.toggle('is-active', on);
+      btn.setAttribute('aria-checked', String(on));
+    });
+    placeSegPill();
+    el.focusLine.style.transform = '';
+    live.x = -1;
+    try { localStorage.setItem(VIEW_KEY, state.view); } catch (err) { /* 무시 */ }
+    if (!scroller) return;
+    if (live.year != null) layout.anchorYear = live.year;
+    scroller.setMode(state.view === 'table' && state.pinned ? 'pinned' : 'image');
+    renderTimeline();
+    if (announce) showToast(state.view === 'table' ? '표로 봅니다 — 카테고리마다 한 열' : '타임라인으로 봅니다');
+  }
+
+  function placeSegPill() {
+    var pill = el.viewSeg.querySelector('.seg__pill');
+    var on = el.viewSeg.querySelector('.is-active');
+    if (!pill || !on || !on.offsetWidth) return;
+    pill.style.width = on.offsetWidth + 'px';
+    pill.style.transform = 'translate3d(' + on.offsetLeft + 'px,0,0)';
   }
 
   function showToast(text) {
@@ -968,6 +1130,13 @@
     el.pinToggle.addEventListener('click', function () {
       setTab('timeline');
       setPinned(!state.pinned, true);
+    });
+    Array.prototype.forEach.call(el.viewSeg.querySelectorAll('[data-view]'), function (btn) {
+      btn.addEventListener('click', function () {
+        setTab('timeline');
+        var next = btn.getAttribute('data-view');
+        if (next !== state.view) setView(next, true);
+      });
     });
 
     document.querySelectorAll('[data-pick]').forEach(function (btn) {
@@ -995,6 +1164,7 @@
       if (live.year != null && scroller.y > 1 && !now.moving && !now.dragging) layout.anchorYear = live.year;
       measure();
       placeTabPill();
+      placeSegPill();
       hud.measure();
     }, 120);
     window.addEventListener('resize', remeasure);
@@ -1048,16 +1218,23 @@
 
     state.pinned = loadPinned();
     el.pinToggle.setAttribute('aria-pressed', String(state.pinned));
-    el.viewTimeline.classList.toggle('is-image', !state.pinned);
+    setView(loadView(), false);   // 스크롤러가 생기기 전이라 버튼·클래스만 맞춘다
 
     scroller = M.create(el.scroll, el.inner, {
-      mode: state.pinned ? 'pinned' : 'image',
+      mode: state.view === 'table' && state.pinned ? 'pinned' : 'image',
       wraps: '.table-wrap',
       onFrame: onFrame,
       onDrag: function (phase, type) { if (type) live.pointer = type; },
-      bottomInset: function () { return layout.cover; }
+      bottomInset: function () { return layout.cover; },
+      snap: function (y) {
+        // 가까운(60px 안) 해의 점을 초점선에 맞춘다
+        var r = nearestRow(y + layout.focus);
+        if (r < 0) return null;
+        var to = layout.rows[r].mid - layout.focus;
+        return Math.abs(to - y) <= 60 ? to : null;
+      }
     });
-    hud = H.create(el.hud, { scrub: onScrub, step: stepEra });
+    hud = H.create(el.hud, { scrub: onScrub, step: stepEra, pick: openSheet });
 
     buildTabs();
     buildCategories();
@@ -1069,7 +1246,11 @@
     renderSearch();
     setTab('timeline');
     paint(0, 0);
-    requestAnimationFrame(function () { el.tabs.classList.add('is-ready'); });
+    requestAnimationFrame(function () {
+      el.tabs.classList.add('is-ready');
+      placeSegPill();
+      el.viewSeg.classList.add('is-ready');
+    });
 
     el.loading.hidden = true;
     console.info('[app] 빅 히스토리 연표 · 항목 ' + data.entries.length + '개 · 시대 ' + data.eras.length + '구간');
