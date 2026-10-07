@@ -20,6 +20,7 @@
     app: document.getElementById('app'),
     bgGradient: document.getElementById('bg-gradient'),
     bgBlob: document.getElementById('bg-blob'),
+    bgStars: document.getElementById('bg-stars'),
     nightToggle: document.getElementById('night-toggle'),
     pinToggle: document.getElementById('pin-toggle'),
     viewSeg: document.getElementById('view-seg'),
@@ -67,12 +68,20 @@
     { id: 'info', label: '정보', view: document.getElementById('view-info') }
   ];
 
+  // 탭 아이콘 — 별(연표) · 원두(카테고리) · 돋보기(검색) · 머그잔(정보)
+  var TAB_ICONS = {
+    timeline: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.6 7.4 7.4 2.6-7.4 2.6L12 22l-2.6-7.4L2 12l7.4-2.6z" fill="currentColor"/></svg>',
+    category: '<svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="12" rx="6" ry="8.5" transform="rotate(-30 12 12)" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.5 5.5c3 3 2 9 5 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    search: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5L21 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    info: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9h11v6a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.5 6c-1-1.5 1-2.5 0-4M12 6c-1-1.5 1-2.5 0-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".8"/></svg>'
+  };
+
   var SUGGESTIONS = ['증기기관', '청자', '피카소', '전쟁', '인쇄'];
 
   var state = {
     data: null,
     tab: 'timeline',
-    night: false,
+    night: true,       // 우주 모드(어두운 팔레트). false 면 라떼
     view: 'timeline', // 'timeline'(기본) | 'table'
     pinned: false,    // 표 보기에서 true 면 연도 축 고정, false 면 표 전체가 한 장처럼(기본)
     eraIndex: 0,
@@ -93,7 +102,8 @@
     anchorYear: null  // 다시 그린 뒤 초점선에 다시 맞출 해
   };
 
-  var live = { row: -1, year: null, x: 0, introOpacity: '', pointer: 'mouse' };
+  var live = {
+    sy: 0, row: -1, year: null, x: 0, introOpacity: '', pointer: 'mouse' };
 
   var pickNodes = {};
   var tabNodes = {};
@@ -199,7 +209,8 @@
     el.focusLine.style.top = layout.focus + 'px';
 
     // 처음엔 첫 시대 제목이 초점선에, 끝에선 마지막 줄이 초점선까지 올라오도록 여백을 둔다
-    setHeight(el.intro, Math.max(130, layout.focus - 40));
+    // 첫 화면은 초점선 위까지 차지하되, 글이 더 길면(폰·큰 글꼴) 그만큼 늘어난다
+    el.intro.style.minHeight = Math.max(130, layout.focus - 40) + 'px';
     setHeight(el.outro, Math.max(180, viewH - layout.focus - 10));
 
     var inner = el.inner;
@@ -297,8 +308,8 @@
     var eras = state.data.eras;
     hud.build(segs.map(function (g, i) {
       var era = eras[i];
-      // 계기판은 늘 밝은 유리 위라서 낮 팔레트를 쓴다
-      return { start: g.start, width: g.width, label: era.label, color: (era.day_blob && era.day_blob[0]) || '#ddd' };
+      // 계기판 띠는 모드와 상관없이 시대 성운 색
+      return { start: g.start, width: g.width, label: era.label, color: era.strip || (era.night_blob && era.night_blob[0]) || '#8c6a4f' };
     }), layout.rows.map(function (row) { return ratioOf(row.mid); }));
   }
 
@@ -340,9 +351,9 @@
     return Math.abs(rows[next].mid - fy) < Math.abs(rows[lo].mid - fy) ? next : lo;
   }
 
-  function buzz() {
+  function buzz(pattern) {
     if (live.pointer === 'touch' && navigator.vibrate) {
-      try { navigator.vibrate(8); } catch (err) { /* 무시 */ }
+      try { navigator.vibrate(pattern || 8); } catch (err) { /* 무시 */ }
     }
   }
 
@@ -360,7 +371,14 @@
     paint(index, t);
     if (index !== state.eraIndex) {
       state.eraIndex = index;
-      if (info.dragging || hud.grabbing) buzz();
+      if (info.dragging || hud.grabbing) buzz([14, 30, 10]);
+    }
+
+    // 별은 연표보다 천천히 흐른다(패럴랙스)
+    var sy = Math.round(-info.y * 0.12);
+    if (sy !== live.sy) {
+      live.sy = sy;
+      el.bgStars.style.setProperty('--sy', sy + 'px');
     }
 
     // 2) 초점 줄 + 계기판
@@ -519,6 +537,7 @@
       btn.setAttribute('data-tab', tab.id);
       var icon = document.createElement('span');
       icon.className = 'tab__icon';
+      icon.innerHTML = TAB_ICONS[tab.id] || '';
       btn.appendChild(icon);
       var label = document.createElement('span');
       label.textContent = tab.label;
@@ -644,6 +663,7 @@
           bar.className = 'lane-bar';
           bar.style.setProperty('--lane', String(lane));
           bar.style.backgroundColor = entry._color;
+          bar.style.color = entry._color;
           bar.style.top = top.toFixed(1) + 'px';
           bar.style.height = (bottom - top).toFixed(1) + 'px';
           bar.title = entry.title + ' · ' + C.periodLabel(entry.start_year, entry.end_year);
@@ -714,10 +734,10 @@
         btn.type = 'button';
         btn.className = 'pick';
         btn.setAttribute('aria-pressed', 'true');
+        btn.style.setProperty('--pc', ds.color);
 
         var dot = document.createElement('span');
         dot.className = 'pick__dot';
-        dot.style.backgroundColor = ds.color;
         btn.appendChild(dot);
 
         var name = document.createElement('span');
@@ -798,6 +818,7 @@
       var card = document.createElement('button');
       card.type = 'button';
       card.className = 'result';
+      card.style.setProperty('--c', entry._color);
 
       var meta = document.createElement('div');
       meta.className = 'result__meta';
@@ -1064,10 +1085,12 @@
 
   function setNight(night) {
     state.night = night;
-    el.app.classList.toggle('is-night', night);
-    el.nightToggle.querySelector('.night__icon').textContent = night ? '☾' : '☀';
-    el.nightToggle.querySelector('.night__text').textContent = night ? '야경' : '낮';
+    el.app.classList.toggle('is-latte', !night);
+    el.nightToggle.querySelector('.night__text').textContent = night ? '우주' : '라떼';
+    el.nightToggle.setAttribute('aria-label', night ? '라떼 모드로 전환' : '우주 모드로 전환');
     el.nightToggle.setAttribute('aria-pressed', String(night));
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', night ? '#1c1724' : '#f3e7d8');
     paint.gradient = paint.blobs = null;
     renderTimeline();
     paint(state.eraIndex, state.progress);
