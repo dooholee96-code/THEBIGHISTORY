@@ -159,12 +159,13 @@
     // 삽화 자리 — 좌우 레터박스에서 진해지고 표 뒤에서는 흐려진다.
     var art = el('div', 'chapter__art', section);
     var blob = night ? (era.night_blob || []) : (era.day_blob || []);
-    art.style.backgroundImage = [
+    // 디오라마(era.diorama)가 맨 위, 그 아래 성운 블롭
+    art.style.backgroundImage = (era.diorama ? ['url("' + era.diorama + '")'] : []).concat([
       'radial-gradient(38% 46% at 8% 34%, ' + (blob[0] || 'transparent') + ', transparent 72%)',
       'radial-gradient(34% 40% at 92% 62%, ' + (blob[1] || 'transparent') + ', transparent 74%)',
       'repeating-linear-gradient(118deg, ' +
         (night ? 'rgba(255,255,255,.06)' : 'rgba(255,255,255,.16)') + ' 0 14px, transparent 14px 34px)'
-    ].join(', ');
+    ]).join(', ');
     if (era.art) {
       var label = el('span', 'chapter__art-label', art);
       label.textContent = era.art;

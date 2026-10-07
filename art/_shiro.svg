@@ -1,0 +1,13 @@
+<!-- 디오라마·화면마다 복사해 쓰는 시로 원본(출석부 앱 토끼와 같은 납작한 타원 그림). 이 파일 자체는 앱이 읽지 않는다. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <g id="shiro">
+    <ellipse cx="60" cy="98" rx="26" ry="16" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/>
+    <ellipse cx="47" cy="30" rx="8" ry="22" transform="rotate(-8 47 30)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/><ellipse cx="47" cy="32" rx="3.5" ry="14" transform="rotate(-8 47 32)" fill="#F2C4CE"/>
+    <ellipse cx="73" cy="30" rx="8" ry="22" transform="rotate(8 73 30)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/><ellipse cx="73" cy="32" rx="3.5" ry="14" transform="rotate(8 73 32)" fill="#F2C4CE"/>
+    <circle cx="60" cy="66" r="28" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/>
+    <circle cx="49" cy="64" r="3" fill="#3A2A24"/><circle cx="71" cy="64" r="3" fill="#3A2A24"/>
+    <circle cx="41" cy="74" r="5.5" fill="#F2C4CE"/><circle cx="79" cy="74" r="5.5" fill="#F2C4CE"/>
+    <path d="M56 74q4 4 8 0" fill="none" stroke="#3A2A24" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="44" cy="106" rx="7" ry="3.5" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.2"/><ellipse cx="76" cy="106" rx="7" ry="3.5" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.2"/>
+  </g>
+</svg>

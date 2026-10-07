@@ -1,14 +1,14 @@
 {
   "name": "빅 히스토리 연표",
   "short_name": "빅히스토리",
-  "description": "시대의 색을 따라 흐르는 통합 역사 연표 — 왕조·국가사와 주제사를 한 표에서 비교합니다",
+  "description": "아기 토끼 시로와 함께 시간의 우주를 떠다니는 통합 역사 연표 — 왕조·국가사와 주제사를 한 시간축에서 비교합니다",
   "lang": "ko",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#f7efe2",
-  "theme_color": "#f3ddc0",
+  "background_color": "#f3e7d8",
+  "theme_color": "#f3e7d8",
   "icons": [
     {
       "src": "icons/icon-192.png",

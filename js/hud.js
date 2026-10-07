@@ -51,7 +51,11 @@
       trackW: 0,
       grab: null,
       eraText: '',
-      xTimer: 0
+      xTimer: 0,
+      lastX: 0,
+      lastT: 0,
+      sparks: 0,
+      hopTimer: 0
     };
 
     // ------------------------------------------------------- 굴러가는 숫자
@@ -183,7 +187,8 @@
     scrub.addEventListener('pointerdown', function (e) {
       if (e.pointerType === 'mouse' && e.button !== 0) return;
       e.preventDefault();
-      s.grab = { id: e.pointerId, x0: e.clientX, moved: false, ratio: ratioAt(e.clientX), type: e.pointerType };
+      s.grab = { id: e.pointerId, x0: e.clientX, moved: false, ratio: ratioAt(e.clientX), type: e.pointerType, speed: 0 };
+      s.lastX = e.clientX;
       try { scrub.setPointerCapture(e.pointerId); } catch (err) { /* 무시 */ }
       root.classList.add('is-grabbed');
     });
@@ -196,15 +201,44 @@
       g.ratio = ratioAt(e.clientX);
       placeKnob(g.ratio);
       handlers.scrub(g.ratio, 'move', g.type);
+
+      // 끄는 쪽으로 시로가 기울고, 빠르면 뒤로 별이 흩어진다
+      var dx = e.clientX - s.lastX;
+      s.lastX = e.clientX;
+      g.speed = dx;
+      root.style.setProperty('--tilt', clamp(dx * 1.4, -24, 24).toFixed(1) + 'deg');
+      if (!reduced && Math.abs(dx) > 5 && s.sparks < 10) spark(g.ratio, dx);
     });
+
+    function spark(ratio, dx) {
+      var node = document.createElement('i');
+      node.className = 'scrub__spark';
+      node.style.left = (clamp(ratio, 0, 1) * s.trackW).toFixed(1) + 'px';
+      node.style.setProperty('--dx', (-dx * 2.2).toFixed(0) + 'px');
+      node.style.setProperty('--dy', (-8 - Math.random() * 20).toFixed(0) + 'px');
+      s.sparks += 1;
+      node.addEventListener('animationend', function () { node.remove(); s.sparks -= 1; });
+      scrub.appendChild(node);
+    }
+
+    /** 던지듯 놓으면 시로가 한 번 깡총 */
+    function hop() {
+      root.classList.remove('is-hop');
+      void root.offsetWidth;
+      root.classList.add('is-hop');
+      clearTimeout(s.hopTimer);
+      s.hopTimer = setTimeout(function () { root.classList.remove('is-hop'); }, 520);
+    }
 
     function end(e) {
       var g = s.grab;
       if (!g || e.pointerId !== g.id) return;
       s.grab = null;
       root.classList.remove('is-grabbed');
+      root.style.setProperty('--tilt', '0deg');
       handlers.scrub(g.ratio, g.moved ? 'end' : 'tap', g.type);
       placeKnob(s.ratio);
+      if (!reduced && (g.moved ? Math.abs(g.speed) > 9 : true)) hop();
     }
 
     scrub.addEventListener('pointerup', end);
@@ -222,6 +256,10 @@
 
     root.querySelectorAll('[data-step]').forEach(function (btn) {
       btn.addEventListener('click', function () {
+        btn.classList.remove('is-pressed');
+        void btn.offsetWidth;
+        btn.classList.add('is-pressed');
+        hop();
         handlers.step(Number(btn.getAttribute('data-step')));
       });
     });

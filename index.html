@@ -4,28 +4,48 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>빅 히스토리 연표</title>
-  <meta name="description" content="시대의 색을 따라 흐르는 통합 역사 연표 — 왕조·국가사와 주제사를 한 표에서 비교합니다" />
-  <meta name="theme-color" content="#f3ddc0" />
+  <meta name="description" content="아기 토끼 시로와 함께 시간의 우주를 떠다니는 통합 역사 연표 — 왕조·국가사와 주제사를 한 시간축에서 비교합니다" />
+  <meta name="theme-color" content="#f3e7d8" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
   <!-- 글꼴은 Google Fonts 에서 불러옵니다. 링크를 지우면 시스템 글꼴로 대체됩니다. -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=5d931fa0" />
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&family=Gowun+Dodum&display=swap" rel="stylesheet" />
+  <!-- 저장된 테마를 스타일보다 먼저 적용해, 다크로 쓰던 사람에게 밝은 화면이 깜빡이지 않게 -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('bighistory.theme');
+        var dark = t === 'dark' || (t === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (dark) document.documentElement.classList.add('is-night');
+      } catch (err) { /* 저장소를 못 읽어도 기본(라이트)으로 */ }
+    })();
+  </script>
+  <link rel="stylesheet" href="css/styles.css?v=81c2322a" />
 </head>
 <body>
+  <!-- 테마는 <html class="is-night"> 로 바뀐다(설정 탭, app.js). 기본은 라이트 -->
   <div class="app" id="app">
-    <!-- 배경 3겹: 시대 그라데이션 · 블롭 · 종이결 -->
+    <!-- 배경 4겹: 시대 그라데이션 · 성운 블롭 · 별(패럴랙스) · 종이결 -->
     <div class="bg-gradient" id="bg-gradient"></div>
     <div class="bg-blob" id="bg-blob"></div>
+    <div class="bg-stars" id="bg-stars" aria-hidden="true"></div>
     <div class="bg-grain" aria-hidden="true"></div>
 
     <div class="shell">
       <header class="head">
         <div class="brand">
-          <span class="brand__mark" aria-hidden="true"></span>
+          <!-- 시로 얼굴 -->
+          <svg class="brand__mark" viewBox="24 4 72 92" aria-hidden="true">
+            <ellipse cx="47" cy="30" rx="8" ry="22" transform="rotate(-8 47 30)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/><ellipse cx="47" cy="32" rx="3.5" ry="14" transform="rotate(-8 47 32)" fill="#F2C4CE"/>
+            <ellipse cx="73" cy="30" rx="8" ry="22" transform="rotate(8 73 30)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/><ellipse cx="73" cy="32" rx="3.5" ry="14" transform="rotate(8 73 32)" fill="#F2C4CE"/>
+            <circle cx="60" cy="66" r="28" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/>
+            <circle cx="49" cy="64" r="3" fill="#3A2A24"/><circle cx="71" cy="64" r="3" fill="#3A2A24"/>
+            <circle cx="41" cy="74" r="5.5" fill="#F2C4CE"/><circle cx="79" cy="74" r="5.5" fill="#F2C4CE"/>
+            <path d="M56 74q4 4 8 0" fill="none" stroke="#3A2A24" stroke-width="2" stroke-linecap="round"/>
+          </svg>
           <h1 class="brand__title">빅 히스토리 연표</h1>
         </div>
         <div class="head__actions">
@@ -40,9 +60,6 @@
                   title="연도 축을 왼쪽에 고정하고 칸만 옆으로 넘기기">
             <span class="pin-btn__box" aria-hidden="true"></span>연도 고정
           </button>
-          <button class="pill-btn night-btn" id="night-toggle" type="button" aria-pressed="false" aria-label="낮/야경 전환">
-            <span class="night__icon" aria-hidden="true">☀</span><span class="night__text">낮</span>
-          </button>
         </div>
       </header>
 
@@ -51,11 +68,25 @@
         <div class="scroll" id="scroll">
           <div class="scroll__inner" id="scroll-inner">
             <div class="intro" id="intro">
+              <!-- 둥실 떠 있는 시로 -->
+              <svg class="intro__shiro" viewBox="0 0 120 120" aria-hidden="true">
+                <ellipse cx="60" cy="98" rx="26" ry="16" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/>
+                <ellipse cx="47" cy="30" rx="8" ry="22" transform="rotate(-8 47 30)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/><ellipse cx="47" cy="32" rx="3.5" ry="14" transform="rotate(-8 47 32)" fill="#F2C4CE"/>
+                <ellipse cx="73" cy="30" rx="8" ry="22" transform="rotate(8 73 30)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/><ellipse cx="73" cy="32" rx="3.5" ry="14" transform="rotate(8 73 32)" fill="#F2C4CE"/>
+                <circle cx="60" cy="66" r="28" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/>
+                <circle cx="49" cy="64" r="3" fill="#3A2A24"/><circle cx="71" cy="64" r="3" fill="#3A2A24"/>
+                <circle cx="41" cy="74" r="5.5" fill="#F2C4CE"/><circle cx="79" cy="74" r="5.5" fill="#F2C4CE"/>
+                <path d="M56 74q4 4 8 0" fill="none" stroke="#3A2A24" stroke-width="2" stroke-linecap="round"/>
+                <g transform="translate(49 90)" stroke="#5C3D2E" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
+                <path d="M0 0h24l-1.5 13c-.3 3-3 5-6 5H7c-3 0-5.7-2-6-5z" fill="#C9956B"/><path d="M24 3h3.5c3 0 4.5 2 4.5 4.5S30.5 12 27.5 12H23" fill="none"/>
+                <ellipse cx="12" cy="0" rx="12" ry="3" fill="#5C3D2E" stroke="none"/><path d="M9 0c1-1.6 3-1 3 .4 0-1.4 2-2 3-.4.6 1-1 2.4-3 3.4-2-1-3.6-2.4-3-3.4z" fill="#FFF8EF" stroke="none"/></g>
+                <ellipse cx="44" cy="106" rx="7" ry="3.5" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.2"/><ellipse cx="76" cy="106" rx="7" ry="3.5" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.2"/>
+              </svg>
               <p class="intro__eyebrow">동굴벽화에서 오늘까지</p>
-              <p class="intro__title">시간의 강을 따라<br />내려가 보세요</p>
+              <p class="intro__title">시간의 우주를<br />시로와 떠다녀 보세요</p>
               <p class="intro__hint">
                 <span class="intro__arrow" aria-hidden="true">↓</span>
-                끌어서 던지거나 휠을 굴려 보세요. 아래 막대를 밀면 시대를 건너뜁니다.
+                끌어서 던지거나 휠을 굴려 보세요. 아래 띠에서 시로를 밀면 시대를 건너뜁니다.
                 왼쪽 색 띠는 나라마다 왕조·시대가 이어진 기간입니다.
               </p>
             </div>
@@ -91,10 +122,22 @@
           </div>
           <!-- 지금 이때: 같은 해에 나라마다 이어지던 왕조·시대 -->
           <div class="hud__now" aria-label="이 무렵 나라별 왕조·시대"></div>
+          <!-- 시대 성운 띠. 손잡이는 시로 -->
           <div class="scrub" role="slider" tabindex="0" aria-label="연표 위치"
                aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
             <div class="scrub__track"></div>
-            <div class="scrub__knob"><i></i></div>
+            <div class="scrub__knob"><i>
+              <svg viewBox="24 4 72 92" aria-hidden="true">
+                <g class="shiro__ears">
+                  <ellipse cx="47" cy="30" rx="8" ry="22" transform="rotate(-8 47 30)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/><ellipse cx="47" cy="32" rx="3.5" ry="14" transform="rotate(-8 47 32)" fill="#F2C4CE"/>
+                  <ellipse cx="73" cy="30" rx="8" ry="22" transform="rotate(8 73 30)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/><ellipse cx="73" cy="32" rx="3.5" ry="14" transform="rotate(8 73 32)" fill="#F2C4CE"/>
+                </g>
+                <circle cx="60" cy="66" r="28" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/>
+                <circle cx="49" cy="64" r="3" fill="#3A2A24"/><circle cx="71" cy="64" r="3" fill="#3A2A24"/>
+                <circle cx="41" cy="74" r="5.5" fill="#F2C4CE"/><circle cx="79" cy="74" r="5.5" fill="#F2C4CE"/>
+                <path d="M56 74q4 4 8 0" fill="none" stroke="#3A2A24" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </i></div>
           </div>
         </div>
       </main>
@@ -124,9 +167,19 @@
         </div>
       </section>
 
-      <!-- 4. 정보 -->
+      <!-- 4. 설정 · 정보 -->
       <section class="view view--pane" id="view-info" hidden>
         <div class="pane pane--narrow">
+          <div class="card" style="margin-bottom: 14px;">
+            <p class="card__label">테마</p>
+            <div class="seg seg--theme" id="theme-seg" role="radiogroup" aria-label="테마">
+              <span class="seg__pill" aria-hidden="true"></span>
+              <button class="seg__btn" type="button" role="radio" aria-checked="false" data-theme="system">시스템</button>
+              <button class="seg__btn" type="button" role="radio" aria-checked="false" data-theme="light">라이트</button>
+              <button class="seg__btn" type="button" role="radio" aria-checked="false" data-theme="dark">다크</button>
+            </div>
+            <p class="card__text card__text--hint" style="margin: 10px 0 0;">라이트는 라떼색 종이, 다크는 밤커피색 우주. 시스템은 기기의 화면 설정을 따릅니다.</p>
+          </div>
           <div class="card">
             <p class="note note--warn">
               <strong>내용 신뢰도</strong> — 이 연표의 항목은 개설 수준의 통설을 요약한 초안(draft)이며,
@@ -140,15 +193,16 @@
               설명문은 이 프로젝트에서 직접 작성했으며 다른 저작물의 문장을 옮기지 않습니다.
             </p>
 
-            <p class="card__label">소프트웨어</p>
+            <p class="card__label">디자인</p>
             <p class="card__text">
-              화면은 외부 라이브러리 없이 직접 만들었습니다. 글꼴은 Google Fonts 의
-              <strong>Gowun Batang · Gowun Dodum</strong>(SIL OFL)을 씁니다.
+              아기 토끼 <strong>시로</strong>와 시대별 디오라마는 shirolee studio 의 그림입니다.
+              화면은 외부 라이브러리 없이 직접 만들었고, 글꼴은 Google Fonts 의
+              <strong>Gaegu · Gowun Dodum</strong>(SIL OFL)을 씁니다.
             </p>
 
             <p class="card__label">개인정보</p>
             <p class="card__text">
-              분석 도구와 추적 스크립트를 쓰지 않고, 쿠키도 사용하지 않으며, 이용자 정보를 수집하지 않습니다. '연도 고정' 선택만 이 기기의 브라우저 저장소에 남고 어디로도 보내지 않습니다.
+              분석 도구와 추적 스크립트를 쓰지 않고, 쿠키도 사용하지 않으며, 이용자 정보를 수집하지 않습니다. '연도 고정'과 테마 선택만 이 기기의 브라우저 저장소에 남고 어디로도 보내지 않습니다.
               바깥으로 나가는 요청은 위 글꼴을 받아오는 것뿐이며, 홈 화면에 추가하면 오프라인에서도 열립니다.
             </p>
           </div>
@@ -190,11 +244,11 @@
     <div class="loading" id="loading">불러오는 중…</div>
   </div>
 
-  <script src="js/data.js?v=5d931fa0"></script>
-  <script src="js/chapters.js?v=5d931fa0"></script>
-  <script src="js/timeline.js?v=5d931fa0"></script>
-  <script src="js/motion.js?v=5d931fa0"></script>
-  <script src="js/hud.js?v=5d931fa0"></script>
-  <script src="js/app.js?v=5d931fa0"></script>
+  <script src="js/data.js?v=81c2322a"></script>
+  <script src="js/chapters.js?v=81c2322a"></script>
+  <script src="js/timeline.js?v=81c2322a"></script>
+  <script src="js/motion.js?v=81c2322a"></script>
+  <script src="js/hud.js?v=81c2322a"></script>
+  <script src="js/app.js?v=81c2322a"></script>
 </body>
 </html>
