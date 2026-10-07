@@ -68,12 +68,12 @@
     { id: 'info', label: '설정', view: document.getElementById('view-info') }
   ];
 
-  // 탭 아이콘 — 별(연표) · 원두(카테고리) · 돋보기(검색) · 머그잔(정보)
+  // 탭 아이콘 — 발자국(연표) · 당근(카테고리) · 돋보기(검색) · 톱니(설정)
   var TAB_ICONS = {
-    timeline: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.6 7.4 7.4 2.6-7.4 2.6L12 22l-2.6-7.4L2 12l7.4-2.6z" fill="currentColor"/></svg>',
-    category: '<svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="12" rx="6" ry="8.5" transform="rotate(-30 12 12)" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.5 5.5c3 3 2 9 5 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    timeline: '<svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="16" rx="5.5" ry="4.5" fill="currentColor"/><circle cx="5" cy="9" r="2.6" fill="currentColor"/><circle cx="12" cy="6" r="2.6" fill="currentColor"/><circle cx="19" cy="9" r="2.6" fill="currentColor"/></svg>',
+    category: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 8c2-1.5 6-1.5 8 0l-6.5 13z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M13 7c-1-3 1-5 3-5M13 7c1-3 4-4 6-3M13 7c-3-2-6-1-7 1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
     search: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5L21 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
-    info: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9h11v6a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.5 6c-1-1.5 1-2.5 0-4M12 6c-1-1.5 1-2.5 0-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".8"/></svg>'
+    info: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'
   };
 
   var SUGGESTIONS = ['증기기관', '청자', '피카소', '전쟁', '인쇄'];
@@ -81,7 +81,7 @@
   var state = {
     data: null,
     tab: 'timeline',
-    night: false,      // 다크(우주) 팔레트인지. 테마 설정(system/light/dark)에서 정해진다
+    night: false,      // 다크 팔레트인지. 테마 설정(system/light/dark)에서 정해진다
     theme: 'light',
     view: 'timeline', // 'timeline'(기본) | 'table'
     pinned: false,    // 표 보기에서 true 면 연도 축 고정, false 면 표 전체가 한 장처럼(기본)
@@ -309,7 +309,7 @@
     var eras = state.data.eras;
     hud.build(segs.map(function (g, i) {
       var era = eras[i];
-      // 계기판 띠는 모드와 상관없이 시대 성운 색
+      // 계기판 띠는 모드와 상관없이 시대 색(strip)
       return { start: g.start, width: g.width, label: era.label, color: era.strip || (era.night_blob && era.night_blob[0]) || '#8c6a4f' };
     }), layout.rows.map(function (row) { return ratioOf(row.mid); }));
   }
@@ -1102,7 +1102,7 @@
 
   // ------------------------------------------------------------ 테마 설정
 
-  /* 설정 탭의 시스템 / 라이트 / 다크. 기본은 라이트(라떼). index.html 의 머리 스크립트가
+  /* 설정 탭의 시스템 / 라이트 / 다크. 기본은 라이트. index.html 의 머리 스크립트가
      저장된 값을 스타일보다 먼저 읽어 첫 화면이 깜빡이지 않게 한다. */
   var THEME_KEY = 'bighistory.theme';
   var darkQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;

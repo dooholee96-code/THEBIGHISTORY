@@ -202,7 +202,7 @@
       placeKnob(g.ratio);
       handlers.scrub(g.ratio, 'move', g.type);
 
-      // 끄는 쪽으로 시로가 기울고, 빠르면 뒤로 별이 흩어진다
+      // 끄는 쪽으로 시로가 기울고, 빠르면 뒤로 흙먼지가 흩어진다
       var dx = e.clientX - s.lastX;
       s.lastX = e.clientX;
       g.speed = dx;

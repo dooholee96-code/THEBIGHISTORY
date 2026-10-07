@@ -41,7 +41,7 @@
           "end_year": { "type": "integer" },
           "art": { "type": "string", "description": "이 시대 삽화의 의도(디오라마가 없을 때 라벨로 표시)" },
           "diorama": { "type": "string", "description": "시대 섹션 뒤에 깔리는 디오라마 그림 경로(art/*.svg). 좌우 레터박스에서 진하고 가운데는 흐려진다", "pattern": "^[A-Za-z0-9._/-]+\\.(svg|png|webp|jpg)$" },
-          "strip": { "type": "string", "description": "계기판 시대 띠(성운 띠)에 쓰는 색", "pattern": "^#[0-9a-fA-F]{6}$" },
+          "strip": { "type": "string", "description": "계기판 시대 띠에 쓰는 색", "pattern": "^#[0-9a-fA-F]{6}$" },
           "day": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "string" } },
           "day_blob": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "string" } },
           "night": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "string" } },

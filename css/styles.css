@@ -1,18 +1,18 @@
 /* ------------------------------------------------------------------
-   빅 히스토리 연표 — 시로 테마 (shirolee studio: 아기 토끼 시로 · 우주 · 커피)
+   빅 히스토리 연표 — 시로 테마 (shirolee studio 의 아기 토끼 시로)
 
    두 가지 테마. 설정 탭에서 시스템 / 라이트 / 다크 중 고른다(기본 라이트).
-   · 라이트(라떼)  라떼색 종이 위. 토큰의 기본값.
-   · 다크(우주)    밤커피색 하늘에 별이 뜨고, 시대는 성운처럼 색이 바뀐다. <html class="is-night">
+   · 라이트  연한 종이 위. 토큰의 기본값.
+   · 다크    밤하늘에 별이 뜨고, 시대마다 하늘 색이 바뀐다. <html class="is-night">
 
    규칙 하나만 기억하면 된다.
-   · 카드·계기판·탭·시트처럼 우유거품(크림) 면 위의 글자는 두 모드 모두 에스프레소색 고정
+   · 카드·계기판·탭·시트처럼 크림 면 위의 글자는 두 모드 모두 짙은 갈색(먹) 고정
    · 하늘(배경) 위에 바로 놓인 글자만 --ink-bg 로 모드마다 바뀐다
    ------------------------------------------------------------------ */
 
 :root {
-  /* 우유거품 면(카드) 위 */
-  --ink: #3a2a24;                      /* 에스프레소 — 카드 글자 */
+  /* 크림 면(카드) 위 */
+  --ink: #3a2a24;                      /* 먹 — 카드 글자 */
   --ink-2: #7a6058;                    /* 흐린 카드 글자 (크림 위 5.3:1) */
   --foam: #fff8ef;                     /* 카드·계기판·탭 */
   --foam-2: #f3e7d8;                   /* 칩·보조 버튼 */
@@ -21,7 +21,7 @@
   --caramel: #c9956b;
   --blush: #f2a7b3;
 
-  /* 하늘(배경) 위 — 라이트(라떼) */
+  /* 하늘(배경) 위 — 라이트 */
   --sky: #f3e7d8;
   --sky-2: #fff8ef;
   --ink-bg: #3a2a24;
@@ -49,7 +49,7 @@
   color-scheme: light;
 }
 
-/* 다크(우주) — 하늘만 어두워지고 카드 규칙은 그대로 */
+/* 다크 — 하늘만 어두워지고 카드 규칙은 그대로 */
 .is-night {
   --sky: #1c1724;
   --sky-2: #2a2233;
@@ -131,7 +131,7 @@ body {
   bottom: -400px;
   pointer-events: none;
   opacity: .22;
-  filter: brightness(.3);   /* 라이트에서는 커피 가루처럼 흐리게 */
+  filter: brightness(.3);   /* 라이트에서는 거의 보이지 않게 */
   background-image:
     radial-gradient(1.6px 1.6px at 12% 18%, #fff8ef 60%, transparent 100%),
     radial-gradient(1.2px 1.2px at 48% 6%, #fff8ef 60%, transparent 100%),
@@ -226,7 +226,7 @@ body {
   gap: 8px;
 }
 
-/* 보기 방식 스위치 — 에스프레소 알약이 통통 튀며 옮겨 간다 */
+/* 보기 방식 스위치 — 짙은 알약이 통통 튀며 옮겨 간다 */
 .seg {
   position: relative;
   display: inline-flex;
@@ -627,29 +627,36 @@ body {
   .chapter__art-label { display: none; }
 }
 
-/* 시대 머리의 표식 — 작은 고리 행성 */
+/* 시대 머리의 표식 — 귀 둘 쫑긋한 토끼 얼굴 */
 .chapter__mark,
 .tl-head__mark {
   position: absolute;
   width: 22px; height: 22px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #fff2c8, #e6c27a 55%, #b08a4a);
-  box-shadow: 0 0 0 3px var(--sky), 0 0 0 4.5px var(--line-bg);
+  background: var(--foam);
+  border: 1.5px solid #cfafb8;
+  box-shadow: 0 0 0 3px var(--sky);
 }
 
+.chapter__mark::before,
 .chapter__mark::after,
+.tl-head__mark::before,
 .tl-head__mark::after {
   content: "";
   position: absolute;
-  left: -9px;
-  right: -9px;
-  top: 7px;
-  height: 7px;
-  border-radius: 50%;
-  border: 2px solid var(--ink-bg);
-  opacity: .8;
-  transform: rotate(-18deg);
+  top: -13px;
+  width: 7px;
+  height: 16px;
+  border-radius: 4px;
+  background: var(--foam);
+  border: 1.5px solid #cfafb8;
+  box-sizing: border-box;
 }
+
+.chapter__mark::before,
+.tl-head__mark::before { left: 2px; transform: rotate(-12deg); }
+.chapter__mark::after,
+.tl-head__mark::after { right: 2px; transform: rotate(12deg); }
 
 .chapter__mark { left: 64px; top: 30px; }
 
@@ -773,28 +780,31 @@ body {
   transition: transform .45s var(--spring), color .2s ease;
 }
 
-/* 연도 축 위의 별 */
+/* 연도 축 위의 발자국 — 시로가 지나간 자리 */
 .tl-dot {
   position: absolute;
   right: 2px;
   top: 9px;
   width: 16px;
   height: 16px;
-  background: var(--ink-bg);
-  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
-  transition: transform .45s var(--spring), background-color .2s ease;
+  background:
+    radial-gradient(circle at 50% 68%, var(--dotc, var(--ink-bg)) 0 30%, transparent 33%),
+    radial-gradient(circle at 18% 34%, var(--dotc, var(--ink-bg)) 0 15%, transparent 18%),
+    radial-gradient(circle at 50% 18%, var(--dotc, var(--ink-bg)) 0 15%, transparent 18%),
+    radial-gradient(circle at 82% 34%, var(--dotc, var(--ink-bg)) 0 15%, transparent 18%);
+  transition: transform .45s var(--spring);
 }
 
 .tl-year.is-focus .tl-dot {
-  transform: scale(1.5) rotate(20deg);
-  background: var(--star);
+  --dotc: var(--star);
+  transform: scale(1.5) rotate(12deg);
   filter: drop-shadow(0 0 6px var(--star-glow));
-  animation: twinkle 1.6s ease-in-out infinite;
+  animation: hop-dot 1.6s ease-in-out infinite;
 }
 
-@keyframes twinkle {
-  0%, 100% { transform: scale(1.5) rotate(20deg); }
-  50% { transform: scale(1.75) rotate(28deg); }
+@keyframes hop-dot {
+  0%, 100% { transform: scale(1.5) rotate(12deg); }
+  50% { transform: scale(1.7) rotate(18deg) translateY(-1px); }
 }
 
 .tl-year.is-focus .tl-mark__num { transform: scale(1.12); color: var(--focus-ink); }
@@ -1097,14 +1107,17 @@ body {
   top: 50%;
   margin-top: -7px;
   width: 14px; height: 14px;
-  background: var(--ink-bg);
-  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
-  transition: transform .45s var(--spring), background-color .2s ease;
+  background:
+    radial-gradient(circle at 50% 68%, var(--dotc, var(--ink-bg)) 0 30%, transparent 33%),
+    radial-gradient(circle at 18% 34%, var(--dotc, var(--ink-bg)) 0 15%, transparent 18%),
+    radial-gradient(circle at 50% 18%, var(--dotc, var(--ink-bg)) 0 15%, transparent 18%),
+    radial-gradient(circle at 82% 34%, var(--dotc, var(--ink-bg)) 0 15%, transparent 18%);
+  transition: transform .45s var(--spring);
 }
 
 .row.is-focus .axis__dot {
-  transform: scale(1.6) rotate(20deg);
-  background: var(--star);
+  --dotc: var(--star);
+  transform: scale(1.6) rotate(12deg);
   filter: drop-shadow(0 0 6px var(--star-glow));
 }
 
@@ -1252,7 +1265,7 @@ body {
   gap: 10px;
 }
 
-/* 원두가 놓인 칸이 켜진 카테고리. 끈 칸은 점선으로 비워 둔다 */
+/* 당근이 놓인 칸이 켜진 카테고리. 끈 칸은 점선으로 비워 둔다 */
 .pick {
   display: flex;
   align-items: center;
@@ -1304,20 +1317,32 @@ body {
 
 .pick.is-on .pick__dot {
   border: 0;
-  background: var(--bean);
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  transform: rotate(-30deg);
+  border-radius: 0;
+  background: none;
+  transform: rotate(30deg);
 }
 
+/* 당근: 주황 몸통(::after) 위에 초록 잎(::before) */
 .pick.is-on .pick__dot::after {
   content: "";
   position: absolute;
-  left: 8px;
-  top: 2px;
-  width: 2px;
+  left: 5px;
+  top: 5px;
+  width: 8px;
   height: 14px;
-  border-radius: 1px;
-  background: var(--foam);
+  border-radius: 4px 4px 6px 6px / 3px 3px 12px 12px;
+  background: #e8955b;
+}
+
+.pick.is-on .pick__dot::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: -1px;
+  width: 10px;
+  height: 7px;
+  border-radius: 5px 5px 2px 2px;
+  background: #8fb58a;
 }
 
 /* ------------------------------------------------------------ 검색 */
@@ -1758,7 +1783,7 @@ body {
 
 /* ------------------------------------------------ 시간 계기판(HUD) */
 
-/* 큰 숫자 + 시대 성운 띠 + 띠 위를 떠가는 시로 */
+/* 큰 숫자 + 시대 띠 + 띠 위를 깡충 가는 시로 */
 .hud {
   position: absolute;
   z-index: 20;
@@ -1963,22 +1988,23 @@ body {
   100% { transform: translateY(0) scale(1, 1); }
 }
 
-/* 빨리 끌면 뒤로 흩어지는 별 꼬리 (hud.js 가 만든다) */
+/* 빨리 끌면 뒤로 흩어지는 흙먼지 (hud.js 가 만든다) */
 .scrub__spark {
   position: absolute;
-  top: 18px;
-  width: 10px;
-  height: 10px;
-  margin-left: -5px;
-  background: var(--star);
-  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
+  top: 20px;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  border-radius: 50%;
+  background: var(--foam);
+  opacity: .9;
   pointer-events: none;
   animation: spark .55s ease-out forwards;
 }
 
 @keyframes spark {
   from { opacity: 1; transform: translate(0, 0) scale(1) rotate(0); }
-  to { opacity: 0; transform: translate(var(--dx, -20px), var(--dy, -16px)) scale(.3) rotate(90deg); }
+  to { opacity: 0; transform: translate(var(--dx, -20px), var(--dy, -16px)) scale(2); }
 }
 
 /* 지금 이때 — 같은 해에 나라마다 이어지던 왕조·시대 */
@@ -2062,7 +2088,7 @@ body {
   .hud__num { font-size: 30px; }
   .hud__step { width: 36px; height: 36px; font-size: 20px; }
   .intro { padding-left: 84px; padding-right: 96px; }
-  .intro__title { font-size: 22px; }
+  .intro__title { font-size: 20px; }
   .intro__hint { max-width: none; font-size: 13.5px; }
   .intro__shiro { width: 84px; height: 84px; right: 0; }
   .head__actions { gap: 6px; }
