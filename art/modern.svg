@@ -36,13 +36,6 @@
     <circle cx="16.5" cy="-10" r="1.1" fill="#3A2A24"/>
     <circle cx="17.5" cy="-6" r="1.7" fill="#F2C4CE"/>
   </g>
-  <g id="mug" stroke="#5C3D2E" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
-    <path d="M0 0h24l-1.5 13c-.3 3-3 5-6 5H7c-3 0-5.7-2-6-5z" fill="#C9956B"/>
-    <path d="M24 3h3.5c3 0 4.5 2 4.5 4.5S30.5 12 27.5 12H23" fill="none"/>
-    <ellipse cx="12" cy="0" rx="12" ry="3" fill="#5C3D2E" stroke="none"/>
-    <path d="M9 0c1-1.6 3-1 3 .4 0-1.4 2-2 3-.4.6 1-1 2.4-3 3.4-2-1-3.6-2.4-3-3.4z" fill="#FFF8EF" stroke="none"/>
-    <path d="M7-6c-1.5-2 1.5-4 0-7M14-7c-1.5-2 1.5-4 0-7" fill="none" stroke="#FFF8EF" stroke-width="1.5" opacity=".8"/>
-  </g>
   </defs>
 
   <g fill="#A2605A" opacity=".85"><rect x="40" y="250" width="260" height="200" rx="4"/><rect x="300" y="300" width="160" height="150" rx="4"/><rect x="90" y="120" width="30" height="140"/><rect x="200" y="90" width="34" height="170"/><path d="M40 250l130-60 130 60z"/></g>

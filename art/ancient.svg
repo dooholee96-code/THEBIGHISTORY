@@ -36,13 +36,6 @@
     <circle cx="16.5" cy="-10" r="1.1" fill="#3A2A24"/>
     <circle cx="17.5" cy="-6" r="1.7" fill="#F2C4CE"/>
   </g>
-  <g id="mug" stroke="#5C3D2E" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
-    <path d="M0 0h24l-1.5 13c-.3 3-3 5-6 5H7c-3 0-5.7-2-6-5z" fill="#C9956B"/>
-    <path d="M24 3h3.5c3 0 4.5 2 4.5 4.5S30.5 12 27.5 12H23" fill="none"/>
-    <ellipse cx="12" cy="0" rx="12" ry="3" fill="#5C3D2E" stroke="none"/>
-    <path d="M9 0c1-1.6 3-1 3 .4 0-1.4 2-2 3-.4.6 1-1 2.4-3 3.4-2-1-3.6-2.4-3-3.4z" fill="#FFF8EF" stroke="none"/>
-    <path d="M7-6c-1.5-2 1.5-4 0-7M14-7c-1.5-2 1.5-4 0-7" fill="none" stroke="#FFF8EF" stroke-width="1.5" opacity=".8"/>
-  </g>
   </defs>
 
   <path d="M0 360c80-30 160-30 240-10s160 30 240 0v150H0z" fill="#E6C27A" opacity=".35"/>
@@ -62,7 +55,7 @@
   <path d="M1250 400c40 40 160 40 200 0-20 30-40 50-100 50s-80-20-100-50z" fill="#C9956B"/>
   <path d="M1250 400c-20-10-30-30-24-50 10 20 20 36 40 46M1450 400c20-10 30-30 24-50-10 20-20 36-40 46" fill="#C9956B"/>
   <g fill="none" stroke="#5C3D2E" stroke-width="2.5" opacity=".6"><path d="M1290 420c40 10 80 10 120 0"/></g>
-  <g transform="translate(1296 296) scale(.95)"><use xlink:href="#shiro"/></g><g transform="translate(1376 384)"><use xlink:href="#mug"/></g>
+  <g transform="translate(1296 296) scale(.95)"><use xlink:href="#shiro"/></g>
   <g fill="#5C3D2E" opacity=".7"><path d="M1240 150c10-20 30-30 50-20-6 10-4 20 4 26-20 0-30 10-54 6z"/><path d="M1290 130c4-14 0-26-8-34 12 2 20 14 16 30z"/></g>
 
 </svg>
