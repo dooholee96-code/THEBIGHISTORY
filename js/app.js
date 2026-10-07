@@ -21,7 +21,7 @@
     bgGradient: document.getElementById('bg-gradient'),
     bgBlob: document.getElementById('bg-blob'),
     bgStars: document.getElementById('bg-stars'),
-    nightToggle: document.getElementById('night-toggle'),
+    themeSeg: document.getElementById('theme-seg'),
     pinToggle: document.getElementById('pin-toggle'),
     viewSeg: document.getElementById('view-seg'),
     lanes: document.getElementById('lanes'),
@@ -65,7 +65,7 @@
     { id: 'timeline', label: '연표', view: document.getElementById('view-timeline') },
     { id: 'category', label: '카테고리', view: document.getElementById('view-category') },
     { id: 'search', label: '검색', view: document.getElementById('view-search') },
-    { id: 'info', label: '정보', view: document.getElementById('view-info') }
+    { id: 'info', label: '설정', view: document.getElementById('view-info') }
   ];
 
   // 탭 아이콘 — 별(연표) · 원두(카테고리) · 돋보기(검색) · 머그잔(정보)
@@ -81,7 +81,8 @@
   var state = {
     data: null,
     tab: 'timeline',
-    night: true,       // 우주 모드(어두운 팔레트). false 면 라떼
+    night: false,      // 다크(우주) 팔레트인지. 테마 설정(system/light/dark)에서 정해진다
+    theme: 'light',
     view: 'timeline', // 'timeline'(기본) | 'table'
     pinned: false,    // 표 보기에서 true 면 연도 축 고정, false 면 표 전체가 한 장처럼(기본)
     eraIndex: 0,
@@ -518,6 +519,7 @@
     placeTabPill();
     if (id === 'timeline') measure();
     if (id === 'search') el.search.focus();
+    if (id === 'info') placeThemePill();
   }
 
   /** 탭 아래 알약이 통통 튀며 따라간다. */
@@ -1085,15 +1087,66 @@
 
   function setNight(night) {
     state.night = night;
-    el.app.classList.toggle('is-latte', !night);
-    el.nightToggle.querySelector('.night__text').textContent = night ? '우주' : '라떼';
-    el.nightToggle.setAttribute('aria-label', night ? '라떼 모드로 전환' : '우주 모드로 전환');
-    el.nightToggle.setAttribute('aria-pressed', String(night));
-    var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', night ? '#1c1724' : '#f3e7d8');
+    markNight(night);
     paint.gradient = paint.blobs = null;
     renderTimeline();
     paint(state.eraIndex, state.progress);
+  }
+
+  /** <html> 의 is-night 와 브라우저 상단 색만 맞춘다(그리기는 setNight). */
+  function markNight(night) {
+    document.documentElement.classList.toggle('is-night', night);
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', night ? '#1c1724' : '#f3e7d8');
+  }
+
+  // ------------------------------------------------------------ 테마 설정
+
+  /* 설정 탭의 시스템 / 라이트 / 다크. 기본은 라이트(라떼). index.html 의 머리 스크립트가
+     저장된 값을 스타일보다 먼저 읽어 첫 화면이 깜빡이지 않게 한다. */
+  var THEME_KEY = 'bighistory.theme';
+  var darkQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+
+  function loadTheme() {
+    try {
+      var v = localStorage.getItem(THEME_KEY);
+      return v === 'system' || v === 'dark' ? v : 'light';
+    } catch (err) { return 'light'; }
+  }
+
+  function resolveNight(theme) {
+    return theme === 'dark' || (theme === 'system' && !!(darkQuery && darkQuery.matches));
+  }
+
+  function placeThemePill() {
+    var pill = el.themeSeg.querySelector('.seg__pill');
+    var on = el.themeSeg.querySelector('.is-active');
+    if (!pill || !on || !on.offsetWidth) return;
+    pill.style.width = on.offsetWidth + 'px';
+    pill.style.transform = 'translate3d(' + on.offsetLeft + 'px,0,0)';
+  }
+
+  /**
+   * @param silent  처음 켤 때 — 아직 연표를 그리기 전이라 상태와 클래스만 맞춘다
+   */
+  function applyTheme(theme, save, silent) {
+    state.theme = theme;
+    Array.prototype.forEach.call(el.themeSeg.querySelectorAll('[data-theme]'), function (btn) {
+      var on = btn.getAttribute('data-theme') === theme;
+      btn.classList.toggle('is-active', on);
+      btn.setAttribute('aria-checked', String(on));
+    });
+    placeThemePill();
+    var night = resolveNight(theme);
+    if (silent) {
+      state.night = night;
+      markNight(night);
+    } else if (night !== state.night) {
+      setNight(night);
+    }
+    if (save) {
+      try { localStorage.setItem(THEME_KEY, theme); } catch (err) { /* 저장 못 해도 동작엔 지장 없음 */ }
+    }
   }
 
   // ------------------------------------------------------ 연도 고정 옵션
@@ -1173,7 +1226,14 @@
   // ------------------------------------------------------------ 이벤트
 
   function bindEvents() {
-    el.nightToggle.addEventListener('click', function () { setNight(!state.night); });
+    Array.prototype.forEach.call(el.themeSeg.querySelectorAll('[data-theme]'), function (btn) {
+      btn.addEventListener('click', function () { applyTheme(btn.getAttribute('data-theme'), true); });
+    });
+    if (darkQuery) {
+      var onScheme = function () { if (state.theme === 'system') applyTheme('system', false); };
+      if (darkQuery.addEventListener) darkQuery.addEventListener('change', onScheme);
+      else if (darkQuery.addListener) darkQuery.addListener(onScheme);
+    }
     el.pinToggle.addEventListener('click', function () {
       setTab('timeline');
       setPinned(!state.pinned, true);
@@ -1212,6 +1272,7 @@
       measure();
       placeTabPill();
       placeSegPill();
+      placeThemePill();
       hud.measure();
     }, 120);
     window.addEventListener('resize', remeasure);
@@ -1266,6 +1327,7 @@
     state.pinned = loadPinned();
     el.pinToggle.setAttribute('aria-pressed', String(state.pinned));
     setView(loadView(), false);   // 스크롤러가 생기기 전이라 버튼·클래스만 맞춘다
+    applyTheme(loadTheme(), false, true);
 
     scroller = M.create(el.scroll, el.inner, {
       mode: state.view === 'table' && state.pinned ? 'pinned' : 'image',
@@ -1297,6 +1359,8 @@
       el.tabs.classList.add('is-ready');
       placeSegPill();
       el.viewSeg.classList.add('is-ready');
+      placeThemePill();
+      el.themeSeg.classList.add('is-ready');
     });
 
     el.loading.hidden = true;

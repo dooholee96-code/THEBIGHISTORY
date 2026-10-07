@@ -7,19 +7,19 @@
    왜 캐시 우선이 아닌가: 캐시 우선으로 두면 배포한 새 코드가 반영되지 않고
    예전 화면이 계속 보인다. 오프라인 지원은 예비용 캐시만으로 충분하다. */
 
-const CACHE_VERSION = 'bighistory-808d8758';
+const CACHE_VERSION = 'bighistory-81c2322a';
 const NETWORK_TIMEOUT_MS = 4000;
 
 const PRECACHE = [
   './',
   './index.html',
-  './css/styles.css?v=808d8758',
-  './js/data.js?v=808d8758',
-  './js/chapters.js?v=808d8758',
-  './js/timeline.js?v=808d8758',
-  './js/motion.js?v=808d8758',
-  './js/hud.js?v=808d8758',
-  './js/app.js?v=808d8758',
+  './css/styles.css?v=81c2322a',
+  './js/data.js?v=81c2322a',
+  './js/chapters.js?v=81c2322a',
+  './js/timeline.js?v=81c2322a',
+  './js/motion.js?v=81c2322a',
+  './js/hud.js?v=81c2322a',
+  './js/app.js?v=81c2322a',
   './manifest.webmanifest',
   './icons/icon.svg',
   './art/prehistory.svg',

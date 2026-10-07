@@ -1,9 +1,9 @@
 /* ------------------------------------------------------------------
    빅 히스토리 연표 — 시로 테마 (shirolee studio: 아기 토끼 시로 · 우주 · 커피)
 
-   두 가지 모드.
-   · 우주(기본)  밤커피색 하늘에 별이 뜨고, 시대는 성운처럼 색이 바뀐다.
-   · 라떼        같은 구조를 밝은 라떼색 종이 위에.
+   두 가지 테마. 설정 탭에서 시스템 / 라이트 / 다크 중 고른다(기본 라이트).
+   · 라이트(라떼)  라떼색 종이 위. 토큰의 기본값.
+   · 다크(우주)    밤커피색 하늘에 별이 뜨고, 시대는 성운처럼 색이 바뀐다. <html class="is-night">
 
    규칙 하나만 기억하면 된다.
    · 카드·계기판·탭·시트처럼 우유거품(크림) 면 위의 글자는 두 모드 모두 에스프레소색 고정
@@ -21,21 +21,21 @@
   --caramel: #c9956b;
   --blush: #f2a7b3;
 
-  /* 하늘(배경) 위 */
-  --sky: #1c1724;
-  --sky-2: #2a2233;
-  --ink-bg: #fff8ef;
-  --ink-bg-2: #c8bbb6;                 /* 하늘 위 흐린 글자 (9:1) */
-  --line-bg: rgba(255, 248, 239, .18); /* 하늘 위 선·연도 축 */
-  --star: #ffd98a;                     /* 초점·강조 */
-  --star-glow: rgba(255, 217, 138, .35);
-  --focus-ink: #ffd98a;                /* 하늘 위 초점 글자 */
-  --card-focus: #ffd98a;               /* 카드 초점 테두리 */
+  /* 하늘(배경) 위 — 라이트(라떼) */
+  --sky: #f3e7d8;
+  --sky-2: #fff8ef;
+  --ink-bg: #3a2a24;
+  --ink-bg-2: #7a6058;                 /* 하늘 위 흐린 글자 */
+  --line-bg: rgba(92, 61, 46, .2);     /* 하늘 위 선·연도 축 */
+  --star: #b57a3e;                     /* 초점·강조 */
+  --star-glow: rgba(181, 122, 62, .25);
+  --focus-ink: #b57a3e;                /* 하늘 위 초점 글자 */
+  --card-focus: #b57a3e;               /* 카드 초점 테두리 */
 
-  --shadow-1: 0 6px 20px rgba(0, 0, 0, .25);
-  --shadow-2: 0 10px 30px rgba(0, 0, 0, .4);
-  --shadow-3: 0 24px 60px rgba(0, 0, 0, .5);
-  --scrim: rgba(28, 23, 36, .6);
+  --shadow-1: 0 6px 20px rgba(92, 61, 46, .12);
+  --shadow-2: 0 10px 30px rgba(92, 61, 46, .18);
+  --shadow-3: 0 24px 60px rgba(92, 61, 46, .3);
+  --scrim: rgba(58, 42, 36, .45);
 
   --display: 'Gaegu', 'Gowun Dodum', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
   --sans: 'Gowun Dodum', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
@@ -46,25 +46,25 @@
   --spring-soft: cubic-bezier(.22, 1.25, .36, 1);
   --out: cubic-bezier(.16, 1, .3, 1);
 
-  color-scheme: dark;
+  color-scheme: light;
 }
 
-/* 라떼 모드 — 하늘만 밝아지고 카드 규칙은 그대로 */
-.is-latte {
-  --sky: #f3e7d8;
-  --sky-2: #fff8ef;
-  --ink-bg: #3a2a24;
-  --ink-bg-2: #7a6058;
-  --line-bg: rgba(92, 61, 46, .2);
-  --star: #b57a3e;
-  --star-glow: rgba(181, 122, 62, .25);
-  --focus-ink: #b57a3e;
-  --card-focus: #b57a3e;
-  --shadow-1: 0 6px 20px rgba(92, 61, 46, .12);
-  --shadow-2: 0 10px 30px rgba(92, 61, 46, .18);
-  --shadow-3: 0 24px 60px rgba(92, 61, 46, .3);
-  --scrim: rgba(58, 42, 36, .45);
-  color-scheme: light;
+/* 다크(우주) — 하늘만 어두워지고 카드 규칙은 그대로 */
+.is-night {
+  --sky: #1c1724;
+  --sky-2: #2a2233;
+  --ink-bg: #fff8ef;
+  --ink-bg-2: #c8bbb6;                 /* 하늘 위 흐린 글자 (9:1) */
+  --line-bg: rgba(255, 248, 239, .18);
+  --star: #ffd98a;
+  --star-glow: rgba(255, 217, 138, .35);
+  --focus-ink: #ffd98a;
+  --card-focus: #ffd98a;
+  --shadow-1: 0 6px 20px rgba(0, 0, 0, .25);
+  --shadow-2: 0 10px 30px rgba(0, 0, 0, .4);
+  --shadow-3: 0 24px 60px rgba(0, 0, 0, .5);
+  --scrim: rgba(28, 23, 36, .6);
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -79,7 +79,7 @@ body {
   font-family: var(--sans);
   font-size: 15px;
   color: var(--ink);
-  background: #1c1724;
+  background: var(--sky);
 }
 
 ::-webkit-scrollbar { width: 8px; height: 8px; }
@@ -117,7 +117,7 @@ body {
 
 .bg-gradient {
   transition: background-image .6s linear;
-  background-image: linear-gradient(180deg, #1c1724, #1c1724);
+  background-image: linear-gradient(180deg, #f3e7d8, #f3e7d8);
 }
 
 .bg-blob {
@@ -130,7 +130,8 @@ body {
   top: -400px;
   bottom: -400px;
   pointer-events: none;
-  opacity: .9;
+  opacity: .22;
+  filter: brightness(.3);   /* 라이트에서는 커피 가루처럼 흐리게 */
   background-image:
     radial-gradient(1.6px 1.6px at 12% 18%, #fff8ef 60%, transparent 100%),
     radial-gradient(1.2px 1.2px at 48% 6%, #fff8ef 60%, transparent 100%),
@@ -147,7 +148,7 @@ body {
   will-change: transform;
 }
 
-.is-latte .bg-stars { opacity: .22; filter: brightness(.3); }
+.is-night .bg-stars { opacity: .9; filter: none; }
 
 .bg-grain {
   pointer-events: none;
@@ -268,20 +269,18 @@ body {
 .pin-btn { display: none; }
 .is-view-table .pin-btn { display: inline-flex; }
 
-/* 우주 ↔ 라떼 전환 — 머그잔을 누르면 라떼, 별을 누르면 우주 */
-.night-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  width: 44px;
-  padding: 0;
+/* 테마 설정(설정 탭) — 시스템 / 라이트 / 다크 */
+.seg--theme {
+  display: flex;
+  width: 100%;
+  height: 44px;
+  background: var(--foam-2);
+  box-shadow: none;
 }
 
-.night-btn svg { width: 22px; height: 22px; display: block; }
-.night-btn .night__star { display: none; }
-.is-latte .night-btn .night__mug { display: none; }
-.is-latte .night-btn .night__star { display: block; }
+.seg--theme .seg__btn { flex: 1 1 0; height: 36px; }
+.seg--theme .seg__pill { background: var(--ink); }
+.card__text--hint { font-size: 12.5px; color: var(--ink-2); }
 
 /* 연도 고정 스위치 — 켜지면 작은 상자에 체크가 톡 */
 .pin-btn {
@@ -585,7 +584,7 @@ body {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  opacity: .9;
+  opacity: .75;
   /* 타일(1600×900, 위아래 여백 포함)을 세로로 반복해 긴 시대 섹션에서도 벽처럼 이어진다 */
   background-repeat: repeat-y, no-repeat, no-repeat, no-repeat;
   background-position: center 0, 0 0, 0 0, 0 0;
@@ -594,7 +593,7 @@ body {
   mask-image: linear-gradient(90deg, #000 0, rgba(0, 0, 0, .9) 14%, rgba(0, 0, 0, .28) 32%, rgba(0, 0, 0, .14) 50%, rgba(0, 0, 0, .28) 68%, rgba(0, 0, 0, .9) 86%, #000 100%);
 }
 
-.is-latte .chapter__art { opacity: .75; }
+.is-night .chapter__art { opacity: .9; }
 
 /* 폰에서는 레터박스가 없으니 디오라마를 섹션 위쪽에 작게 깔고 아래로 흐려지게 */
 @media (max-width: 899px) {
@@ -602,11 +601,11 @@ body {
     background-repeat: no-repeat;
     background-size: 1100px auto, auto, auto, auto;
     background-position: -70px -110px, 0 0, 0 0, 0 0;
-    opacity: .6;
+    opacity: .5;
     -webkit-mask-image: linear-gradient(180deg, #000 0, rgba(0, 0, 0, .6) 180px, rgba(0, 0, 0, 0) 420px);
     mask-image: linear-gradient(180deg, #000 0, rgba(0, 0, 0, .6) 180px, rgba(0, 0, 0, 0) 420px);
   }
-  .is-latte .chapter__art { opacity: .5; }
+  .is-night .chapter__art { opacity: .6; }
 }
 
 .chapter__art-label {
@@ -670,10 +669,9 @@ body {
   line-height: 1;
   font-weight: 700;
   color: var(--ink-bg);
-  text-shadow: 0 2px 10px rgba(0, 0, 0, .25);
 }
 
-.is-latte .chapter__title { text-shadow: none; }
+.is-night .chapter__title { text-shadow: 0 2px 10px rgba(0, 0, 0, .25); }
 
 .chapter__range {
   font-size: 13px;
