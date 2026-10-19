@@ -21,7 +21,8 @@
     app: document.getElementById('app'),
     bgGradient: document.getElementById('bg-gradient'),
     bgBlob: document.getElementById('bg-blob'),
-    nightToggle: document.getElementById('night-toggle'),
+    bgStars: document.getElementById('bg-stars'),
+    themeSeg: document.getElementById('theme-seg'),
     pinToggle: document.getElementById('pin-toggle'),
     viewSeg: document.getElementById('view-seg'),
     lanes: document.getElementById('lanes'),
@@ -66,15 +67,25 @@
     { id: 'branch', label: '갈림길', view: document.getElementById('view-branch') },
     { id: 'category', label: '카테고리', view: document.getElementById('view-category') },
     { id: 'search', label: '검색', view: document.getElementById('view-search') },
-    { id: 'info', label: '정보', view: document.getElementById('view-info') }
+    { id: 'info', label: '설정', view: document.getElementById('view-info') }
   ];
+
+  // 탭 아이콘 — 발자국(연표) · 갈래길(갈림길) · 당근(카테고리) · 돋보기(검색) · 톱니(설정)
+  var TAB_ICONS = {
+    timeline: '<svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="16" rx="5.5" ry="4.5" fill="currentColor"/><circle cx="5" cy="9" r="2.6" fill="currentColor"/><circle cx="12" cy="6" r="2.6" fill="currentColor"/><circle cx="19" cy="9" r="2.6" fill="currentColor"/></svg>',
+    branch: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22v-8M12 14C12 9 6 8 6 3M12 14c0-5 6-6 6-11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M3.5 5.5L6 3l2.5 2.5M15.5 5.5L18 3l2.5 2.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    category: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 8c2-1.5 6-1.5 8 0l-6.5 13z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M13 7c-1-3 1-5 3-5M13 7c1-3 4-4 6-3M13 7c-3-2-6-1-7 1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    search: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5L21 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    info: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'
+  };
 
   var SUGGESTIONS = ['증기기관', '청자', '피카소', '전쟁', '인쇄'];
 
   var state = {
     data: null,
     tab: 'timeline',
-    night: false,
+    night: false,      // 다크 팔레트인지. 테마 설정(system/light/dark)에서 정해진다
+    theme: 'light',
     view: 'timeline', // 'timeline'(기본) | 'table'
     pinned: false,    // 표 보기에서 true 면 연도 축 고정, false 면 표 전체가 한 장처럼(기본)
     eraIndex: 0,
@@ -95,7 +106,8 @@
     anchorYear: null  // 다시 그린 뒤 초점선에 다시 맞출 해
   };
 
-  var live = { row: -1, year: null, x: 0, introOpacity: '', pointer: 'mouse' };
+  var live = {
+    sy: 0, row: -1, year: null, x: 0, introOpacity: '', pointer: 'mouse' };
 
   var pickNodes = {};
   var tabNodes = {};
@@ -202,7 +214,8 @@
     el.focusLine.style.top = layout.focus + 'px';
 
     // 처음엔 첫 시대 제목이 초점선에, 끝에선 마지막 줄이 초점선까지 올라오도록 여백을 둔다
-    setHeight(el.intro, Math.max(130, layout.focus - 40));
+    // 첫 화면은 초점선 위까지 차지하되, 글이 더 길면(폰·큰 글꼴) 그만큼 늘어난다
+    el.intro.style.minHeight = Math.max(130, layout.focus - 40) + 'px';
     setHeight(el.outro, Math.max(180, viewH - layout.focus - 10));
 
     var inner = el.inner;
@@ -300,8 +313,8 @@
     var eras = state.data.eras;
     hud.build(segs.map(function (g, i) {
       var era = eras[i];
-      // 계기판은 늘 밝은 유리 위라서 낮 팔레트를 쓴다
-      return { start: g.start, width: g.width, label: era.label, color: (era.day_blob && era.day_blob[0]) || '#ddd' };
+      // 계기판 띠는 모드와 상관없이 시대 색(strip)
+      return { start: g.start, width: g.width, label: era.label, color: era.strip || (era.night_blob && era.night_blob[0]) || '#8c6a4f' };
     }), layout.rows.map(function (row) { return ratioOf(row.mid); }));
   }
 
@@ -343,9 +356,9 @@
     return Math.abs(rows[next].mid - fy) < Math.abs(rows[lo].mid - fy) ? next : lo;
   }
 
-  function buzz() {
+  function buzz(pattern) {
     if (live.pointer === 'touch' && navigator.vibrate) {
-      try { navigator.vibrate(8); } catch (err) { /* 무시 */ }
+      try { navigator.vibrate(pattern || 8); } catch (err) { /* 무시 */ }
     }
   }
 
@@ -363,7 +376,14 @@
     paint(index, t);
     if (index !== state.eraIndex) {
       state.eraIndex = index;
-      if (info.dragging || hud.grabbing) buzz();
+      if (info.dragging || hud.grabbing) buzz([14, 30, 10]);
+    }
+
+    // 별은 연표보다 천천히 흐른다(패럴랙스)
+    var sy = Math.round(-info.y * 0.12);
+    if (sy !== live.sy) {
+      live.sy = sy;
+      el.bgStars.style.setProperty('--sy', sy + 'px');
     }
 
     // 2) 초점 줄 + 계기판
@@ -503,6 +523,7 @@
     placeTabPill();
     if (id === 'timeline') measure();
     if (id === 'search') el.search.focus();
+    if (id === 'info') placeThemePill();
   }
 
   /** 탭 아래 알약이 통통 튀며 따라간다. */
@@ -522,6 +543,7 @@
       btn.setAttribute('data-tab', tab.id);
       var icon = document.createElement('span');
       icon.className = 'tab__icon';
+      icon.innerHTML = TAB_ICONS[tab.id] || '';
       btn.appendChild(icon);
       var label = document.createElement('span');
       label.textContent = tab.label;
@@ -647,6 +669,7 @@
           bar.className = 'lane-bar';
           bar.style.setProperty('--lane', String(lane));
           bar.style.backgroundColor = entry._color;
+          bar.style.color = entry._color;
           bar.style.top = top.toFixed(1) + 'px';
           bar.style.height = (bottom - top).toFixed(1) + 'px';
           bar.title = entry.title + ' · ' + C.periodLabel(entry.start_year, entry.end_year);
@@ -717,10 +740,10 @@
         btn.type = 'button';
         btn.className = 'pick';
         btn.setAttribute('aria-pressed', 'true');
+        btn.style.setProperty('--pc', ds.color);
 
         var dot = document.createElement('span');
         dot.className = 'pick__dot';
-        dot.style.backgroundColor = ds.color;
         btn.appendChild(dot);
 
         var name = document.createElement('span');
@@ -801,6 +824,7 @@
       var card = document.createElement('button');
       card.type = 'button';
       card.className = 'result';
+      card.style.setProperty('--c', entry._color);
 
       var meta = document.createElement('div');
       meta.className = 'result__meta';
@@ -1083,13 +1107,66 @@
 
   function setNight(night) {
     state.night = night;
-    el.app.classList.toggle('is-night', night);
-    el.nightToggle.querySelector('.night__icon').textContent = night ? '☾' : '☀';
-    el.nightToggle.querySelector('.night__text').textContent = night ? '야경' : '낮';
-    el.nightToggle.setAttribute('aria-pressed', String(night));
+    markNight(night);
     paint.gradient = paint.blobs = null;
     renderTimeline();
     paint(state.eraIndex, state.progress);
+  }
+
+  /** <html> 의 is-night 와 브라우저 상단 색만 맞춘다(그리기는 setNight). */
+  function markNight(night) {
+    document.documentElement.classList.toggle('is-night', night);
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', night ? '#1c1724' : '#f3e7d8');
+  }
+
+  // ------------------------------------------------------------ 테마 설정
+
+  /* 설정 탭의 시스템 / 라이트 / 다크. 기본은 라이트. index.html 의 머리 스크립트가
+     저장된 값을 스타일보다 먼저 읽어 첫 화면이 깜빡이지 않게 한다. */
+  var THEME_KEY = 'bighistory.theme';
+  var darkQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+
+  function loadTheme() {
+    try {
+      var v = localStorage.getItem(THEME_KEY);
+      return v === 'system' || v === 'dark' ? v : 'light';
+    } catch (err) { return 'light'; }
+  }
+
+  function resolveNight(theme) {
+    return theme === 'dark' || (theme === 'system' && !!(darkQuery && darkQuery.matches));
+  }
+
+  function placeThemePill() {
+    var pill = el.themeSeg.querySelector('.seg__pill');
+    var on = el.themeSeg.querySelector('.is-active');
+    if (!pill || !on || !on.offsetWidth) return;
+    pill.style.width = on.offsetWidth + 'px';
+    pill.style.transform = 'translate3d(' + on.offsetLeft + 'px,0,0)';
+  }
+
+  /**
+   * @param silent  처음 켤 때 — 아직 연표를 그리기 전이라 상태와 클래스만 맞춘다
+   */
+  function applyTheme(theme, save, silent) {
+    state.theme = theme;
+    Array.prototype.forEach.call(el.themeSeg.querySelectorAll('[data-theme]'), function (btn) {
+      var on = btn.getAttribute('data-theme') === theme;
+      btn.classList.toggle('is-active', on);
+      btn.setAttribute('aria-checked', String(on));
+    });
+    placeThemePill();
+    var night = resolveNight(theme);
+    if (silent) {
+      state.night = night;
+      markNight(night);
+    } else if (night !== state.night) {
+      setNight(night);
+    }
+    if (save) {
+      try { localStorage.setItem(THEME_KEY, theme); } catch (err) { /* 저장 못 해도 동작엔 지장 없음 */ }
+    }
   }
 
   // ------------------------------------------------------ 연도 고정 옵션
@@ -1169,7 +1246,14 @@
   // ------------------------------------------------------------ 이벤트
 
   function bindEvents() {
-    el.nightToggle.addEventListener('click', function () { setNight(!state.night); });
+    Array.prototype.forEach.call(el.themeSeg.querySelectorAll('[data-theme]'), function (btn) {
+      btn.addEventListener('click', function () { applyTheme(btn.getAttribute('data-theme'), true); });
+    });
+    if (darkQuery) {
+      var onScheme = function () { if (state.theme === 'system') applyTheme('system', false); };
+      if (darkQuery.addEventListener) darkQuery.addEventListener('change', onScheme);
+      else if (darkQuery.addListener) darkQuery.addListener(onScheme);
+    }
     el.pinToggle.addEventListener('click', function () {
       setTab('timeline');
       setPinned(!state.pinned, true);
@@ -1208,6 +1292,7 @@
       measure();
       placeTabPill();
       placeSegPill();
+      placeThemePill();
       hud.measure();
     }, 120);
     window.addEventListener('resize', remeasure);
@@ -1262,6 +1347,7 @@
     state.pinned = loadPinned();
     el.pinToggle.setAttribute('aria-pressed', String(state.pinned));
     setView(loadView(), false);   // 스크롤러가 생기기 전이라 버튼·클래스만 맞춘다
+    applyTheme(loadTheme(), false, true);
 
     scroller = M.create(el.scroll, el.inner, {
       mode: state.view === 'table' && state.pinned ? 'pinned' : 'image',
@@ -1300,6 +1386,8 @@
       el.tabs.classList.add('is-ready');
       placeSegPill();
       el.viewSeg.classList.add('is-ready');
+      placeThemePill();
+      el.themeSeg.classList.add('is-ready');
     });
 
     el.loading.hidden = true;

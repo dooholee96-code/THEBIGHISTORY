@@ -7,22 +7,28 @@
    왜 캐시 우선이 아닌가: 캐시 우선으로 두면 배포한 새 코드가 반영되지 않고
    예전 화면이 계속 보인다. 오프라인 지원은 예비용 캐시만으로 충분하다. */
 
-const CACHE_VERSION = 'bighistory-6aefcb96';
+const CACHE_VERSION = 'bighistory-b5553d00';
 const NETWORK_TIMEOUT_MS = 4000;
 
 const PRECACHE = [
   './',
   './index.html',
-  './css/styles.css?v=6aefcb96',
-  './js/data.js?v=6aefcb96',
-  './js/chapters.js?v=6aefcb96',
-  './js/timeline.js?v=6aefcb96',
-  './js/motion.js?v=6aefcb96',
-  './js/hud.js?v=6aefcb96',
-  './js/branch.js?v=6aefcb96',
-  './js/app.js?v=6aefcb96',
+  './css/styles.css?v=b5553d00',
+  './js/data.js?v=b5553d00',
+  './js/chapters.js?v=b5553d00',
+  './js/timeline.js?v=b5553d00',
+  './js/motion.js?v=b5553d00',
+  './js/hud.js?v=b5553d00',
+  './js/branch.js?v=b5553d00',
+  './js/app.js?v=b5553d00',
   './manifest.webmanifest',
   './icons/icon.svg',
+  './art/prehistory.svg',
+  './art/ancient.svg',
+  './art/medieval.svg',
+  './art/earlymodern.svg',
+  './art/modern.svg',
+  './art/contemporary.svg',
   './data/index.json'
 ];
 
