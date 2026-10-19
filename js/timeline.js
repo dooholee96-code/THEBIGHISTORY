@@ -61,6 +61,19 @@
     return card;
   }
 
+  /**
+   * 막간 무대 — 장면이 시작되는 곳에 카드 없는 빈 구간을 두어, 그 사이로 뒤의 디오라마가 온전히 보이게 한다.
+   * 아래쪽에 장면 이름과(명화 오마주라면) 원작을 작게 적는다. data-scene = 시대 안 장면 번호.
+   */
+  function renderInterlude(scene, index, parent) {
+    var stage = el('div', 'tl-stage', parent);
+    stage.setAttribute('data-scene', String(index));
+    var cap = el('div', 'tl-stage__cap', stage);
+    if (scene.label) el('span', 'tl-stage__label', cap).textContent = scene.label;
+    if (scene.after) el('span', 'tl-stage__after', cap).textContent = scene.after + ' — 오마주';
+    return stage;
+  }
+
   /** 앞 해와의 간격을 눈에 보이는 틈으로 */
   function renderGap(years, parent) {
     var gap = el('div', 'tl-gap', parent);
@@ -108,8 +121,19 @@
       return section;
     }
 
+    // 장면마다 막간 무대를 놓을 자리: 그 장면 시작 연도 이상인 첫 해 앞(첫 장면은 시대 맨 앞)
+    var scenes = global.BigHistoryChapters.scenesOf(era);
+    var interludeAt = {};
+    scenes.forEach(function (sc, si) {
+      var at = 0;
+      while (at < years.length && years[at] < sc.start_year) at += 1;
+      if (si === 0) at = 0;
+      if (at < years.length && interludeAt[at] == null) interludeAt[at] = si;
+    });
+
     years.forEach(function (year, i) {
-      if (i > 0) renderGap(year - years[i - 1], body);
+      if (interludeAt[i] != null) renderInterlude(scenes[interludeAt[i]], interludeAt[i], body);
+      else if (i > 0) renderGap(year - years[i - 1], body);
 
       var list = byYear[year].slice().sort(function (a, b) {
         return (order[a._dataset] - order[b._dataset]) || (a.start_md || '').localeCompare(b.start_md || '');

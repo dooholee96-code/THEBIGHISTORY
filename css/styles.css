@@ -616,7 +616,7 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  top: 0;
+  top: -200px;                           /* 그림 위쪽은 하늘 여백이라, 무대가 초점선 근처에 오도록 끌어올린다 */
   height: max(900px, 56.25vw);           /* 1600×900 그림을 폭에 맞췄을 때의 높이 */
   opacity: 0;
   background-repeat: no-repeat;
@@ -642,18 +642,31 @@ body {
   .chapter__art { opacity: .5; }
   .is-night .chapter__art { opacity: .6; }
   .stage {
-    opacity: .5;
+    opacity: .9;
     -webkit-mask-image: none;
     mask-image: none;
   }
-  .is-night .stage { opacity: .6; }
+  .is-night .stage { opacity: .95; }
+  /* 그림을 화면 폭의 2.6배로 키우고(좌우 무대 하나가 화면을 채움) 왼쪽↔오른쪽을 천천히 오간다.
+     transform 은 app.js 몫이라 translate/scale 로. 위는 하늘 여백이라 조금 끌어올린다 */
   .stage__art {
-    height: 520px;
-    background-size: 1100px auto;
-    background-position: -70px -110px;
-    -webkit-mask-image: linear-gradient(180deg, #000 0, rgba(0, 0, 0, .6) 45%, transparent 85%);
-    mask-image: linear-gradient(180deg, #000 0, rgba(0, 0, 0, .6) 45%, transparent 85%);
+    left: 0;
+    right: auto;
+    top: -14vw;
+    width: 260vw;
+    height: calc(260vw * .5625);
+    background-size: 100% auto;
+    background-position: 0 0;
+    transform-origin: 30% 60%;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 22%, #000 70%, transparent 92%);
+    mask-image: linear-gradient(180deg, transparent 0, #000 22%, #000 70%, transparent 92%);
   }
+  .stage__art.is-on { animation: scene-pan 38s ease-in-out infinite alternate; }
+}
+
+@keyframes scene-pan {
+  0%, 8% { translate: 0 0; scale: 1; }
+  92%, 100% { translate: -160vw 0; scale: 1.04; }
 }
 
 .chapter__art-label {
@@ -934,6 +947,43 @@ body {
 }
 
 .tl-card__len { color: var(--ink-2); white-space: nowrap; }
+
+/* 막간 무대 — 카드 없는 빈 구간. 뒤 무대의 디오라마가 이 사이로 온전히 보인다 */
+.tl-stage {
+  position: relative;
+  height: 40vh;
+  min-height: 240px;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 0 14px calc(var(--gutter) + var(--mark-w) + 6px);
+  pointer-events: none;
+}
+
+.tl-stage__cap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: var(--ink-bg);
+  text-shadow: 0 1px 6px var(--sky);
+}
+
+.tl-stage__label {
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.tl-stage__after { font-size: 11.5px; color: var(--ink-bg-2); max-width: 36ch; }
+
+@media (min-width: 900px) {
+  .tl-stage { justify-content: center; padding-left: var(--gutter); text-align: center; }
+  .tl-stage__cap { align-items: center; }
+}
+
+@media (max-width: 899px) {
+  .tl-stage { height: 52vh; min-height: 300px; }
+}
 
 /* 해와 해 사이 — 오래 비면 '⋯ 350년' */
 .tl-gap { position: relative; }
@@ -1809,6 +1859,7 @@ body {
 
 .tabbar {
   position: absolute;
+  z-index: 30;            /* 연표 층(.scroll, z-index 1)보다 위 */
   left: 0; right: 0; bottom: 0;
   padding: 8px 12px max(12px, env(safe-area-inset-bottom));
   display: flex;

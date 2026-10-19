@@ -320,6 +320,9 @@
       });
       var chRows = rows.filter(function (r) { return r.era === ci; });
       list.forEach(function (sc, i) {
+        // 타임라인 보기에는 장면마다 막간 무대가 있어 그 위치부터 장면이 시작된다
+        var interlude = ch.node.querySelector('.tl-stage[data-scene="' + i + '"]');
+        if (interlude) { sc.top = i === 0 ? ch.top : offsetIn(interlude, el.inner) - 40; return; }
         if (i === 0) { sc.top = ch.top; return; }
         var first = null;
         for (var k = 0; k < chRows.length; k += 1) {
