@@ -948,6 +948,24 @@ body {
 
 .tl-card__len { color: var(--ink-2); white-space: nowrap; }
 
+/* 탐험 — 시간 줌 캔버스(기본 보기). 타임라인 스크롤 대신 이 캔버스가 화면을 맡는다 */
+.zoom {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: none;
+  touch-action: none;
+  cursor: grab;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.zoom.is-dragging { cursor: grabbing; }
+.is-zoom .zoom { display: block; }
+.is-zoom .scroll { display: none; }
+
 /* 막간 무대 — 카드 없는 빈 구간. 뒤 무대의 디오라마가 이 사이로 온전히 보인다 */
 .tl-stage {
   position: relative;

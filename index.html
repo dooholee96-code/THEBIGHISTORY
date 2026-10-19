@@ -23,7 +23,7 @@
       } catch (err) { /* 저장소를 못 읽어도 기본(라이트)으로 */ }
     })();
   </script>
-  <link rel="stylesheet" href="css/styles.css?v=ac7d028f" />
+  <link rel="stylesheet" href="css/styles.css?v=a8a71ffe" />
 </head>
 <body>
   <!-- 테마는 <html class="is-night"> 로 바뀐다(설정 탭, app.js). 기본은 라이트 -->
@@ -52,7 +52,8 @@
           <!-- 보기 방식: 타임라인(기본) / 표 -->
           <div class="seg" id="view-seg" role="radiogroup" aria-label="보기 방식">
             <span class="seg__pill" aria-hidden="true"></span>
-            <button class="seg__btn is-active" type="button" role="radio" aria-checked="true" data-view="timeline">타임라인</button>
+            <button class="seg__btn is-active" type="button" role="radio" aria-checked="true" data-view="zoom">탐험</button>
+            <button class="seg__btn" type="button" role="radio" aria-checked="false" data-view="timeline">타임라인</button>
             <button class="seg__btn" type="button" role="radio" aria-checked="false" data-view="table">표</button>
           </div>
           <!-- 표 보기에서만: 기본은 연도 축까지 표 전체가 한 장처럼, 켜면 연도 축만 왼쪽에 붙는다 -->
@@ -101,6 +102,10 @@
             </div>
           </div>
         </div>
+
+        <!-- 탐험(기본 보기) — 시간 자체를 줌하는 캔버스. js/zoom.js -->
+        <canvas class="zoom" id="zoom" role="img"
+                aria-label="역사 전체를 확대·축소하며 둘러보는 캔버스. 사건을 글로 차례대로 읽으려면 위의 타임라인 보기를 쓰세요."></canvas>
 
         <!-- 초점선: 여기에 걸린 줄의 해가 계기판 숫자가 된다 -->
         <div class="focus-line" id="focus-line" aria-hidden="true"><span></span></div>
@@ -256,12 +261,13 @@
     <div class="loading" id="loading">불러오는 중…</div>
   </div>
 
-  <script src="js/data.js?v=ac7d028f"></script>
-  <script src="js/chapters.js?v=ac7d028f"></script>
-  <script src="js/timeline.js?v=ac7d028f"></script>
-  <script src="js/motion.js?v=ac7d028f"></script>
-  <script src="js/hud.js?v=ac7d028f"></script>
-  <script src="js/branch.js?v=ac7d028f"></script>
-  <script src="js/app.js?v=ac7d028f"></script>
+  <script src="js/data.js?v=a8a71ffe"></script>
+  <script src="js/chapters.js?v=a8a71ffe"></script>
+  <script src="js/timeline.js?v=a8a71ffe"></script>
+  <script src="js/motion.js?v=a8a71ffe"></script>
+  <script src="js/hud.js?v=a8a71ffe"></script>
+  <script src="js/branch.js?v=a8a71ffe"></script>
+  <script src="js/zoom.js?v=a8a71ffe"></script>
+  <script src="js/app.js?v=a8a71ffe"></script>
 </body>
 </html>

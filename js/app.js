@@ -14,6 +14,7 @@
   var M = window.BigHistoryMotion;
   var H = window.BigHistoryHud;
   var B = window.BigHistoryBranch;
+  var Z = window.BigHistoryZoom;
 
   var FOCUS_RATIO = 0.36;   // 보이는 높이 중 초점선 위치(위에서부터)
   var SCENE_FADE = 280;     // 장면 그림이 바뀔 때 교차 페이드 길이(연표 px)
@@ -33,6 +34,7 @@
     scroll: document.getElementById('scroll'),
     inner: document.getElementById('scroll-inner'),
     stage: document.getElementById('stage'),
+    zoom: document.getElementById('zoom'),
     intro: document.getElementById('intro'),
     outro: document.getElementById('outro'),
     focusLine: document.getElementById('focus-line'),
@@ -89,7 +91,7 @@
     tab: 'timeline',
     night: false,      // 다크 팔레트인지. 테마 설정(system/light/dark)에서 정해진다
     theme: 'light',
-    view: 'timeline', // 'timeline'(기본) | 'table'
+    view: 'zoom',     // 'zoom'(탐험, 기본) | 'timeline' | 'table'
     pinned: false,    // 표 보기에서 true 면 연도 축 고정, false 면 표 전체가 한 장처럼(기본)
     eraIndex: 0,
     off: {},          // 꺼진 카테고리 id
@@ -119,6 +121,7 @@
   var scroller = null;
   var hud = null;
   var branch = null;
+  var zoom = null;          // 탐험(시간 줌 캔버스)
 
   // ------------------------------------------------------------ 유틸
 
@@ -205,6 +208,10 @@
 
   /** 줄·시대 위치를 한 번에 재 둔다(창 크기·내용이 바뀔 때만). */
   function measure() {
+    if (state.view === 'zoom' && !el.viewTimeline.hidden && state.data) {
+      measureZoom();
+      return;
+    }
     if (el.viewTimeline.hidden || !el.scroll.clientHeight || !state.data) {
       layout.dirty = true;
       return;
@@ -282,6 +289,8 @@
       for (var i = 0; i < rows.length; i += 1) {
         if (rows[i].year >= year) { target = rows[i]; break; }
       }
+      // 마지막 줄보다 늦은 해(탐험에서 '지금' 끝까지 갔을 때 등)면 마지막 줄로
+      if (!target && rows.length && year > rows[rows.length - 1].year) target = rows[rows.length - 1];
       if (target) scroller.scrollTo(target.mid - layout.focus, { instant: true });
     }
     onFrame(scroller.info());
@@ -429,6 +438,7 @@
   }
 
   function onFrame(info) {
+    if (state.view === 'zoom') return;
     var chapters = layout.chapters;
     if (!chapters.length || layout.dirty) return;
     var fy = info.y + layout.focus;
@@ -541,6 +551,176 @@
     }
   }
 
+  // ------------------------------------------------- 탐험(시간 줌) 보기
+
+  var zoomSegs = [];      // 계기판 띠 구간 { era, start, width }
+  var stageScenes = null; // 무대 그림 — 연도 구간 { node, a, b, label }
+  var zoomHomeDone = false;
+
+  /** 초점선 위치와 계기판이 가리는 높이만 잰다(탐험 보기는 연표 줄을 재지 않는다). */
+  function measureFocus(viewH) {
+    var viewRect = el.viewTimeline.getBoundingClientRect();
+    layout.cover = Math.max(0, viewRect.bottom - el.hud.getBoundingClientRect().top);
+    layout.focus = Math.round(Math.max(110, (viewH - layout.cover) * FOCUS_RATIO));
+    el.focusLine.style.top = layout.focus + 'px';
+  }
+
+  function measureZoom() {
+    layout.dirty = true;   // 타임라인으로 돌아가면 다시 잰다
+    measureFocus(el.viewTimeline.clientHeight);
+    zoom.resize();
+    el.focusLine.style.setProperty('--ring-x', zoom.axisX() + 'px');
+    buildZoomScrubber();
+    zoom.redraw();
+  }
+
+  function enterZoom(fromYear) {
+    zoom.setActive(true);
+    zoom.setData(visibleEntries(), zoomSpans(), zoomLaneCount());
+    measureZoom();
+    if (!zoomHomeDone) {
+      zoomHomeDone = true;
+      zoom.home();
+    } else if (fromYear != null) {
+      zoom.flyTo(fromYear, Math.max(zoom.scale, 1.2), { instant: true });
+    }
+  }
+
+  function zoomLaneCount() {
+    return activeColumns().filter(function (col) { return col.track === 'nation'; }).length;
+  }
+
+  /** 왼쪽 띠: 나라별 나라·왕조와 시대 구분(긴 것 위에 짧은 것) */
+  function zoomSpans() {
+    var out = [];
+    state.data.datasets
+      .filter(function (ds) { return ds.track === 'nation' && !state.off[ds.id]; })
+      .forEach(function (ds, lane) {
+        ds.entries
+          .filter(function (e) { return (e.kind === 'polity' || e.kind === 'era') && e.end_year > e.start_year; })
+          .sort(function (a, b) { return (b.end_year - b.start_year) - (a.end_year - a.start_year); })
+          .forEach(function (e) { out.push({ lane: lane, entry: e }); });
+      });
+    return out;
+  }
+
+  /** 계기판 띠 — 시대마다 한 구간, 너비는 사건 수에 비례(최소폭 보장) */
+  function buildZoomScrubber() {
+    var eras = state.data.eras;
+    var entries = visibleEntries();
+    var counts = eras.map(function (era) {
+      return entries.filter(function (e) { return e.start_year >= era.start_year && e.start_year < era.end_year; }).length;
+    });
+    var total = counts.reduce(function (a, b) { return a + b; }, 0) || 1;
+    var sum = 0;
+    zoomSegs = eras.map(function (era, i) {
+      var w = Math.max(0.075, counts[i] / total);
+      sum += w;
+      return { era: era, width: w };
+    });
+    var start = 0;
+    zoomSegs.forEach(function (g) { g.width /= sum; g.start = start; start += g.width; });
+    hud.build(zoomSegs.map(function (g) {
+      return { start: g.start, width: g.width, label: g.era.label, color: g.era.strip || '#8c6a4f' };
+    }), entries.map(function (e) { return zoomRatioOf(e.start_year); }));
+  }
+
+  function zoomRatioOf(year) {
+    for (var i = 0; i < zoomSegs.length; i += 1) {
+      var g = zoomSegs[i];
+      if (year < g.era.end_year || i === zoomSegs.length - 1) {
+        var t = clamp((year - g.era.start_year) / Math.max(1, g.era.end_year - g.era.start_year), 0, 1);
+        return clamp(g.start + t * g.width, 0, 1);
+      }
+    }
+    return 0;
+  }
+
+  function zoomYearOf(ratio) {
+    for (var i = 0; i < zoomSegs.length; i += 1) {
+      var g = zoomSegs[i];
+      if (ratio < g.start + g.width || i === zoomSegs.length - 1) {
+        var t = clamp((ratio - g.start) / Math.max(1e-6, g.width), 0, 1);
+        return g.era.start_year + t * (g.era.end_year - g.era.start_year);
+      }
+    }
+    return 0;
+  }
+
+  function zoomStepEra(dir) {
+    var eras = state.data.eras;
+    var year = zoom.year;
+    var index = 0;
+    for (var i = 0; i < eras.length; i += 1) if (eras[i].start_year <= year) index = i;
+    var target = index + dir;
+    if (target < 0 || target >= eras.length) { bumpHud(dir); return; }
+    zoom.flyToRange(eras[target].start_year, eras[target].end_year);
+  }
+
+  /** 무대 그림을 연도 구간으로(탐험 보기용) */
+  function buildStageScenes() {
+    stageScenes = [];
+    state.data.eras.forEach(function (era, ei) {
+      var scenes = C.scenesOf(era);
+      scenes.forEach(function (sc, si) {
+        var node = stageNodes[ei + ':' + si];
+        if (!node) return;
+        stageScenes.push({
+          node: node, label: sc.label || '', era: ei,
+          a: sc.start_year,
+          b: scenes[si + 1] ? scenes[si + 1].start_year : era.end_year,
+          o: -1, dy: NaN
+        });
+      });
+    });
+  }
+
+  /** 카메라가 움직일 때마다 — 계기판 숫자·띠, 배경 색, 무대 그림, '지금 이때' */
+  function onZoomCamera(info) {
+    if (state.view !== 'zoom') return;
+    var eras = state.data.eras;
+    var year = info.year;
+    var index = 0;
+    for (var i = 0; i < eras.length; i += 1) if (eras[i].start_year <= year) index = i;
+    var era = eras[index];
+    var t = clamp((year - era.start_year) / Math.max(1, era.end_year - era.start_year), 0, 1);
+    state.progress = t;
+    paint(index, t);
+    if (index !== state.eraIndex) {
+      state.eraIndex = index;
+      if (info.dragging) buzz([14, 30, 10]);
+    }
+
+    var shown = Math.round(year);
+    if (shown === 0) shown = 1;
+    hud.setYear(shown);
+    if (shown !== live.year) {
+      live.year = shown;
+      hud.setOngoing(ongoingAt(shown));
+    }
+    hud.setRatio(zoomRatioOf(year));
+
+    // 무대 그림 — 초점선의 해가 있는 장면, 경계에서는 교차 페이드(화면 px 기준)
+    if (!stageScenes) buildStageScenes();
+    var label = '';
+    var fade = SCENE_FADE / info.s;   // 연도 단위
+    stageScenes.forEach(function (sc) {
+      var f = Math.min(fade, sc.b - sc.a);
+      var o = clamp(Math.min((year - (sc.a - f / 2)) / f, ((sc.b + f / 2) - year) / f), 0, 1);
+      o = Math.round(o * 50) / 50;
+      if (year >= sc.a && year < sc.b) label = sc.label;
+      if (o !== sc.o) {
+        sc.o = o;
+        sc.node.style.opacity = o ? String(o) : '';
+        sc.node.classList.toggle('is-on', o > 0);
+      }
+      if (!o) return;
+      var dy = Math.round(-clamp((year - sc.a) / Math.max(1, sc.b - sc.a), 0, 1) * SCENE_DRIFT);
+      if (dy !== sc.dy) { sc.dy = dy; sc.node.style.transform = 'translate3d(0,' + dy + 'px,0)'; }
+    });
+    hud.setMeta(era.label, 0, label);
+  }
+
   // ------------------------------------------------------- 시대 이동
 
   /** 시대로 건너뛸 때 초점선에 올 자리 — 그 시대의 첫 줄(없으면 제목) */
@@ -554,11 +734,17 @@
   }
 
   function jumpEra(i) {
+    if (state.view === 'zoom') {
+      var era = state.data.eras[clamp(i, 0, state.data.eras.length - 1)];
+      zoom.flyToRange(era.start_year, era.end_year);
+      return;
+    }
     if (!layout.chapters.length) return;
     scroller.scrollTo(eraAnchor(clamp(i, 0, layout.chapters.length - 1)) - layout.focus);
   }
 
   function stepEra(dir) {
+    if (state.view === 'zoom') { zoomStepEra(dir); return; }
     var n = layout.chapters.length;
     if (!n) return;
     var fy = scroller.y + layout.focus;
@@ -587,6 +773,11 @@
 
   function onScrub(ratio, phase, type) {
     live.pointer = type || live.pointer;
+    if (state.view === 'zoom') {
+      var yr = zoomYearOf(ratio);
+      zoom.flyTo(yr, zoom.scale, { instant: phase === 'move' });
+      return;
+    }
     var y = focusOf(ratio) - layout.focus;
     // 놓거나 톡 칠 때는 가장 가까운 해의 점에 맞춰 내려앉는다
     if (phase !== 'move') {
@@ -680,6 +871,7 @@
 
     el.chapters.textContent = '';
     el.chapters.appendChild(frag);
+    if (zoom) zoom.setData(entries, zoomSpans(), zoomLaneCount());
     layout.chapters = [];
     layout.rows = [];
     layout.reveal = [];
@@ -727,9 +919,20 @@
   // 항목 종류(kind) — 왕조·국가사 데이터에 적혀 있다(schema/entries.schema.json)
   var KIND_LABEL = { polity: '나라·왕조', era: '시대', trend: '흐름', event: '사건' };
 
-  /** 그 해에 이어지고 있었나 — 끝나는 해에는 다음 왕조에 자리를 넘긴다 */
+  /** 그 해에 이어지고 있었나 — 끝나는 해에는 다음 왕조에 자리를 넘긴다.
+   *  데이터의 마지막 해(지금, 2025)로 끝나는 항목은 '아직 이어지는 중'이라 그 뒤로도 이어진다고 본다. */
   function covers(e, year) {
-    return e.start_year <= year && (year < e.end_year || (year === e.end_year && e.start_year === e.end_year));
+    if (e.start_year > year) return false;
+    if (year < e.end_year) return true;
+    if (e.end_year >= presentYear()) return true;
+    return year === e.end_year && e.start_year === e.end_year;
+  }
+
+  function presentYear() {
+    if (presentYear.v == null) {
+      presentYear.v = state.data.entries.reduce(function (m, e) { return Math.max(m, e.end_year); }, -Infinity);
+    }
+    return presentYear.v;
   }
 
   /**
@@ -1217,6 +1420,7 @@
     markNight(night);
     paint.gradient = paint.blobs = null;
     renderTimeline();
+    if (zoom) zoom.refreshTheme();
     paint(state.eraIndex, state.progress);
   }
 
@@ -1303,16 +1507,22 @@
 
   // ------------------------------------------------------ 보기 방식
 
-  var VIEW_KEY = 'bighistory.view';
+  // 탐험이 기본이 되면서 키를 바꿨다(예전 키에는 선택이 아니라 기본값이 저장되어 있었다)
+  var VIEW_KEY = 'bighistory.view2';
 
   function loadView() {
-    try { return localStorage.getItem(VIEW_KEY) === 'table' ? 'table' : 'timeline'; } catch (err) { return 'timeline'; }
+    try {
+      var v = localStorage.getItem(VIEW_KEY);
+      return v === 'table' || v === 'timeline' ? v : 'zoom';
+    } catch (err) { return 'zoom'; }
   }
 
   /** 타임라인(기본) ↔ 표. 보던 해는 그대로 초점선에 둔다. */
   function setView(view, announce) {
-    state.view = view === 'table' ? 'table' : 'timeline';
+    var from = state.view;
+    state.view = view === 'table' || view === 'timeline' ? view : 'zoom';
     el.app.classList.toggle('is-view-table', state.view === 'table');
+    el.viewTimeline.classList.toggle('is-zoom', state.view === 'zoom');
     el.viewTimeline.classList.toggle('is-image', state.view === 'table' && !state.pinned);
     Array.prototype.forEach.call(el.viewSeg.querySelectorAll('[data-view]'), function (btn) {
       var on = btn.getAttribute('data-view') === state.view;
@@ -1324,6 +1534,15 @@
     live.x = -1;
     try { localStorage.setItem(VIEW_KEY, state.view); } catch (err) { /* 무시 */ }
     if (!scroller) return;
+    if (state.view === 'zoom') {
+      enterZoom(from !== 'zoom' ? live.year : null);
+      if (announce) showToast('탐험 — 핀치·휠로 줌, 끌어서 이동, 두 번 톡 치면 다가가요', 2600);
+      return;
+    }
+    if (zoom) zoom.setActive(false);
+    if (from === 'zoom' && zoom) live.year = Math.round(zoom.year);
+    layout.scenes.forEach(function (sc) { sc.o = -1; sc.dy = NaN; });
+    if (stageScenes) stageScenes.forEach(function (sc) { sc.o = -1; sc.dy = NaN; });
     if (live.year != null) layout.anchorYear = live.year;
     scroller.setMode(state.view === 'table' && state.pinned ? 'pinned' : 'image');
     renderTimeline();
@@ -1338,7 +1557,7 @@
     pill.style.transform = 'translate3d(' + on.offsetLeft + 'px,0,0)';
   }
 
-  function showToast(text) {
+  function showToast(text, ms) {
     var t = el.toast;
     clearTimeout(t._leave);
     clearTimeout(t._hold);
@@ -1347,7 +1566,7 @@
     t.hidden = true;
     void t.offsetWidth;   // 같은 안내를 연달아 띄워도 등장 동작이 다시 나오게
     t.hidden = false;
-    t._hold = setTimeout(function () { conceal(t, 'is-leaving', 250); }, 1500);
+    t._hold = setTimeout(function () { conceal(t, 'is-leaving', 250); }, ms || 1500);
   }
 
   // ------------------------------------------------------------ 이벤트
@@ -1428,6 +1647,25 @@
     if (state.tab !== 'timeline' || isOpen(el.day) || isOpen(el.sheet)) return;
     if ((e.key === ' ' || e.key === 'Enter') && target.tagName === 'BUTTON') return;
 
+    if (state.view === 'zoom') {
+      var zpage = Math.max(120, (el.viewTimeline.clientHeight - layout.cover) * 0.8);
+      switch (e.key) {
+        case 'ArrowDown': zoom.panBy(90); break;
+        case 'ArrowUp': zoom.panBy(-90); break;
+        case 'PageDown': case ' ': zoom.panBy(e.shiftKey ? -zpage : zpage); break;
+        case 'PageUp': zoom.panBy(-zpage); break;
+        case '+': case '=': zoom.zoomBy(1.8); break;
+        case '-': case '_': zoom.zoomBy(1 / 1.8); break;
+        case 'Home': zoom.flyToRange(state.data.eras[0].start_year, state.data.eras[state.data.eras.length - 1].end_year); break;
+        case 'End': zoom.flyTo(2025, Math.max(zoom.scale, 2)); break;
+        default:
+          if (/^[1-9]$/.test(e.key) && Number(e.key) <= state.data.eras.length) jumpEra(Number(e.key) - 1);
+          else return;
+      }
+      e.preventDefault();
+      return;
+    }
+
     var page = Math.max(120, (el.scroll.clientHeight - layout.cover) * 0.8);
     switch (e.key) {
       case 'ArrowDown': scroller.nudge(96, 0); break;
@@ -1471,6 +1709,15 @@
       }
     });
     hud = H.create(el.hud, { scrub: onScrub, step: stepEra, pick: openSheet });
+    window.__bhZoom = null;
+    zoom = Z.create(el.zoom, {
+      eras: data.eras,
+      present: data.entries.reduce(function (m, e) { return Math.max(m, e.end_year); }, -Infinity),
+      focusY: function () { return layout.focus; },
+      onCamera: onZoomCamera,
+      openEntry: openSheet
+    });
+    window.__bhZoom = zoom;   // 개발자 도구에서 확인용
 
     branch = B.create(document.getElementById('branch-root'), {
       data: data,
@@ -1491,6 +1738,16 @@
     renderSearch();
     setTab('timeline');
     paint(0, 0);
+    if (state.view === 'zoom') {
+      enterZoom(null);
+      // 처음 온 사람에게 한 번만 조작법 안내
+      try {
+        if (!localStorage.getItem('bighistory.zoomHint')) {
+          localStorage.setItem('bighistory.zoomHint', '1');
+          setTimeout(function () { showToast('핀치·휠로 확대, 끌어서 이동, 두 번 톡 치면 다가가요', 3600); }, 900);
+        }
+      } catch (err) { /* 무시 */ }
+    }
     requestAnimationFrame(function () {
       el.tabs.classList.add('is-ready');
       placeSegPill();

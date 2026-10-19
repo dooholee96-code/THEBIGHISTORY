@@ -29,6 +29,7 @@ const ASSETS = [
   'js/motion.js',
   'js/hud.js',
   'js/branch.js',
+  'js/zoom.js',
   'js/app.js'
 ];
 
