@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "scenario.schema.json",
+  "title": "갈림길(대체역사) 시나리오 한 편",
+  "description": "실제 연표의 한 항목(anchor)에서 갈라져 나가는 가상의 역사. 노드(사건·선택·결말)를 id 로 이어 붙인 갈래 이야기다. 노드 종류별 규칙(사건은 next, 선택은 options, 결말은 둘 다 없음)과 연결이 끊기지 않았는지는 scripts/validate.js 가 검사한다.",
+  "type": "object",
+  "required": ["id", "title", "question", "status", "anchor", "start", "nodes"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "title": { "type": "string", "minLength": 1 },
+    "question": {
+      "type": "string",
+      "description": "목록과 시작 화면에 크게 나오는 '만약 ~라면?' 질문",
+      "minLength": 1
+    },
+    "summary": { "type": "string", "minLength": 1 },
+    "status": {
+      "type": "string",
+      "description": "sample = 틀 확인용 자리표시, draft = 쓰는 중, ready = 공개해도 되는 완성본",
+      "enum": ["sample", "draft", "ready"]
+    },
+    "anchor": {
+      "type": "object",
+      "description": "갈라지는 지점. 실제 연표 항목(entry id)에 붙인다.",
+      "required": ["entry", "year"],
+      "additionalProperties": false,
+      "properties": {
+        "entry": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "year": { "type": "integer", "minimum": -50000, "maximum": 2200 },
+        "note": {
+          "type": "string",
+          "description": "이 지점에서 실제로는 무슨 일이 있었는지(한두 문장)",
+          "minLength": 1
+        }
+      }
+    },
+    "compare": {
+      "type": "array",
+      "description": "'실제 역사' 칸에 나란히 보여 줄 실제 연표 카테고리(data/index.json 의 dataset id)",
+      "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+      "uniqueItems": true
+    },
+    "start": { "type": "string", "description": "첫 노드의 id" },
+    "nodes": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "$ref": "#/$defs/node" }
+    }
+  },
+  "$defs": {
+    "node": {
+      "type": "object",
+      "required": ["id", "kind", "year", "title"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "kind": {
+          "type": "string",
+          "description": "event = 가상 사건(next 로 이어짐), choice = 갈림길(options), ending = 결말(끝)",
+          "enum": ["event", "choice", "ending"]
+        },
+        "year": { "type": "integer", "minimum": -50000, "maximum": 2200 },
+        "end_year": { "type": "integer", "minimum": -50000, "maximum": 2200 },
+        "title": { "type": "string", "minLength": 1 },
+        "text": { "type": "string", "minLength": 1 },
+        "next": { "type": "string", "description": "event 다음 노드 id" },
+        "options": {
+          "type": "array",
+          "description": "choice 의 선택지(2개 이상). 각 선택지는 to(정해진 결과) 또는 outcomes(확률로 갈리는 결과) 중 하나를 가진다.",
+          "minItems": 2,
+          "items": { "$ref": "#/$defs/option" }
+        },
+        "reality": {
+          "type": "string",
+          "description": "'실제로는 ~' — 결말에서 꼭 적고, 다른 노드에서도 쓸 수 있다",
+          "minLength": 1
+        },
+        "real": {
+          "type": "array",
+          "description": "이 노드와 견줘 볼 실제 연표 항목 id",
+          "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "option": {
+      "type": "object",
+      "required": ["label"],
+      "additionalProperties": false,
+      "properties": {
+        "label": { "type": "string", "minLength": 1 },
+        "to": { "type": "string" },
+        "outcomes": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": ["chance", "to"],
+            "additionalProperties": false,
+            "properties": {
+              "chance": { "type": "number", "minimum": 0, "maximum": 1 },
+              "to": { "type": "string" },
+              "label": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    }
+  }
+}

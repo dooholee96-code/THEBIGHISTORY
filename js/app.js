@@ -13,6 +13,7 @@
   var T = window.BigHistoryTimeline;
   var M = window.BigHistoryMotion;
   var H = window.BigHistoryHud;
+  var B = window.BigHistoryBranch;
 
   var FOCUS_RATIO = 0.36;   // 보이는 높이 중 초점선 위치(위에서부터)
 
@@ -62,6 +63,7 @@
 
   var TABS = [
     { id: 'timeline', label: '연표', view: document.getElementById('view-timeline') },
+    { id: 'branch', label: '갈림길', view: document.getElementById('view-branch') },
     { id: 'category', label: '카테고리', view: document.getElementById('view-category') },
     { id: 'search', label: '검색', view: document.getElementById('view-search') },
     { id: 'info', label: '정보', view: document.getElementById('view-info') }
@@ -100,6 +102,7 @@
   var tabPill = null;
   var scroller = null;
   var hud = null;
+  var branch = null;
 
   // ------------------------------------------------------------ 유틸
 
@@ -894,6 +897,22 @@
     }
     body.appendChild(source);
 
+    // 이 항목에서 갈라지는 가상 역사(갈림길)가 있으면 바로 들어가는 길
+    if (branch) {
+      branch.scenariosFor(entry.id).forEach(function (sc) {
+        var go = document.createElement('button');
+        go.type = 'button';
+        go.className = 'branch-link';
+        go.textContent = '갈림길 · ' + sc.title + ' →';
+        go.addEventListener('click', function () {
+          closeSheet();
+          setTab('branch');
+          branch.open(sc.id);
+        });
+        body.appendChild(go);
+      });
+    }
+
     if (entry.tags && entry.tags.length) {
       var tags = document.createElement('div');
       tags.className = 'tags';
@@ -1259,6 +1278,13 @@
       }
     });
     hud = H.create(el.hud, { scrub: onScrub, step: stepEra, pick: openSheet });
+
+    branch = B.create(document.getElementById('branch-root'), {
+      data: data,
+      timeline: T,
+      openEntry: openSheet,
+      scrollBox: document.getElementById('view-branch')
+    });
 
     buildTabs();
     buildCategories();

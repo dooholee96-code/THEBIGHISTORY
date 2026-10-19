@@ -61,21 +61,25 @@ npm run build          # validate + 버전 스탬프 + data/bundle.js 재생성
 ## 2. 폴더 구조
 
 ```
-index.html                  화면 뼈대 (4개 탭 + 상세 시트 + 월·일 팝업)
+index.html                  화면 뼈대 (5개 탭 + 상세 팝업 + 월·일 팝업)
 css/styles.css              디자인 토큰과 스타일 (시대 팔레트는 데이터에 있음)
 js/data.js                  데이터 로딩 (fetch ↔ bundle 자동 전환)
 js/timeline.js              시대 섹션 + 타임라인 렌더러 (시간축·사건 카드·해 사이 틈)
 js/chapters.js              시대 섹션 + 표 렌더러 (행·열·셀·접기 규칙)
 js/motion.js                손맛 스크롤러 (끌기·던지기·고무줄·휠·시대 점프, 그림/연도 고정 모드)
 js/hud.js                   시간 계기판 (굴러가는 연도 숫자 + 시대 구간 스크러버)
+js/branch.js                갈림길(대체역사) 화면 — 시나리오 목록·진행·확률·결말
 js/app.js                   탭·배경 전환·초점선·카테고리·검색·시트·팝업 조립
 
 data/index.json             ★ 매니페스트 — 데이터 파일 + 시대 구간 + 팔레트
 data/<이름>.json            ★ 실제 항목들 (국가별·주제별로 파일 분리)
+data/alt/index.json         갈림길 시나리오 목록 (실제 연표와 분리)
+data/alt/<이름>.json        갈림길 시나리오 한 편
 data/bundle.js              위 JSON 들의 자동 생성 사본 (file:// 전용, 직접 수정 금지)
 
 schema/index.schema.json    매니페스트 JSON Schema
 schema/entries.schema.json  항목 JSON Schema
+schema/alt-index.schema.json, schema/scenario.schema.json   갈림길 JSON Schema
 scripts/validate.js         검증 스크립트
 scripts/bundle.js           bundle.js 생성기
 scripts/stamp.js            배포 버전 스탬프(캐시 무효화) 찍기
@@ -207,6 +211,30 @@ npm run build     # 검증 + bundle.js 갱신
 
 ---
 
+### 3-5. 갈림길(대체역사) 시나리오 쓰기
+
+가상의 역사는 **`data/alt/` 에만** 둡니다. 실제 연표 매니페스트(`data/index.json`)와 섞이지 않으므로,
+가상 내용이 실제 연표에 나타나는 일은 없습니다.
+
+1. `data/alt/<id>.json` 을 만들고 `data/alt/index.json` 의 `scenarios` 에 `{ "id", "file" }` 한 줄을 더한다.
+2. `npm run validate` → `npm run build`.
+
+시나리오 한 편은 **노드(node)를 id 로 이어 붙인 갈래 이야기**입니다. 예시는 `data/alt/sample.json`(내용은 자리표시).
+
+| 필드 | 뜻 |
+|---|---|
+| `anchor` | 갈라지는 지점. `entry` = 실제 연표 항목 id, `year`, `note` = 그때 실제로 일어난 일 |
+| `compare` | '실제 역사' 칸에 나란히 보여 줄 카테고리 id (예: `["korea","china"]`) |
+| `start` | 첫 노드 id |
+| `status` | `sample`(틀 확인용) · `draft`(쓰는 중) · `ready`(완성) — 앞의 둘은 화면에 배지로 표시 |
+| 노드 `kind: "event"` | 가상 사건. `next` 로 다음 노드 |
+| 노드 `kind: "choice"` | 갈림길. `options` 2개 이상, 각 선택지는 `to`(정해진 결과) **또는** `outcomes`(확률로 갈림: `[{ "chance": 0.7, "to": "…", "label": "…" }]`, 합 1) |
+| 노드 `kind: "ending"` | 결말. `reality` 에 '실제로는 ~' 을 적는다 |
+| 노드 `real` | (선택) 견줘 볼 실제 항목 id — 범위 밖이어도 '실제 역사' 칸에 나온다 |
+
+검증기가 잡아 주는 것: 없는 노드로 이어짐, 고리(끝나지 않는 이야기), 시작에서 닿지 않는 노드,
+확률 합이 1 이 아님, 실제 연표에 없는 항목 id, 거꾸로 가는 연도(경고).
+
 ## 4. 내용의 출처와 신뢰도
 
 **이 연표의 내용은 아직 검증되지 않았습니다.** 지금 상태를 있는 그대로 적습니다.
@@ -274,6 +302,16 @@ git 커밋 이력이 그대로 검토 로그가 되므로, 누가 언제 무엇�
 `FRICTION`(작을수록 멀리 미끄러짐), `SPRING_K`(끝에서 돌아오는 힘), `DRAG_SLOP`(탭과 끌기를 가르는 거리).
 계기판 막대의 시대 구간 너비는 그 시대의 줄 양에 비례하고(최소 7.5%), 가는 눈금 하나가 표의 한 줄입니다.
 `prefers-reduced-motion` 을 켠 기기에서는 날아가기·튀어나오기 같은 연출을 끄고 바로 이동합니다.
+
+### 갈림길 탭
+
+실제 역사의 한 장면에서 다른 길을 골라 가는 **가상 역사**. 같은 시간축에 왼쪽(모바일은 위) 실제 역사, 오른쪽(모바일은 점선 카드)
+가상 역사가 나란히 놓이고, 갈림길부터 점선 줄기가 갈라져 나온다.
+
+- 선택지를 고르면 다음 가상 사건이 이어진다. '결과는 확률로 갈림' 선택지는 고른 뒤에 결과가 정해진다(70%·30% 등).
+- 결말에서는 '실제로는 ~' 과 견주고, `한 단계 되돌리기`로 다른 길을 보거나 `처음부터` 다시.
+- 진행 상황은 기기에 저장되어 다음에 `이어서 하기`.
+- 실제 연표의 항목 팝업에 그 항목에서 갈라지는 시나리오가 있으면 `갈림길 · …` 버튼이 나온다.
 
 ### 카테고리 탭
 
@@ -383,7 +421,7 @@ npx cap open android  # Android Studio (Play Store 제출)
 
 - **런타임 의존성이 없습니다.** `package.json` 에 dependencies 가 하나도 없어 전이 의존성 위험이 없습니다.
 - **외부 요청은 글꼴 하나뿐입니다.** Google Fonts 에서 Gowun Batang · Gowun Dodum 을 불러옵니다.
-  분석 도구·추적 스크립트는 없고 쿠키도 쓰지 않습니다. ('연도 고정' 선택 하나만 기기의 localStorage 에 남습니다)
+  분석 도구·추적 스크립트는 없고 쿠키도 쓰지 않습니다. (보기 설정과 갈림길 진행 상황만 기기의 localStorage 에 남습니다)
   `index.html` 의 `fonts.googleapis.com` 링크를 지우면 **외부 요청이 완전히 사라지고**
   시스템 글꼴로 대체됩니다(폴백이 지정되어 있습니다).
 - **글꼴 파일을 재배포하지 않습니다.** 링크로 불러올 뿐입니다.

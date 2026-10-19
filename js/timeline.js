@@ -144,6 +144,7 @@
 
   global.BigHistoryTimeline = {
     render: renderChapter,
+    card: renderCard,
     spanWidth: spanWidth
   };
 })(window);

@@ -28,6 +28,7 @@ const ASSETS = [
   'js/timeline.js',
   'js/motion.js',
   'js/hud.js',
+  'js/branch.js',
   'js/app.js'
 ];
 

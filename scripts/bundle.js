@@ -33,15 +33,28 @@ for (const ds of manifest.datasets || []) {
   entryCount += (doc.entries || []).length;
 }
 
+// 갈림길(대체역사) 시나리오 — 실제 연표와 따로 담는다
+const ALT_DIR = path.join(DATA_DIR, 'alt');
+let alt = null;
+if (fs.existsSync(path.join(ALT_DIR, 'index.json'))) {
+  const index = JSON.parse(fs.readFileSync(path.join(ALT_DIR, 'index.json'), 'utf8'));
+  const altFiles = {};
+  for (const item of index.scenarios || []) {
+    altFiles[item.file] = JSON.parse(fs.readFileSync(path.join(ALT_DIR, item.file), 'utf8'));
+  }
+  alt = { index, files: altFiles };
+}
+
 const payload = {
   generated_at: new Date().toISOString(),
   manifest,
-  files
+  files,
+  alt
 };
 
 const banner = [
   '/* 자동 생성 파일 — 직접 수정하지 마세요.',
-  ' * 원본: data/index.json 및 data/*.json',
+  ' * 원본: data/index.json, data/*.json, data/alt/*.json',
   ' * 재생성: npm run build',
   ' *',
   ' * file:// 로 index.html 을 열었을 때 fetch 대신 사용되는 데이터 사본입니다.',
@@ -54,4 +67,5 @@ fs.writeFileSync(
 );
 
 const kb = (fs.statSync(OUT).size / 1024).toFixed(1);
-console.log(`data/bundle.js 생성 완료 — 데이터셋 ${Object.keys(files).length}개, 항목 ${entryCount}개 (${kb} KB)`);
+console.log(`data/bundle.js 생성 완료 — 데이터셋 ${Object.keys(files).length}개, 항목 ${entryCount}개, ` +
+  `갈림길 ${alt ? Object.keys(alt.files).length : 0}개 (${kb} KB)`);

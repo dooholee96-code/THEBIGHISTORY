@@ -16,6 +16,7 @@
  *  5) start_year <= end_year, 연도 0 사용 금지
  *  6) 각 항목의 category/subcategory 가 매니페스트 등록값과 일치하는가
  *  7) era_note 가 연도와 어긋나지 않는가
+ *  8) 갈림길 시나리오(data/alt/) — 스키마, 노드 연결, 확률 합, 실제 항목 연결
  */
 
 const fs = require('fs');
@@ -185,6 +186,130 @@ for (const ds of manifest.datasets || []) {
   }
 }
 
+// ------------------------------------------------ 갈림길(대체역사) 시나리오
+// 가상의 역사는 data/alt/ 에만 두고 실제 연표 매니페스트와 섞지 않는다.
+const ALT_DIR = path.join(DATA_DIR, 'alt');
+const ALT_INDEX = path.join(ALT_DIR, 'index.json');
+let scenarioCount = 0;
+
+if (fs.existsSync(ALT_INDEX)) {
+  const altIndexSchema = readJson(path.join(SCHEMA_DIR, 'alt-index.schema.json'));
+  const scenarioSchema = readJson(path.join(SCHEMA_DIR, 'scenario.schema.json'));
+  const altIndex = readJson(ALT_INDEX);
+
+  if (altIndexSchema && scenarioSchema && altIndex) {
+    for (const e of validate(altIndexSchema, altIndex)) fail(ALT_INDEX, `${e.path} — ${e.message}`);
+
+    const altFiles = new Set();
+    const altIds = new Set();
+    for (const item of altIndex.scenarios || []) {
+      if (altIds.has(item.id)) fail(ALT_INDEX, `시나리오 id 가 중복됩니다: "${item.id}"`);
+      altIds.add(item.id);
+      altFiles.add(item.file);
+
+      const file = path.join(ALT_DIR, item.file);
+      if (!fs.existsSync(file)) {
+        fail(ALT_INDEX, `시나리오 "${item.id}" 의 파일이 없습니다: data/alt/${item.file}`);
+        continue;
+      }
+      const doc = readJson(file);
+      if (!doc) continue;
+      const schemaErrors = validate(scenarioSchema, doc);
+      for (const e of schemaErrors) fail(file, `${e.path} — ${e.message}`);
+      if (schemaErrors.length) continue;
+
+      scenarioCount += 1;
+      checkScenario(file, doc, item.id);
+    }
+
+    for (const name of fs.readdirSync(ALT_DIR)) {
+      if (name.endsWith('.json') && name !== 'index.json' && !altFiles.has(name)) {
+        warn(ALT_INDEX, `data/alt/${name} 이 목록에 등록되어 있지 않아 화면에 나오지 않습니다.`);
+      }
+    }
+  }
+}
+
+/** 노드가 끊김 없이 이어지고, 모든 길이 결말에 닿는지 */
+function checkScenario(file, doc, listedId) {
+  if (doc.id !== listedId) fail(file, `id "${doc.id}" 가 data/alt/index.json 의 "${listedId}" 와 다릅니다.`);
+
+  const nodes = new Map();
+  for (const node of doc.nodes) {
+    if (nodes.has(node.id)) fail(file, `노드 id 가 중복됩니다: "${node.id}"`);
+    nodes.set(node.id, node);
+  }
+
+  if (!globalIds.has(doc.anchor.entry)) {
+    fail(file, `anchor.entry "${doc.anchor.entry}" 가 실제 연표에 없습니다.`);
+  }
+  for (const id of doc.compare || []) {
+    if (!seenDatasetIds.has(id)) fail(file, `compare 의 "${id}" 가 data/index.json 의 카테고리에 없습니다.`);
+  }
+  if (!nodes.has(doc.start)) {
+    fail(file, `start "${doc.start}" 노드가 없습니다.`);
+    return;
+  }
+
+  const edges = new Map();   // id → [다음 노드 id]
+  for (const node of doc.nodes) {
+    const where = `노드 "${node.id}"`;
+    const out = [];
+    if (node.end_year != null && node.end_year < node.year) fail(file, `${where} — end_year 가 year 보다 이릅니다.`);
+    if (node.year === 0 || node.end_year === 0) fail(file, `${where} — 연도 0 은 사용하지 않습니다.`);
+    for (const id of node.real || []) {
+      if (!globalIds.has(id)) fail(file, `${where} — real 의 "${id}" 가 실제 연표에 없습니다.`);
+    }
+
+    if (node.kind === 'event') {
+      if (!node.next) fail(file, `${where} — 사건(event)에는 next 가 있어야 합니다.`);
+      else out.push(node.next);
+      if (node.options) fail(file, `${where} — 사건(event)에는 options 를 쓰지 않습니다(갈림길이면 kind 를 choice 로).`);
+    } else if (node.kind === 'choice') {
+      if (!node.options) fail(file, `${where} — 갈림길(choice)에는 options 가 있어야 합니다.`);
+      if (node.next) fail(file, `${where} — 갈림길(choice)에는 next 를 쓰지 않습니다.`);
+      (node.options || []).forEach((opt, i) => {
+        const has = (opt.to ? 1 : 0) + (opt.outcomes ? 1 : 0);
+        if (has !== 1) fail(file, `${where} options[${i}] — to 와 outcomes 중 정확히 하나만 적습니다.`);
+        if (opt.to) out.push(opt.to);
+        if (opt.outcomes) {
+          const sum = opt.outcomes.reduce((n, o) => n + o.chance, 0);
+          if (Math.abs(sum - 1) > 0.001) fail(file, `${where} options[${i}] — outcomes 의 chance 합이 1 이 아닙니다(${sum}).`);
+          opt.outcomes.forEach((o) => out.push(o.to));
+        }
+      });
+    } else if (node.kind === 'ending') {
+      if (node.next || node.options) fail(file, `${where} — 결말(ending)에는 next·options 를 쓰지 않습니다.`);
+      if (!node.reality) warn(file, `${where} — 결말에는 '실제로는 ~'(reality)을 적어 두면 좋습니다.`);
+    }
+
+    for (const to of out) {
+      if (!nodes.has(to)) { fail(file, `${where} — 이어지는 노드 "${to}" 가 없습니다.`); continue; }
+      const next = nodes.get(to);
+      if (next.year < node.year) warn(file, `${where} → "${to}" — 연도가 거꾸로 갑니다(${node.year} → ${next.year}).`);
+    }
+    edges.set(node.id, out.filter((to) => nodes.has(to)));
+  }
+
+  // 되돌아오는 고리가 없고(끝나지 않는 이야기 방지), 시작에서 모든 노드에 닿는지
+  const state = new Map();   // 1 = 방문 중, 2 = 끝
+  const visit = (id) => {
+    if (state.get(id) === 2) return;
+    if (state.get(id) === 1) { fail(file, `노드 "${id}" 에서 고리가 생깁니다 — 이야기가 끝나지 않습니다.`); return; }
+    state.set(id, 1);
+    for (const to of edges.get(id) || []) visit(to);
+    state.set(id, 2);
+  };
+  visit(doc.start);
+  for (const id of nodes.keys()) {
+    if (!state.has(id)) warn(file, `노드 "${id}" 는 시작에서 닿지 않습니다(쓰이지 않음).`);
+  }
+
+  if (nodes.get(doc.start).year < doc.anchor.year) {
+    warn(file, `첫 노드의 연도(${nodes.get(doc.start).year})가 갈림길 연도(${doc.anchor.year})보다 이릅니다.`);
+  }
+}
+
 // --------------------------------------------------- 등록되지 않은 파일 찾기
 for (const name of fs.readdirSync(DATA_DIR)) {
   if (!name.endsWith('.json') || name === 'index.json') continue;
@@ -213,7 +338,8 @@ function report() {
   }
   console.log(
     `\n검증 통과 — 데이터셋 ${seenDatasetIds.size}개, 항목 ${entryCount}개 ` +
-    `(draft ${draftCount}개 / reviewed ${entryCount - draftCount}개), 경고 ${warnings.length}건`
+    `(draft ${draftCount}개 / reviewed ${entryCount - draftCount}개), 갈림길 시나리오 ${scenarioCount}개, ` +
+    `경고 ${warnings.length}건`
   );
   if (sourcedCount < entryCount) {
     console.log(

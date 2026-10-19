@@ -8,6 +8,8 @@
      2) 매니페스트에 등록된 data/*.json 을 병렬로 읽음
      3) file:// 로 열어 fetch 가 막히면 data/bundle.js 로 자동 전환
         (bundle.js 는 `npm run build` 로 JSON 에서 생성되는 사본입니다)
+     4) 갈림길(대체역사) 시나리오는 data/alt/ 에서 따로 읽는다.
+        없거나 읽기에 실패해도 실제 연표는 그대로 뜬다.
    ------------------------------------------------------------------ */
 (function (global) {
   'use strict';
@@ -62,8 +64,32 @@
     return cut + '…';
   }
 
+  /**
+   * 갈림길 시나리오를 정리한다. 노드는 id 로 찾을 수 있게 하고,
+   * 갈라지는 지점(anchor)의 실제 항목을 붙여 둔다. 가상 내용은 실제 entries 와 섞지 않는다.
+   */
+  function normalizeAlt(alt, entries) {
+    if (!alt || !alt.index) return [];
+    var byId = {};
+    entries.forEach(function (e) { byId[e.id] = e; });
+    return (alt.index.scenarios || [])
+      .slice()
+      .sort(function (a, b) { return (a.order || 0) - (b.order || 0); })
+      .map(function (item) {
+        var doc = alt.files && alt.files[item.file];
+        if (!doc || !doc.nodes) return null;
+        var nodes = {};
+        doc.nodes.forEach(function (n) { nodes[n.id] = n; });
+        return Object.assign({}, doc, {
+          _nodes: nodes,
+          _anchorEntry: byId[doc.anchor.entry] || null
+        });
+      })
+      .filter(Boolean);
+  }
+
   /** 매니페스트 + 파일 내용을 앱이 쓰기 좋은 형태로 정리한다. */
-  function normalize(manifest, fileContents, source) {
+  function normalize(manifest, fileContents, source, alt) {
     var datasets = (manifest.datasets || [])
       .slice()
       .sort(function (a, b) {
@@ -132,25 +158,44 @@
       eras: (manifest.eras || []).slice().sort(function (a, b) {
         return a.start_year - b.start_year;
       }),
+      scenarios: normalizeAlt(alt, all),
       source: source
     };
   }
 
   function loadFromBundle() {
     return loadBundleScript().then(function (bundle) {
-      return normalize(bundle.manifest, bundle.files || {}, 'bundle');
+      return normalize(bundle.manifest, bundle.files || {}, 'bundle', bundle.alt);
+    });
+  }
+
+  /** 갈림길 시나리오 — 실패해도 연표는 떠야 하므로 오류를 삼키고 빈 목록으로 */
+  function loadAlt() {
+    return fetchJson(DATA_DIR + 'alt/index.json').then(function (index) {
+      var files = (index.scenarios || []).map(function (item) { return item.file; });
+      return Promise.all(files.map(function (file) {
+        return fetchJson(DATA_DIR + 'alt/' + file);
+      })).then(function (docs) {
+        var contents = {};
+        files.forEach(function (file, i) { contents[file] = docs[i]; });
+        return { index: index, files: contents };
+      });
+    }).catch(function (err) {
+      console.info('[data] 갈림길 시나리오를 건너뜁니다.', err && err.message);
+      return null;
     });
   }
 
   function loadFromFetch() {
     return fetchJson(DATA_DIR + 'index.json').then(function (manifest) {
       var files = (manifest.datasets || []).map(function (ds) { return ds.file; });
-      return Promise.all(files.map(function (file) {
-        return fetchJson(DATA_DIR + file);
-      })).then(function (docs) {
+      return Promise.all([
+        Promise.all(files.map(function (file) { return fetchJson(DATA_DIR + file); })),
+        loadAlt()
+      ]).then(function (results) {
         var contents = {};
-        files.forEach(function (file, i) { contents[file] = docs[i]; });
-        return normalize(manifest, contents, 'fetch');
+        files.forEach(function (file, i) { contents[file] = results[0][i]; });
+        return normalize(manifest, contents, 'fetch', results[1]);
       });
     });
   }

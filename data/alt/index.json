@@ -1,0 +1,6 @@
+{
+  "$schema": "../../schema/alt-index.schema.json",
+  "scenarios": [
+    { "id": "sample", "file": "sample.json", "order": 0 }
+  ]
+}

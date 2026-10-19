@@ -462,6 +462,7 @@ body {
 }
 
 .pane--narrow { max-width: 640px; }
+.pane--wide { max-width: 980px; }
 
 .pane__lead {
   margin: 0 0 14px;
@@ -585,7 +586,8 @@ body {
 /* ------------------------------------------------------- 타임라인 */
 
 /* 모바일 우선: [색 띠][연도│점][카드]  /  넓은 화면: [색 띠][국가사 카드][연도][주제사 카드] */
-.scroll__inner {
+.scroll__inner,
+.branch-tl {
   --lane-w: 6px;
   --lane-gap: 2px;
   --gutter: calc(var(--lanes, 0) * (var(--lane-w) + var(--lane-gap)) + 8px);
@@ -814,7 +816,8 @@ body {
 
 /* 넓은 화면: 가운데 축을 두고 왼쪽 국가사, 오른쪽 주제사 */
 @media (min-width: 900px) {
-  .scroll__inner { --lane-w: 8px; --lane-gap: 3px; --mark-w: 104px; }
+  .scroll__inner,
+  .branch-tl { --lane-w: 8px; --lane-gap: 3px; --mark-w: 104px; }
 
   .tl::before { left: calc(var(--gutter) + (100% - var(--gutter) - var(--mark-w)) / 2 + var(--mark-w) / 2 - 1px); }
 
@@ -873,6 +876,277 @@ body {
   }
 
   .tl-empty { margin: 0 auto; width: fit-content; }
+}
+
+/* ------------------------------------------- 갈림길(대체역사) 화면 */
+
+/* 가상임을 늘 밝힌다 */
+.branch-fiction {
+  margin: 0 0 16px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px dashed rgba(143, 131, 196, .6);
+  background: rgba(255, 255, 255, .55);
+  font-size: 12.5px;
+  color: var(--ink);
+}
+
+.branch-badge {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: rgba(143, 131, 196, .18);
+  color: #5f5294;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.branch-list { display: flex; flex-direction: column; gap: 12px; }
+
+.branch-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  width: 100%;
+  padding: 14px 16px 13px;
+  text-align: left;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, .9);
+  border-left: 4px dashed var(--accent);
+  background: var(--glass-strong);
+  box-shadow: var(--shadow-1);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+  transition: transform .42s var(--spring), background-color .18s ease;
+}
+
+.branch-item:hover { background: var(--glass-focus); }
+.branch-item:active { transform: scale(.98); transition-duration: .08s; }
+
+.branch-item__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12px; opacity: .8; }
+.branch-item__year { font-weight: 700; }
+.branch-item__anchor::before { content: "· "; }
+.branch-item__title { font-family: var(--serif); font-size: 18px; font-weight: 700; }
+.branch-item__q { font-size: 13.5px; line-height: 1.6; opacity: .8; }
+.branch-item__go { margin-top: 4px; font-size: 12.5px; font-weight: 700; color: #5f5294; }
+
+.branch-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+
+.branch-title {
+  margin: 0 0 4px;
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink-bg);
+}
+
+.branch-q {
+  margin: 0 0 14px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-bg);
+  opacity: .85;
+}
+
+.branch-anchor {
+  margin: 0 0 12px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--glass-strong);
+  border: 1px solid rgba(255, 255, 255, .9);
+  color: var(--ink);
+}
+
+.branch-anchor__mark { font-weight: 700; font-size: 13px; margin-right: 8px; }
+
+.branch-anchor__entry {
+  border: 0;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: rgba(120, 105, 150, .12);
+  font: inherit;
+  font-size: 12.5px;
+  color: inherit;
+  cursor: pointer;
+}
+
+.branch-anchor__note,
+.branch-anchor__summary { margin: 8px 0 0; font-size: 13px; line-height: 1.65; }
+.branch-anchor__summary { opacity: .7; }
+
+/* 같은 시간축의 '실제 | 가상' */
+.branch-tl { margin: 4px 0 8px; }
+
+/* 갈림길부터 가상의 줄기가 시간축 옆으로 갈라져 나란히 흐른다 */
+.branch-tl::after {
+  content: "";
+  position: absolute;
+  top: 30px;
+  bottom: 0;
+  left: calc(var(--gutter) + var(--mark-w) - 5px);
+  border-left: 2px dashed rgba(143, 131, 196, .7);
+}
+
+.branch-cols { display: none; }
+
+.branch-tl .tl-year.has-alt .tl-dot { background: var(--accent); border-color: #fff; }
+
+.branch-tl .tl-year.has-choice .tl-dot {
+  border-radius: 3px;
+  transform: rotate(45deg) scale(1.15);
+}
+
+.tl-card.is-real { opacity: .78; }
+.tl-card.is-real:hover { opacity: 1; }
+
+.alt-card {
+  width: 100%;
+  max-width: 440px;
+  padding: 9px 13px 11px;
+  border-radius: 14px;
+  border: 1.5px dashed rgba(143, 131, 196, .75);
+  background: rgba(255, 255, 255, .78);
+  box-shadow: 0 3px 12px rgba(90, 75, 120, .1);
+  color: var(--ink);
+}
+
+.alt-card--choice { border-style: solid; border-color: var(--accent); }
+
+.alt-card--ending {
+  border-style: solid;
+  border-color: rgba(143, 131, 196, .9);
+  background: rgba(255, 255, 255, .92);
+}
+
+.alt-card.is-new { animation: pop-in .5s var(--spring) backwards; animation-delay: var(--d, 0ms); }
+
+.alt-card__tag {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #5f5294;
+}
+
+.alt-card__span { font-weight: 400; opacity: .8; }
+
+.alt-card__title {
+  display: block;
+  margin-top: 2px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.alt-card__text { margin: 4px 0 0; font-size: 13px; line-height: 1.65; opacity: .85; }
+
+.alt-opts { display: flex; flex-direction: column; gap: 7px; margin-top: 10px; }
+
+.alt-opt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  padding: 9px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(143, 131, 196, .5);
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: transform .42s var(--spring), background-color .18s ease, opacity .2s ease;
+}
+
+.alt-opt:hover { background: rgba(143, 131, 196, .1); }
+.alt-opt:active { transform: scale(.97); transition-duration: .08s; }
+.alt-opt__label { font-size: 13.5px; font-weight: 700; }
+.alt-opt__hint { font-size: 11px; opacity: .6; }
+
+.alt-opts.is-done .alt-opt { cursor: default; opacity: .45; }
+.alt-opts.is-done .alt-opt.is-picked {
+  opacity: 1;
+  border-color: var(--accent);
+  background: rgba(143, 131, 196, .14);
+}
+
+.alt-roll {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 9px 0 0;
+  font-size: 12.5px;
+}
+
+.alt-roll__die {
+  flex: 0 0 auto;
+  min-width: 40px;
+  padding: 3px 7px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 12px;
+  text-align: center;
+  animation: die-in .7s var(--spring);
+}
+
+@keyframes die-in {
+  0% { transform: rotate(-200deg) scale(.4); opacity: 0; }
+  70% { transform: rotate(12deg) scale(1.1); opacity: 1; }
+}
+
+.alt-reality {
+  margin: 10px 0 0;
+  padding: 9px 11px;
+  border-radius: 11px;
+  background: rgba(235, 242, 252, .85);
+  border: 1px solid rgba(130, 150, 190, .4);
+  font-size: 12.5px;
+  line-height: 1.65;
+}
+
+.alt-actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+
+.branch-bar { display: flex; gap: 8px; margin: 12px 0 0; }
+.pill-btn:disabled { opacity: .45; cursor: default; }
+
+/* 실제 연표 상세 카드 안의 '갈림길로 가기' */
+.branch-link {
+  display: block;
+  width: 100%;
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1.5px dashed var(--accent);
+  background: rgba(143, 131, 196, .08);
+  color: #5f5294;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+@media (min-width: 900px) {
+  /* 넓은 화면: 가운데 축 왼쪽 실제, 오른쪽 가상 — 가상 줄기는 축 오른쪽에 */
+  .branch-tl::after { left: calc(var(--gutter) + (100% - var(--gutter) - var(--mark-w)) / 2 + var(--mark-w) / 2 + 4px); }
+
+  .branch-cols {
+    display: grid;
+    grid-template-columns: var(--gutter) minmax(0, 1fr) var(--mark-w) minmax(0, 1fr);
+    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink-bg);
+    opacity: .7;
+  }
+
+  .branch-cols__real { grid-column: 2; text-align: right; padding-right: 10px; }
+  .branch-cols__alt { grid-column: 4; padding-left: 10px; color: #5f5294; }
+  .is-night .branch-cols__alt { color: #e2dbff; }
 }
 
 /* ------------------------------------------------------------ 표 */
@@ -1906,7 +2180,8 @@ body {
   .chapter__head { padding-left: 88px; }
   .chapter__title { font-size: 22px; }
   .view--pane { padding: 4px 12px 96px; }
-  .tab { padding: 0 13px; }
+  .tab { padding: 0 10px; gap: 5px; }
+  .tabbar__inner { gap: 0; }
 }
 
 /* 아주 좁은 화면의 표 보기: 스위치가 많아지므로 제목은 로고만 남긴다 */

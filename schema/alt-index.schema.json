@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "alt-index.schema.json",
+  "title": "갈림길(대체역사) 시나리오 목록",
+  "description": "data/alt/index.json 의 구조. 실제 연표 매니페스트(data/index.json)와 완전히 분리되어 있어, 가상 역사가 실제 연표에 섞이지 않는다.",
+  "type": "object",
+  "required": ["scenarios"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "scenarios": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "file"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+          "file": {
+            "type": "string",
+            "description": "data/alt/ 안의 파일 이름",
+            "pattern": "^[a-z0-9][a-z0-9._-]*\\.json$"
+          },
+          "order": { "type": "integer", "minimum": 0 }
+        }
+      }
+    }
+  }
+}
