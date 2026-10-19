@@ -220,7 +220,7 @@
 
     var viewH = el.scroll.clientHeight;
     var viewRect = el.scroll.getBoundingClientRect();
-    layout.cover = Math.max(0, viewRect.bottom - el.hud.getBoundingClientRect().top);
+    layout.cover = Math.max(0, viewRect.bottom - (hud ? hud.restTop() : el.hud.getBoundingClientRect().top));
     layout.focus = Math.round(Math.max(110, (viewH - layout.cover) * FOCUS_RATIO));
     el.focusLine.style.top = layout.focus + 'px';
 
@@ -560,7 +560,7 @@
   /** 초점선 위치와 계기판이 가리는 높이만 잰다(탐험 보기는 연표 줄을 재지 않는다). */
   function measureFocus(viewH) {
     var viewRect = el.viewTimeline.getBoundingClientRect();
-    layout.cover = Math.max(0, viewRect.bottom - el.hud.getBoundingClientRect().top);
+    layout.cover = Math.max(0, viewRect.bottom - (hud ? hud.restTop() : el.hud.getBoundingClientRect().top));
     layout.focus = Math.round(Math.max(110, (viewH - layout.cover) * FOCUS_RATIO));
     el.focusLine.style.top = layout.focus + 'px';
   }
@@ -1499,10 +1499,20 @@
     } catch (err) { return 'zoom'; }
   }
 
+  /**
+   * 계기판을 알약으로 접어 둘지. 탐험은 캔버스 자체에 연도 눈금·시대 제목·나라 막대가 있어
+   * 띠와 '지금 이때'가 겹치고, 폰에서는 큰 계기판이 화면을 너무 가린다.
+   */
+  var narrowMq = window.matchMedia ? window.matchMedia('(max-width: 640px)') : null;
+  function syncHudFold() {
+    if (hud) hud.setCompact(state.view === 'zoom' || !!(narrowMq && narrowMq.matches));
+  }
+
   /** 타임라인(기본) ↔ 표. 보던 해는 그대로 초점선에 둔다. */
   function setView(view, announce) {
     var from = state.view;
     state.view = view === 'table' || view === 'timeline' ? view : 'zoom';
+    syncHudFold();
     el.app.classList.toggle('is-view-table', state.view === 'table');
     el.viewTimeline.classList.toggle('is-zoom', state.view === 'zoom');
     el.viewTimeline.classList.toggle('is-image', state.view === 'table' && !state.pinned);
@@ -1518,7 +1528,7 @@
     if (!scroller) return;
     if (state.view === 'zoom') {
       enterZoom(from !== 'zoom' ? live.year : null);
-      if (announce) showToast('탐험 — 핀치·휠로 줌, 끌어서 이동, 두 번 톡 치면 다가가요', 2600);
+      if (announce) showToast('탐험 — 어디로든 끌고, 핀치·휠로 확대해요', 2600);
       return;
     }
     if (zoom) zoom.setActive(false);
@@ -1597,6 +1607,7 @@
       // 움직이는 중(날아가기·미끄러지기)에 다시 맞추면 그 움직임이 끊기므로, 멈춰 있을 때만
       var now = scroller.info();
       if (live.year != null && scroller.y > 1 && !now.moving && !now.dragging) layout.anchorYear = live.year;
+      syncHudFold();
       measure();
       placeTabPill();
       placeSegPill();
@@ -1693,6 +1704,11 @@
       }
     });
     hud = H.create(el.hud, { scrub: onScrub, step: stepEra, pick: openSheet });
+    syncHudFold();
+    // 펼쳐 둔 계기판은 연표를 다시 만지면 접힌다
+    [el.zoom, el.scroll].forEach(function (node) {
+      node.addEventListener('pointerdown', function () { hud.fold(); }, { passive: true });
+    });
     window.__bhZoom = null;
     zoom = Z.create(el.zoom, {
       eras: data.eras,
@@ -1728,7 +1744,7 @@
       try {
         if (!localStorage.getItem('bighistory.zoomHint')) {
           localStorage.setItem('bighistory.zoomHint', '1');
-          setTimeout(function () { showToast('핀치·휠로 확대, 끌어서 이동, 두 번 톡 치면 다가가요', 3600); }, 900);
+          setTimeout(function () { showToast('상하좌우 어디로든 끌고, 핀치·휠로 확대해요', 3600); }, 900);
         }
       } catch (err) { /* 무시 */ }
     }

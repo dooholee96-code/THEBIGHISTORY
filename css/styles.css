@@ -341,6 +341,7 @@ body {
 }
 
 .toast[hidden] { display: none; }
+.is-zoom .toast { top: 44px; }   /* 탐험의 열 머리글을 가리지 않게 */
 .toast.is-leaving { animation: fade-out .25s ease forwards; }
 
 @keyframes toast-in {
@@ -2271,6 +2272,62 @@ body {
 }
 
 .hud__step:hover { background: #fff; }
+
+/* 펼치기 단추 — 접을 수 있을 때만(탐험·폰) 보인다 */
+.hud__more {
+  display: none;
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  margin-left: -4px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink-2);
+  cursor: pointer;
+  padding: 0;
+}
+
+.hud__more i {
+  display: block;
+  width: 8px;
+  height: 8px;
+  margin: 7px auto 0;
+  border-right: 2px solid currentColor;
+  border-top: 2px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform .3s var(--spring), margin .3s ease;
+}
+
+.hud.is-mini .hud__more,
+.hud.is-open .hud__more { display: block; }
+.hud.is-open .hud__more i { transform: rotate(135deg); margin-top: 4px; }
+
+/* 접힌 계기판 — 해와 시대만 담은 알약 한 줄. 누르면 펼친다 */
+.hud.is-mini {
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: calc(100% - 20px);
+  padding: 5px 6px;
+  border-radius: 999px;
+}
+
+.hud.is-mini .hud__top { gap: 8px; }
+.hud.is-mini .hud__read,
+.hud.is-mini .hud__meta { cursor: pointer; }
+.hud.is-mini .hud__num { font-size: 24px; }
+.hud.is-mini .hud__pre,
+.hud.is-mini .hud__suf { font-size: 12px; }
+.hud.is-mini .hud__step { width: 32px; height: 32px; font-size: 19px; }
+.hud.is-mini .hud__meta { flex-direction: row; align-items: baseline; gap: 6px; margin-left: 2px; }
+.hud.is-mini .hud__era { font-size: 15px; }
+.hud.is-mini .hud__count { display: none; }   /* 장면 이름은 캔버스에 이미 적혀 있다 */
+/* 숫자 자릿수·기원전이 바뀌어도 알약 폭이 출렁이지 않게 '기원전 30000년' 자리를 잡아 둔다 */
+.hud.is-mini .hud__read { min-width: 124px; justify-content: center; }
+.hud.is-mini .hud__now,
+.hud.is-mini .scrub,
+.hud.is-mini .hud__x { display: none; }
+.is-open .hud__read, .is-open .hud__meta { cursor: pointer; }
 
 /* 시대 점프 버튼을 누르면 납작해졌다가 튀어오른다 */
 .hud__step.is-pressed { animation: squash .42s var(--spring); }

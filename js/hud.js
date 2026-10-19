@@ -5,6 +5,8 @@
      · 스크러버 — 전체 역사를 시대별 구간으로 나눈 막대. 끌면 연표가 쫀득하게 따라오고,
                   톡 치면 그 자리로 날아간다. 가는 눈금 하나가 연표의 한 줄이다.
      · ‹ ›      — 앞뒤 시대로 한 번에 건너뛰기.
+     · 접힌 모양 — 탐험 보기와 폰에서는 숫자 한 줄짜리 알약으로 줄여 둔다.
+                  숫자를 누르면 띠와 '지금 이때'가 펼쳐지고, 연표를 만지면 다시 접힌다.
 
    이 모듈은 화면만 맡고, 위치 계산(비율 ↔ 연표 좌표)은 app.js 가 한다.
    ------------------------------------------------------------------ */
@@ -40,6 +42,7 @@
     var xbar = $('.hud__x');
     var xthumb = $('.hud__x i');
     var now = $('.hud__now');
+    var more = $('.hud__more');
 
     var s = {
       target: 0,
@@ -55,8 +58,56 @@
       lastX: 0,
       lastT: 0,
       sparks: 0,
-      hopTimer: 0
+      hopTimer: 0,
+      compact: false,
+      open: false,
+      miniH: 42
     };
+
+    // ------------------------------------------------------------ 접기
+
+    function paintFold() {
+      var mini = s.compact && !s.open;
+      root.classList.toggle('is-mini', mini);
+      root.classList.toggle('is-open', s.compact && s.open);
+      if (more) more.setAttribute('aria-expanded', String(!mini));
+      if (mini) s.miniH = root.offsetHeight || s.miniH;
+      else measure();
+    }
+
+    /**
+     * 계기판 윗변 — 초점선 높이를 정하는 기준. 잠깐 펼쳐 둔 동안 다시 재더라도
+     * 접힌 높이로 셈해서, 초점선(=보던 해)이 펼침에 따라 오르내리지 않게 한다.
+     */
+    function restTop() {
+      var rect = root.getBoundingClientRect();
+      return s.compact && s.open ? rect.bottom - s.miniH : rect.top;
+    }
+
+    /** 알약으로 줄여 둘지(보기·화면 폭에 따라 app.js 가 정한다). 바뀌면 펼친 상태는 잊는다 */
+    function setCompact(on) {
+      on = !!on;
+      if (on === s.compact) return;
+      s.compact = on;
+      s.open = false;
+      paintFold();
+    }
+
+    function setOpen(open) {
+      if (!s.compact || open === s.open) return;
+      s.open = open;
+      paintFold();
+      if (open && !reduced && root.animate) {
+        root.animate([{ transform: 'translateY(8px) scale(.97)' }, { transform: 'none' }], { duration: 380, easing: SPRING });
+      }
+    }
+
+    function toggle() { setOpen(!s.open); }
+
+    if (more) more.addEventListener('click', toggle);
+    [$('.hud__read'), $('.hud__meta')].forEach(function (node) {
+      node.addEventListener('click', function () { if (s.compact) toggle(); });
+    });
 
     // ------------------------------------------------------- 굴러가는 숫자
 
@@ -296,6 +347,9 @@
       setMeta: setMeta,
       setX: setX,
       setOngoing: setOngoing,
+      setCompact: setCompact,
+      restTop: restTop,
+      fold: function () { setOpen(false); },
       get grabbing() { return !!s.grab; }
     };
   }
