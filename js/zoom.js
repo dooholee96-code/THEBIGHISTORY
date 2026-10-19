@@ -11,6 +11,7 @@
      · 국가사 열 왼쪽 가는 띠 = 그 나라의 왕조·시대가 이어진 기간(겹치면 나란히)
      · 열 이름은 화면 위에, 시대 이름은 화면 왼쪽에 붙어 따라온다
      · 먼 곳으로 갈 때는 잠깐 물러났다 다가가는 비행(Prezi 의 장면 전환)
+     · 끝에 닿아도 벽처럼 멈추지 않는다 — 손가락을 따라 고무줄처럼 늘어났다가 놓으면 튕겨 돌아온다
 
    선형 시간이라 선사(3만 년)가 길고 문명사는 아래쪽에 모여 있다 — 그것이 빅 히스토리의 실제 비율.
    그리기는 <canvas> 하나. 화면이 움직일 때만 다시 그린다.
@@ -21,7 +22,9 @@
   var reduced = !!(global.matchMedia && global.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
   var S_MAX = 260;           // 최대 줌(1년당 px)
-  var FRICTION = 2.9;        // 던진 뒤 감속
+  var FRICTION = 2.3;        // 던진 뒤 감속(작을수록 멀리 미끄러진다)
+  var RUBBER = 0.55;         // 끝을 넘겨 끌 때 따라오는 비율(iOS 의 고무줄)
+  var SPRING = 13;           // 넘친 만큼 되돌아오는 빠르기
   var CARD_H = 56;
   var LABEL_H = 24;
   var DOT = 12;
@@ -96,15 +99,46 @@
     function colAt(x) { return cam.u0 + (x - originX()) / cw(); }
     function sMin() { return (H * 0.92) / (T_MAX - T_MIN); }
 
-    /** 초점선의 해가 역사 범위를, 화면이 열들의 범위를 벗어나지 않게 */
-    function clampCam() {
-      cam.s = clamp(cam.s, sMin(), S_MAX);
+    /** 카메라가 머물 수 있는 범위 — 초점선의 해는 역사 안, 화면은 열들 안 */
+    function limits() {
       var fy = focusY();
-      cam.t0 = clamp(cam.t0, T_MIN - fy / cam.s, T_MAX - fy / cam.s);
       var n = cols.length;
       var vis = viewW() / cw();
-      if (n <= vis) cam.u0 = -(vis - n) / 2;              // 그림이 화면보다 좁으면 가운데
-      else cam.u0 = clamp(cam.u0, -0.25, n - vis + 0.25);
+      var mid = -(vis - n) / 2;                            // 그림이 화면보다 좁으면 가운데
+      return {
+        tA: T_MIN - fy / cam.s, tB: T_MAX - fy / cam.s,
+        uA: n <= vis ? mid : -0.25, uB: n <= vis ? mid : n - vis + 0.25
+      };
+    }
+
+    /** 손가락이 끌고 있거나, 던졌거나, 튕겨 돌아오는 중엔 범위를 잠깐 넘어도 된다 */
+    function loose() {
+      return (gesture && gesture.kind === 'pan') || motion.mode === 'fling' || motion.mode === 'spring';
+    }
+
+    function clampCam() {
+      cam.s = clamp(cam.s, sMin(), S_MAX);
+      if (loose()) return;
+      var L = limits();
+      cam.t0 = clamp(cam.t0, L.tA, L.tB);
+      cam.u0 = clamp(cam.u0, L.uA, L.uB);
+    }
+
+    // 넘친 거리 o(px) → 화면에서 실제로 넘어가 보이는 거리. 멀리 끌수록 덜 따라온다
+    function band(o, dim) { return (o * RUBBER * dim) / (o * RUBBER + dim); }
+    function unband(y, dim) { y = Math.min(y, dim * 0.98); return (y * dim) / (RUBBER * (dim - y)); }
+
+    /** 손가락이 가리키는 자리(raw) → 화면에 보일 자리. 값은 각 축의 단위, k 는 단위당 px */
+    function rubber(v, a, b, k, dim) {
+      if (v < a) return a - band((a - v) * k, dim) / k;
+      if (v > b) return b + band((v - b) * k, dim) / k;
+      return v;
+    }
+
+    function unrubber(v, a, b, k, dim) {
+      if (v < a) return a - unband((a - v) * k, dim) / k;
+      if (v > b) return b + unband((v - b) * k, dim) / k;
+      return v;
     }
 
     // ----------------------------------------------------------- 색
@@ -570,7 +604,7 @@
       draw();
       if (opts.onCamera) {
         opts.onCamera({
-          year: yearAt(focusY()),
+          year: clamp(yearAt(focusY()), T_MIN, T_MAX),   // 고무줄로 넘친 동안에도 역사 밖 해는 안 보이게
           s: cam.s,
           moving: moving,
           dragging: !!(gesture && gesture.active)
@@ -585,9 +619,30 @@
         cam.t0 += motion.vt * dt;
         cam.u0 += motion.vu * dt;
         var k = Math.exp(-FRICTION * dt);
-        motion.vt *= k;
-        motion.vu *= k;
-        if (Math.abs(motion.vt * cam.s) < 8 && Math.abs(motion.vu * cw()) < 8) motion.mode = 'idle';
+        var L = limits();
+        // 끝을 넘어서면 확 붙잡혀 느려진다 — 그다음엔 튕겨 돌아오기
+        var outT = cam.t0 < L.tA || cam.t0 > L.tB;
+        var outU = cam.u0 < L.uA || cam.u0 > L.uB;
+        var hard = Math.exp(-26 * dt);
+        motion.vt *= outT ? hard : k;
+        motion.vu *= outU ? hard : k;
+        var slowT = Math.abs(motion.vt * cam.s) < (outT ? 60 : 8);
+        var slowU = Math.abs(motion.vu * cw()) < (outU ? 60 : 8);
+        if (slowT && slowU) motion.mode = outT || outU ? 'spring' : 'idle';
+        return motion.mode !== 'idle';
+      }
+      if (motion.mode === 'spring') {
+        var B = limits();
+        var pull = 1 - Math.exp(-SPRING * dt);
+        var gt = clamp(cam.t0, B.tA, B.tB);
+        var gu = clamp(cam.u0, B.uA, B.uB);
+        cam.t0 += (gt - cam.t0) * pull;
+        cam.u0 += (gu - cam.u0) * pull;
+        if (Math.abs(gt - cam.t0) * cam.s < 0.4 && Math.abs(gu - cam.u0) * cw() < 0.4) {
+          cam.t0 = gt;
+          cam.u0 = gu;
+          motion.mode = 'idle';
+        }
         return motion.mode !== 'idle';
       }
       if (motion.mode === 'fly') {
@@ -698,7 +753,12 @@
       var ids = Object.keys(pointers);
       motion.mode = 'idle';
       if (ids.length === 1) {
-        gesture = { kind: 'pan', id: e.pointerId, x0: p.x, y0: p.y, t0: cam.t0, u0: cam.u0, at: e.timeStamp, active: false, samples: [] };
+        // 튕겨 돌아오던 중에 잡아도 튀지 않게, 지금 보이는 자리를 손가락 기준 자리로 되돌려 둔다
+        var L = limits();
+        gesture = {
+          kind: 'pan', id: e.pointerId, x0: p.x, y0: p.y, at: e.timeStamp, active: false, samples: [],
+          t0: unrubber(cam.t0, L.tA, L.tB, cam.s, H), u0: unrubber(cam.u0, L.uA, L.uB, cw(), W)
+        };
       } else if (ids.length === 2) {
         var a = pointers[ids[0]];
         var b = pointers[ids[1]];
@@ -724,9 +784,10 @@
         if (!gesture.active && Math.abs(dy) + Math.abs(dx) < 6) return;
         gesture.active = true;
         canvas.classList.add('is-dragging');
-        // 상하좌우 어디로든 — 그림 한 장을 손으로 미는 것처럼
-        cam.t0 = gesture.t0 - dy / cam.s;
-        cam.u0 = gesture.u0 - dx / cw();
+        // 상하좌우 어디로든 — 그림 한 장을 손으로 미는 것처럼. 끝 너머로는 고무줄처럼
+        var L = limits();
+        cam.t0 = rubber(gesture.t0 - dy / cam.s, L.tA, L.tB, cam.s, H);
+        cam.u0 = rubber(gesture.u0 - dx / cw(), L.uA, L.uB, cw(), W);
         gesture.samples.push({ t: e.timeStamp, t0: cam.t0, u0: cam.u0 });
         while (gesture.samples.length > 2 && e.timeStamp - gesture.samples[0].t > 100) gesture.samples.shift();
         invalidate();
@@ -761,17 +822,26 @@
       }
       gesture = null;
       canvas.classList.remove('is-dragging');
+      var L = limits();
+      var out = cam.t0 < L.tA || cam.t0 > L.tB || cam.u0 < L.uA || cam.u0 > L.uB;
       if (g.active) {
         var s = g.samples;
-        if (s.length > 1 && e.timeStamp - s[s.length - 1].t < 70) {
+        if (s.length > 1 && e.timeStamp - s[s.length - 1].t < 90) {
           var span = Math.max(8, s[s.length - 1].t - s[0].t) / 1000;
           motion.vt = (s[s.length - 1].t0 - s[0].t0) / span;
           motion.vu = (s[s.length - 1].u0 - s[0].u0) / span;
           motion.mode = 'fling';
-          lastT = 0;
-          invalidate();
+        } else {
+          motion.mode = out ? 'spring' : 'idle';
         }
+        lastT = 0;
+        invalidate();
         return;
+      }
+      if (out) {   // 튕겨 돌아오던 걸 톡 잡았다 놓았으면 마저 돌아간다
+        motion.mode = 'spring';
+        lastT = 0;
+        invalidate();
       }
       // 톡 — 사건이면 상세, 시대 이름이면 그 시대로, 열 이름이면 그 열로, 묶음이면 다가가기. 두 번 톡이면 줌인
       if (e.timeStamp - g.at > 450) return;
@@ -800,10 +870,18 @@
       var unit = e.deltaMode === 1 ? 32 : (e.deltaMode === 2 ? H : 1);
       var dy = e.deltaY * unit;
       var dx = e.deltaX * unit;
-      if (e.shiftKey || (Math.abs(dx) > Math.abs(dy) && !e.ctrlKey)) {
-        // 옆으로 미는 트랙패드·Shift+휠은 가로 이동
+      if (e.shiftKey && !dx) {
+        // Shift+휠은 가로 이동
         motion.mode = 'idle';
-        cam.u0 += (dx || dy) / cw();
+        cam.u0 += dy / cw();
+        invalidate();
+        return;
+      }
+      if (Math.abs(dx) > Math.abs(dy) * 0.5 && !e.ctrlKey) {
+        // 트랙패드를 옆·대각선으로 밀면 그쪽으로 그대로 이동
+        motion.mode = 'idle';
+        cam.u0 += dx / cw();
+        cam.t0 += dy / cam.s;
         invalidate();
         return;
       }
@@ -844,7 +922,7 @@
           return { title: h.entry.title, x: h.x + Math.min(h.w, 40) / 2, y: h.y + h.h / 2 };
         });
       },
-      get year() { return yearAt(focusY()); },
+      get year() { return clamp(yearAt(focusY()), T_MIN, T_MAX); },
       get scale() { return cam.s; },
       get column() { return cam.u0; }
     };
