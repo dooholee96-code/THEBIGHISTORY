@@ -576,7 +576,7 @@
 
   function enterZoom(fromYear) {
     zoom.setActive(true);
-    zoom.setData(visibleEntries(), zoomSpans(), zoomLaneCount());
+    zoom.setData(visibleEntries(), activeColumns());
     measureZoom();
     if (!zoomHomeDone) {
       zoomHomeDone = true;
@@ -584,24 +584,6 @@
     } else if (fromYear != null) {
       zoom.flyTo(fromYear, Math.max(zoom.scale, 1.2), { instant: true });
     }
-  }
-
-  function zoomLaneCount() {
-    return activeColumns().filter(function (col) { return col.track === 'nation'; }).length;
-  }
-
-  /** 왼쪽 띠: 나라별 나라·왕조와 시대 구분(긴 것 위에 짧은 것) */
-  function zoomSpans() {
-    var out = [];
-    state.data.datasets
-      .filter(function (ds) { return ds.track === 'nation' && !state.off[ds.id]; })
-      .forEach(function (ds, lane) {
-        ds.entries
-          .filter(function (e) { return (e.kind === 'polity' || e.kind === 'era') && e.end_year > e.start_year; })
-          .sort(function (a, b) { return (b.end_year - b.start_year) - (a.end_year - a.start_year); })
-          .forEach(function (e) { out.push({ lane: lane, entry: e }); });
-      });
-    return out;
   }
 
   /** 계기판 띠 — 시대마다 한 구간, 너비는 사건 수에 비례(최소폭 보장) */
@@ -871,7 +853,7 @@
 
     el.chapters.textContent = '';
     el.chapters.appendChild(frag);
-    if (zoom) zoom.setData(entries, zoomSpans(), zoomLaneCount());
+    if (zoom) zoom.setData(entries, columns);
     layout.chapters = [];
     layout.rows = [];
     layout.reveal = [];
@@ -1652,6 +1634,8 @@
       switch (e.key) {
         case 'ArrowDown': zoom.panBy(90); break;
         case 'ArrowUp': zoom.panBy(-90); break;
+        case 'ArrowRight': zoom.panBy(0, 200); break;
+        case 'ArrowLeft': zoom.panBy(0, -200); break;
         case 'PageDown': case ' ': zoom.panBy(e.shiftKey ? -zpage : zpage); break;
         case 'PageUp': zoom.panBy(-zpage); break;
         case '+': case '=': zoom.zoomBy(1.8); break;
