@@ -101,6 +101,7 @@
     cover: 0,         // 계기판·탭바가 가리는 아래쪽 높이
     rows: [],         // { node, top, h, mid, year, count, era }
     reveal: [],       // 등장 효과를 줄 것들(시대 제목 + 줄), top 순
+    scenes: [],       // 장면 디오라마 { node, art, top, h, artH, era, label, shift, near }
     chapters: [],     // { node, top, bottom, head, headTop, headH, tableBottom, stuck }
     segs: [],         // 스크러버 구간 { a, b, start, width }
     anchorYear: null  // 다시 그린 뒤 초점선에 다시 맞출 해
@@ -263,6 +264,7 @@
     layout.chapters = chapters;
     layout.rows = rows;
     layout.reveal = reveal;
+    layout.scenes = measureScenes(chapters, rows);
     if (live.row >= rows.length) live.row = -1;
 
     placeFocusRing();
@@ -280,6 +282,58 @@
       if (target) scroller.scrollTo(target.mid - layout.focus, { instant: true });
     }
     onFrame(scroller.info());
+  }
+
+  /**
+   * 장면 디오라마의 구간을 줄 위치로 정한다.
+   * 장면은 그 시작 연도 이상인 첫 줄 조금 위에서 시작해 다음 장면 직전까지. 첫 장면은 시대 맨 위부터.
+   * 줄이 하나도 없는 장면(카테고리를 꺼서 비었거나 시대가 짧을 때)은 숨긴다.
+   */
+  function measureScenes(chapters, rows) {
+    var out = [];
+    chapters.forEach(function (ch, ci) {
+      var nodes = ch.node.querySelectorAll('.scene');
+      var list = Array.prototype.map.call(nodes, function (node) {
+        return {
+          node: node,
+          art: node.firstElementChild,
+          start: Number(node.getAttribute('data-start')),
+          label: node.getAttribute('data-label') || '',
+          era: ci
+        };
+      });
+      var chRows = rows.filter(function (r) { return r.era === ci; });
+      list.forEach(function (sc, i) {
+        if (i === 0) { sc.top = ch.top; return; }
+        var first = null;
+        for (var k = 0; k < chRows.length; k += 1) {
+          if (chRows[k].year >= sc.start) { first = chRows[k]; break; }
+        }
+        sc.top = first ? Math.max(ch.top, first.top - 60) : ch.bottom;
+      });
+      list.forEach(function (sc, i) {
+        sc.bottom = i + 1 < list.length ? list[i + 1].top : ch.bottom;
+        sc.h = Math.max(0, sc.bottom - sc.top);
+        sc.node.style.top = Math.round(sc.top - ch.top) + 'px';
+        sc.node.style.height = Math.round(sc.h) + 'px';
+        sc.node.hidden = sc.h < 40;
+        sc.artH = sc.art ? sc.art.offsetHeight : 0;
+        sc.shift = -1;
+        sc.near = false;
+        sc.node.classList.remove('is-near');
+        out.push(sc);
+      });
+    });
+    return out;
+  }
+
+  /** 초점선이 있는 장면의 이름(계기판에 작게) */
+  function sceneLabelAt(fy) {
+    for (var i = 0; i < layout.scenes.length; i += 1) {
+      var sc = layout.scenes[i];
+      if (sc.h > 0 && fy >= sc.top && fy < sc.bottom) return sc.label;
+    }
+    return '';
   }
 
   // ---------------------------------------------------- 스크러버 좌표
@@ -402,7 +456,7 @@
       hud.setOngoing(ongoingAt(year));
     }
     hud.setYear(live.year);
-    hud.setMeta(state.data.eras[eraIndex].label, row ? row.count : 0);
+    hud.setMeta(state.data.eras[eraIndex].label, row ? row.count : 0, sceneLabelAt(fy));
     hud.setRatio(ratioOf(fy));
     hud.setX(info.x, info.maxX, info.viewW, Math.abs(info.x - live.x) > 0.5);
     // 그림 모드에서는 연도 축도 옆으로 가므로 초점선의 고리도 함께 따라간다
@@ -410,6 +464,26 @@
       el.focusLine.style.transform = info.x ? 'translate3d(' + (-info.x).toFixed(1) + 'px,0,0)' : '';
     }
     live.x = info.x;
+
+    // 2-1) 장면 디오라마 — 자기 구간 안에서는 화면을 조금 느리게 따라오고(깊이감),
+    //      구간 끝에 닿으면 연표와 함께 올라가며 다음 장면에 자리를 내준다.
+    //      화면 가까이 있는 장면만 숨쉬기 움직임을 켠다(is-near).
+    var vTop = info.y;
+    var vBot = info.y + info.viewH;
+    for (var si = 0; si < layout.scenes.length; si += 1) {
+      var sc = layout.scenes[si];
+      var near = sc.h >= 40 && sc.top < vBot + 240 && sc.bottom > vTop - 240;
+      if (near !== sc.near) {
+        sc.near = near;
+        sc.node.classList.toggle('is-near', near);
+      }
+      if (!near) continue;
+      var shift = Math.round(clamp((vTop - sc.top) * 0.86, 0, Math.max(0, sc.h - sc.artH)));
+      if (shift !== sc.shift) {
+        sc.shift = shift;
+        sc.art.style.transform = shift ? 'translate3d(0,' + shift + 'px,0)' : '';
+      }
+    }
 
     // 3) 시대 머리행이 창 위에 붙어 따라온다
     for (var c = 0; c < chapters.length; c += 1) {
@@ -715,6 +789,24 @@
       out.push.apply(out, picked);
     });
     return out;
+  }
+
+  /** 설정 탭의 '명화 오마주' 출처 — 매니페스트 장면의 after 에서 그대로 만든다 */
+  function buildCredits() {
+    var list = document.getElementById('art-credits');
+    if (!list) return;
+    list.textContent = '';
+    state.data.eras.forEach(function (era) {
+      (era.scenes || []).forEach(function (sc) {
+        if (!sc.after) return;
+        var li = document.createElement('li');
+        var what = document.createElement('strong');
+        what.textContent = era.label + ' · ' + sc.label;
+        li.appendChild(what);
+        li.appendChild(document.createTextNode(' — ' + sc.after));
+        list.appendChild(li);
+      });
+    });
   }
 
   // -------------------------------------------------------- 카테고리 탭
@@ -1373,6 +1465,7 @@
     });
 
     buildTabs();
+    buildCredits();
     buildCategories();
     buildSuggestions();
     bindEvents();

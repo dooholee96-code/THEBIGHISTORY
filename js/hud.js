@@ -94,13 +94,19 @@
       if (!s.raf) s.raf = requestAnimationFrame(roll);
     }
 
-    function setMeta(eraLabel, n) {
+    /** 시대 이름(크게) + 장면 이름 · 그해 사건 수(작게). 시대나 장면이 바뀌면 톡 튄다 */
+    function setMeta(eraLabel, n, sceneLabel) {
       if (eraLabel !== s.eraText) {
         s.eraText = eraLabel;
         era.textContent = eraLabel;
         pop(era, 'translateY(-7px) scale(1.15)');
       }
-      count.textContent = n ? '사건 ' + n + '건' : '';
+      var text = [sceneLabel || '', n ? '사건 ' + n + '건' : ''].filter(Boolean).join(' · ');
+      if (sceneLabel !== s.sceneText) {
+        s.sceneText = sceneLabel;
+        if (sceneLabel) pop(count, 'translateY(5px)');
+      }
+      count.textContent = text;
     }
 
     // ------------------------------------------------------ 지금 이때

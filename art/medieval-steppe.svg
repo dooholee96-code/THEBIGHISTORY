@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 -200 1600 900" role="img" aria-label="중세 디오라마 — 초원의 게르와 말, 하늘을 나는 매와 시로">
+  <defs>
+  <g id="shiro">
+    <ellipse cx="60" cy="98" rx="26" ry="16" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/>
+    <ellipse cx="47" cy="30" rx="8" ry="22" transform="rotate(-8 47 30)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/>
+    <ellipse cx="47" cy="32" rx="3.5" ry="14" transform="rotate(-8 47 32)" fill="#F2C4CE"/>
+    <ellipse cx="73" cy="30" rx="8" ry="22" transform="rotate(8 73 30)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/>
+    <ellipse cx="73" cy="32" rx="3.5" ry="14" transform="rotate(8 73 32)" fill="#F2C4CE"/>
+    <circle cx="60" cy="66" r="28" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/>
+    <circle cx="49" cy="64" r="3" fill="#3A2A24"/><circle cx="71" cy="64" r="3" fill="#3A2A24"/>
+    <circle cx="41" cy="74" r="5.5" fill="#F2C4CE"/><circle cx="79" cy="74" r="5.5" fill="#F2C4CE"/>
+    <path d="M56 74q4 4 8 0" fill="none" stroke="#3A2A24" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="44" cy="106" rx="7" ry="3.5" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.2"/><ellipse cx="76" cy="106" rx="7" ry="3.5" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.2"/>
+  </g>
+  <g id="shiro-sit">
+    <ellipse cx="3" cy="0" rx="13" ry="2.4" fill="#5C3D2E" opacity=".25"/>
+    <ellipse cx="0" cy="-10" rx="12" ry="10" fill="#FFF8EF" stroke="#CFAFB8" stroke-width=".8"/>
+    <circle cx="-11" cy="-9" r="4" fill="#FFFFFF"/>
+    <ellipse cx="6" cy="-33" rx="2.8" ry="8.5" transform="rotate(-12 6 -33)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width=".8"/>
+    <ellipse cx="11.5" cy="-32" rx="2.8" ry="8.5" transform="rotate(12 11.5 -32)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width=".8"/>
+    <ellipse cx="11.5" cy="-32" rx="1.2" ry="5.5" transform="rotate(12 11.5 -32)" fill="#F2C4CE"/>
+    <circle cx="9" cy="-20" r="7.5" fill="#FFF8EF" stroke="#CFAFB8" stroke-width=".8"/>
+    <circle cx="12.5" cy="-21" r="1.1" fill="#3A2A24"/>
+    <circle cx="13.5" cy="-17" r="1.7" fill="#F2C4CE"/>
+    <ellipse cx="6" cy="-1.5" rx="5" ry="2" fill="#FFF8EF" stroke="#CFAFB8" stroke-width=".8"/>
+  </g>
+  <g id="shiro-hop">
+    <ellipse cx="-13" cy="4" rx="7.5" ry="2.6" transform="rotate(25 -13 4)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width=".8"/>
+    <ellipse cx="0" cy="0" rx="14" ry="8.5" transform="rotate(-18)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width=".8"/>
+    <circle cx="-13" cy="1" r="4" fill="#FFFFFF"/>
+    <ellipse cx="12" cy="6" rx="4.5" ry="2" transform="rotate(-30 12 6)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width=".8"/>
+    <ellipse cx="3" cy="-17" rx="2.8" ry="8.5" transform="rotate(-62 3 -17)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width=".8"/>
+    <ellipse cx="6" cy="-13" rx="2.8" ry="8" transform="rotate(-72 6 -13)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width=".8"/>
+    <ellipse cx="6" cy="-13" rx="1.2" ry="5" transform="rotate(-72 6 -13)" fill="#F2C4CE"/>
+    <circle cx="13" cy="-9" r="7.5" fill="#FFF8EF" stroke="#CFAFB8" stroke-width=".8"/>
+    <circle cx="16.5" cy="-10" r="1.1" fill="#3A2A24"/>
+    <circle cx="17.5" cy="-6" r="1.7" fill="#F2C4CE"/>
+  </g>
+  </defs>
+  <path d="M0 400c100-40 220-40 330-10s180 30 290 0v170H0z" fill="#A3B37A" opacity=".45"/>
+  <path d="M0 450c140-20 280-16 420 4s140 10 200 0v110H0z" fill="#7FA68F" opacity=".45"/>
+  <g transform="translate(180 430)"><path d="M-110 0v-70c0-50 220-50 220 0v70z" fill="#FFF8EF" stroke="#C9956B" stroke-width="3"/>
+    <path d="M-110-70c30-46 190-46 220 0" fill="#C9956B" opacity=".8"/><path d="M-100-56h200" stroke="#A2605A" stroke-width="8" opacity=".85"/>
+    <path d="M-104-40h208" stroke="#A2605A" stroke-width="3" stroke-dasharray="8 6"/><rect x="-22" y="-56" width="44" height="56" rx="6" fill="#A2605A"/>
+    <g fill="#FFF8EF" opacity=".55"><circle cx="0" cy="-124" r="10"/><circle cx="14" cy="-146" r="14"/><circle cx="34" cy="-170" r="18"/></g></g>
+  <g transform="translate(400 450) scale(.7)"><path d="M-110 0v-70c0-50 220-50 220 0v70z" fill="#FFF8EF" stroke="#C9956B" stroke-width="3"/><path d="M-110-70c30-46 190-46 220 0" fill="#C9956B" opacity=".8"/><rect x="-22" y="-56" width="44" height="56" rx="6" fill="#A2605A"/></g>
+  <g fill="none" stroke="#A2605A" stroke-width="2" opacity=".7"><path d="M470 300q60 30 120 10"/></g>
+  <g fill="#E6C27A"><path d="M490 306l10 18 10-16z"/><path d="M520 314l10 18 10-16z"/><path d="M550 316l10 18 10-16z"/></g>
+  <circle cx="520" cy="60" r="34" fill="#FFD98A" opacity=".7"/>
+  <g transform="translate(260 40)" fill="#5C3D2E" opacity=".75"><path d="M0 0c-30-20-60-24-90-12 30 0 54 8 74 22-24 4-40 14-50 26 26-8 44-10 66-6 22-4 40-2 66 6-10-12-26-22-50-26 20-14 44-22 74-22-30-12-60-8-90 12z"/></g>
+  <path d="M1080 420c120-40 240-40 360-12s110 20 160 6v150H1080z" fill="#A3B37A" opacity=".45"/>
+  <g transform="translate(1340 440)" fill="#8C6A4F">
+    <ellipse cx="0" cy="-70" rx="74" ry="34"/>
+    <path d="M52-86c16-30 30-54 50-64l26 20c-8 12-20 20-34 24-12 20-22 34-30 40z"/><ellipse cx="118" cy="-128" rx="26" ry="15" transform="rotate(30 118 -128)"/>
+    <path d="M86-150l6-14 8 12z"/>
+    <g stroke="#8C6A4F" stroke-width="11" stroke-linecap="round"><path d="M-50-44l-6 44M-24-40v40M34-40l6 40M56-44l10 42"/></g>
+    <path d="M-72-80c-30 0-44 30-40 60 10-20 20-34 40-40z" fill="#5C3D2E"/>
+    <path d="M60-110c-6 20-10 34-6 50" stroke="#5C3D2E" stroke-width="8" fill="none"/>
+  </g>
+  <rect x="1300" y="-14" width="0" height="0"/>
+  <path d="M1302 336h70l-6 14h-58z" fill="#A2605A"/>
+  <g transform="translate(1330 340) scale(2.4)"><use xlink:href="#shiro-sit"/></g>
+  <g fill="#FFF8EF" opacity=".4"><ellipse cx="1180" cy="100" rx="60" ry="20"/><ellipse cx="1220" cy="86" rx="40" ry="18"/><ellipse cx="1520" cy="160" rx="50" ry="18"/></g>
+
+</svg>

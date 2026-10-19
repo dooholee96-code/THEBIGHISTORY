@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 -200 1600 900" role="img" aria-label="명화 오마주 — 김홍도 「씨름」처럼 둘러앉은 갓 쓴 토끼 구경꾼들과 가운데 씨름하는 두 토끼">
+  <defs>
+  <g id="shiro">
+    <ellipse cx="60" cy="98" rx="26" ry="16" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/>
+    <ellipse cx="47" cy="30" rx="8" ry="22" transform="rotate(-8 47 30)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/>
+    <ellipse cx="47" cy="32" rx="3.5" ry="14" transform="rotate(-8 47 32)" fill="#F2C4CE"/>
+    <ellipse cx="73" cy="30" rx="8" ry="22" transform="rotate(8 73 30)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/>
+    <ellipse cx="73" cy="32" rx="3.5" ry="14" transform="rotate(8 73 32)" fill="#F2C4CE"/>
+    <circle cx="60" cy="66" r="28" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/>
+    <circle cx="49" cy="64" r="3" fill="#3A2A24"/><circle cx="71" cy="64" r="3" fill="#3A2A24"/>
+    <circle cx="41" cy="74" r="5.5" fill="#F2C4CE"/><circle cx="79" cy="74" r="5.5" fill="#F2C4CE"/>
+    <path d="M56 74q4 4 8 0" fill="none" stroke="#3A2A24" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="44" cy="106" rx="7" ry="3.5" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.2"/><ellipse cx="76" cy="106" rx="7" ry="3.5" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.2"/>
+  </g>
+  <g id="shiro-sit">
+    <ellipse cx="3" cy="0" rx="13" ry="2.4" fill="#5C3D2E" opacity=".25"/>
+    <ellipse cx="0" cy="-10" rx="12" ry="10" fill="#FFF8EF" stroke="#CFAFB8" stroke-width=".8"/>
+    <circle cx="-11" cy="-9" r="4" fill="#FFFFFF"/>
+    <ellipse cx="6" cy="-33" rx="2.8" ry="8.5" transform="rotate(-12 6 -33)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width=".8"/>
+    <ellipse cx="11.5" cy="-32" rx="2.8" ry="8.5" transform="rotate(12 11.5 -32)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width=".8"/>
+    <ellipse cx="11.5" cy="-32" rx="1.2" ry="5.5" transform="rotate(12 11.5 -32)" fill="#F2C4CE"/>
+    <circle cx="9" cy="-20" r="7.5" fill="#FFF8EF" stroke="#CFAFB8" stroke-width=".8"/>
+    <circle cx="12.5" cy="-21" r="1.1" fill="#3A2A24"/>
+    <circle cx="13.5" cy="-17" r="1.7" fill="#F2C4CE"/>
+    <ellipse cx="6" cy="-1.5" rx="5" ry="2" fill="#FFF8EF" stroke="#CFAFB8" stroke-width=".8"/>
+  </g>
+  <g id="shiro-hop">
+    <ellipse cx="-13" cy="4" rx="7.5" ry="2.6" transform="rotate(25 -13 4)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width=".8"/>
+    <ellipse cx="0" cy="0" rx="14" ry="8.5" transform="rotate(-18)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width=".8"/>
+    <circle cx="-13" cy="1" r="4" fill="#FFFFFF"/>
+    <ellipse cx="12" cy="6" rx="4.5" ry="2" transform="rotate(-30 12 6)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width=".8"/>
+    <ellipse cx="3" cy="-17" rx="2.8" ry="8.5" transform="rotate(-62 3 -17)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width=".8"/>
+    <ellipse cx="6" cy="-13" rx="2.8" ry="8" transform="rotate(-72 6 -13)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width=".8"/>
+    <ellipse cx="6" cy="-13" rx="1.2" ry="5" transform="rotate(-72 6 -13)" fill="#F2C4CE"/>
+    <circle cx="13" cy="-9" r="7.5" fill="#FFF8EF" stroke="#CFAFB8" stroke-width=".8"/>
+    <circle cx="16.5" cy="-10" r="1.1" fill="#3A2A24"/>
+    <circle cx="17.5" cy="-6" r="1.7" fill="#F2C4CE"/>
+  </g>
+  
+  <g id="bun" stroke="#5C3D2E" stroke-opacity=".35" stroke-width="1">
+    <ellipse cx="0" cy="-18" rx="16" ry="18"/>
+    <ellipse cx="-7" cy="-62" rx="4.6" ry="13" transform="rotate(-8 -7 -62)"/><ellipse cx="7" cy="-62" rx="4.6" ry="13" transform="rotate(8 7 -62)"/>
+    <ellipse cx="-7" cy="-61" rx="2" ry="8" transform="rotate(-8 -7 -61)" fill="#F2C4CE" stroke="none"/><ellipse cx="7" cy="-61" rx="2" ry="8" transform="rotate(8 7 -61)" fill="#F2C4CE" stroke="none"/>
+    <circle cx="0" cy="-40" r="14"/>
+    <circle cx="-5" cy="-41" r="1.8" fill="#3A2A24" stroke="none"/><circle cx="5" cy="-41" r="1.8" fill="#3A2A24" stroke="none"/>
+    <circle cx="-9" cy="-35" r="3" fill="#F2C4CE" stroke="none" opacity=".8"/><circle cx="9" cy="-35" r="3" fill="#F2C4CE" stroke="none" opacity=".8"/>
+    <ellipse cx="-7" cy="-1" rx="6" ry="3"/><ellipse cx="7" cy="-1" rx="6" ry="3"/>
+  </g>
+  <g id="bun-side" stroke="#5C3D2E" stroke-opacity=".35" stroke-width=".8">
+    <ellipse cx="3" cy="0" rx="13" ry="2.4" fill="#5C3D2E" opacity=".25" stroke="none"/>
+    <ellipse cx="0" cy="-10" rx="12" ry="10"/>
+    <circle cx="-11" cy="-9" r="4" fill="#FFFFFF" stroke="none" opacity=".9"/>
+    <ellipse cx="6" cy="-33" rx="2.8" ry="8.5" transform="rotate(-12 6 -33)"/>
+    <ellipse cx="11.5" cy="-32" rx="2.8" ry="8.5" transform="rotate(12 11.5 -32)"/>
+    <ellipse cx="11.5" cy="-32" rx="1.2" ry="5.5" transform="rotate(12 11.5 -32)" fill="#F2C4CE" stroke="none"/>
+    <circle cx="9" cy="-20" r="7.5"/>
+    <circle cx="12.5" cy="-21" r="1.1" fill="#3A2A24" stroke="none"/>
+    <circle cx="13.5" cy="-17" r="1.7" fill="#F2C4CE" stroke="none"/>
+    <ellipse cx="6" cy="-1.5" rx="5" ry="2"/>
+  </g>
+  <g id="gat"><ellipse cx="0" cy="0" rx="20" ry="4.5" fill="#2A1E1A" opacity=".85"/><path d="M-8 0v-12c0-4 16-4 16 0v12z" fill="#2A1E1A" opacity=".9"/></g>
+</defs>
+  <path d="M0 160h620v330H0z" fill="#F1E4CC" opacity=".55"/>
+  <g transform="translate(60 250) rotate(0) scale(1.9 1.9)"><use xlink:href="#bun-side" fill="#FFF8EF"/></g><g transform="translate(77.1 198.7) scale(0.95)"><use xlink:href="#gat"/></g><g transform="translate(130 236) rotate(0) scale(1.9 1.9)"><use xlink:href="#bun-side" fill="#B9B0A6"/></g><g transform="translate(147.1 184.7) scale(0.95)"><use xlink:href="#gat"/></g><g transform="translate(200 230) rotate(0) scale(1.9 1.9)"><use xlink:href="#bun-side" fill="#F1DDB9"/></g><g transform="translate(217.1 178.7) scale(0.95)"><use xlink:href="#gat"/></g><g transform="translate(420 230) rotate(0) scale(-1.9 1.9)"><use xlink:href="#bun-side" fill="#C9956B"/></g><g transform="translate(402.9 178.7) scale(0.95)"><use xlink:href="#gat"/></g><g transform="translate(490 236) rotate(0) scale(-1.9 1.9)"><use xlink:href="#bun-side" fill="#FFF8EF"/></g><g transform="translate(472.9 184.7) scale(0.95)"><use xlink:href="#gat"/></g><g transform="translate(560 250) rotate(0) scale(-1.9 1.9)"><use xlink:href="#bun-side" fill="#8C6A4F"/></g><g transform="translate(542.9 198.7) scale(0.95)"><use xlink:href="#gat"/></g><g transform="translate(60 460) rotate(0) scale(1.9 1.9)"><use xlink:href="#bun-side" fill="#FFF8EF"/></g><g transform="translate(77.1 408.7) scale(0.95)"><use xlink:href="#gat"/></g><g transform="translate(140 470) rotate(0) scale(1.9 1.9)"><use xlink:href="#bun-side" fill="#B9B0A6"/></g><g transform="translate(157.1 418.7) scale(0.95)"><use xlink:href="#gat"/></g><g transform="translate(480 470) rotate(0) scale(-1.9 1.9)"><use xlink:href="#bun-side" fill="#F1DDB9"/></g><g transform="translate(462.9 418.7) scale(0.95)"><use xlink:href="#gat"/></g><g transform="translate(560 460) rotate(0) scale(-1.9 1.9)"><use xlink:href="#bun-side" fill="#C9956B"/></g><g transform="translate(542.9 408.7) scale(0.95)"><use xlink:href="#gat"/></g>
+  <g transform="translate(310 400)">
+    <g transform="translate(-24 0)"><use xlink:href="#bun" fill="#FFF8EF" transform="scale(2)"/></g>
+    <g transform="translate(26 -14) rotate(18)"><use xlink:href="#bun" fill="#C9956B" transform="scale(2) scale(-1 1)"/></g>
+    <path d="M-50-40c30 10 60 10 90-6" fill="none" stroke="#3A2A24" stroke-width="5"/><path d="M-50-20h100" stroke="#A2605A" stroke-width="6"/>
+    <path d="M-60 6l-14 22M70 0l20 20" stroke="#3A2A24" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <g fill="#3A2A24" opacity=".7"><path d="M200 470c-4-20 4-30 10-30s10 10 6 30z"/></g>
+  <g transform="translate(1200 460) rotate(0) scale(2 2)"><use xlink:href="#bun-side" fill="#B9B0A6"/></g><g transform="translate(1218 406) scale(1.0)"><use xlink:href="#gat"/></g><g transform="translate(1290 470) rotate(0) scale(2 2)"><use xlink:href="#bun-side" fill="#FFF8EF"/></g><g transform="translate(1308 416) scale(1.0)"><use xlink:href="#gat"/></g>
+  <g transform="translate(1440 470) rotate(0) scale(-1.9 1.9)"><use xlink:href="#bun" fill="#C9956B"/></g>
+  <g transform="translate(1440 400)"><rect x="-40" y="-8" width="80" height="16" rx="4" fill="#8C6A4F"/><g fill="#E6C27A"><rect x="-32" y="-22" width="14" height="14" rx="3"/><rect x="-10" y="-22" width="14" height="14" rx="3"/><rect x="12" y="-22" width="14" height="14" rx="3"/></g></g>
+  <path d="M1080 480h520" stroke="#3A2A24" stroke-width="2" opacity=".3"/>
+
+</svg>

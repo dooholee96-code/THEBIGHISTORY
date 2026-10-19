@@ -46,6 +46,46 @@
     return x < y ? -1 : 1;
   }
 
+  /**
+   * 시대의 장면 목록. 매니페스트 eras[].scenes 가 있으면 그것을, 없으면 시대 디오라마 한 장을 장면 하나로 본다.
+   */
+  function scenesOf(era) {
+    if (era.scenes && era.scenes.length) return era.scenes;
+    return era.diorama ? [{ id: era.id, start_year: era.start_year, diorama: era.diorama }] : [];
+  }
+
+  /**
+   * 시대 섹션 뒤 삽화 층 — 색 블롭은 섹션 전체에, 디오라마는 장면마다 따로.
+   * 장면의 세로 위치와 화면 따라오기는 줄 위치를 잰 뒤 app.js 가 맞춘다(data-start = 장면 시작 연도).
+   * 표·타임라인 두 보기가 함께 쓴다.
+   */
+  function renderArt(section, era, night) {
+    var art = el('div', 'chapter__art', section);
+    var blob = night ? (era.night_blob || []) : (era.day_blob || []);
+    art.style.backgroundImage = [
+      'radial-gradient(38% 46% at 8% 34%, ' + (blob[0] || 'transparent') + ', transparent 72%)',
+      'radial-gradient(34% 40% at 92% 62%, ' + (blob[1] || 'transparent') + ', transparent 74%)',
+      'repeating-linear-gradient(118deg, ' +
+        (night ? 'rgba(255,255,255,.06)' : 'rgba(255,255,255,.16)') + ' 0 14px, transparent 14px 34px)'
+    ].join(', ');
+
+    var scenes = scenesOf(era);
+    scenes.forEach(function (sc) {
+      var node = el('div', 'scene', art);
+      node.setAttribute('data-start', String(sc.start_year));
+      if (sc.label) node.setAttribute('data-label', sc.label);
+      var pic = el('div', 'scene__art', node);
+      pic.style.backgroundImage = 'url("' + sc.diorama + '")';
+    });
+
+    // 그림이 아직 없는 시대는 삽화 의도를 글로 남겨 둔다
+    if (!scenes.length && era.art) {
+      var label = el('span', 'chapter__art-label', art);
+      label.textContent = era.art;
+    }
+    return art;
+  }
+
   /** 한 시대에 속한 사건들을 연도별 행으로 정리한다. */
   function buildRows(entries, columns) {
     var byYear = {};
@@ -157,19 +197,7 @@
     section.setAttribute('data-era', era.id);
 
     // 삽화 자리 — 좌우 레터박스에서 진해지고 표 뒤에서는 흐려진다.
-    var art = el('div', 'chapter__art', section);
-    var blob = night ? (era.night_blob || []) : (era.day_blob || []);
-    // 디오라마(era.diorama)가 맨 위, 그 아래 색 블롭
-    art.style.backgroundImage = (era.diorama ? ['url("' + era.diorama + '")'] : []).concat([
-      'radial-gradient(38% 46% at 8% 34%, ' + (blob[0] || 'transparent') + ', transparent 72%)',
-      'radial-gradient(34% 40% at 92% 62%, ' + (blob[1] || 'transparent') + ', transparent 74%)',
-      'repeating-linear-gradient(118deg, ' +
-        (night ? 'rgba(255,255,255,.06)' : 'rgba(255,255,255,.16)') + ' 0 14px, transparent 14px 34px)'
-    ]).join(', ');
-    if (era.art) {
-      var label = el('span', 'chapter__art-label', art);
-      label.textContent = era.art;
-    }
+    renderArt(section, era, night);
 
     el('span', 'chapter__mark', section);
 
@@ -210,6 +238,8 @@
 
   global.BigHistoryChapters = {
     render: renderChapter,
+    renderArt: renderArt,
+    scenesOf: scenesOf,
     yearLabel: yearLabel,
     periodLabel: periodLabel,
     mdLabel: mdLabel,

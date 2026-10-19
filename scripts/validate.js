@@ -92,6 +92,30 @@ for (const ds of manifest.datasets || []) {
   }
 }
 
+// ----------------------------------------------------------- 시대 장면 검사
+for (const era of manifest.eras || []) {
+  const where = `eras "${era.id}"`;
+  const art = [era.diorama].concat((era.scenes || []).map((sc) => sc.diorama)).filter(Boolean);
+  for (const file of art) {
+    if (!fs.existsSync(path.join(ROOT, file))) fail(MANIFEST, `${where} — 그림 파일이 없습니다: ${file}`);
+  }
+  const scenes = era.scenes || [];
+  const ids = new Set();
+  scenes.forEach((sc, i) => {
+    if (ids.has(sc.id)) fail(MANIFEST, `${where} — 장면 id 가 중복됩니다: "${sc.id}"`);
+    ids.add(sc.id);
+    if (sc.start_year < era.start_year || sc.start_year >= era.end_year) {
+      fail(MANIFEST, `${where} 장면 "${sc.id}" — 시작 연도(${sc.start_year})가 시대 범위 밖입니다.`);
+    }
+    if (i > 0 && sc.start_year <= scenes[i - 1].start_year) {
+      fail(MANIFEST, `${where} 장면 "${sc.id}" — 장면은 시작 연도 순으로 적습니다.`);
+    }
+  });
+  if (scenes.length && scenes[0].start_year !== era.start_year) {
+    warn(MANIFEST, `${where} — 첫 장면은 시대 시작(${era.start_year})부터 잡는 것이 자연스럽습니다.`);
+  }
+}
+
 // ----------------------------------------------------------- 데이터 파일 검사
 const globalIds = new Map();
 let entryCount = 0;

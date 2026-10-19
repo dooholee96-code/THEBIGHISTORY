@@ -586,27 +586,61 @@ body {
   pointer-events: none;
   overflow: hidden;
   opacity: .75;
-  /* 타일(1600×900, 위아래 여백 포함)을 세로로 반복해 긴 시대 섹션에서도 벽처럼 이어진다 */
-  background-repeat: repeat-y, no-repeat, no-repeat, no-repeat;
-  background-position: center 0, 0 0, 0 0, 0 0;
-  background-size: max(1600px, 100%) auto, auto, auto, auto;
+  /* 섹션 전체에는 색 블롭만. 디오라마는 장면(.scene)마다 따로 놓인다 */
+  background-repeat: no-repeat;
   -webkit-mask-image: linear-gradient(90deg, #000 0, rgba(0, 0, 0, .9) 14%, rgba(0, 0, 0, .28) 32%, rgba(0, 0, 0, .14) 50%, rgba(0, 0, 0, .28) 68%, rgba(0, 0, 0, .9) 86%, #000 100%);
   mask-image: linear-gradient(90deg, #000 0, rgba(0, 0, 0, .9) 14%, rgba(0, 0, 0, .28) 32%, rgba(0, 0, 0, .14) 50%, rgba(0, 0, 0, .28) 68%, rgba(0, 0, 0, .9) 86%, #000 100%);
 }
 
 .is-night .chapter__art { opacity: .9; }
 
-/* 폰에서는 레터박스가 없으니 디오라마를 섹션 위쪽에 작게 깔고 아래로 흐려지게 */
+/* 장면 — 시대 안의 한 구간. 위치·높이는 app.js 가 줄 위치로 정한다.
+   그림(.scene__art)은 구간 안에서 화면을 조금 느리게 따라오고(transform, app.js),
+   위아래 가장자리는 흐려져 앞뒤 장면과 겹치며 넘어간다. */
+.scene {
+  position: absolute;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+.scene[hidden] { display: none; }
+
+.scene__art {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: max(900px, 56.25vw);           /* 1600×900 그림을 폭에 맞췄을 때의 높이 */
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: max(1600px, 100%) auto;
+  transform-origin: 50% 40%;
+  will-change: transform;
+  /* 그림 바닥(지면)이 딱 끊기지 않게 아래쪽은 일찍부터 흐린다 */
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 10%, #000 52%, transparent 80%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 10%, #000 52%, transparent 80%);
+}
+
+/* 화면 가까이 있는 장면만 아주 느리게 숨쉰다(크기·위치를 살짝). transform 은 app.js 몫이라 scale/translate 로 */
+.scene.is-near .scene__art { animation: scene-breathe 24s ease-in-out infinite alternate; }
+
+@keyframes scene-breathe {
+  from { scale: 1; translate: 0 0; }
+  to { scale: 1.045; translate: -1.4% 0; }
+}
+
+/* 폰에서는 레터박스가 없으니 디오라마를 장면 위쪽에 작게 깔고 아래로 흐려지게 */
 @media (max-width: 899px) {
-  .chapter__art {
-    background-repeat: no-repeat;
-    background-size: 1100px auto, auto, auto, auto;
-    background-position: -70px -110px, 0 0, 0 0, 0 0;
-    opacity: .5;
-    -webkit-mask-image: linear-gradient(180deg, #000 0, rgba(0, 0, 0, .6) 180px, rgba(0, 0, 0, 0) 420px);
-    mask-image: linear-gradient(180deg, #000 0, rgba(0, 0, 0, .6) 180px, rgba(0, 0, 0, 0) 420px);
-  }
+  .chapter__art { opacity: .5; }
   .is-night .chapter__art { opacity: .6; }
+  .scene__art {
+    height: 520px;
+    background-size: 1100px auto;
+    background-position: -70px -110px;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 8%, rgba(0, 0, 0, .6) 45%, transparent 85%);
+    mask-image: linear-gradient(180deg, transparent 0, #000 8%, rgba(0, 0, 0, .6) 45%, transparent 85%);
+  }
 }
 
 .chapter__art-label {
@@ -1723,6 +1757,16 @@ body {
 
 .card__text:last-child { margin-bottom: 0; }
 
+.credits {
+  margin: 0 0 14px;
+  padding-left: 18px;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--ink-2);
+}
+
+.credits strong { color: var(--ink); font-weight: 700; }
+
 .note {
   margin: 0 0 12px;
   padding: 10px 12px;
@@ -2387,5 +2431,6 @@ body {
     transition-duration: 1ms !important;
   }
   .row--body, .tl-year, .empty-row, .chapter__head { opacity: 1; transform: none; }
+  .scene.is-near .scene__art { animation: none; }
   .scrub__spark { display: none; }
 }

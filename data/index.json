@@ -54,6 +54,53 @@
         "rgba(110,91,168,.3)"
       ],
       "diorama": "art/ancient.svg",
+      "scenes": [
+        {
+          "id": "ancient-river",
+          "label": "강가의 첫 문명",
+          "start_year": -3500,
+          "diorama": "art/ancient.svg",
+          "art": "나일강 갈대밭과 피라미드 — 시로가 파피루스 배를 탄다"
+        },
+        {
+          "id": "ancient-sea",
+          "label": "지중해의 배와 글자",
+          "start_year": -1200,
+          "diorama": "art/ancient-sea.svg",
+          "art": "갤리선과 항구 — 시로가 점토판에 글자를 새긴다"
+        },
+        {
+          "id": "ancient-dice",
+          "label": "주사위 놀이",
+          "start_year": -550,
+          "diorama": "art/homage-dice.svg",
+          "art": "흑화 도기 속 두 토끼의 주사위 놀이",
+          "after": "엑세키아스, 「주사위 놀이하는 아킬레우스와 아이아스」 흑화 암포라, 기원전 530년경"
+        },
+        {
+          "id": "ancient-terracotta",
+          "label": "병마용",
+          "start_year": -250,
+          "diorama": "art/homage-terracotta.svg",
+          "art": "줄지어 선 흙빛 토끼 병사들",
+          "after": "진시황릉 병마용, 기원전 210년경"
+        },
+        {
+          "id": "ancient-road",
+          "label": "제국의 길",
+          "start_year": 0,
+          "diorama": "art/ancient-road.svg",
+          "art": "수도교와 만리장성 — 시로가 낙타를 타고 실크로드를 건넌다"
+        },
+        {
+          "id": "ancient-dance",
+          "label": "무용총 춤",
+          "start_year": 250,
+          "diorama": "art/homage-dance.svg",
+          "art": "물방울무늬 옷에 긴 소매를 날리며 춤추는 토끼들",
+          "after": "고구려 무용총 「무용도」 벽화, 5세기"
+        }
+      ],
       "strip": "#B08A4A"
     },
     {
@@ -80,6 +127,30 @@
         "rgba(74,106,156,.3)"
       ],
       "diorama": "art/medieval.svg",
+      "scenes": [
+        {
+          "id": "medieval-forest",
+          "label": "숲과 성탑",
+          "start_year": 500,
+          "diorama": "art/medieval.svg",
+          "art": "안개 낀 숲과 성탑 — 시로가 등불을 든다"
+        },
+        {
+          "id": "medieval-qingming",
+          "label": "청명상하도",
+          "start_year": 1000,
+          "diorama": "art/homage-qingming.svg",
+          "art": "무지개다리를 건너는 토끼 인파와 강의 배",
+          "after": "장택단, 「청명상하도」, 12세기"
+        },
+        {
+          "id": "medieval-steppe",
+          "label": "초원과 대상",
+          "start_year": 1200,
+          "diorama": "art/medieval-steppe.svg",
+          "art": "초원의 게르와 말 — 시로가 말을 탄다"
+        }
+      ],
       "strip": "#4F7A6A"
     },
     {
@@ -106,6 +177,38 @@
         "rgba(79,122,106,.3)"
       ],
       "diorama": "art/earlymodern.svg",
+      "scenes": [
+        {
+          "id": "earlymodern-sea",
+          "label": "대항해",
+          "start_year": 1400,
+          "diorama": "art/earlymodern.svg",
+          "art": "수평선을 넘는 범선 — 시로가 돛대 위에서 망원경을 본다"
+        },
+        {
+          "id": "earlymodern-monalisa",
+          "label": "모나리자",
+          "start_year": 1500,
+          "diorama": "art/homage-monalisa.svg",
+          "art": "액자 속 토끼 초상과 이젤 앞 화가 토끼",
+          "after": "레오나르도 다 빈치, 「모나리자」, 1503–1519년경"
+        },
+        {
+          "id": "earlymodern-court",
+          "label": "궁궐과 천문대",
+          "start_year": 1600,
+          "diorama": "art/earlymodern-court.svg",
+          "art": "기와지붕 궁궐과 혼천의 — 시로가 별을 본다"
+        },
+        {
+          "id": "earlymodern-pearl",
+          "label": "진주 귀걸이",
+          "start_year": 1660,
+          "diorama": "art/homage-pearl.svg",
+          "art": "파랑·노랑 터번을 쓴 토끼 초상",
+          "after": "요하네스 페르메이르, 「진주 귀걸이를 한 소녀」, 1665년경"
+        }
+      ],
       "strip": "#4A6A9C"
     },
     {
@@ -132,6 +235,46 @@
         "rgba(176,138,74,.3)"
       ],
       "diorama": "art/modern.svg",
+      "scenes": [
+        {
+          "id": "modern-steam",
+          "label": "증기와 톱니",
+          "start_year": 1760,
+          "diorama": "art/modern.svg",
+          "art": "증기와 톱니바퀴의 부두 — 시로가 열기구를 탄다"
+        },
+        {
+          "id": "modern-ssireum",
+          "label": "씨름",
+          "start_year": 1800,
+          "diorama": "art/homage-ssireum.svg",
+          "art": "둘러앉은 갓 쓴 토끼 구경꾼과 씨름하는 두 토끼",
+          "after": "김홍도, 「씨름」(『단원풍속도첩』), 18세기 후반"
+        },
+        {
+          "id": "modern-wave",
+          "label": "큰 파도",
+          "start_year": 1830,
+          "diorama": "art/homage-wave.svg",
+          "art": "거대한 파도 아래 배에 웅크린 토끼들과 후지산",
+          "after": "가쓰시카 호쿠사이, 「가나가와 해변의 높은 파도 아래」, 1831년경"
+        },
+        {
+          "id": "modern-rail",
+          "label": "기차와 전신",
+          "start_year": 1860,
+          "diorama": "art/modern-rail.svg",
+          "art": "증기기관차와 전신주 — 시로가 손을 흔든다"
+        },
+        {
+          "id": "modern-starry",
+          "label": "별이 빛나는 밤",
+          "start_year": 1885,
+          "diorama": "art/homage-starry.svg",
+          "art": "소용돌이 하늘과 사이프러스, 하늘을 보는 토끼 둘",
+          "after": "빈센트 반 고흐, 「별이 빛나는 밤」, 1889"
+        }
+      ],
       "strip": "#A2605A"
     },
     {
@@ -158,6 +301,30 @@
         "rgba(74,106,156,.35)"
       ],
       "diorama": "art/contemporary.svg",
+      "scenes": [
+        {
+          "id": "contemporary-radio",
+          "label": "라디오와 비행기",
+          "start_year": 1914,
+          "diorama": "art/contemporary-radio.svg",
+          "art": "복엽기와 전파탑 — 시로가 라디오에 귀를 기울인다"
+        },
+        {
+          "id": "contemporary-mondrian",
+          "label": "빨강 파랑 노랑",
+          "start_year": 1930,
+          "diorama": "art/homage-mondrian.svg",
+          "art": "검은 선과 빨강·파랑·노랑 면을 칠하는 토끼들",
+          "after": "피트 몬드리안, 「빨강, 파랑, 노랑의 구성」, 1930"
+        },
+        {
+          "id": "contemporary-city",
+          "label": "도시와 위성",
+          "start_year": 1960,
+          "diorama": "art/contemporary.svg",
+          "art": "도시의 밤과 위성 궤도 — 시로가 옥상에서 도시를 내려다본다"
+        }
+      ],
       "strip": "#6E5BA8"
     }
   ],

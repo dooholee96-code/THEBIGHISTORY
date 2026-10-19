@@ -83,15 +83,8 @@
     section.id = 'era-' + era.id;
     section.setAttribute('data-era', era.id);
 
-    var art = el('div', 'chapter__art', section);
-    var blob = night ? (era.night_blob || []) : (era.day_blob || []);
-    // 디오라마(era.diorama)가 맨 위, 그 아래 색 블롭
-    art.style.backgroundImage = (era.diorama ? ['url("' + era.diorama + '")'] : []).concat([
-      'radial-gradient(38% 46% at 8% 34%, ' + (blob[0] || 'transparent') + ', transparent 72%)',
-      'radial-gradient(34% 40% at 92% 62%, ' + (blob[1] || 'transparent') + ', transparent 74%)',
-      'repeating-linear-gradient(118deg, ' +
-        (night ? 'rgba(255,255,255,.06)' : 'rgba(255,255,255,.16)') + ' 0 14px, transparent 14px 34px)'
-    ]).join(', ');
+    // 삽화 층(색 블롭 + 장면별 디오라마) — 표 보기와 같은 렌더러
+    global.BigHistoryChapters.renderArt(section, era, night);
 
     var head = el('div', 'chapter__head tl-head', section);
     el('span', 'tl-head__mark', head);
