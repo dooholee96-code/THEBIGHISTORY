@@ -23,7 +23,7 @@
       } catch (err) { /* 저장소를 못 읽어도 기본(라이트)으로 */ }
     })();
   </script>
-  <link rel="stylesheet" href="css/styles.css?v=abb2a543" />
+  <link rel="stylesheet" href="css/styles.css?v=ca391883" />
 </head>
 <body>
   <!-- 테마는 <html class="is-night"> 로 바뀐다(설정 탭, app.js). 기본은 라이트 -->
@@ -65,6 +65,8 @@
 
       <!-- 1. 연표 — 끌기·던지기는 js/motion.js, 아래 계기판은 js/hud.js -->
       <main class="view view--timeline" id="view-timeline">
+        <!-- 디오라마 무대 — 연표 뒤에 화면 크기로 깔리고, 초점선이 있는 장면의 그림이 교차 페이드로 바뀐다 -->
+        <div class="stage" id="stage" aria-hidden="true"></div>
         <div class="scroll" id="scroll">
           <div class="scroll__inner" id="scroll-inner">
             <div class="intro" id="intro">
@@ -254,12 +256,12 @@
     <div class="loading" id="loading">불러오는 중…</div>
   </div>
 
-  <script src="js/data.js?v=abb2a543"></script>
-  <script src="js/chapters.js?v=abb2a543"></script>
-  <script src="js/timeline.js?v=abb2a543"></script>
-  <script src="js/motion.js?v=abb2a543"></script>
-  <script src="js/hud.js?v=abb2a543"></script>
-  <script src="js/branch.js?v=abb2a543"></script>
-  <script src="js/app.js?v=abb2a543"></script>
+  <script src="js/data.js?v=ca391883"></script>
+  <script src="js/chapters.js?v=ca391883"></script>
+  <script src="js/timeline.js?v=ca391883"></script>
+  <script src="js/motion.js?v=ca391883"></script>
+  <script src="js/hud.js?v=ca391883"></script>
+  <script src="js/branch.js?v=ca391883"></script>
+  <script src="js/app.js?v=ca391883"></script>
 </body>
 </html>

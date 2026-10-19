@@ -16,6 +16,8 @@
   var B = window.BigHistoryBranch;
 
   var FOCUS_RATIO = 0.36;   // 보이는 높이 중 초점선 위치(위에서부터)
+  var SCENE_FADE = 280;     // 장면 그림이 바뀔 때 교차 페이드 길이(연표 px)
+  var SCENE_DRIFT = 70;     // 한 장면을 지나는 동안 그림이 위로 흐르는 양(px)
 
   var el = {
     app: document.getElementById('app'),
@@ -30,6 +32,7 @@
     viewTimeline: document.getElementById('view-timeline'),
     scroll: document.getElementById('scroll'),
     inner: document.getElementById('scroll-inner'),
+    stage: document.getElementById('stage'),
     intro: document.getElementById('intro'),
     outro: document.getElementById('outro'),
     focusLine: document.getElementById('focus-line'),
@@ -101,7 +104,7 @@
     cover: 0,         // 계기판·탭바가 가리는 아래쪽 높이
     rows: [],         // { node, top, h, mid, year, count, era }
     reveal: [],       // 등장 효과를 줄 것들(시대 제목 + 줄), top 순
-    scenes: [],       // 장면 디오라마 { node, art, top, h, artH, era, label, shift, near }
+    scenes: [],       // 장면 디오라마 { node, top, bottom, h, era, label, o, dy }
     chapters: [],     // { node, top, bottom, head, headTop, headH, tableBottom, stuck }
     segs: [],         // 스크러버 구간 { a, b, start, width }
     anchorYear: null  // 다시 그린 뒤 초점선에 다시 맞출 해
@@ -284,23 +287,36 @@
     onFrame(scroller.info());
   }
 
+  // ------------------------------------------------- 디오라마 무대
+
+  var stageNodes = {};   // '시대번호:장면번호' → 그림 노드(한 번 만들어 계속 쓴다)
+
+  /** 무대에 모든 장면 그림을 한 장씩 깔아 둔다(처음엔 모두 투명). */
+  function buildStage() {
+    el.stage.textContent = '';
+    stageNodes = {};
+    state.data.eras.forEach(function (era, ei) {
+      C.scenesOf(era).forEach(function (sc, si) {
+        var node = document.createElement('div');
+        node.className = 'stage__art';
+        node.style.backgroundImage = 'url("' + sc.diorama + '")';
+        el.stage.appendChild(node);
+        stageNodes[ei + ':' + si] = node;
+      });
+    });
+  }
+
   /**
-   * 장면 디오라마의 구간을 줄 위치로 정한다.
-   * 장면은 그 시작 연도 이상인 첫 줄 조금 위에서 시작해 다음 장면 직전까지. 첫 장면은 시대 맨 위부터.
-   * 줄이 하나도 없는 장면(카테고리를 꺼서 비었거나 시대가 짧을 때)은 숨긴다.
+   * 장면마다 연표에서 맡는 구간을 줄 위치로 정한다(그림 자체는 무대에 있어 잘리지 않는다).
+   * 장면은 그 시작 연도 이상인 첫 줄 조금 위부터 다음 장면 직전까지. 첫 장면은 시대 맨 위부터.
+   * 줄이 없는 장면(카테고리를 꺼서 비었을 때)은 구간이 0 이 되어 건너뛴다.
    */
   function measureScenes(chapters, rows) {
     var out = [];
     chapters.forEach(function (ch, ci) {
-      var nodes = ch.node.querySelectorAll('.scene');
-      var list = Array.prototype.map.call(nodes, function (node) {
-        return {
-          node: node,
-          art: node.firstElementChild,
-          start: Number(node.getAttribute('data-start')),
-          label: node.getAttribute('data-label') || '',
-          era: ci
-        };
+      var era = state.data.eras[ci];
+      var list = C.scenesOf(era).map(function (sc, si) {
+        return { node: stageNodes[ci + ':' + si], start: sc.start_year, label: sc.label || '', era: ci, o: -1, dy: NaN };
       });
       var chRows = rows.filter(function (r) { return r.era === ci; });
       list.forEach(function (sc, i) {
@@ -314,14 +330,7 @@
       list.forEach(function (sc, i) {
         sc.bottom = i + 1 < list.length ? list[i + 1].top : ch.bottom;
         sc.h = Math.max(0, sc.bottom - sc.top);
-        sc.node.style.top = Math.round(sc.top - ch.top) + 'px';
-        sc.node.style.height = Math.round(sc.h) + 'px';
-        sc.node.hidden = sc.h < 40;
-        sc.artH = sc.art ? sc.art.offsetHeight : 0;
-        sc.shift = -1;
-        sc.near = false;
-        sc.node.classList.remove('is-near');
-        out.push(sc);
+        if (sc.node) out.push(sc);
       });
     });
     return out;
@@ -465,23 +474,26 @@
     }
     live.x = info.x;
 
-    // 2-1) 장면 디오라마 — 자기 구간 안에서는 화면을 조금 느리게 따라오고(깊이감),
-    //      구간 끝에 닿으면 연표와 함께 올라가며 다음 장면에 자리를 내준다.
-    //      화면 가까이 있는 장면만 숨쉬기 움직임을 켠다(is-near).
-    var vTop = info.y;
-    var vBot = info.y + info.viewH;
+    // 2-1) 장면 디오라마 — 초점선이 있는 장면의 그림이 무대에 떠 있고, 장면 경계에서는
+    //      앞뒤 그림이 교차 페이드로 바뀐다. 구간을 지나는 동안 그림은 아주 조금 위로 흘러 깊이감을 준다.
     for (var si = 0; si < layout.scenes.length; si += 1) {
       var sc = layout.scenes[si];
-      var near = sc.h >= 40 && sc.top < vBot + 240 && sc.bottom > vTop - 240;
-      if (near !== sc.near) {
-        sc.near = near;
-        sc.node.classList.toggle('is-near', near);
+      var o = 0;
+      if (sc.h > 0) {
+        var fade = Math.min(SCENE_FADE, sc.h);
+        o = clamp(Math.min((fy - (sc.top - fade / 2)) / fade, ((sc.bottom + fade / 2) - fy) / fade), 0, 1);
       }
-      if (!near) continue;
-      var shift = Math.round(clamp((vTop - sc.top) * 0.86, 0, Math.max(0, sc.h - sc.artH)));
-      if (shift !== sc.shift) {
-        sc.shift = shift;
-        sc.art.style.transform = shift ? 'translate3d(0,' + shift + 'px,0)' : '';
+      o = Math.round(o * 50) / 50;
+      if (o !== sc.o) {
+        sc.o = o;
+        sc.node.style.opacity = o ? String(o) : '';
+        sc.node.classList.toggle('is-on', o > 0);
+      }
+      if (!o) continue;
+      var dy = Math.round(-clamp((fy - sc.top) / Math.max(1, sc.h), 0, 1) * SCENE_DRIFT);
+      if (dy !== sc.dy) {
+        sc.dy = dy;
+        sc.node.style.transform = 'translate3d(0,' + dy + 'px,0)';
       }
     }
 
@@ -1465,6 +1477,7 @@
     });
 
     buildTabs();
+    buildStage();
     buildCredits();
     buildCategories();
     buildSuggestions();

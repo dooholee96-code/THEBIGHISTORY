@@ -55,8 +55,8 @@
   }
 
   /**
-   * 시대 섹션 뒤 삽화 층 — 색 블롭은 섹션 전체에, 디오라마는 장면마다 따로.
-   * 장면의 세로 위치와 화면 따라오기는 줄 위치를 잰 뒤 app.js 가 맞춘다(data-start = 장면 시작 연도).
+   * 시대 섹션 뒤 색 블롭 층. 디오라마 그림은 섹션에 넣지 않고 연표 뒤 '무대'(app.js)에 둔다 —
+   * 섹션·장면 구간에 가두면 카테고리를 줄였을 때 구간이 그림보다 짧아져 잘리기 때문.
    * 표·타임라인 두 보기가 함께 쓴다.
    */
   function renderArt(section, era, night) {
@@ -69,17 +69,8 @@
         (night ? 'rgba(255,255,255,.06)' : 'rgba(255,255,255,.16)') + ' 0 14px, transparent 14px 34px)'
     ].join(', ');
 
-    var scenes = scenesOf(era);
-    scenes.forEach(function (sc) {
-      var node = el('div', 'scene', art);
-      node.setAttribute('data-start', String(sc.start_year));
-      if (sc.label) node.setAttribute('data-label', sc.label);
-      var pic = el('div', 'scene__art', node);
-      pic.style.backgroundImage = 'url("' + sc.diorama + '")';
-    });
-
     // 그림이 아직 없는 시대는 삽화 의도를 글로 남겨 둔다
-    if (!scenes.length && era.art) {
+    if (!scenesOf(era).length && era.art) {
       var label = el('span', 'chapter__art-label', art);
       label.textContent = era.art;
     }

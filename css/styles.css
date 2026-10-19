@@ -586,7 +586,7 @@ body {
   pointer-events: none;
   overflow: hidden;
   opacity: .75;
-  /* 섹션 전체에는 색 블롭만. 디오라마는 장면(.scene)마다 따로 놓인다 */
+  /* 섹션에는 색 블롭만. 디오라마 그림은 연표 뒤 무대(.stage)에 있다 */
   background-repeat: no-repeat;
   -webkit-mask-image: linear-gradient(90deg, #000 0, rgba(0, 0, 0, .9) 14%, rgba(0, 0, 0, .28) 32%, rgba(0, 0, 0, .14) 50%, rgba(0, 0, 0, .28) 68%, rgba(0, 0, 0, .9) 86%, #000 100%);
   mask-image: linear-gradient(90deg, #000 0, rgba(0, 0, 0, .9) 14%, rgba(0, 0, 0, .28) 32%, rgba(0, 0, 0, .14) 50%, rgba(0, 0, 0, .28) 68%, rgba(0, 0, 0, .9) 86%, #000 100%);
@@ -594,52 +594,65 @@ body {
 
 .is-night .chapter__art { opacity: .9; }
 
-/* 장면 — 시대 안의 한 구간. 위치·높이는 app.js 가 줄 위치로 정한다.
-   그림(.scene__art)은 구간 안에서 화면을 조금 느리게 따라오고(transform, app.js),
-   위아래 가장자리는 흐려져 앞뒤 장면과 겹치며 넘어간다. */
-.scene {
+/* 디오라마 무대 — 연표 뒤에 화면 크기로 깔린다. 장면 그림(.stage__art)은 모두 여기 겹쳐 있고,
+   초점선이 있는 장면만 보이도록 app.js 가 opacity 를 바꾼다(경계에서는 교차 페이드).
+   섹션에 가두지 않으므로 카테고리를 줄여 연표가 짧아져도 그림이 잘리지 않는다. */
+.stage {
   position: absolute;
-  left: 0;
-  right: 0;
+  inset: 0;
+  z-index: 0;
   overflow: hidden;
+  pointer-events: none;
+  opacity: .75;
+  /* 가운데(카드 뒤)는 흐리고 좌우 레터박스에서 진하게 */
+  -webkit-mask-image: linear-gradient(90deg, #000 0, rgba(0, 0, 0, .9) 14%, rgba(0, 0, 0, .28) 32%, rgba(0, 0, 0, .14) 50%, rgba(0, 0, 0, .28) 68%, rgba(0, 0, 0, .9) 86%, #000 100%);
+  mask-image: linear-gradient(90deg, #000 0, rgba(0, 0, 0, .9) 14%, rgba(0, 0, 0, .28) 32%, rgba(0, 0, 0, .14) 50%, rgba(0, 0, 0, .28) 68%, rgba(0, 0, 0, .9) 86%, #000 100%);
 }
 
-.scene[hidden] { display: none; }
+.is-night .stage { opacity: .9; }
+.view--timeline .scroll { position: relative; z-index: 1; }
 
-.scene__art {
+.stage__art {
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   height: max(900px, 56.25vw);           /* 1600×900 그림을 폭에 맞췄을 때의 높이 */
+  opacity: 0;
   background-repeat: no-repeat;
   background-position: center top;
   background-size: max(1600px, 100%) auto;
   transform-origin: 50% 40%;
-  will-change: transform;
-  /* 그림 바닥(지면)이 딱 끊기지 않게 아래쪽은 일찍부터 흐린다 */
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 10%, #000 52%, transparent 80%);
-  mask-image: linear-gradient(180deg, transparent 0, #000 10%, #000 52%, transparent 80%);
+  will-change: opacity, transform;
+  /* 그림의 위·아래 가장자리(동굴 천장, 지면)가 딱 끊기지 않게 양쪽을 흐린다 */
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, transparent 10%, #000 30%, #000 52%, transparent 82%);
+  mask-image: linear-gradient(180deg, transparent 0, transparent 10%, #000 30%, #000 52%, transparent 82%);
 }
 
-/* 화면 가까이 있는 장면만 아주 느리게 숨쉰다(크기·위치를 살짝). transform 은 app.js 몫이라 scale/translate 로 */
-.scene.is-near .scene__art { animation: scene-breathe 24s ease-in-out infinite alternate; }
+/* 보이는 장면만 아주 느리게 숨쉰다(크기·위치를 살짝). transform 은 app.js 몫이라 scale/translate 로 */
+.stage__art.is-on { animation: scene-breathe 24s ease-in-out infinite alternate; }
 
 @keyframes scene-breathe {
   from { scale: 1; translate: 0 0; }
   to { scale: 1.045; translate: -1.4% 0; }
 }
 
-/* 폰에서는 레터박스가 없으니 디오라마를 장면 위쪽에 작게 깔고 아래로 흐려지게 */
+/* 폰: 레터박스가 없으니 그림을 위쪽에 작게 깔고 아래로 흐려지게 */
 @media (max-width: 899px) {
   .chapter__art { opacity: .5; }
   .is-night .chapter__art { opacity: .6; }
-  .scene__art {
+  .stage {
+    opacity: .5;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .is-night .stage { opacity: .6; }
+  .stage__art {
     height: 520px;
     background-size: 1100px auto;
     background-position: -70px -110px;
-    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 8%, rgba(0, 0, 0, .6) 45%, transparent 85%);
-    mask-image: linear-gradient(180deg, transparent 0, #000 8%, rgba(0, 0, 0, .6) 45%, transparent 85%);
+    -webkit-mask-image: linear-gradient(180deg, #000 0, rgba(0, 0, 0, .6) 45%, transparent 85%);
+    mask-image: linear-gradient(180deg, #000 0, rgba(0, 0, 0, .6) 45%, transparent 85%);
   }
 }
 
@@ -2431,6 +2444,6 @@ body {
     transition-duration: 1ms !important;
   }
   .row--body, .tl-year, .empty-row, .chapter__head { opacity: 1; transform: none; }
-  .scene.is-near .scene__art { animation: none; }
+  .stage__art.is-on { animation: none; }
   .scrub__spark { display: none; }
 }
