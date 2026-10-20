@@ -23,7 +23,7 @@
       } catch (err) { /* 저장소를 못 읽어도 기본(라이트)으로 */ }
     })();
   </script>
-  <link rel="stylesheet" href="css/styles.css?v=5d84d57f" />
+  <link rel="stylesheet" href="css/styles.css?v=09e2e52c" />
 </head>
 <body>
   <!-- 테마는 <html class="is-night"> 로 바뀐다(설정 탭, app.js). 기본은 라이트 -->
@@ -150,7 +150,7 @@
             <p class="note note--warn">
               <strong>내용 신뢰도</strong> — 이 연표의 항목은 개설 수준의 통설을 요약한 초안(draft)이며,
               아직 자료로 대조하지 않았습니다. 고대사의 여러 연도는 문헌 전승이나 추정치입니다.
-              항목을 열면 <em>연대 주석</em>과 출처 상태를 볼 수 있습니다.
+              항목을 열면 맨 아래에서 출처 상태를 볼 수 있습니다.
             </p>
 
             <p class="card__label">데이터</p>
@@ -162,7 +162,7 @@
             <p class="card__label">디자인</p>
             <p class="card__text">
               아기 토끼 <strong>시로</strong>와 시대별 디오라마는 shirolee studio 의 그림입니다.
-              화면은 외부 라이브러리 없이 직접 만들었고, 글꼴은 Google Fonts 의
+              탐험 그림판은 <strong>Three.js</strong>(MIT)로 그리고, 글꼴은 Google Fonts 의
               <strong>Gaegu · Gowun Dodum</strong>(SIL OFL)을 씁니다.
             </p>
 
@@ -203,11 +203,13 @@
     <div class="loading" id="loading">불러오는 중…</div>
   </div>
 
-  <script src="js/data.js?v=5d84d57f"></script>
-  <script src="js/common.js?v=5d84d57f"></script>
-  <script src="js/hud.js?v=5d84d57f"></script>
-  <script src="js/branch.js?v=5d84d57f"></script>
-  <script src="js/zoom.js?v=5d84d57f"></script>
-  <script src="js/app.js?v=5d84d57f"></script>
+  <script src="js/data.js?v=09e2e52c"></script>
+  <script src="js/common.js?v=09e2e52c"></script>
+  <script src="js/hud.js?v=09e2e52c"></script>
+  <script src="js/branch.js?v=09e2e52c"></script>
+  <script src="vendor/three.min.js?v=09e2e52c"></script>
+  <script src="js/plane.js?v=09e2e52c"></script>
+  <script src="js/zoom.js?v=09e2e52c"></script>
+  <script src="js/app.js?v=09e2e52c"></script>
 </body>
 </html>

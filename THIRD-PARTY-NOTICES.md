@@ -16,10 +16,12 @@
 
 ## 그 밖에
 
-- **자바스크립트 라이브러리 없음** — 화면(표·시대 배경·시트·팝업)을 직접 구현했습니다.
-  이전 버전에서 쓰던 vis-timeline 은 표 기반 화면으로 바뀌면서 제거했습니다.
-- **런타임 의존성 없음** — `package.json` 에 dependencies / devDependencies 가 없습니다.
-  (`npx serve` 는 로컬에서 띄울 때만 쓰는 편의 명령입니다)
+- **Three.js r170** — 탐험 그림판을 GPU(WebGL2)로 그리는 데 씁니다.
+  저작권 © 2010-2024 three.js authors, **MIT License**(상업적 이용 가능). 전문은 `vendor/three.LICENSE`.
+  필요한 부분만 묶은 `vendor/three.min.js` 를 저장소에 담아 함께 배포합니다(외부 요청 없음).
+- 그 밖의 화면(계기판·팝업·탭·갈림길)은 라이브러리 없이 직접 구현했습니다.
+- **npm 의존성 없음** — `package.json` 에 dependencies / devDependencies 가 없습니다
+  (Three.js 는 위처럼 묶은 파일로 들어 있습니다. `npx serve` 는 로컬에서 띄울 때만 쓰는 편의 명령입니다)
 - **분석 도구·추적 스크립트 없음**, 쿠키 사용 없음.
 - **아이콘·이미지** — `icons/` 의 SVG·PNG 는 이 저장소에서 직접 만든 것입니다.
   시대 삽화는 아직 CSS 그라데이션 자리표시자이며, 실제 그림을 넣을 때는

@@ -920,6 +920,7 @@
 
     zoom = Z.create(el.zoom, {
       plane: document.getElementById('zoom-plane'),
+      force2d: /[?&]2d\b/.test(location.search),   // ?2d — WebGL 없는 기기처럼(확인용)
       eras: data.eras,
       present: presentYear(),
       focusY: function () { return layout.focus; },

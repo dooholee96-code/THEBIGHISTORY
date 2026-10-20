@@ -16,7 +16,9 @@
        과거가 저 멀리, 지금이 코앞에 오도록 그림판이 뒤로 눕는다
 
    캔버스가 두 장이다.
-     · 판(plane)  — 열·사건·왕조 띠·연도 눈금. 눕히면 CSS 3D 로 기울어진다(판 좌표계는 그대로).
+     · 판(plane)  — 열·사건·왕조 띠·연도 눈금. js/plane.js 의 붓이 칠한다 —
+                     Three.js(WebGL2)가 되면 GPU 로, 눕히기는 원근 카메라를 기울여서.
+                     안 되면 Canvas 2D 로 칠하고 눕히기는 CSS 3D 로(판 좌표계는 어느 쪽이든 그대로).
      · 덮개(#zoom) — 화면에 납작하게 붙은 열 이름·시대 이름. 손가락 입력도 여기서 받아
                      원근을 거꾸로 풀어 판 좌표로 바꾼다. 그래서 눕혀도 손가락 밑의 점이 그대로 따라온다.
 
@@ -74,10 +76,9 @@
   function create(canvas, opts) {
     var plane = opts.plane;                 // 눕는 판
     var octx = canvas.getContext('2d');     // 납작한 덮개
-    var pctx = plane.getContext('2d');
-    var ctx = pctx;                         // 지금 그리는 쪽(그리기 도우미들이 함께 쓴다)
+    var ctx = octx;                         // 덮개에 그리는 도우미들이 쓴다
+    var pp = global.BigHistoryPlane.create(plane, { force2d: opts.force2d });   // 판을 칠하는 붓
     var dpr = 1;
-    var pdpr = 1;
     var W = 0;
     var H = 0;      // 판 높이 — 눕히면 화면보다 길어진다(먼 곳까지)
     var Hv = 0;     // 화면(덮개) 높이
@@ -101,6 +102,8 @@
     var hits = [];
     var colors = {};
     var labelWidth = {};
+    var stats = { draw: 0 };   // 마지막 프레임을 그리는 데 든 시간(ms, 확인용)
+    var fonts = {};
     var lastTap = null;
 
     // ----------------------------------------------------------- 좌표
@@ -199,6 +202,7 @@
         sans: v('--sans', 'sans-serif')
       };
       labelWidth = {};
+      fonts = {};
     }
 
     // ----------------------------------------------------------- 데이터
@@ -235,6 +239,8 @@
     function resize() {
       var r = canvas.getBoundingClientRect();
       if (!r.width || !r.height) return;
+      // 크기를 다시 재도(탭 전환·회전) 초점 고리의 해는 그대로
+      var keep = W ? yearAt(focusY()) : null;
       var wasOn = geo.on;
       if (wasOn) setPlane(false);
       dpr = Math.min(2.5, global.devicePixelRatio || 1);
@@ -242,19 +248,19 @@
       Hv = r.height;
       canvas.width = Math.round(W * dpr);
       canvas.height = Math.round(Hv * dpr);
+      geo.B = clamp(Hv * 0.16, 80, 150);          // 회전축 아래(계기판·탭에 가리는 쪽)
+      geo.yP = Hv - geo.B;
+      geo.P = Math.max(Hv * 1.1, 600);
       if (wasOn) setPlane(true);
       else sizePlane(Hv);
+      if (keep != null) cam.t0 = keep - focusY() / cam.s;
       clampCam();
       invalidate();
     }
 
     function sizePlane(h) {
       H = h;
-      // 판이 길어지면 해상도를 조금 낮춰 메모리를 지킨다(멀리 있는 쪽은 어차피 작게 보인다)
-      pdpr = Math.min(dpr, Math.sqrt(14e6 / Math.max(1, W * h)));
-      plane.width = Math.round(W * pdpr);
-      plane.height = Math.round(h * pdpr);
-      plane.style.height = h + 'px';
+      pp.resize(W, h, Hv, dpr);
     }
 
     /**
@@ -265,10 +271,8 @@
       if (on === geo.on || !W) return;
       motion.mode = 'idle';
       if (on) {
-        geo.B = clamp(Hv * 0.16, 80, 150);          // 회전축 아래(계기판·탭에 가리는 쪽)
-        geo.yP = Hv - geo.B;
-        geo.P = Math.max(Hv * 1.1, 600);
-        var h = Math.round(Math.min(Hv * 2.6, Hv + 2400));
+        // GL 은 판이 길어도 메모리가 들지 않아 지평선 가까이까지, 2D 는 캔버스 크기 때문에 덜 길게
+        var h = pp.kind === 'gl' ? Math.round(Hv * 4) : Math.round(Math.min(Hv * 2.6, Hv + 2400));
         geo.Dtop = h - geo.B;
         cam.t0 -= (h - Hv) / cam.s;
         geo.on = true;
@@ -297,13 +301,14 @@
       geo.c = Math.cos(geo.th);
       geo.s = Math.sin(geo.th);
       cam.t0 = keep - focusY() / cam.s;
+      canvas.classList.toggle('is-tilted', geo.th > 0.02);
+      if (pp.kind === 'gl') return;   // GL 은 그릴 때 카메라를 기울인다
       st.top = (geo.yP - geo.Dtop) + 'px';
       st.transformOrigin = '50% ' + geo.Dtop + 'px';
       st.transform = 'perspective(' + geo.P.toFixed(0) + 'px) rotateX(' + (geo.th * 180 / Math.PI).toFixed(2) + 'deg)';
       // 먼 끝은 별빛 속으로 사라지듯
       var fade = 'linear-gradient(to bottom, transparent 0, #000 ' + (geo.th > 0.02 ? 22 : 0) + '%)';
       st.webkitMaskImage = st.maskImage = fade;
-      canvas.classList.toggle('is-tilted', geo.th > 0.02);
     }
 
     /** 각도를 정한다. instant 가 아니면 스르륵 */
@@ -350,6 +355,23 @@
       ctx.closePath();
     }
 
+    // 판에 쓰는 글꼴 — 붓에 넘기는 { px, weight, family }
+    function font(px, weight, display) {
+      var key = px + '|' + (weight || '') + '|' + (display ? 'd' : 's');
+      var f = fonts[key];
+      if (!f) f = fonts[key] = { px: px, weight: weight || '', family: display ? colors.display : colors.sans };
+      return f;
+    }
+
+    /** 판 글자를 폭에 맞게 줄임(붓으로 잰다) */
+    function pfit(text, maxW, f) {
+      if (maxW <= 8) return '';
+      if (pp.measure(text, f) <= maxW) return text;
+      var t = text;
+      while (t.length > 1 && pp.measure(t + '…', f) > maxW) t = t.slice(0, -1);
+      return t + '…';
+    }
+
     function fitText(text, maxW) {
       if (maxW <= 8) return '';
       if (ctx.measureText(text).width <= maxW) return text;
@@ -359,9 +381,7 @@
     }
 
     function draw() {
-      ctx = pctx;
-      ctx.setTransform(pdpr, 0, 0, pdpr, 0, 0);
-      ctx.clearRect(0, 0, W, H);
+      pp.begin();
       hits = [];
       var yTop = yearAt(-40);
       var yBot = yearAt(H + 40);
@@ -374,47 +394,39 @@
         var a = yOf(era.start_year);
         var b = yOf(era.end_year);
         if (b < -10 || a > H + 10) return;
-        ctx.fillStyle = era.strip || '#8c6a4f';
-        ctx.globalAlpha = 0.06;
-        ctx.fillRect(0, Math.max(a, 0), W, Math.min(b, H) - Math.max(a, 0));
-        ctx.globalAlpha = 0.5;
-        ctx.fillRect(0, a, W, 1.5);
-        ctx.globalAlpha = 1;
+        var strip = era.strip || '#8c6a4f';
+        pp.rect(0, Math.max(a, 0), W, Math.min(b, H) - Math.max(a, 0), strip, 0.06);
+        pp.rect(0, a, W, 1.5, strip, 0.5);
         (era.scenes || []).forEach(function (sc, i) {
           if (i === 0) return;
           var y = yOf(sc.start_year);
           if (y < HEAD_H || y > H) return;
-          ctx.strokeStyle = colors.line;
-          ctx.setLineDash([4, 6]);
-          ctx.beginPath(); ctx.moveTo(ax, y); ctx.lineTo(W, y); ctx.stroke();
-          ctx.setLineDash([]);
+          pp.line(ax, y, W, y, colors.line, 1, 1, [4, 6]);
         });
       });
 
       // 2) 열 — 경계선, 그리고 열마다 왕조 띠와 사건
       var firstCol = Math.max(0, Math.floor(cam.u0) - 1);
       var lastCol = Math.min(cols.length - 1, Math.ceil(cam.u0 + viewW() / c) + 1);
-      ctx.save();
-      ctx.beginPath(); ctx.rect(ax, 0, W - ax, H); ctx.clip();
+      pp.clip(ax, 0, W - ax, H);
       for (var i = firstCol; i <= lastCol; i += 1) {
         var x = xOfCol(i);
-        ctx.strokeStyle = colors.line;
-        ctx.globalAlpha = 0.5;
-        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
-        ctx.globalAlpha = 1;
+        pp.line(x, 0, x, H, colors.line, 0.5, 1);
         drawColumn(cols[i], x, c, yTop, yBot, focusYear);
       }
       if (cols.length) {
         var xr = xOfCol(cols.length);
-        ctx.strokeStyle = colors.line;
-        ctx.globalAlpha = 0.5;
-        ctx.beginPath(); ctx.moveTo(xr, 0); ctx.lineTo(xr, H); ctx.stroke();
-        ctx.globalAlpha = 1;
+        pp.line(xr, 0, xr, H, colors.line, 0.5, 1);
       }
-      ctx.restore();
+      pp.unclip();
 
       // 3) 시간 눈금 — 왼쪽에 붙어 있다
       drawAxis(ax, yTop, yBot);
+      pp.end({
+        th: geo.on ? geo.th : 0, P: geo.P, yP: geo.yP,
+        pivot: geo.on ? geo.Dtop : geo.yP,          // 납작할 땐 판 좌표 = 화면 좌표
+        fade: geo.th > 0.02 ? [0, H * 0.22] : null  // 먼 끝은 별빛 속으로 사라지듯
+      });
 
       // 여기부터는 납작한 덮개 — 눕혀도 똑바로 읽히게
       ctx = octx;
@@ -441,11 +453,7 @@
         var e = sp.entry;
         var live = e.start_year <= focusYear && focusYear < e.end_year;
         var lx = x + 4 + sp.lane * (laneW + 2);
-        ctx.fillStyle = e._color;
-        ctx.globalAlpha = live ? 1 : (e.kind === 'era' ? 0.35 : 0.55);
-        roundRect(lx, a, laneW, b - a, 3);
-        ctx.fill();
-        ctx.globalAlpha = 1;
+        pp.rect(lx, a, laneW, b - a, e._color, live ? 1 : (e.kind === 'era' ? 0.35 : 0.55), 3);
         hits.push({ x: lx - 3, y: a, w: laneW + 6, h: b - a, entry: e });
       });
 
@@ -473,71 +481,46 @@
         var g = hidden[key];
         var cy = Number(key) * 44 + 22;
         var label = '+' + g.n;
-        ctx.font = '700 11px ' + colors.sans;
-        var w = ctx.measureText(label).width + 12;
+        var f = font(11, '700');
+        var w = pp.measure(label, f) + 12;
         var bx = x + c - w - 4;
-        ctx.fillStyle = colors.inkBg;
-        ctx.globalAlpha = 0.78;
-        roundRect(bx, cy - 9, w, 18, 9);
-        ctx.fill();
-        ctx.globalAlpha = 1;
-        ctx.fillStyle = colors.foam;
-        ctx.fillText(label, bx + 6, cy + 4);
+        pp.rect(bx, cy - 9, w, 18, colors.inkBg, 0.78, 9);
+        pp.text(label, bx + 6, cy + 4, f, colors.foam);
         hits.push({ x: bx - 4, y: cy - 13, w: w + 8, h: 26, cluster: g.sum / g.n, col: col });
       });
     }
 
     function drawAxis(ax, yTop, yBot) {
-      // 눈금 칸 바탕(열이 옆으로 지나가도 읽히게)
-      ctx.fillStyle = colors.sky;
-      ctx.globalAlpha = geo.th > 0.02 ? 0.5 : 0.86;   // 눕히면 비스듬한 띠가 무거워 보여 옅게
-      ctx.fillRect(0, 0, ax, H);
-      ctx.globalAlpha = 1;
+      // 눈금 칸 바탕(열이 옆으로 지나가도 읽히게). 눕히면 비스듬한 띠가 무거워 보여 옅게
+      pp.rect(0, 0, ax, H, colors.sky, geo.th > 0.02 ? 0.5 : 0.86);
 
       var step = STEPS[STEPS.length - 1];
       for (var k = 0; k < STEPS.length; k += 1) { if (STEPS[k] * cam.s >= 56) { step = STEPS[k]; break; } }
       var first = Math.ceil(yTop / step) * step;
       var lastTick = Math.min(yBot, PRESENT);   // 지금 뒤(아직 오지 않은 해)에는 눈금을 긋지 않는다
-      ctx.textAlign = 'right';
       for (var yr = first; yr <= lastTick; yr += step) {
         var y = yOf(yr);
         var major = (yr / step) % 5 === 0;
-        ctx.strokeStyle = colors.line;
-        ctx.globalAlpha = major ? 0.9 : 0.45;
-        ctx.beginPath(); ctx.moveTo(ax - (major ? 10 : 6), y); ctx.lineTo(ax, y); ctx.stroke();
-        ctx.globalAlpha = 1;
+        pp.line(ax - (major ? 10 : 6), y, ax, y, colors.line, major ? 0.9 : 0.45, 1);
         if (yr === 0) continue;
-        ctx.fillStyle = major ? colors.inkBg : colors.inkBg2;
+        var ink = major ? colors.inkBg : colors.inkBg2;
+        var fNum = font(12, major ? '700' : '');
         if (yr < 0) {
-          ctx.font = '10px ' + colors.sans;
-          ctx.fillText('기원전', ax - 12, y - 6);
-          ctx.font = (major ? '700 ' : '') + '12px ' + colors.sans;
-          ctx.fillText(String(-yr), ax - 12, y + 8);
+          pp.text('기원전', ax - 12, y - 6, font(10), ink, 1, 'right');
+          pp.text(String(-yr), ax - 12, y + 8, fNum, ink, 1, 'right');
         } else {
-          ctx.font = (major ? '700 ' : '') + '12px ' + colors.sans;
-          ctx.fillText(String(yr), ax - 12, y + 4);
+          pp.text(String(yr), ax - 12, y + 4, fNum, ink, 1, 'right');
         }
       }
-      ctx.textAlign = 'left';
       var yNow = Math.min(H, yOf(PRESENT));
-      ctx.strokeStyle = colors.line;
-      ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.moveTo(ax, Math.max(0, yOf(T_MIN))); ctx.lineTo(ax, yNow); ctx.stroke();
-      ctx.lineWidth = 1;
+      pp.line(ax, Math.max(0, yOf(T_MIN)), ax, yNow, colors.line, 1, 2);
 
       // '지금' — 시간축의 끝
       if (yNow > 0 && yNow < H) {
-        ctx.strokeStyle = colors.star;
-        ctx.lineWidth = 2;
-        ctx.beginPath(); ctx.moveTo(ax - 12, yNow); ctx.lineTo(W, yNow); ctx.stroke();
-        ctx.lineWidth = 1;
-        ctx.fillStyle = colors.star;
-        ctx.beginPath(); ctx.arc(ax, yNow, 5, 0, 6.2832); ctx.fill();
-        ctx.font = '700 15px ' + colors.display;
-        ctx.fillText('지금', ax + 10, yNow + 24);
-        ctx.font = '12px ' + colors.sans;
-        ctx.fillStyle = colors.inkBg2;
-        ctx.fillText('이야기는 여기서부터 아직 쓰이는 중', ax + 50, yNow + 24);
+        pp.line(ax - 12, yNow, W, yNow, colors.star, 1, 2);
+        pp.circle(ax, yNow, 5, colors.star);
+        pp.text('지금', ax + 10, yNow + 24, font(15, '700', true), colors.star);
+        pp.text('이야기는 여기서부터 아직 쓰이는 중', ax + 50, yNow + 24, font(12), colors.inkBg2);
       }
     }
 
@@ -688,58 +671,33 @@
 
     function measureLabel(ev) {
       if (labelWidth[ev.id]) return labelWidth[ev.id];
-      ctx.font = '13px ' + colors.sans;
-      var w = Math.min(190, ctx.measureText(ev.title).width) + 30;
+      var w = Math.min(190, pp.measure(ev.title, font(13))) + 30;
       labelWidth[ev.id] = w;
       return w;
     }
 
     function drawCard(ev, x, y, w) {
-      ctx.save();
-      ctx.shadowColor = 'rgba(58, 42, 36, .14)';
-      ctx.shadowBlur = 12;
-      ctx.shadowOffsetY = 4;
-      ctx.fillStyle = colors.foam;
-      roundRect(x, y, w, CARD_H, 14);
-      ctx.fill();
-      ctx.restore();
-      ctx.save();
-      roundRect(x, y, w, CARD_H, 14);
-      ctx.clip();
-      ctx.fillStyle = ev._color;
-      ctx.fillRect(x, y, 6, CARD_H);
-      ctx.restore();
-
-      ctx.font = '11px ' + colors.sans;
-      ctx.fillStyle = colors.ink2;
+      pp.card(x, y, w, CARD_H, 14, colors.foam, 'rgba(58, 42, 36, .14)', 12, 4);
+      pp.strip(x, y, w, CARD_H, 14, 6, ev._color);
       var years = ev.end_year !== ev.start_year ? yearText(ev.start_year) + '–' + yearText(ev.end_year) : yearText(ev.start_year);
-      ctx.fillText(fitText(years, w - 26), x + 16, y + 20);
-      ctx.font = '700 14px ' + colors.sans;
-      ctx.fillStyle = colors.ink;
-      ctx.fillText(fitText(ev.title, w - 26), x + 16, y + 42);
+      var fy = font(11);
+      var ft = font(14, '700');
+      pp.text(pfit(years, w - 26, fy), x + 16, y + 20, fy, colors.ink2);
+      pp.text(pfit(ev.title, w - 26, ft), x + 16, y + 42, ft, colors.ink);
       hits.push({ x: x, y: y, w: w, h: CARD_H, entry: ev });
     }
 
     function drawLabel(ev, x, y, w) {
-      ctx.fillStyle = colors.foam;
-      ctx.globalAlpha = 0.92;
-      roundRect(x, y, w, LABEL_H, 12);
-      ctx.fill();
-      ctx.globalAlpha = 1;
-      ctx.fillStyle = ev._color;
-      ctx.beginPath(); ctx.arc(x + 12, y + LABEL_H / 2, 4.5, 0, 6.2832); ctx.fill();
-      ctx.font = '13px ' + colors.sans;
-      ctx.fillStyle = colors.ink;
-      ctx.fillText(fitText(ev.title, w - 30), x + 22, y + LABEL_H / 2 + 4.5);
+      var f = font(13);
+      pp.rect(x, y, w, LABEL_H, colors.foam, 0.92, 12);
+      pp.circle(x + 12, y + LABEL_H / 2, 4.5, ev._color);
+      pp.text(pfit(ev.title, w - 30, f), x + 22, y + LABEL_H / 2 + 4.5, f, colors.ink);
       hits.push({ x: x, y: y, w: w, h: LABEL_H, entry: ev });
     }
 
     function drawDot(ev, x, y) {
-      ctx.fillStyle = ev._color;
-      ctx.strokeStyle = colors.foam;
-      ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.arc(x, y, DOT / 2 - 1, 0, 6.2832); ctx.fill(); ctx.stroke();
-      ctx.lineWidth = 1;
+      pp.circle(x, y, DOT / 2 - 1 + 0.75, colors.foam);
+      pp.circle(x, y, DOT / 2 - 1 - 0.75, ev._color);
       hits.push({ x: x - 9, y: y - 9, w: 18, h: 18, entry: ev });
     }
 
@@ -752,7 +710,9 @@
       var moving = step(dt, t);
       if (stepTilt(dt)) moving = true;
       clampCam();
+      var td = now();
       draw();
+      stats.draw = now() - td;
       if (opts.onCamera) {
         opts.onCamera({
           year: clamp(yearAt(focusY()), T_MIN, T_MAX),   // 고무줄로 넘친 동안에도 역사 밖 해는 안 보이게
@@ -1116,6 +1076,15 @@
 
     if (global.ResizeObserver) new ResizeObserver(function () { if (active) resize(); }).observe(canvas);
 
+    // 웹 글꼴이 늦게 도착하면 대체 글꼴로 재 둔 폭·써 둔 글자를 버리고 다시
+    if (document.fonts && document.fonts.addEventListener) {
+      document.fonts.addEventListener('loadingdone', function () {
+        labelWidth = {};
+        pp.resetText();
+        invalidate();
+      });
+    }
+
     readColors();
 
     return {
@@ -1136,6 +1105,8 @@
       setTilt: function (th, instant) { setTilt(th, instant); if (!instant) settleTilt(); },
       toggleTilt: function () { setTilt(tilt.target > TILT_SNAP ? 0 : TILT_ON); },
       get tilt() { return tilt.cur; },
+      get painter() { return pp.kind; },
+      get stats() { return stats; },   // 'gl'(Three.js) | '2d'(대체)
       /** 처음 열 때 — 문명사(기원전 4200년~지금)가 화면에 들어오게 */
       home: function () {
         setTilt(0, true);
