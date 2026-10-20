@@ -109,10 +109,16 @@ function judge(entry, cand, term, full) {
   return { s: s, e: e, startOk: startOk, endOk: endOk, exact: exact, score: score };
 }
 
+// 이름만 같은 엉뚱한 것 — 사람 이름이 성만 같은 영화·게임·도시 등(비발디 → 웹 브라우저, 칸트 → 도시)
+const UNRELATED = /영화|비디오 게임|웹 브라우저|소프트웨어|도시|city|town|정당|통화|원소|포털|통신사|텔레비전|음반|노래|싱글|앨범|기업|회사|선수|배우|가수|성씨|family name|given name/i;
+
 function verdict(entry, best) {
   if (!best) return '못 찾음';
   const j = best.j;
   if (!j.exact && !j.startOk && !j.endOk) return '못 찾음';   // 이름도 연도도 확실하지 않으면 후보일 뿐
+  if (!j.startOk && !j.endOk && (best.c.types || []).some((t) => UNRELATED.test(t))) return '못 찾음';
+  // 우리는 1900년 이전인데 후보는 1900년 이후에야 시작하면 같은 이름의 다른 것
+  if (!j.startOk && !j.endOk && entry.end_year < 1900 && j.s && j.s.year >= 1900) return '못 찾음';
   if (!j.s && !j.e) return j.exact ? '날짜 없음' : '못 찾음';
   if (j.startOk && j.endOk) return '일치';
   if (j.startOk || j.endOk) return '부분 일치';
