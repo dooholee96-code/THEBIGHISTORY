@@ -1,4 +1,4 @@
-# 공개 데이터 대조 — Wikidata·Cliopatria 와 우리 항목을 견준 리포트를 만든다.
+# 공개 데이터 대조 — Wikidata·Cliopatria 와 우리 항목을 견준 리포트와 새 항목 후보를 만든다.
 # 손으로 실행(Actions 탭 → sources → Run workflow)하거나 매주 월요일 새벽에 돈다.
 # 결과(data/review/)는 data-review 브랜치에 올라가고, 실행 결과의 Artifacts 에서도 내려받을 수 있다.
 # 데이터 파일(data/*.json)은 바꾸지 않는다 — 고칠지는 리포트를 보고 사람이 정한다.
@@ -23,6 +23,8 @@ jobs:
           node-version: 22
       - name: Wikidata·Cliopatria 대조
         run: node scripts/match-wikidata.js
+      - name: 새 항목 후보
+        run: node scripts/candidates-wikidata.js
       - uses: actions/upload-artifact@v4
         with:
           name: review-${{ github.run_number }}
@@ -35,7 +37,7 @@ jobs:
           rm -rf data/review   # 브랜치를 바꿀 때 같은 이름의 파일과 부딪치지 않게
           git fetch origin data-review || true
           if git show-ref --quiet refs/remotes/origin/data-review; then
-            git checkout -B data-review origin/data-review
+            git checkout -f -B data-review origin/data-review
           else
             git checkout --orphan data-review
             git rm -rq --cached . && git clean -fdq

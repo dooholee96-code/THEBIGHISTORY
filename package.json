@@ -11,7 +11,9 @@
     "serve": "npx --yes serve -l 5173 .",
     "serve:python": "python3 -m http.server 5173",
     "stamp": "node scripts/stamp.js",
-    "sources:match": "node scripts/match-wikidata.js"
+    "sources:match": "node scripts/match-wikidata.js",
+    "sources:candidates": "node scripts/candidates-wikidata.js",
+    "sources:apply": "node scripts/apply-wikidata.js"
   },
   "keywords": [
     "timeline",

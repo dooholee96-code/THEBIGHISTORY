@@ -27,6 +27,9 @@ const clio = require('./sources/cliopatria');
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'data', 'review');
+// 한국어 이름으로 못 찾는 항목에 사람이 붙여 둔 영어 검색어 { 항목 id: "Thales" }
+const HINTS_FILE = path.join(OUT_DIR, 'wikidata-hints.json');
+const HINTS = fs.existsSync(HINTS_FILE) ? JSON.parse(fs.readFileSync(HINTS_FILE, 'utf8')).hints || {} : {};
 
 // ------------------------------------------------------------ 항목 읽기
 
@@ -71,6 +74,7 @@ function termsOf(entry) {
   // '뉴턴 프린키피아' 처럼 사람 + 작품이면 뒤쪽(작품)도
   const words = base.split(' ');
   if (words.length >= 2) out.push({ t: words.slice(1).join(' '), full: false, lang: 'ko' });
+  [].concat(HINTS[entry.id] || []).forEach((h) => out.unshift({ t: h, full: true, lang: 'en' }));
   const seen = {};
   return out.filter((x) => { const k = x.lang + ':' + x.t; if (seen[k]) return false; seen[k] = 1; return true; }).slice(0, 8);
 }
@@ -128,10 +132,11 @@ function verdict(entry, best) {
 // ------------------------------------------------------------ 실행
 
 console.log(`[대조] 항목 ${entries.length}개 — Wikidata 에서 찾는 중`);
-const termsBy = entries.map((e) => termsOf(e));
+// 이미 번호가 붙은 항목은 찾지 않고 그 번호로 바로 견준다
+const termsBy = entries.map((e) => (e.wikidata ? [] : termsOf(e)));
 const all = [].concat.apply([], termsBy);
 const found = {};
-['ko', 'zh'].forEach((lang) => {
+['ko', 'zh', 'en'].forEach((lang) => {
   const got = wd.searchMany(all.filter((x) => x.lang === lang).map((x) => x.t), lang, 8);
   Object.keys(got).forEach((t) => { found[lang + ':' + t] = got[t]; });
 });
@@ -139,6 +144,7 @@ console.log('');
 
 const qids = new Set();
 Object.keys(found).forEach((t) => found[t].forEach((r) => qids.add(r.qid)));
+entries.forEach((e) => { if (e.wikidata) qids.add(e.wikidata); });
 console.log(`[대조] 후보 ${qids.size}개의 이름·연도 읽는 중`);
 const info = wd.describe(Array.from(qids));
 console.log('');
@@ -149,12 +155,18 @@ try { C = clio.load(); } catch (err) { console.warn('  Cliopatria 를 건너뜁�
 
 const results = entries.map((entry, i) => {
   const cands = [];
+  if (entry.wikidata && info[entry.wikidata]) {
+    const c = info[entry.wikidata];
+    cands.push({ c: c, j: judge(entry, Object.assign({}, c, { zhExact: true }), entry.title, true), term: '(지정한 번호)' });
+  }
   termsBy[i].forEach((term) => {
     (found[term.lang + ':' + term.t] || []).forEach((r) => {
       const c = info[r.qid];
       if (!c || cands.some((x) => x.c.qid === r.qid)) return;
       // 중국어로 찾은 것은 검색 1위면 이름이 같은 것으로 본다(한국어 이름이 없을 수 있어서)
-      const j = judge(entry, Object.assign({}, c, { zhExact: term.lang === 'zh' && r.rank === 0 }), term.t, term.full);
+      // 중국어·영어 검색어(사람이 붙인 힌트)로 1위면 이름이 같은 것으로 본다
+      const top = (term.lang === 'zh' || term.lang === 'en') && r.rank === 0;
+      const j = judge(entry, Object.assign({}, c, { zhExact: top }), term.t, term.full);
       j.score += (8 - r.rank) * 0.1;   // 검색 순위가 높을수록 조금 더
       cands.push({ c: c, j: j, term: term.t });
     });
@@ -167,7 +179,7 @@ const results = entries.map((entry, i) => {
     start: x.j.s, end: x.j.e, term: x.term
   };
   const out = {
-    id: entry.id, dataset: entry._ds, title: entry.title, kind: entry.kind || null,
+    id: entry.id, dataset: entry._ds, title: entry.title, kind: entry.kind || null, linked: entry.wikidata || null,
     start_year: entry.start_year, end_year: entry.end_year,
     verdict: v, best: v === '못 찾음' ? null : pick(best),
     others: cands.slice(v === '못 찾음' ? 0 : 1, 4).map(pick)

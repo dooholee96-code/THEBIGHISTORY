@@ -119,6 +119,8 @@ for (const era of manifest.eras || []) {
 
 // ----------------------------------------------------------- 데이터 파일 검사
 const globalIds = new Map();
+const wikidataIds = new Map();   // Q번호 → 처음 쓴 항목 id
+let wikidataCount = 0;
 let entryCount = 0;
 let draftCount = 0;
 let sourcedCount = 0;
@@ -153,6 +155,18 @@ for (const ds of manifest.datasets || []) {
       fail(file, `${where} — id 가 ${globalIds.get(entry.id)} 와 중복됩니다.`);
     } else {
       globalIds.set(entry.id, `data/${ds.file}`);
+    }
+
+    // Wikidata 번호 — 형식, 그리고 두 항목이 같은 번호를 쓰면(같은 것을 두 번 넣었을 수 있음) 알린다
+    if (entry.wikidata != null) {
+      if (!/^Q[1-9][0-9]*$/.test(entry.wikidata)) {
+        fail(file, `${where} — wikidata 는 Q 로 시작하는 번호여야 합니다: "${entry.wikidata}"`);
+      } else if (wikidataIds.has(entry.wikidata)) {
+        warn(file, `${where} — wikidata ${entry.wikidata} 를 ${wikidataIds.get(entry.wikidata)} 도 씁니다.`);
+      } else {
+        wikidataIds.set(entry.wikidata, entry.id);
+      }
+      wikidataCount += 1;
     }
 
     if (entry.start_year > entry.end_year) {
@@ -373,6 +387,7 @@ function report() {
     `(draft ${draftCount}개 / reviewed ${entryCount - draftCount}개), 갈림길 시나리오 ${scenarioCount}개, ` +
     `경고 ${warnings.length}건`
   );
+  console.log(`Wikidata 연결: ${wikidataCount}/${entryCount}개 항목`);
   if (sourcedCount < entryCount) {
     console.log(
       `출처 표기: ${sourcedCount}/${entryCount}개 항목에 확인한 자료가 적혀 있습니다. ` +
