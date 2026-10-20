@@ -267,6 +267,30 @@ npm run build     # 검증 + bundle.js 갱신
 검증기가 잡아 주는 것: 없는 노드로 이어짐, 고리(끝나지 않는 이야기), 시작에서 닿지 않는 노드,
 확률 합이 1 이 아님, 실제 연표에 없는 항목 id, 거꾸로 가는 연도(경고).
 
+### 3-7. 공개 데이터와 대조하기 (scripts/sources)
+
+항목을 공개 데이터와 견주어 연도를 확인하는 도구입니다. **데이터 파일은 바꾸지 않고 리포트만** 만듭니다 —
+무엇을 고치고 들일지는 사람이 리포트를 보고 정합니다.
+
+```bash
+npm run sources:match          # = node scripts/match-wikidata.js  (받은 응답은 .cache/sources 에 남아 다음엔 빠름)
+node scripts/match-wikidata.js --fresh   # 모두 새로 받기
+```
+
+결과: `data/review/wikidata-report.md`(사람용 표) · `data/review/wikidata-match.json`(항목별 후보·연도·판정)
+
+| 출처 | 라이선스 | 쓰는 곳 |
+|---|---|---|
+| [Wikidata](https://www.wikidata.org) | CC0 | 한국어 이름으로 항목을 찾고 시작·끝 연도(설립·해체, 시작·끝, 출생·사망, 발표, 발견·발명, 초연)를 견줌 |
+| [Cliopatria](https://github.com/Seshat-Global-History-Databank/cliopatria) (Seshat) | CC BY 4.0 | 국가사 항목에 '지도에 그려진 기간'을 참고로 붙임 — 건국·멸망 연도가 아니고, Wikidata 연결이 틀린 곳도 있어(조선 → 고조선) 보조로만 |
+
+- 판정: **일치**(시작·끝 모두 허용 오차 안) · **부분 일치** · **어긋남**(이름이 같은데 연도가 다름 — 먼저 볼 것) · **날짜 없음** · **못 찾음**
+- 허용 오차는 Wikidata 날짜의 정밀도(1년·10년·100년…)와 시대(기원전 1000년 이전 ±25년, 서기 500년 이전 ±5년) 중 큰 쪽
+- Wikidata 조회 결과의 날짜는 국제표준이라 0년이 있습니다(−0036 = 기원전 37년). 우리 방식(0년 없음)으로 바꿔 비교합니다
+- **Wikidata 는 누구나 고칠 수 있어 맞다는 보증이 아닙니다.** 어긋남은 국사편찬위원회·민족문화대백과 같은 공인 자료로 어느 쪽이 맞는지 확인하고, 확인한 자료를 `sources` 에 적습니다
+- 요청 제한: Wikimedia 는 많은 요청을 보내는 IP 를 잠시 막습니다(429). 공용 IP 에서 막히면 스크립트가 몇 분 뒤에 다시 하라고 알리고 멈춥니다.
+  받은 것은 캐시에 남으니 다시 실행하면 이어집니다. 내 컴퓨터나 GitHub Actions(`.github/workflows/sources.yml`, Actions 탭 → sources → Run workflow)에서 돌려도 됩니다
+
 ## 4. 내용의 출처와 신뢰도
 
 **이 연표의 내용은 아직 검증되지 않았습니다.** 지금 상태를 있는 그대로 적습니다.

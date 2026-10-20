@@ -1,0 +1,28 @@
+# 공개 데이터 대조 — Wikidata·Cliopatria 와 우리 항목을 견준 리포트를 만든다.
+# 손으로 실행(Actions 탭 → sources → Run workflow)하거나 매주 월요일 새벽에 돈다.
+# 결과(data/review/)는 실행 결과의 Artifacts 에서 내려받는다 — 데이터 파일은 바꾸지 않는다.
+name: sources
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 18 * * 0'   # 매주 월요일 03:17 (한국 시각)
+
+permissions:
+  contents: read
+
+jobs:
+  match:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Wikidata·Cliopatria 대조
+        run: node scripts/match-wikidata.js
+      - uses: actions/upload-artifact@v4
+        with:
+          name: review-${{ github.run_number }}
+          path: data/review/

@@ -5,3 +5,6 @@ node_modules/
 # Capacitor 로 감쌀 때 생성되는 네이티브 프로젝트
 ios/
 android/
+
+# 외부 데이터 받기 캐시(scripts/sources) — 언제든 다시 받을 수 있다
+.cache/
