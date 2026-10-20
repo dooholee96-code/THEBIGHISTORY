@@ -634,7 +634,20 @@
     var source = document.createElement('p');
     source.className = 'sheet__source';
     if (entry.sources && entry.sources.length) {
-      source.textContent = '출처 · ' + entry.sources.join(' · ');
+      // "이름 https://…" 꼴이면 이름을 링크로, 아니면 글자 그대로
+      source.appendChild(document.createTextNode('출처 · '));
+      entry.sources.forEach(function (s, i) {
+        if (i) source.appendChild(document.createTextNode(' · '));
+        var m = /^(.*?)\s*(https?:\/\/\S+)$/.exec(s);
+        if (!m) { source.appendChild(document.createTextNode(s)); return; }
+        var a = document.createElement('a');
+        a.href = m[2];
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.textContent = m[1] || m[2];
+        source.appendChild(a);
+      });
+      if (entry.status !== 'reviewed') source.appendChild(document.createTextNode(' (검토 전 초안)'));
     } else {
       source.classList.add('is-missing');
       source.textContent = '출처 · 아직 확인 전(검토 전 초안)';

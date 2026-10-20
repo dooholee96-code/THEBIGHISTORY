@@ -1480,6 +1480,7 @@ body {
   color: var(--ink-2);
 }
 
+.sheet__source a { color: inherit; text-underline-offset: 2px; }
 .sheet__source.is-missing { opacity: .75; }
 
 .sheet__desc {

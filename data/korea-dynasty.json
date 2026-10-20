@@ -18,7 +18,9 @@
         "고대",
         "국가형성"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「고조선」 https://encykorea.aks.ac.kr/Article/E0003937"
+      ],
       "status": "draft",
       "dating_note": "『삼국유사』의 단군 건국 전승(기원전 2333년)을 따른 연대이며, 고고학으로 확인된 건국 연대가 아니다."
     },
@@ -38,7 +40,9 @@
         "고대",
         "왕조"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「위만조선」 https://encykorea.aks.ac.kr/Article/E0041138"
+      ],
       "status": "draft"
     },
     {
@@ -57,7 +61,9 @@
         "고대",
         "만주"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「부여」 https://encykorea.aks.ac.kr/Article/E0024368"
+      ],
       "status": "draft",
       "dating_note": "건국 시점이 분명하지 않아 존속 시기를 대략적으로 잡은 값이다."
     },
@@ -77,7 +83,9 @@
         "고대",
         "연맹체"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「삼한」 https://encykorea.aks.ac.kr/Article/E0026922"
+      ],
       "status": "draft",
       "dating_note": "소국 연맹체의 형성·소멸 시기를 대략적으로 잡은 값이다."
     },
@@ -97,7 +105,10 @@
         "고대",
         "중국군현"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「한사군」 https://encykorea.aks.ac.kr/Article/E0061664",
+        "한국민족문화대백과사전 「낙랑군」 https://encykorea.aks.ac.kr/Article/E0011576"
+      ],
       "status": "draft"
     },
     {
@@ -116,7 +127,9 @@
         "삼국시대",
         "왕조"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「고구려」 https://encykorea.aks.ac.kr/Article/E0003323"
+      ],
       "status": "draft",
       "dating_note": "『삼국사기』의 건국 전승 연대. 학계는 실제 국가 형성을 이보다 늦게 보는 경우가 많다."
     },
@@ -136,7 +149,9 @@
         "삼국시대",
         "왕조"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「백제」 https://encykorea.aks.ac.kr/Article/E0022355"
+      ],
       "status": "draft",
       "dating_note": "『삼국사기』의 건국 전승 연대. 실제 고대국가 성립은 3~4세기로 보는 견해가 유력하다."
     },
@@ -156,7 +171,9 @@
         "삼국시대",
         "왕조"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「신라」 https://encykorea.aks.ac.kr/Article/E0032800"
+      ],
       "status": "draft",
       "dating_note": "『삼국사기』의 건국 전승 연대. 실제 고대국가 성립은 4세기 전후로 보는 견해가 유력하다."
     },
@@ -175,9 +192,11 @@
         "고대",
         "연맹체"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「가야」 https://encykorea.aks.ac.kr/Article/E0000257"
+      ],
       "status": "draft",
-      "dating_note": "『삼국유사』 가락국기의 전승 연대(42년)에 따른 것이다."
+      "dating_note": "『삼국유사』 가락국기의 전승 연대(42년)에 따른 시작이며, 끝은 마지막까지 남은 대가야가 멸망한 562년이다(금관가야는 532년 신라에 병합)."
     },
     {
       "id": "korea-unified-silla",
@@ -195,7 +214,10 @@
         "통일기",
         "왕조"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「삼국통일」 https://encykorea.aks.ac.kr/Article/E0026483",
+        "한국민족문화대백과사전 「나당전쟁」 https://encykorea.aks.ac.kr/Article/E0011307"
+      ],
       "status": "draft",
       "dating_note": "나당전쟁이 끝나 삼국 통일이 완성된 676년부터 신라가 멸망한 935년까지다. 후삼국이 시작된 892년(견훤의 거병)이나 900년을 끝으로 보는 구분도 있다."
     },
@@ -215,7 +237,9 @@
         "남북국",
         "왕조"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「발해」 https://encykorea.aks.ac.kr/Article/E0021626"
+      ],
       "status": "draft"
     },
     {
@@ -234,7 +258,10 @@
         "후삼국",
         "왕조"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「후백제」 https://encykorea.aks.ac.kr/Article/E0065738"
+      ],
+      "dating_note": "견훤이 거병한 892년을 시작으로 잡았다. 완산주에 도읍하고 후백제를 칭한 900년을 건국으로 보기도 한다.",
       "status": "draft"
     },
     {
@@ -253,7 +280,9 @@
         "후삼국",
         "왕조"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「태봉」 https://encykorea.aks.ac.kr/Article/E0058942"
+      ],
       "status": "draft"
     },
     {
@@ -272,7 +301,9 @@
         "중세",
         "왕조"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「고려」 https://encykorea.aks.ac.kr/Article/E0003424"
+      ],
       "status": "draft"
     },
     {
@@ -291,7 +322,9 @@
         "중세",
         "정치변동"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「고려」 https://encykorea.aks.ac.kr/Article/E0003424"
+      ],
       "status": "draft"
     },
     {
@@ -309,7 +342,9 @@
         "중세",
         "대외관계"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「원간섭기」 https://encykorea.aks.ac.kr/Article/E0070275"
+      ],
       "status": "draft"
     },
     {
@@ -328,7 +363,11 @@
         "근세",
         "왕조"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「조선」 https://encykorea.aks.ac.kr/Article/E0051904",
+        "한국민족문화대백과사전 「대한제국」 https://encykorea.aks.ac.kr/Article/E0015187"
+      ],
+      "dating_note": "대한제국 선포(1897년)를 끝으로 잡았다. 같은 왕조는 대한제국으로 1910년까지 이어졌고, 국호 '조선'은 1393년부터 썼다.",
       "status": "draft"
     },
     {
@@ -346,7 +385,9 @@
         "문화",
         "언어"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「훈민정음」 https://encykorea.aks.ac.kr/Article/E0065805"
+      ],
       "status": "draft"
     },
     {
@@ -365,7 +406,9 @@
         "전쟁",
         "대외관계"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「정유재란」 https://encykorea.aks.ac.kr/Article/E0050692"
+      ],
       "status": "draft"
     },
     {
@@ -384,7 +427,9 @@
         "전쟁",
         "대외관계"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「병자호란」 https://encykorea.aks.ac.kr/Article/E0023151"
+      ],
       "status": "draft"
     },
     {
@@ -402,7 +447,9 @@
         "근세",
         "개혁"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「탕평책」 https://encykorea.aks.ac.kr/Article/E0058860"
+      ],
       "status": "draft"
     },
     {
@@ -420,7 +467,9 @@
         "근세",
         "정치"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「세도정치」 https://encykorea.aks.ac.kr/Article/E0029786"
+      ],
       "status": "draft"
     },
     {
@@ -438,7 +487,10 @@
         "근대",
         "개혁"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「이하응」 https://encykorea.aks.ac.kr/Article/E0046384",
+        "한국민족문화대백과사전 「대원군」 https://encykorea.aks.ac.kr/Article/E0014635"
+      ],
       "status": "draft"
     },
     {
@@ -456,7 +508,9 @@
         "근대",
         "개항"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「개항」 https://encykorea.aks.ac.kr/Article/E0001752"
+      ],
       "status": "draft"
     },
     {
@@ -475,7 +529,9 @@
         "근대",
         "민중운동"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「동학운동」 https://encykorea.aks.ac.kr/Article/E0016865"
+      ],
       "status": "draft"
     },
     {
@@ -494,7 +550,9 @@
         "근대",
         "국가"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「대한제국」 https://encykorea.aks.ac.kr/Article/E0015187"
+      ],
       "status": "draft"
     },
     {
@@ -513,7 +571,9 @@
         "근대",
         "식민지"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「일제강점기」 https://encykorea.aks.ac.kr/Article/E0047318"
+      ],
       "status": "draft"
     },
     {
@@ -532,7 +592,9 @@
         "근대",
         "독립운동"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「3·1운동」 https://encykorea.aks.ac.kr/Article/E0026772"
+      ],
       "status": "draft"
     },
     {
@@ -551,7 +613,9 @@
         "근대",
         "독립운동"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「대한민국 임시정부」 https://encykorea.aks.ac.kr/Article/E0015017"
+      ],
       "status": "draft",
       "dating_note": "1919년 상하이 수립부터 대한민국 정부 수립(1948년)까지로 잡았다. 요인들이 개인 자격으로 귀국한 1945년을 사실상의 끝으로 보기도 한다."
     },
@@ -571,7 +635,9 @@
         "현대",
         "분단"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「미군정청」 https://encykorea.aks.ac.kr/Article/E0019891"
+      ],
       "status": "draft"
     },
     {
@@ -590,7 +656,9 @@
         "현대",
         "건국"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「대한민국」 https://encykorea.aks.ac.kr/Article/E0015002"
+      ],
       "status": "draft"
     },
     {
@@ -609,7 +677,9 @@
         "현대",
         "국가"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「대한민국」 https://encykorea.aks.ac.kr/Article/E0015002"
+      ],
       "status": "draft"
     },
     {
@@ -628,7 +698,10 @@
         "현대",
         "정치"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「대한민국」 https://encykorea.aks.ac.kr/Article/E0015002",
+        "한국민족문화대백과사전 「4·19혁명」 https://encykorea.aks.ac.kr/Article/E0025902"
+      ],
       "status": "draft"
     },
     {
@@ -647,7 +720,9 @@
         "현대",
         "북한"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「북한」 https://encykorea.aks.ac.kr/Article/E0024785"
+      ],
       "status": "draft"
     },
     {
@@ -666,7 +741,9 @@
         "현대",
         "전쟁"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「한국전쟁」 https://encykorea.aks.ac.kr/Article/E0042143"
+      ],
       "status": "draft"
     },
     {
@@ -685,7 +762,9 @@
         "현대",
         "민주화"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「4·19혁명」 https://encykorea.aks.ac.kr/Article/E0025902"
+      ],
       "status": "draft"
     },
     {
@@ -704,7 +783,9 @@
         "현대",
         "정치"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「5·16」 https://encykorea.aks.ac.kr/Article/E0038494"
+      ],
       "status": "draft"
     },
     {
@@ -722,8 +803,11 @@
         "현대",
         "산업화"
       ],
-      "sources": [],
-      "dating_note": "박정희 정부는 1979년 10·26 사건으로 끝났지만, 유신헌법 체제(제4공화국)는 제5공화국 헌법에 따른 새 정부가 출범한 1981년 3월까지 이어졌으므로 끝을 1981년으로 잡았다.",
+      "sources": [
+        "한국민족문화대백과사전 「대한민국」 https://encykorea.aks.ac.kr/Article/E0015002",
+        "한국민족문화대백과사전 「10월유신」 https://encykorea.aks.ac.kr/Article/E0032425"
+      ],
+      "dating_note": "5·16 군사정변(1961년) 뒤 군정기(1961~1963)를 포함해 시작을 1961년으로 잡았다(제3공화국 출범은 1963년 12월). 박정희 정부는 1979년 10·26 사건으로 끝났지만 유신헌법 체제(제4공화국)는 제5공화국 헌법에 따른 새 정부가 출범한 1981년 3월까지 이어졌으므로 끝을 1981년으로 잡았다.",
       "status": "draft"
     },
     {
@@ -742,7 +826,9 @@
         "현대",
         "민주화"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「5·18광주민주화운동」 https://encykorea.aks.ac.kr/Article/E0038496"
+      ],
       "status": "draft"
     },
     {
@@ -761,7 +847,9 @@
         "현대",
         "정치"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「대한민국」 https://encykorea.aks.ac.kr/Article/E0015002"
+      ],
       "status": "draft"
     },
     {
@@ -780,7 +868,9 @@
         "현대",
         "민주화"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「6월항쟁」 https://encykorea.aks.ac.kr/Article/E0068343"
+      ],
       "status": "draft"
     },
     {
@@ -798,7 +888,10 @@
         "현대",
         "민주주의"
       ],
-      "sources": [],
+      "sources": [
+        "한국민족문화대백과사전 「6·29민주화선언」 https://encykorea.aks.ac.kr/Article/E0042141",
+        "한국민족문화대백과사전 「87년체제」 https://encykorea.aks.ac.kr/Article/E0075867"
+      ],
       "status": "draft"
     }
   ]
