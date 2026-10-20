@@ -12,6 +12,13 @@
      · 열 이름은 화면 위에, 시대 이름은 화면 왼쪽에 붙어 따라온다
      · 먼 곳으로 갈 때는 잠깐 물러났다 다가가는 비행(Prezi 의 장면 전환)
      · 끝에 닿아도 벽처럼 멈추지 않는다 — 손가락을 따라 고무줄처럼 늘어났다가 놓으면 튕겨 돌아온다
+     · 눕히기(스타워즈 오프닝처럼) — 두 손가락을 나란히 위아래로 밀거나 Alt(Option)+휠, Alt+끌기, T 키.
+       과거가 저 멀리, 지금이 코앞에 오도록 그림판이 뒤로 눕는다
+
+   캔버스가 두 장이다.
+     · 판(plane)  — 열·사건·왕조 띠·연도 눈금. 눕히면 CSS 3D 로 기울어진다(판 좌표계는 그대로).
+     · 덮개(#zoom) — 화면에 납작하게 붙은 열 이름·시대 이름. 손가락 입력도 여기서 받아
+                     원근을 거꾸로 풀어 판 좌표로 바꾼다. 그래서 눕혀도 손가락 밑의 점이 그대로 따라온다.
 
    선형 시간이라 선사(3만 년)가 길고 문명사는 아래쪽에 모여 있다 — 그것이 빅 히스토리의 실제 비율.
    그리기는 <canvas> 하나. 화면이 움직일 때만 다시 그린다.
@@ -25,6 +32,9 @@
   var FRICTION = 2.3;        // 던진 뒤 감속(작을수록 멀리 미끄러진다)
   var RUBBER = 0.55;         // 끝을 넘겨 끌 때 따라오는 비율(iOS 의 고무줄)
   var SPRING = 13;           // 넘친 만큼 되돌아오는 빠르기
+  var TILT_MAX = 60 * Math.PI / 180;   // 가장 많이 눕혔을 때
+  var TILT_SNAP = 5 * Math.PI / 180;   // 이보다 덜 눕힌 채 손을 떼면 납작하게 돌아온다
+  var TILT_ON = 40 * Math.PI / 180;    // T 키로 눕힐 때
   var CARD_H = 56;
   var LABEL_H = 24;
   var DOT = 12;
@@ -62,10 +72,18 @@
    * @param opts    { eras, present, focusY(): px, onCamera(info), openEntry(entry) }
    */
   function create(canvas, opts) {
-    var ctx = canvas.getContext('2d');
+    var plane = opts.plane;                 // 눕는 판
+    var octx = canvas.getContext('2d');     // 납작한 덮개
+    var pctx = plane.getContext('2d');
+    var ctx = pctx;                         // 지금 그리는 쪽(그리기 도우미들이 함께 쓴다)
     var dpr = 1;
+    var pdpr = 1;
     var W = 0;
-    var H = 0;
+    var H = 0;      // 판 높이 — 눕히면 화면보다 길어진다(먼 곳까지)
+    var Hv = 0;     // 화면(덮개) 높이
+    // 원근 — on 이면 판이 커져 있다. th 는 눕힌 각도(0 이어도 on 일 수 있다)
+    var geo = { on: false, th: 0, c: 1, s: 0, P: 1000, yP: 0, Dtop: 0, B: 0 };
+    var tilt = { cur: 0, target: 0, snapTimer: 0 };
     var active = false;
     var raf = 0;
     var lastT = 0;
@@ -92,12 +110,34 @@
     function originX() { return axisW() + 8; }
     function viewW() { return Math.max(1, W - originX() - 8); }
     function cw() { return colWidth(cam.s); }
-    function focusY() { return opts.focusY ? opts.focusY() : H * 0.36; }
+    function focusY() { return unproj(W / 2, opts.focusY ? opts.focusY() : Hv * 0.36).y; }
     function yOf(year) { return (year - cam.t0) * cam.s; }
     function yearAt(y) { return cam.t0 + y / cam.s; }
     function xOfCol(u) { return originX() + (u - cam.u0) * cw(); }
     function colAt(x) { return cam.u0 + (x - originX()) / cw(); }
-    function sMin() { return (H * 0.92) / (T_MAX - T_MIN); }
+    function sMin() { return (Hv * 0.92) / (T_MAX - T_MIN); }
+
+    // ----------------------------------------------------------- 원근
+
+    /** 판 위의 점 → 화면. f 는 그 깊이에서의 축소 비율 */
+    function proj(x, y) {
+      if (!geo.on) return { x: x, y: y, f: 1 };
+      var d = geo.Dtop - y;                       // 회전축(yP)에서 판을 따라 위로 잰 거리
+      var f = geo.P / Math.max(geo.P * 0.05, geo.P + d * geo.s);
+      return { x: W / 2 + (x - W / 2) * f, y: geo.yP - d * geo.c * f, f: f };
+    }
+
+    /** 화면의 점 → 판 위의 점(지평선 너머는 판 끝 너머로 본다) */
+    function unproj(x, y) {
+      if (!geo.on) return { x: x, y: y, f: 1 };
+      var q = geo.yP - y;
+      var den = geo.c * geo.P - q * geo.s;
+      var dMax = geo.Dtop + Hv;
+      var d = den > 1e-3 ? Math.min(dMax, (q * geo.P) / den) : dMax;
+      var f = geo.P / (geo.P + d * geo.s);
+      return { x: W / 2 + (x - W / 2) / f, y: geo.Dtop - d, f: f };
+    }
+
 
     /** 카메라가 머물 수 있는 범위 — 초점선의 해는 역사 안, 화면은 열들 안 */
     function limits() {
@@ -195,13 +235,103 @@
     function resize() {
       var r = canvas.getBoundingClientRect();
       if (!r.width || !r.height) return;
+      var wasOn = geo.on;
+      if (wasOn) setPlane(false);
       dpr = Math.min(2.5, global.devicePixelRatio || 1);
       W = r.width;
-      H = r.height;
+      Hv = r.height;
       canvas.width = Math.round(W * dpr);
-      canvas.height = Math.round(H * dpr);
+      canvas.height = Math.round(Hv * dpr);
+      if (wasOn) setPlane(true);
+      else sizePlane(Hv);
       clampCam();
       invalidate();
+    }
+
+    function sizePlane(h) {
+      H = h;
+      // 판이 길어지면 해상도를 조금 낮춰 메모리를 지킨다(멀리 있는 쪽은 어차피 작게 보인다)
+      pdpr = Math.min(dpr, Math.sqrt(14e6 / Math.max(1, W * h)));
+      plane.width = Math.round(W * pdpr);
+      plane.height = Math.round(h * pdpr);
+      plane.style.height = h + 'px';
+    }
+
+    /**
+     * 판 키우기/되돌리기. 키우면 판이 회전축 위쪽으로 길어지므로(먼 과거까지 보이게)
+     * 같은 그림이 같은 자리에 있도록 맨 위의 해(t0)를 그만큼 당겨 둔다.
+     */
+    function setPlane(on) {
+      if (on === geo.on || !W) return;
+      motion.mode = 'idle';
+      if (on) {
+        geo.B = clamp(Hv * 0.16, 80, 150);          // 회전축 아래(계기판·탭에 가리는 쪽)
+        geo.yP = Hv - geo.B;
+        geo.P = Math.max(Hv * 1.1, 600);
+        var h = Math.round(Math.min(Hv * 2.6, Hv + 2400));
+        geo.Dtop = h - geo.B;
+        cam.t0 -= (h - Hv) / cam.s;
+        geo.on = true;
+        sizePlane(h);
+      } else {
+        cam.t0 += (H - Hv) / cam.s;
+        geo.on = false;
+        geo.th = 0; geo.c = 1; geo.s = 0;
+        sizePlane(Hv);
+      }
+      applyTilt();
+    }
+
+    function applyTilt() {
+      var st = plane.style;
+      if (!geo.on) {
+        st.top = '0px';
+        st.transform = '';
+        st.webkitMaskImage = st.maskImage = '';
+        canvas.classList.remove('is-tilted');
+        return;
+      }
+      // 눕히는 동안에도 초점 고리에 걸린 해는 그대로 — 보던 것이 제자리에 있게
+      var keep = yearAt(focusY());
+      geo.th = tilt.cur;
+      geo.c = Math.cos(geo.th);
+      geo.s = Math.sin(geo.th);
+      cam.t0 = keep - focusY() / cam.s;
+      st.top = (geo.yP - geo.Dtop) + 'px';
+      st.transformOrigin = '50% ' + geo.Dtop + 'px';
+      st.transform = 'perspective(' + geo.P.toFixed(0) + 'px) rotateX(' + (geo.th * 180 / Math.PI).toFixed(2) + 'deg)';
+      // 먼 끝은 별빛 속으로 사라지듯
+      var fade = 'linear-gradient(to bottom, transparent 0, #000 ' + (geo.th > 0.02 ? 22 : 0) + '%)';
+      st.webkitMaskImage = st.maskImage = fade;
+      canvas.classList.toggle('is-tilted', geo.th > 0.02);
+    }
+
+    /** 각도를 정한다. instant 가 아니면 스르륵 */
+    function setTilt(th, instant) {
+      th = clamp(th, 0, TILT_MAX);
+      tilt.target = th;
+      if (th > 0 && !geo.on) setPlane(true);
+      if (instant || reduced) {
+        tilt.cur = th;
+        applyTilt();
+        if (th === 0) setPlane(false);
+      }
+      lastT = 0;
+      invalidate();
+    }
+
+    /** 손을 뗐을 때 조금만 눕혀져 있으면 납작하게 */
+    function settleTilt() {
+      if (tilt.target < TILT_SNAP) setTilt(0);
+    }
+
+    function stepTilt(dt) {
+      if (tilt.cur === tilt.target) return false;
+      tilt.cur += (tilt.target - tilt.cur) * (1 - Math.exp(-dt * 9));
+      if (Math.abs(tilt.target - tilt.cur) < 0.002) tilt.cur = tilt.target;
+      applyTilt();
+      if (tilt.cur === 0 && tilt.target === 0) setPlane(false);
+      return tilt.cur !== tilt.target;
     }
 
     function invalidate() {
@@ -229,7 +359,8 @@
     }
 
     function draw() {
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx = pctx;
+      ctx.setTransform(pdpr, 0, 0, pdpr, 0, 0);
       ctx.clearRect(0, 0, W, H);
       hits = [];
       var yTop = yearAt(-40);
@@ -284,6 +415,11 @@
 
       // 3) 시간 눈금 — 왼쪽에 붙어 있다
       drawAxis(ax, yTop, yBot);
+
+      // 여기부터는 납작한 덮개 — 눕혀도 똑바로 읽히게
+      ctx = octx;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, Hv);
 
       // 4) 시대 이름·장면 이름 — 화면 왼쪽 위에 붙어 따라온다
       drawEraTitles(ax);
@@ -354,7 +490,7 @@
     function drawAxis(ax, yTop, yBot) {
       // 눈금 칸 바탕(열이 옆으로 지나가도 읽히게)
       ctx.fillStyle = colors.sky;
-      ctx.globalAlpha = 0.86;
+      ctx.globalAlpha = geo.th > 0.02 ? 0.5 : 0.86;   // 눕히면 비스듬한 띠가 무거워 보여 옅게
       ctx.fillRect(0, 0, ax, H);
       ctx.globalAlpha = 1;
 
@@ -407,16 +543,20 @@
 
     /** 시대 이름(띠 안에서 화면 위쪽에 붙어 따라옴) + 장면 이름 */
     function drawEraTitles(ax) {
+      // 판 위 시대 경계를 화면으로 옮겨 놓고, 그 사이에서 위쪽에 붙인다
+      var top = geo.on ? Math.max(HEAD_H, proj(ax, 0).y) : HEAD_H;
+      var axAt = function (sy) { return proj(ax, unproj(W / 2, sy).y).x; };
       eras.forEach(function (era) {
-        var a = yOf(era.start_year);
-        var b = yOf(era.end_year);
-        if (b - a < 40 || b < HEAD_H || a > H) return;
-        var y = clamp(HEAD_H + 30, a + 30, b - 10);
+        var a = proj(ax, yOf(era.start_year)).y;
+        var b = proj(ax, yOf(era.end_year)).y;
+        if (b - a < 40 || b < top || a > Hv) return;
+        var y = clamp(top + 30, a + 30, b - 10);
+        var bx0 = axAt(y);
         ctx.font = '700 24px ' + colors.display;
         var tw = ctx.measureText(era.label).width;
         ctx.font = '12px ' + colors.sans;
         var rw = ctx.measureText(era.range || '').width;
-        var bx = ax + 8;
+        var bx = bx0 + 8;
         ctx.fillStyle = colors.sky;
         ctx.globalAlpha = 0.82;
         roundRect(bx - 6, y - 25, tw + rw + 28, 34, 12);
@@ -428,38 +568,48 @@
         ctx.font = '12px ' + colors.sans;
         ctx.fillStyle = colors.inkBg2;
         ctx.fillText(era.range || '', bx + tw + 12, y);
-        hits.push({ x: bx - 6, y: y - 25, w: tw + rw + 28, h: 34, era: era });
+        hits.push({ x: bx - 6, y: y - 25, w: tw + rw + 28, h: 34, era: era, scr: true });
 
         (era.scenes || []).forEach(function (sc, i) {
           if (i === 0) return;
-          var sy = yOf(sc.start_year);
-          if (sy < y + 14 || sy > H - 10) return;
+          var sp = proj(ax, yOf(sc.start_year));
+          var sy = sp.y;
+          if (sy < y + 14 || sy > Hv - 10 || sp.f < 0.4) return;   // 너무 먼 장면 이름은 생략
+          var sx = sp.x + 8;
           ctx.font = '12px ' + colors.sans;
           var lw = ctx.measureText('· ' + sc.label).width;
+          ctx.globalAlpha = Math.min(1, (sp.f - 0.4) * 4);
           ctx.fillStyle = colors.sky;
-          ctx.globalAlpha = 0.8;
-          roundRect(bx - 4, sy - 17, lw + 12, 20, 8);
+          ctx.globalAlpha *= 0.8;
+          roundRect(sx - 4, sy - 17, lw + 12, 20, 8);
           ctx.fill();
-          ctx.globalAlpha = 1;
+          ctx.globalAlpha = Math.min(1, (sp.f - 0.4) * 4);
           ctx.fillStyle = colors.inkBg2;
-          ctx.fillText('· ' + sc.label, bx + 2, sy - 3);
+          ctx.fillText('· ' + sc.label, sx + 2, sy - 3);
+          ctx.globalAlpha = 1;
         });
       });
     }
 
     /** 열 이름 줄 — 화면 맨 위에 붙어 있다. 좁으면 색 점만 */
-    function drawHeads(firstCol, lastCol, c) {
-      var ax = axisW();
-      ctx.save();
-      ctx.beginPath(); ctx.rect(ax, 0, W - ax, HEAD_H); ctx.clip();
+    function drawHeads(firstCol, lastCol, c0) {
+      // 눕혀 있으면 머리글 줄 높이(화면)에 닿는 판의 깊이에서 열이 어디 있는지로 줄 세운다
+      var py = Math.max(0, unproj(W / 2, HEAD_H / 2).y);
+      var f = proj(W / 2, py).f;
+      var c = c0 * f;
+      var ax = proj(axisW(), py).x;
+      var right = proj(W, py).x;
+      var bg0 = geo.th > 0.02 ? 0 : ax;   // 눕혔을 땐 줄 바탕을 화면 폭 그대로
       ctx.fillStyle = colors.sky;
       ctx.globalAlpha = 0.9;
-      ctx.fillRect(ax, 0, W - ax, HEAD_H);
+      ctx.fillRect(bg0, 0, W - bg0, HEAD_H);
       ctx.globalAlpha = 1;
+      ctx.save();
+      ctx.beginPath(); ctx.rect(ax, 0, right - ax, HEAD_H); ctx.clip();
       for (var i = firstCol; i <= lastCol; i += 1) {
         var col = cols[i];
         if (!col) continue;
-        var x = xOfCol(i);
+        var x = W / 2 + (xOfCol(i) - W / 2) * f;
         ctx.fillStyle = colors.foam;
         roundRect(x + 3, 4, c - 6, HEAD_H - 8, 10);
         ctx.fill();
@@ -470,11 +620,11 @@
           ctx.fillStyle = colors.ink;
           ctx.fillText(fitText(col.ds.label, c - 34), x + 24, HEAD_H / 2 + 4);
         }
-        hits.push({ x: x, y: 0, w: c, h: HEAD_H, head: i });
+        hits.push({ x: x, y: 0, w: c, h: HEAD_H, head: i, scr: true });
       }
       ctx.restore();
       ctx.strokeStyle = colors.line;
-      ctx.beginPath(); ctx.moveTo(ax, HEAD_H); ctx.lineTo(W, HEAD_H); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(bg0, HEAD_H); ctx.lineTo(W, HEAD_H); ctx.stroke();
     }
 
     // ------------------------------------------------- 자리 잡기(겹치지 않게)
@@ -600,6 +750,7 @@
       var dt = lastT ? Math.min(0.05, (t - lastT) / 1000) : 1 / 60;
       lastT = t;
       var moving = step(dt, t);
+      if (stepTilt(dt)) moving = true;
       clampCam();
       draw();
       if (opts.onCamera) {
@@ -607,7 +758,9 @@
           year: clamp(yearAt(focusY()), T_MIN, T_MAX),   // 고무줄로 넘친 동안에도 역사 밖 해는 안 보이게
           s: cam.s,
           moving: moving,
-          dragging: !!(gesture && gesture.active)
+          dragging: !!(gesture && gesture.active),
+          ringX: proj(axisW(), focusY()).x,
+          tilt: tilt.cur
         });
       }
       if (moving) raf = global.requestAnimationFrame(frame);
@@ -705,8 +858,8 @@
     /** 연도 구간 [a, b] 가 화면에 들어오게 */
     function flyToRange(a, b, o) {
       var span = Math.max(1, b - a);
-      var s = ((H - HEAD_H) * 0.84) / span;
-      flyTo(a + (focusY() - HEAD_H) / s - (H * 0.05) / s, s, o);
+      var s = ((Hv - HEAD_H) * 0.84) / span;
+      flyTo(a + (focusY() - HEAD_H) / s - (Hv * 0.05) / s, s, o);
     }
 
     function zoomAround(x, y, factor) {
@@ -731,17 +884,47 @@
 
     // ----------------------------------------------------------- 입력
 
+    /** 화면 좌표(sx, sy)와, 원근을 풀어 낸 판 좌표(x, y) */
     function local(e) {
       var r = canvas.getBoundingClientRect();
-      return { x: e.clientX - r.left, y: e.clientY - r.top };
+      var sx = e.clientX - r.left;
+      var sy = e.clientY - r.top;
+      var q = unproj(sx, sy);
+      return { x: q.x, y: q.y, sx: sx, sy: sy };
     }
 
     function hitAt(p) {
       for (var i = hits.length - 1; i >= 0; i -= 1) {
         var h = hits[i];
-        if (p.x >= h.x && p.x <= h.x + h.w && p.y >= h.y && p.y <= h.y + h.h) return h;
+        var x = h.scr ? p.sx : p.x;   // 덮개에 그린 것(열·시대 이름)은 화면 좌표로
+        var y = h.scr ? p.sy : p.y;
+        if (x >= h.x && x <= h.x + h.w && y >= h.y && y <= h.y + h.h) return h;
       }
       return null;
+    }
+
+    var TILT_PER_PX = function () { return TILT_MAX / Math.max(240, Hv * 0.5); };   // 화면 반 높이를 밀면 끝까지
+
+    /**
+     * 두 손가락 — 처음 조금 움직인 모양으로 가른다.
+     * 나란히 놓인 두 손가락이 같이 위아래로 움직이면 눕히기(구글 지도처럼), 아니면 핀치 줌.
+     */
+    function classifyTwo(g) {
+      var a = pointers[g.ids[0]];
+      var b = pointers[g.ids[1]];
+      if (!a || !b) return null;
+      var dax = a.sx - g.a0.sx, day = a.sy - g.a0.sy;
+      var dbx = b.sx - g.b0.sx, dby = b.sy - g.b0.sy;
+      // 손가락 이벤트는 하나씩 번갈아 오니, 둘 다 움직인 뒤에 가른다(한쪽만 크게 움직였으면 핀치)
+      var ma = Math.hypot(dax, day);
+      var mb = Math.hypot(dbx, dby);
+      if (Math.max(ma, mb) < 10 || (Math.min(ma, mb) < 5 && Math.max(ma, mb) < 32)) return null;
+      var sideBySide = Math.abs(g.a0.sx - g.b0.sx) > Math.abs(g.a0.sy - g.b0.sy) * 0.9;
+      var together = day * dby > 0 && Math.abs(day) > Math.abs(dax) * 1.2 && Math.abs(dby) > Math.abs(dbx) * 1.2;
+      var d0 = Math.hypot(g.a0.sx - g.b0.sx, g.a0.sy - g.b0.sy);
+      var d1 = Math.hypot(a.sx - b.sx, a.sy - b.sy);
+      var steady = Math.abs(d1 - d0) < 0.45 * (Math.abs(day) + Math.abs(dby)) / 2;
+      return sideBySide && together && steady ? 'tilt' : 'pinch';
     }
 
     canvas.addEventListener('pointerdown', function (e) {
@@ -752,21 +935,28 @@
       try { canvas.setPointerCapture(e.pointerId); } catch (err) { /* 무시 */ }
       var ids = Object.keys(pointers);
       motion.mode = 'idle';
-      if (ids.length === 1) {
+      if (ids.length === 1 && e.altKey) {
+        // Alt(Option)+끌기 — 위로 밀면 눕고 아래로 당기면 선다
+        gesture = { kind: 'tilt1', id: e.pointerId, sy0: p.sy, th0: tilt.target, active: true };
+        canvas.classList.add('is-dragging');
+      } else if (ids.length === 1) {
         // 튕겨 돌아오던 중에 잡아도 튀지 않게, 지금 보이는 자리를 손가락 기준 자리로 되돌려 둔다
         var L = limits();
         gesture = {
-          kind: 'pan', id: e.pointerId, x0: p.x, y0: p.y, at: e.timeStamp, active: false, samples: [],
-          t0: unrubber(cam.t0, L.tA, L.tB, cam.s, H), u0: unrubber(cam.u0, L.uA, L.uB, cw(), W)
+          kind: 'pan', id: e.pointerId, x0: p.x, y0: p.y, sx0: p.sx, sy0: p.sy, at: e.timeStamp, active: false, samples: [],
+          t0: unrubber(cam.t0, L.tA, L.tB, cam.s, Hv), u0: unrubber(cam.u0, L.uA, L.uB, cw(), W)
         };
       } else if (ids.length === 2) {
-        var a = pointers[ids[0]];
-        var b = pointers[ids[1]];
-        var mx = (a.x + b.x) / 2;
-        var my = (a.y + b.y) / 2;
-        gesture = { kind: 'pinch', d0: Math.max(20, Math.hypot(a.x - b.x, a.y - b.y)), s0: cam.s, year: yearAt(my), u: colAt(mx), active: true };
+        // 어느 쪽인지 정해질 때까지 그대로 — 정해지면 처음 자리 기준으로 이어 간다
+        gesture = { kind: 'two', ids: ids, a0: pointers[ids[0]], b0: pointers[ids[1]], th0: tilt.target, active: true };
       }
     });
+
+    function startPinch(a, b) {
+      var mx = (a.x + b.x) / 2;
+      var my = (a.y + b.y) / 2;
+      gesture = { kind: 'pinch', d0: Math.max(20, Math.hypot(a.x - b.x, a.y - b.y)), s0: cam.s, year: yearAt(my), u: colAt(mx), active: true };
+    }
 
     canvas.addEventListener('pointermove', function (e) {
       if (!active) return;
@@ -778,15 +968,33 @@
       }
       pointers[e.pointerId] = p;
       if (!gesture) return;
+      if (gesture.kind === 'two') {
+        var kind = classifyTwo(gesture);
+        if (!kind) return;
+        if (kind === 'pinch') startPinch(gesture.a0, gesture.b0);
+        else gesture.kind = 'tilt';
+      }
+      if (gesture.kind === 'tilt') {
+        var pa = pointers[gesture.ids[0]];
+        var pb = pointers[gesture.ids[1]];
+        if (!pa || !pb) return;
+        var my2 = ((pa.sy - gesture.a0.sy) + (pb.sy - gesture.b0.sy)) / 2;
+        setTilt(gesture.th0 - my2 * TILT_PER_PX(), true);
+        return;
+      }
+      if (gesture.kind === 'tilt1' && e.pointerId === gesture.id) {
+        setTilt(gesture.th0 - (p.sy - gesture.sy0) * TILT_PER_PX(), true);
+        return;
+      }
       if (gesture.kind === 'pan' && e.pointerId === gesture.id) {
         var dx = p.x - gesture.x0;
         var dy = p.y - gesture.y0;
-        if (!gesture.active && Math.abs(dy) + Math.abs(dx) < 6) return;
+        if (!gesture.active && Math.abs(p.sy - gesture.sy0) + Math.abs(p.sx - gesture.sx0) < 6) return;
         gesture.active = true;
         canvas.classList.add('is-dragging');
         // 상하좌우 어디로든 — 그림 한 장을 손으로 미는 것처럼. 끝 너머로는 고무줄처럼
         var L = limits();
-        cam.t0 = rubber(gesture.t0 - dy / cam.s, L.tA, L.tB, cam.s, H);
+        cam.t0 = rubber(gesture.t0 - dy / cam.s, L.tA, L.tB, cam.s, Hv);
         cam.u0 = rubber(gesture.u0 - dx / cw(), L.uA, L.uB, cw(), W);
         gesture.samples.push({ t: e.timeStamp, t0: cam.t0, u0: cam.u0 });
         while (gesture.samples.length > 2 && e.timeStamp - gesture.samples[0].t > 100) gesture.samples.shift();
@@ -812,11 +1020,18 @@
       delete pointers[e.pointerId];
       var g = gesture;
       if (!g) return;
+      if (g.kind === 'tilt' || g.kind === 'tilt1' || g.kind === 'two') {
+        // 눕히기가 끝나면 남은 손가락은 다시 놓을 때까지 쉰다
+        gesture = null;
+        canvas.classList.remove('is-dragging');
+        settleTilt();
+        return;
+      }
       if (g.kind === 'pinch') {
         // 손가락 하나가 남으면 그 손가락으로 이어서 끌 수 있게
         var rest = Object.keys(pointers);
         gesture = rest.length === 1
-          ? { kind: 'pan', id: Number(rest[0]), x0: pointers[rest[0]].x, y0: pointers[rest[0]].y, t0: cam.t0, u0: cam.u0, at: e.timeStamp, active: true, samples: [] }
+          ? { kind: 'pan', id: Number(rest[0]), x0: pointers[rest[0]].x, y0: pointers[rest[0]].y, sx0: pointers[rest[0]].sx, sy0: pointers[rest[0]].sy, t0: cam.t0, u0: cam.u0, at: e.timeStamp, active: true, samples: [] }
           : null;
         return;
       }
@@ -846,12 +1061,12 @@
       // 톡 — 사건이면 상세, 시대 이름이면 그 시대로, 열 이름이면 그 열로, 묶음이면 다가가기. 두 번 톡이면 줌인
       if (e.timeStamp - g.at > 450) return;
       var tapAt = e.timeStamp;
-      if (lastTap && tapAt - lastTap.t < 320 && Math.abs(lastTap.y - p.y) < 30 && Math.abs(lastTap.x - p.x) < 30) {
+      if (lastTap && tapAt - lastTap.t < 320 && Math.abs(lastTap.y - p.sy) < 30 && Math.abs(lastTap.x - p.sx) < 30) {
         lastTap = null;
         zoomAround(p.x, p.y, 2.6);
         return;
       }
-      lastTap = { t: tapAt, x: p.x, y: p.y };
+      lastTap = { t: tapAt, x: p.sx, y: p.sy };
       var h = hitAt(p);
       if (!h) return;
       if (h.entry && opts.openEntry) opts.openEntry(h.entry);
@@ -870,6 +1085,15 @@
       var unit = e.deltaMode === 1 ? 32 : (e.deltaMode === 2 ? H : 1);
       var dy = e.deltaY * unit;
       var dx = e.deltaX * unit;
+      if (e.altKey) {
+        // Alt(Option)+휠 — 굴려 올리면 눕고 내리면 선다. (Ctrl+휠은 트랙패드 핀치라 줌으로 둔다)
+        // 맥에서 Option+휠은 가로로 올 때가 있어 큰 쪽을 쓴다
+        var dd = Math.abs(dx) > Math.abs(dy) ? dx : dy;
+        setTilt(tilt.target - dd * 0.0035, true);
+        clearTimeout(tilt.snapTimer);
+        tilt.snapTimer = setTimeout(settleTilt, 260);
+        return;
+      }
       if (e.shiftKey && !dx) {
         // Shift+휠은 가로 이동
         motion.mode = 'idle';
@@ -907,11 +1131,16 @@
       flyToRange: flyToRange,
       zoomBy: function (f) { zoomAround(originX() + viewW() / 2, focusY(), f); },
       panBy: panBy,
-      axisX: function () { return axisW(); },
+      axisX: function () { return proj(axisW(), focusY()).x; },
+      /** 눕히기 — 0(납작) ~ TILT_MAX 라디안 */
+      setTilt: function (th, instant) { setTilt(th, instant); if (!instant) settleTilt(); },
+      toggleTilt: function () { setTilt(tilt.target > TILT_SNAP ? 0 : TILT_ON); },
+      get tilt() { return tilt.cur; },
       /** 처음 열 때 — 문명사(기원전 4200년~지금)가 화면에 들어오게 */
       home: function () {
-        cam.s = clamp(((H - HEAD_H) * 0.86) / (T_MAX + 4200), sMin(), S_MAX);
-        cam.t0 = -4200 - (H * 0.04 + HEAD_H) / cam.s;
+        setTilt(0, true);
+        cam.s = clamp(((Hv - HEAD_H) * 0.86) / (T_MAX + 4200), sMin(), S_MAX);
+        cam.t0 = -4200 - (Hv * 0.04 + HEAD_H) / cam.s;
         cam.u0 = 0;
         clampCam();
         invalidate();
@@ -919,7 +1148,8 @@
       /** 그려진 사건들(개발·테스트 확인용) */
       items: function () {
         return hits.filter(function (h) { return h.entry; }).map(function (h) {
-          return { title: h.entry.title, x: h.x + Math.min(h.w, 40) / 2, y: h.y + h.h / 2 };
+          var q = proj(h.x + Math.min(h.w, 40) / 2, h.y + h.h / 2);   // 화면 좌표로
+          return { title: h.entry.title, x: q.x, y: q.y };
         });
       },
       get year() { return clamp(yearAt(focusY()), T_MIN, T_MAX); },

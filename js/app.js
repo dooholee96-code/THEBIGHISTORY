@@ -673,6 +673,12 @@
       if (info.dragging) buzz([14, 30, 10]);
     }
 
+    // 눕히면 초점 고리가 연도 축을 따라 안쪽으로 들어간다
+    if (info.ringX != null && Math.abs(info.ringX - (live.ringX || 0)) > 0.5) {
+      live.ringX = info.ringX;
+      el.focusLine.style.setProperty('--ring-x', info.ringX + 'px');
+    }
+
     var shown = Math.round(year);
     if (shown === 0) shown = 1;
     hud.setYear(shown);
@@ -1651,6 +1657,7 @@
         case 'PageUp': zoom.panBy(-zpage); break;
         case '+': case '=': zoom.zoomBy(1.8); break;
         case '-': case '_': zoom.zoomBy(1 / 1.8); break;
+        case 't': case 'T': case 'ㅅ': zoom.toggleTilt(); break;   // 눕히기(한글 자판이면 ㅅ)
         case 'Home': zoom.flyToRange(state.data.eras[0].start_year, state.data.eras[state.data.eras.length - 1].end_year); break;
         case 'End': zoom.flyTo(2025, Math.max(zoom.scale, 2)); break;
         default:
@@ -1711,6 +1718,7 @@
     });
     window.__bhZoom = null;
     zoom = Z.create(el.zoom, {
+      plane: document.getElementById('zoom-plane'),
       eras: data.eras,
       present: data.entries.reduce(function (m, e) { return Math.max(m, e.end_year); }, -Infinity),
       focusY: function () { return layout.focus; },

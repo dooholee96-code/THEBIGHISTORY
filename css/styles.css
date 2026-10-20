@@ -950,13 +950,29 @@ body {
 .tl-card__len { color: var(--ink-2); white-space: nowrap; }
 
 /* 탐험 — 시간 줌 캔버스(기본 보기). 타임라인 스크롤 대신 이 캔버스가 화면을 맡는다 */
-.zoom {
+/* 탐험 — 판(눕는 쪽)과 덮개(납작, 입력)를 담는 상자. 눕힌 판의 먼 끝이 밖으로 새지 않게 자른다 */
+.zoom-box {
   position: absolute;
   inset: 0;
   z-index: 1;
+  display: none;
+  overflow: hidden;
+}
+
+.zoom-plane {
+  position: absolute;
+  left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
-  display: none;
+  pointer-events: none;
+}
+
+.zoom {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   touch-action: none;
   cursor: grab;
   -webkit-user-select: none;
@@ -964,7 +980,7 @@ body {
 }
 
 .zoom.is-dragging { cursor: grabbing; }
-.is-zoom .zoom { display: block; }
+.is-zoom .zoom-box { display: block; }
 .is-zoom .scroll { display: none; }
 
 /* 막간 무대 — 카드 없는 빈 구간. 뒤 무대의 디오라마가 이 사이로 온전히 보인다 */
