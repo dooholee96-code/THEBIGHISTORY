@@ -32,6 +32,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           cp -r data/review /tmp/review
+          rm -rf data/review   # 브랜치를 바꿀 때 같은 이름의 파일과 부딪치지 않게
           git fetch origin data-review || true
           if git show-ref --quiet refs/remotes/origin/data-review; then
             git checkout -B data-review origin/data-review
