@@ -21,18 +21,20 @@
    "kind": "polity",
    "start_year": -3500,
    "end_year": -2000,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q133442",
-    "ko": "도시국가",
-    "en": "city-state",
-    "desc": "한 도시와 그 종속 구역으로 이루어진 자치 국가",
-    "types": [],
-    "start": null,
-    "end": null,
-    "term": "도시국가"
-   },
-   "others": []
+   "verdict": "못 찾음",
+   "best": null,
+   "others": [
+    {
+     "qid": "Q133442",
+     "ko": "도시국가",
+     "en": "city-state",
+     "desc": "한 도시와 그 종속 구역으로 이루어진 자치 국가",
+     "types": [],
+     "start": null,
+     "end": null,
+     "term": "도시국가"
+    }
+   ]
   },
   {
    "id": "world-egypt",
@@ -66,25 +68,6 @@
     "term": "고대 이집트"
    },
    "others": [
-    {
-     "qid": "Q79",
-     "ko": "이집트",
-     "en": "Egypt",
-     "desc": "북아프리카와 서아시아의 국가",
-     "types": [
-      "나라",
-      "여러 대륙에 걸친 나라",
-      "주권국",
-      "지중해 국가"
-     ],
-     "start": {
-      "prop": "P571",
-      "year": 1922,
-      "precision": 11
-     },
-     "end": null,
-     "term": "이집트"
-    },
     {
      "qid": "Q318394",
      "ko": "고대 이집트의 미술",
@@ -126,6 +109,16 @@
       "year": 400,
       "precision": 9
      },
+     "term": "고대 이집트"
+    },
+    {
+     "qid": "Q146083",
+     "ko": "고대 이집트 신",
+     "en": "Ancient Egyptian deity",
+     "desc": null,
+     "types": [],
+     "start": null,
+     "end": null,
      "term": "고대 이집트"
     }
    ]
@@ -187,14 +180,18 @@
      "term": "문명"
     },
     {
-     "qid": "Q1868663",
-     "ko": "문명",
+     "qid": "Q2385",
+     "ko": "문명 V",
      "en": null,
-     "desc": "비디오 게임 시리즈",
+     "desc": "2010년에 발매된 턴제 전략 게임",
      "types": [
-      "비디오 게임 시리즈"
+      "비디오 게임"
      ],
-     "start": null,
+     "start": {
+      "prop": "P577",
+      "year": 2010,
+      "precision": 11
+     },
      "end": null,
      "term": "문명"
     }
@@ -237,34 +234,6 @@
    },
    "others": [
     {
-     "qid": "Q48349",
-     "ko": "제국",
-     "en": "empire",
-     "desc": null,
-     "types": [
-      "군주제"
-     ],
-     "start": null,
-     "end": null,
-     "term": "제국"
-    },
-    {
-     "qid": "Q111209750",
-     "ko": "제국",
-     "en": "The Empire",
-     "desc": null,
-     "types": [
-      "영화"
-     ],
-     "start": {
-      "prop": "P577",
-      "year": 2024,
-      "precision": 11
-     },
-     "end": null,
-     "term": "제국"
-    },
-    {
      "qid": "Q34266",
      "ko": "러시아 제국",
      "en": "Russian Empire",
@@ -281,6 +250,47 @@
      "end": {
       "prop": "P576",
       "year": 1917,
+      "precision": 11
+     },
+     "term": "제국"
+    },
+    {
+     "qid": "Q43287",
+     "ko": "독일 제국",
+     "en": "German Empire",
+     "desc": "1871년부터 1918년까지 존속한 중앙 유럽의 옛 국가",
+     "types": [
+      "과거에 존재했던 나라",
+      "시대"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1871,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P576",
+      "year": 1918,
+      "precision": 11
+     },
+     "term": "제국"
+    },
+    {
+     "qid": "Q188712",
+     "ko": "일본 제국",
+     "en": "Empire of Japan",
+     "desc": "1868년부터 1947년까지 존속한 동아시아의 옛 국가",
+     "types": [
+      "과거에 존재했던 나라"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1868,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P576",
+      "year": 1947,
       "precision": 11
      },
      "term": "제국"
@@ -393,14 +403,18 @@
      "term": "히타이트"
     },
     {
-     "qid": "Q1142277",
-     "ko": "히타이트 신화",
-     "en": "Hittite mythology",
+     "qid": "Q1035956",
+     "ko": "히타이트 쐐기 문자",
+     "en": "Hittite cuneiform",
      "desc": null,
      "types": [
-      "mythology by ethnic group"
+      "쓰기"
      ],
-     "start": null,
+     "start": {
+      "prop": "P585",
+      "year": -1501,
+      "precision": 7
+     },
      "end": null,
      "term": "히타이트"
     }
@@ -472,14 +486,18 @@
      "term": "문명"
     },
     {
-     "qid": "Q1868663",
-     "ko": "문명",
+     "qid": "Q2385",
+     "ko": "문명 V",
      "en": null,
-     "desc": "비디오 게임 시리즈",
+     "desc": "2010년에 발매된 턴제 전략 게임",
      "types": [
-      "비디오 게임 시리즈"
+      "비디오 게임"
      ],
-     "start": null,
+     "start": {
+      "prop": "P577",
+      "year": 2010,
+      "precision": 11
+     },
      "end": null,
      "term": "문명"
     }
@@ -525,34 +543,6 @@
    },
    "others": [
     {
-     "qid": "Q48349",
-     "ko": "제국",
-     "en": "empire",
-     "desc": null,
-     "types": [
-      "군주제"
-     ],
-     "start": null,
-     "end": null,
-     "term": "제국"
-    },
-    {
-     "qid": "Q111209750",
-     "ko": "제국",
-     "en": "The Empire",
-     "desc": null,
-     "types": [
-      "영화"
-     ],
-     "start": {
-      "prop": "P577",
-      "year": 2024,
-      "precision": 11
-     },
-     "end": null,
-     "term": "제국"
-    },
-    {
      "qid": "Q34266",
      "ko": "러시아 제국",
      "en": "Russian Empire",
@@ -569,6 +559,47 @@
      "end": {
       "prop": "P576",
       "year": 1917,
+      "precision": 11
+     },
+     "term": "제국"
+    },
+    {
+     "qid": "Q43287",
+     "ko": "독일 제국",
+     "en": "German Empire",
+     "desc": "1871년부터 1918년까지 존속한 중앙 유럽의 옛 국가",
+     "types": [
+      "과거에 존재했던 나라",
+      "시대"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1871,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P576",
+      "year": 1918,
+      "precision": 11
+     },
+     "term": "제국"
+    },
+    {
+     "qid": "Q188712",
+     "ko": "일본 제국",
+     "en": "Empire of Japan",
+     "desc": "1868년부터 1947년까지 존속한 동아시아의 옛 국가",
+     "types": [
+      "과거에 존재했던 나라"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1868,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P576",
+      "year": 1947,
       "precision": 11
      },
      "term": "제국"
@@ -648,6 +679,26 @@
    },
    "others": [
     {
+     "qid": "Q83311",
+     "ko": "페르시아 제국",
+     "en": "Persian Empire",
+     "desc": "이란에 근거한 여러 개의 제국을 서양에서 일컫는 말",
+     "types": [
+      "과거에 존재했던 나라"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": -550,
+      "precision": 9
+     },
+     "end": {
+      "prop": "P576",
+      "year": 1979,
+      "precision": 11
+     },
+     "term": "페르시아"
+    },
+    {
      "qid": "Q83891",
      "ko": "사산 제국",
      "en": "Sasanian Empire",
@@ -661,7 +712,7 @@
       "precision": 9
      },
      "end": {
-      "prop": "P582",
+      "prop": "P576",
       "year": 651,
       "precision": 9
      },
@@ -681,26 +732,6 @@
       "precision": 10
      },
      "end": null,
-     "term": "페르시아"
-    },
-    {
-     "qid": "Q37643",
-     "ko": "걸프 전쟁",
-     "en": "Gulf War",
-     "desc": "1991년에 일어난 이라크와 다국적 연합군 간의 전쟁",
-     "types": [
-      "전쟁"
-     ],
-     "start": {
-      "prop": "P580",
-      "year": 1990,
-      "precision": 11
-     },
-     "end": {
-      "prop": "P582",
-      "year": 1991,
-      "precision": 11
-     },
      "term": "페르시아"
     }
    ]
@@ -913,34 +944,6 @@
    },
    "others": [
     {
-     "qid": "Q48349",
-     "ko": "제국",
-     "en": "empire",
-     "desc": null,
-     "types": [
-      "군주제"
-     ],
-     "start": null,
-     "end": null,
-     "term": "제국"
-    },
-    {
-     "qid": "Q111209750",
-     "ko": "제국",
-     "en": "The Empire",
-     "desc": null,
-     "types": [
-      "영화"
-     ],
-     "start": {
-      "prop": "P577",
-      "year": 2024,
-      "precision": 11
-     },
-     "end": null,
-     "term": "제국"
-    },
-    {
      "qid": "Q34266",
      "ko": "러시아 제국",
      "en": "Russian Empire",
@@ -957,6 +960,47 @@
      "end": {
       "prop": "P576",
       "year": 1917,
+      "precision": 11
+     },
+     "term": "제국"
+    },
+    {
+     "qid": "Q43287",
+     "ko": "독일 제국",
+     "en": "German Empire",
+     "desc": "1871년부터 1918년까지 존속한 중앙 유럽의 옛 국가",
+     "types": [
+      "과거에 존재했던 나라",
+      "시대"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1871,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P576",
+      "year": 1918,
+      "precision": 11
+     },
+     "term": "제국"
+    },
+    {
+     "qid": "Q188712",
+     "ko": "일본 제국",
+     "en": "Empire of Japan",
+     "desc": "1868년부터 1947년까지 존속한 동아시아의 옛 국가",
+     "types": [
+      "과거에 존재했던 나라"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1868,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P576",
+      "year": 1947,
       "precision": 11
      },
      "term": "제국"
@@ -980,19 +1024,6 @@
    "verdict": "못 찾음",
    "best": null,
    "others": [
-    {
-     "qid": "Q7270",
-     "ko": "공화제",
-     "en": "republic",
-     "desc": "한 개인에게 국가의 모든 통치권이 맡겨져 있지 않은 정부 체제",
-     "types": [
-      "국체",
-      "정부형태"
-     ],
-     "start": null,
-     "end": null,
-     "term": "공화정"
-    },
     {
      "qid": "Q747480",
      "ko": "로마 공화정의 계급 갈등",
@@ -1036,6 +1067,19 @@
      "start": null,
      "end": null,
      "term": "로마 공화정"
+    },
+    {
+     "qid": "Q7270",
+     "ko": "공화제",
+     "en": "republic",
+     "desc": "한 개인에게 국가의 모든 통치권이 맡겨져 있지 않은 정부 체제",
+     "types": [
+      "국체",
+      "정부형태"
+     ],
+     "start": null,
+     "end": null,
+     "term": "공화정"
     }
    ]
   },
@@ -1069,34 +1113,6 @@
    },
    "others": [
     {
-     "qid": "Q48349",
-     "ko": "제국",
-     "en": "empire",
-     "desc": null,
-     "types": [
-      "군주제"
-     ],
-     "start": null,
-     "end": null,
-     "term": "제국"
-    },
-    {
-     "qid": "Q111209750",
-     "ko": "제국",
-     "en": "The Empire",
-     "desc": null,
-     "types": [
-      "영화"
-     ],
-     "start": {
-      "prop": "P577",
-      "year": 2024,
-      "precision": 11
-     },
-     "end": null,
-     "term": "제국"
-    },
-    {
      "qid": "Q42834",
      "ko": "서로마 제국",
      "en": "Western Roman Empire",
@@ -1115,6 +1131,48 @@
       "precision": 9
      },
      "term": "서로마"
+    },
+    {
+     "qid": "Q608613",
+     "ko": "서로마 제국의 몰락",
+     "en": "fall of the western Roman Empire",
+     "desc": null,
+     "types": [
+      "데카당스",
+      "dissolution of an administrative territorial entity"
+     ],
+     "start": {
+      "prop": "P585",
+      "year": 476,
+      "precision": 9
+     },
+     "end": {
+      "prop": "P582",
+      "year": 476,
+      "precision": 11
+     },
+     "term": "서로마"
+    },
+    {
+     "qid": "Q12544",
+     "ko": "동로마 제국",
+     "en": "Byzantine Empire",
+     "desc": "콘스탄티노플을 수도로 하는 로마 제국",
+     "types": [
+      "과거에 존재했던 나라",
+      "시대"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 285,
+      "precision": 9
+     },
+     "end": {
+      "prop": "P576",
+      "year": 1453,
+      "precision": 11
+     },
+     "term": "로마 제국"
     }
    ]
   },
@@ -1244,7 +1302,7 @@
      "precision": 9
     },
     "end": {
-     "prop": "P582",
+     "prop": "P576",
      "year": 651,
      "precision": 9
     },
@@ -1315,36 +1373,9 @@
    "kind": "polity",
    "start_year": 320,
    "end_year": 550,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q48349",
-    "ko": "제국",
-    "en": "empire",
-    "desc": null,
-    "types": [
-     "군주제"
-    ],
-    "start": null,
-    "end": null,
-    "term": "제국"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
-    {
-     "qid": "Q111209750",
-     "ko": "제국",
-     "en": "The Empire",
-     "desc": null,
-     "types": [
-      "영화"
-     ],
-     "start": {
-      "prop": "P577",
-      "year": 2024,
-      "precision": 11
-     },
-     "end": null,
-     "term": "제국"
-    },
     {
      "qid": "Q34266",
      "ko": "러시아 제국",
@@ -1386,6 +1417,38 @@
       "precision": 11
      },
      "term": "제국"
+    },
+    {
+     "qid": "Q188712",
+     "ko": "일본 제국",
+     "en": "Empire of Japan",
+     "desc": "1868년부터 1947년까지 존속한 동아시아의 옛 국가",
+     "types": [
+      "과거에 존재했던 나라"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1868,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P576",
+      "year": 1947,
+      "precision": 11
+     },
+     "term": "제국"
+    },
+    {
+     "qid": "Q48349",
+     "ko": "제국",
+     "en": "empire",
+     "desc": null,
+     "types": [
+      "군주제"
+     ],
+     "start": null,
+     "end": null,
+     "term": "제국"
     }
    ]
   },
@@ -1420,32 +1483,20 @@
    },
    "others": [
     {
-     "qid": "Q48349",
-     "ko": "제국",
-     "en": "empire",
-     "desc": null,
+     "qid": "Q97015601",
+     "ko": "비잔틴 제국: 동방의 새로운 로마",
+     "en": "Tout l'or de Byzance",
+     "desc": "시공 디스커버리 총서 (#079)",
      "types": [
-      "군주제"
-     ],
-     "start": null,
-     "end": null,
-     "term": "제국"
-    },
-    {
-     "qid": "Q111209750",
-     "ko": "제국",
-     "en": "The Empire",
-     "desc": null,
-     "types": [
-      "영화"
+      "판"
      ],
      "start": {
       "prop": "P577",
-      "year": 2024,
+      "year": 1991,
       "precision": 11
      },
      "end": null,
-     "term": "제국"
+     "term": "비잔틴 제국"
     },
     {
      "qid": "Q34266",
@@ -1464,6 +1515,27 @@
      "end": {
       "prop": "P576",
       "year": 1917,
+      "precision": 11
+     },
+     "term": "제국"
+    },
+    {
+     "qid": "Q43287",
+     "ko": "독일 제국",
+     "en": "German Empire",
+     "desc": "1871년부터 1918년까지 존속한 중앙 유럽의 옛 국가",
+     "types": [
+      "과거에 존재했던 나라",
+      "시대"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1871,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P576",
+      "year": 1918,
       "precision": 11
      },
      "term": "제국"
@@ -1519,16 +1591,6 @@
      "term": "왕국"
     },
     {
-     "qid": "Q417175",
-     "ko": "왕국",
-     "en": "kingdom",
-     "desc": null,
-     "types": [],
-     "start": null,
-     "end": null,
-     "term": "왕국"
-    },
-    {
      "qid": "Q1843279",
      "ko": "왕국",
      "en": "Thayer's Quest",
@@ -1541,6 +1603,16 @@
       "year": 1984,
       "precision": 9
      },
+     "end": null,
+     "term": "왕국"
+    },
+    {
+     "qid": "Q417175",
+     "ko": "왕국",
+     "en": "kingdom",
+     "desc": null,
+     "types": [],
+     "start": null,
      "end": null,
      "term": "왕국"
     }
@@ -1742,58 +1814,73 @@
    "kind": "polity",
    "start_year": 1099,
    "end_year": 1291,
-   "verdict": "어긋남",
+   "verdict": "날짜 없음",
    "best": {
-    "qid": "Q123397",
-    "ko": "국가",
-    "en": "The Republic",
-    "desc": "플라톤이 쓴 철학적 저서",
-    "types": [
-     "문학 작품"
-    ],
-    "start": {
-     "prop": "P577",
-     "year": 1963,
-     "precision": 9
-    },
+    "qid": "Q190967",
+    "ko": "십자군 국가",
+    "en": "Crusader states",
+    "desc": null,
+    "types": [],
+    "start": null,
     "end": null,
-    "term": "국가"
+    "term": "십자군 국가"
    },
    "others": [
     {
-     "qid": "Q7275",
+     "qid": "Q123397",
      "ko": "국가",
-     "en": "state",
-     "desc": "일정 영역에 대한 배타적 영유권과 대외적인 독립성을 확보한 체계적인 사회 집단",
+     "en": "The Republic",
+     "desc": "플라톤이 쓴 철학적 저서",
      "types": [
-      "사회구성체",
-      "나라마다 정의가 다른 행정 구역"
+      "문학 작품"
      ],
-     "start": null,
+     "start": {
+      "prop": "P577",
+      "year": 1963,
+      "precision": 9
+     },
      "end": null,
      "term": "국가"
     },
     {
-     "qid": "Q23691",
-     "ko": "국가",
-     "en": "national anthem",
-     "desc": "한 나라를 나타내는 노래",
+     "qid": "Q6235",
+     "ko": "내셔널리즘",
+     "en": "nationalism",
+     "desc": "국민 정체성을 사회의 기본으로 삼는 이념",
      "types": [
-      "노래 종류"
+      "이데올로기",
+      "정치 운동"
      ],
-     "start": null,
+     "start": {
+      "prop": "P571",
+      "year": 1800,
+      "precision": 8
+     },
      "end": null,
      "term": "국가"
     },
     {
-     "qid": "Q190967",
-     "ko": "십자군 국가",
-     "en": "Crusader states",
-     "desc": null,
-     "types": [],
-     "start": null,
-     "end": null,
-     "term": "십자군 국가"
+     "qid": "Q7320",
+     "ko": "국가사회주의 독일 노동자당",
+     "en": "Nazi Party",
+     "desc": "독일에서 활동한 극우 정당(1920-1945)",
+     "types": [
+      "state party",
+      "독일의 정당",
+      "Führerpartei",
+      "없어진 정당"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1920,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P576",
+      "year": 1945,
+      "precision": 11
+     },
+     "term": "국가"
     }
    ]
   },
@@ -1827,34 +1914,6 @@
    },
    "others": [
     {
-     "qid": "Q48349",
-     "ko": "제국",
-     "en": "empire",
-     "desc": null,
-     "types": [
-      "군주제"
-     ],
-     "start": null,
-     "end": null,
-     "term": "제국"
-    },
-    {
-     "qid": "Q111209750",
-     "ko": "제국",
-     "en": "The Empire",
-     "desc": null,
-     "types": [
-      "영화"
-     ],
-     "start": {
-      "prop": "P577",
-      "year": 2024,
-      "precision": 11
-     },
-     "end": null,
-     "term": "제국"
-    },
-    {
      "qid": "Q34266",
      "ko": "러시아 제국",
      "en": "Russian Empire",
@@ -1871,6 +1930,47 @@
      "end": {
       "prop": "P576",
       "year": 1917,
+      "precision": 11
+     },
+     "term": "제국"
+    },
+    {
+     "qid": "Q43287",
+     "ko": "독일 제국",
+     "en": "German Empire",
+     "desc": "1871년부터 1918년까지 존속한 중앙 유럽의 옛 국가",
+     "types": [
+      "과거에 존재했던 나라",
+      "시대"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1871,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P576",
+      "year": 1918,
+      "precision": 11
+     },
+     "term": "제국"
+    },
+    {
+     "qid": "Q188712",
+     "ko": "일본 제국",
+     "en": "Empire of Japan",
+     "desc": "1868년부터 1947년까지 존속한 동아시아의 옛 국가",
+     "types": [
+      "과거에 존재했던 나라"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1868,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P576",
+      "year": 1947,
       "precision": 11
      },
      "term": "제국"
@@ -1916,34 +2016,6 @@
    },
    "others": [
     {
-     "qid": "Q48349",
-     "ko": "제국",
-     "en": "empire",
-     "desc": null,
-     "types": [
-      "군주제"
-     ],
-     "start": null,
-     "end": null,
-     "term": "제국"
-    },
-    {
-     "qid": "Q111209750",
-     "ko": "제국",
-     "en": "The Empire",
-     "desc": null,
-     "types": [
-      "영화"
-     ],
-     "start": {
-      "prop": "P577",
-      "year": 2024,
-      "precision": 11
-     },
-     "end": null,
-     "term": "제국"
-    },
-    {
      "qid": "Q1062125",
      "ko": "오스만 제국 해군",
      "en": "Ottoman Navy",
@@ -1961,6 +2033,40 @@
       "year": 1922,
       "precision": 9
      },
+     "term": "오스만 제국"
+    },
+    {
+     "qid": "Q1837704",
+     "ko": "오스만 제국의 해체",
+     "en": "dissolution of the Ottoman Empire",
+     "desc": null,
+     "types": [
+      "분야사",
+      "dissolution of an administrative territorial entity",
+      "history of a geographic region"
+     ],
+     "start": {
+      "prop": "P585",
+      "year": 1922,
+      "precision": 11
+     },
+     "end": null,
+     "term": "오스만 제국"
+    },
+    {
+     "qid": "Q81952",
+     "ko": "터키의 국기",
+     "en": "flag of Turkey",
+     "desc": null,
+     "types": [
+      "국기"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1844,
+      "precision": 9
+     },
+     "end": null,
      "term": "오스만 제국"
     }
    ],
@@ -2115,14 +2221,18 @@
      "term": "대항해시대"
     },
     {
-     "qid": "Q849337",
-     "ko": "대항해시대 시리즈",
-     "en": "Uncharted Waters",
+     "qid": "Q482881",
+     "ko": "대항해시대 온라인",
+     "en": "Uncharted Waters Online",
      "desc": null,
      "types": [
-      "비디오 게임 시리즈"
+      "비디오 게임"
      ],
-     "start": null,
+     "start": {
+      "prop": "P577",
+      "year": 2007,
+      "precision": 11
+     },
      "end": null,
      "term": "대항해시대"
     }
@@ -2135,20 +2245,21 @@
    "kind": "trend",
    "start_year": 1517,
    "end_year": 1648,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q1827102",
-    "ko": "종교전쟁",
-    "en": "religious war",
-    "desc": null,
-    "types": [
-     "type of war"
-    ],
-    "start": null,
-    "end": null,
-    "term": "종교전쟁"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q1827102",
+     "ko": "종교전쟁",
+     "en": "religious war",
+     "desc": null,
+     "types": [
+      "type of war"
+     ],
+     "start": null,
+     "end": null,
+     "term": "종교전쟁"
+    },
     {
      "qid": "Q153093",
      "ko": "종교개혁기념일",
@@ -2218,32 +2329,14 @@
    },
    "others": [
     {
-     "qid": "Q48349",
-     "ko": "제국",
-     "en": "empire",
+     "qid": "Q17147964",
+     "ko": "스페인 제국의 행정 구역",
+     "en": "administrative territorial entity of the Spanish Empire",
      "desc": null,
-     "types": [
-      "군주제"
-     ],
+     "types": [],
      "start": null,
      "end": null,
-     "term": "제국"
-    },
-    {
-     "qid": "Q111209750",
-     "ko": "제국",
-     "en": "The Empire",
-     "desc": null,
-     "types": [
-      "영화"
-     ],
-     "start": {
-      "prop": "P577",
-      "year": 2024,
-      "precision": 11
-     },
-     "end": null,
-     "term": "제국"
+     "term": "스페인 제국"
     },
     {
      "qid": "Q34266",
@@ -2262,6 +2355,27 @@
      "end": {
       "prop": "P576",
       "year": 1917,
+      "precision": 11
+     },
+     "term": "제국"
+    },
+    {
+     "qid": "Q43287",
+     "ko": "독일 제국",
+     "en": "German Empire",
+     "desc": "1871년부터 1918년까지 존속한 중앙 유럽의 옛 국가",
+     "types": [
+      "과거에 존재했던 나라",
+      "시대"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1871,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P576",
+      "year": 1918,
       "precision": 11
      },
      "term": "제국"
@@ -2306,34 +2420,6 @@
    },
    "others": [
     {
-     "qid": "Q48349",
-     "ko": "제국",
-     "en": "empire",
-     "desc": null,
-     "types": [
-      "군주제"
-     ],
-     "start": null,
-     "end": null,
-     "term": "제국"
-    },
-    {
-     "qid": "Q111209750",
-     "ko": "제국",
-     "en": "The Empire",
-     "desc": null,
-     "types": [
-      "영화"
-     ],
-     "start": {
-      "prop": "P577",
-      "year": 2024,
-      "precision": 11
-     },
-     "end": null,
-     "term": "제국"
-    },
-    {
      "qid": "Q34266",
      "ko": "러시아 제국",
      "en": "Russian Empire",
@@ -2350,6 +2436,47 @@
      "end": {
       "prop": "P576",
       "year": 1917,
+      "precision": 11
+     },
+     "term": "제국"
+    },
+    {
+     "qid": "Q43287",
+     "ko": "독일 제국",
+     "en": "German Empire",
+     "desc": "1871년부터 1918년까지 존속한 중앙 유럽의 옛 국가",
+     "types": [
+      "과거에 존재했던 나라",
+      "시대"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1871,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P576",
+      "year": 1918,
+      "precision": 11
+     },
+     "term": "제국"
+    },
+    {
+     "qid": "Q188712",
+     "ko": "일본 제국",
+     "en": "Empire of Japan",
+     "desc": "1868년부터 1947년까지 존속한 동아시아의 옛 국가",
+     "types": [
+      "과거에 존재했던 나라"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1868,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P576",
+      "year": 1947,
       "precision": 11
      },
      "term": "제국"
@@ -2406,6 +2533,26 @@
      "term": "전쟁"
     },
     {
+     "qid": "Q151701",
+     "ko": "전쟁해군",
+     "en": "Kriegsmarine",
+     "desc": "독일 국방군의 해전 분파",
+     "types": [
+      "해군"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1935,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P576",
+      "year": 1945,
+      "precision": 11
+     },
+     "term": "전쟁"
+    },
+    {
      "qid": "Q1194961",
      "ko": "전쟁",
      "en": "The War",
@@ -2417,22 +2564,6 @@
       "prop": "P571",
       "year": 1896,
       "precision": 9
-     },
-     "end": null,
-     "term": "전쟁"
-    },
-    {
-     "qid": "Q3778533",
-     "ko": "전쟁",
-     "en": "La Guerre",
-     "desc": "앙리 루소의 그림",
-     "types": [
-      "회화"
-     ],
-     "start": {
-      "prop": "P571",
-      "year": 1894,
-      "precision": 8
      },
      "end": null,
      "term": "전쟁"
@@ -2538,7 +2669,7 @@
      "역사적 사건"
     ],
     "start": {
-     "prop": "P585",
+     "prop": "P580",
      "year": 1789,
      "precision": 11
     },
@@ -2551,48 +2682,61 @@
    },
    "others": [
     {
-     "qid": "Q10931",
-     "ko": "혁명",
-     "en": "revolution",
-     "desc": "권력이나 조직 구조의 갑작스런 변화",
-     "types": [
-      "과정의 종류"
-     ],
-     "start": null,
-     "end": null,
-     "term": "혁명"
-    },
-    {
-     "qid": "Q1027212",
-     "ko": "혁명",
-     "en": "Revolution",
-     "desc": null,
-     "types": [
-      "영화"
-     ],
-     "start": {
-      "prop": "P577",
-      "year": 1985,
-      "precision": 9
-     },
-     "end": null,
-     "term": "혁명"
-    },
-    {
-     "qid": "Q3458427",
-     "ko": "혁명",
-     "en": "Révolutions",
-     "desc": "장마리 귀스타브 르클레지오의 소설",
+     "qid": "Q2287584",
+     "ko": "프랑스 혁명에 관한 성찰",
+     "en": "Reflections on the Revolution in France",
+     "desc": "에드먼드 버크의 저서",
      "types": [
       "저작물"
      ],
      "start": {
       "prop": "P577",
-      "year": 2003,
-      "precision": 9
+      "year": 1790,
+      "precision": 10
      },
      "end": null,
-     "term": "혁명"
+     "term": "프랑스 혁명"
+    },
+    {
+     "qid": "Q207318",
+     "ko": "프랑스 혁명 전쟁",
+     "en": "French Revolutionary Wars",
+     "desc": "프랑스 공화국과 이에 반대하는 유럽 각국 사이에서 벌어진 전쟁",
+     "types": [
+      "전쟁"
+     ],
+     "start": {
+      "prop": "P580",
+      "year": 1792,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P582",
+      "year": 1802,
+      "precision": 11
+     },
+     "term": "프랑스 혁명"
+    },
+    {
+     "qid": "Q1192988",
+     "ko": "프랑스 혁명군",
+     "en": "French Revolutionary Army",
+     "desc": "프랑스 혁명기의 프랑스 군을 일컫는 말",
+     "types": [
+      "육군",
+      "군대"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1792,
+      "precision": 9
+     },
+     "end": {
+      "prop": "P576",
+      "year": 1804,
+      "precision": 9
+     },
+     "term": "프랑스 혁명"
     }
    ]
   },
@@ -2628,34 +2772,6 @@
    },
    "others": [
     {
-     "qid": "Q48349",
-     "ko": "제국",
-     "en": "empire",
-     "desc": null,
-     "types": [
-      "군주제"
-     ],
-     "start": null,
-     "end": null,
-     "term": "제국"
-    },
-    {
-     "qid": "Q111209750",
-     "ko": "제국",
-     "en": "The Empire",
-     "desc": null,
-     "types": [
-      "영화"
-     ],
-     "start": {
-      "prop": "P577",
-      "year": 2024,
-      "precision": 11
-     },
-     "end": null,
-     "term": "제국"
-    },
-    {
      "qid": "Q34266",
      "ko": "러시아 제국",
      "en": "Russian Empire",
@@ -2672,6 +2788,47 @@
      "end": {
       "prop": "P576",
       "year": 1917,
+      "precision": 11
+     },
+     "term": "제국"
+    },
+    {
+     "qid": "Q43287",
+     "ko": "독일 제국",
+     "en": "German Empire",
+     "desc": "1871년부터 1918년까지 존속한 중앙 유럽의 옛 국가",
+     "types": [
+      "과거에 존재했던 나라",
+      "시대"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1871,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P576",
+      "year": 1918,
+      "precision": 11
+     },
+     "term": "제국"
+    },
+    {
+     "qid": "Q188712",
+     "ko": "일본 제국",
+     "en": "Empire of Japan",
+     "desc": "1868년부터 1947년까지 존속한 동아시아의 옛 국가",
+     "types": [
+      "과거에 존재했던 나라"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1868,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P576",
+      "year": 1947,
       "precision": 11
      },
      "term": "제국"
@@ -2694,38 +2851,43 @@
    "kind": "trend",
    "start_year": 1870,
    "end_year": 1914,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q816829",
-    "ko": "시대",
-    "en": "periodization",
-    "desc": null,
-    "types": [
-     "field of study"
-    ],
-    "start": null,
-    "end": null,
-    "term": "시대"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q816829",
+     "ko": "시대",
+     "en": "periodization",
+     "desc": null,
+     "types": [
+      "field of study"
+     ],
+     "start": null,
+     "end": null,
+     "term": "시대"
+    },
+    {
+     "qid": "Q19825637",
+     "ko": "시대역량",
+     "en": "New Power Party",
+     "desc": null,
+     "types": [
+      "정당"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 2015,
+      "precision": 11
+     },
+     "end": null,
+     "term": "시대"
+    },
     {
      "qid": "Q6428674",
      "ko": "시대",
      "en": "era",
      "desc": "연대학 또는 역사학의 목적을 위해 정의된 시간의 범위",
      "types": [],
-     "start": null,
-     "end": null,
-     "term": "시대"
-    },
-    {
-     "qid": "Q11514315",
-     "ko": "시대",
-     "en": "historical period",
-     "desc": "역사의 한 단락",
-     "types": [
-      "분야사"
-     ],
      "start": null,
      "end": null,
      "term": "시대"
@@ -2751,20 +2913,21 @@
    "kind": "event",
    "start_year": 1914,
    "end_year": 1918,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q103495",
-    "ko": "세계 대전",
-    "en": "world war",
-    "desc": "세계 규모의 전쟁",
-    "types": [
-     "type of war"
-    ],
-    "start": null,
-    "end": null,
-    "term": "세계대전"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q2413988",
+     "ko": "제1차 세계대전기 항공",
+     "en": "aviation in World War I",
+     "desc": null,
+     "types": [
+      "aspect in a historical period"
+     ],
+     "start": null,
+     "end": null,
+     "term": "제1차 세계대전"
+    },
     {
      "qid": "Q28172",
      "ko": "세계 대전 Z",
@@ -2782,16 +2945,16 @@
      "term": "세계대전"
     },
     {
-     "qid": "Q2413988",
-     "ko": "제1차 세계대전기 항공",
-     "en": "aviation in World War I",
-     "desc": null,
+     "qid": "Q103495",
+     "ko": "세계 대전",
+     "en": "world war",
+     "desc": "세계 규모의 전쟁",
      "types": [
-      "aspect in a historical period"
+      "type of war"
      ],
      "start": null,
      "end": null,
-     "term": "제1차 세계대전"
+     "term": "세계대전"
     },
     {
      "qid": "Q1193030",
@@ -2818,24 +2981,64 @@
    "kind": "polity",
    "start_year": 1917,
    "end_year": 1991,
-   "verdict": "부분 일치",
+   "verdict": "일치",
    "best": {
-    "qid": "Q8729",
-    "ko": "러시아 혁명",
-    "en": "Russian Revolution",
-    "desc": "1917년 러시아 제국에서 발생한 혁명",
+    "qid": "Q79854",
+    "ko": "소비에트 연방 공산당",
+    "en": "Communist Party of the Soviet Union",
+    "desc": null,
     "types": [
-     "혁명"
+     "공산당"
     ],
     "start": {
-     "prop": "P585",
+     "prop": "P571",
      "year": 1917,
-     "precision": 9
+     "precision": 11
     },
-    "end": null,
-    "term": "러시아 혁명"
+    "end": {
+     "prop": "P576",
+     "year": 1991,
+     "precision": 11
+    },
+    "term": "소련"
    },
    "others": [
+    {
+     "qid": "Q796754",
+     "ko": "소련 해군",
+     "en": "Soviet Navy",
+     "desc": "소련군의 해양 근무 군종",
+     "types": [
+      "해군"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1918,
+      "precision": 9
+     },
+     "end": {
+      "prop": "P576",
+      "year": 1991,
+      "precision": 9
+     },
+     "term": "소련"
+    },
+    {
+     "qid": "Q8729",
+     "ko": "러시아 혁명",
+     "en": "Russian Revolution",
+     "desc": "1917년 러시아 제국에서 발생한 혁명",
+     "types": [
+      "혁명"
+     ],
+     "start": {
+      "prop": "P585",
+      "year": 1917,
+      "precision": 9
+     },
+     "end": null,
+     "term": "러시아 혁명"
+    },
     {
      "qid": "Q15180",
      "ko": "소련",
@@ -2855,46 +3058,6 @@
       "precision": 11
      },
      "term": "소련"
-    },
-    {
-     "qid": "Q79854",
-     "ko": "소비에트 연방 공산당",
-     "en": "Communist Party of the Soviet Union",
-     "desc": null,
-     "types": [
-      "공산당"
-     ],
-     "start": {
-      "prop": "P571",
-      "year": 1917,
-      "precision": 11
-     },
-     "end": {
-      "prop": "P576",
-      "year": 1991,
-      "precision": 11
-     },
-     "term": "소련"
-    },
-    {
-     "qid": "Q184928",
-     "ko": "러시아 혁명",
-     "en": "Russian Revolution of 1905",
-     "desc": null,
-     "types": [
-      "혁명"
-     ],
-     "start": {
-      "prop": "P585",
-      "year": 1905,
-      "precision": 11
-     },
-     "end": {
-      "prop": "P582",
-      "year": 1907,
-      "precision": 11
-     },
-     "term": "러시아 혁명"
     }
    ]
   },
@@ -2941,16 +3104,6 @@
      "term": "대공황"
     },
     {
-     "qid": "Q5122489",
-     "ko": "대공황 시기 도시",
-     "en": "Cities in the Great Depression",
-     "desc": "대공황 시기 여러 도시의 상황 개요",
-     "types": [],
-     "start": null,
-     "end": null,
-     "term": "대공황"
-    },
-    {
      "qid": "Q396806",
      "ko": "대공황 (동음이의)",
      "en": "The Great Depression",
@@ -2958,6 +3111,16 @@
      "types": [
       "위키미디어 동음이의어 문서"
      ],
+     "start": null,
+     "end": null,
+     "term": "대공황"
+    },
+    {
+     "qid": "Q5122489",
+     "ko": "대공황 시기 도시",
+     "en": "Cities in the Great Depression",
+     "desc": "대공황 시기 여러 도시의 상황 개요",
+     "types": [],
      "start": null,
      "end": null,
      "term": "대공황"
@@ -2995,34 +3158,6 @@
    },
    "others": [
     {
-     "qid": "Q103495",
-     "ko": "세계 대전",
-     "en": "world war",
-     "desc": "세계 규모의 전쟁",
-     "types": [
-      "type of war"
-     ],
-     "start": null,
-     "end": null,
-     "term": "세계대전"
-    },
-    {
-     "qid": "Q28172",
-     "ko": "세계 대전 Z",
-     "en": "World War Z",
-     "desc": null,
-     "types": [
-      "문학 작품"
-     ],
-     "start": {
-      "prop": "P577",
-      "year": 2006,
-      "precision": 11
-     },
-     "end": null,
-     "term": "세계대전"
-    },
-    {
      "qid": "Q1058112",
      "ko": "제2차 세계 대전 희생자를 위한 추모와 화해의 기간",
      "en": "Time of Remembrance and Reconciliation for Those Who Lost Their Lives during the Second World War",
@@ -3035,6 +3170,30 @@
       "year": 2010,
       "precision": 11
      },
+     "end": null,
+     "term": "제2차 세계대전"
+    },
+    {
+     "qid": "Q715695",
+     "ko": "제2차 세계대전 동안의 전략 폭격",
+     "en": "strategic bombing during World War II",
+     "desc": "제2차 세계 대전 시기 있었던 폭격기의 대규모 전략폭격",
+     "types": [
+      "군사작전"
+     ],
+     "start": null,
+     "end": null,
+     "term": "제2차 세계대전"
+    },
+    {
+     "qid": "Q16969751",
+     "ko": "제2차 세계 대전의 여자",
+     "en": "women in World War II",
+     "desc": null,
+     "types": [
+      "female topic"
+     ],
+     "start": null,
      "end": null,
      "term": "제2차 세계대전"
     }
@@ -3147,36 +3306,36 @@
    "kind": "trend",
    "start_year": 1991,
    "end_year": 2025,
-   "verdict": "날짜 없음",
+   "verdict": "부분 일치",
    "best": {
-    "qid": "Q7181",
-    "ko": "세계화",
-    "en": "globalization",
-    "desc": "전 세계 사람, 기업, 정부 간의 상호 작용과 통합의 과정",
+    "qid": "Q17152871",
+    "ko": "탈냉전 시대",
+    "en": "post–Cold War era",
+    "desc": "소련이 붕괴하고 냉전이 종식된 1991년 이후의 시대",
     "types": [
-     "사회 이론"
+     "전후",
+     "시대"
     ],
-    "start": null,
+    "start": {
+     "prop": "P580",
+     "year": 1991,
+     "precision": 9
+    },
     "end": null,
-    "term": "세계화"
+    "term": "탈냉전"
    },
    "others": [
     {
-     "qid": "Q17152871",
-     "ko": "탈냉전 시대",
-     "en": "post–Cold War era",
-     "desc": "소련이 붕괴하고 냉전이 종식된 1991년 이후의 시대",
+     "qid": "Q7181",
+     "ko": "세계화",
+     "en": "globalization",
+     "desc": "전 세계 사람, 기업, 정부 간의 상호 작용과 통합의 과정",
      "types": [
-      "전후",
-      "시대"
+      "사회 이론"
      ],
-     "start": {
-      "prop": "P580",
-      "year": 1991,
-      "precision": 9
-     },
+     "start": null,
      "end": null,
-     "term": "탈냉전"
+     "term": "세계화"
     },
     {
      "qid": "Q5867928",
@@ -3392,69 +3551,28 @@
    "kind": "polity",
    "start_year": -100,
    "end_year": 300,
-   "verdict": "부분 일치",
+   "verdict": "일치",
    "best": {
-    "qid": "Q1378584",
-    "ko": "변한",
-    "en": "Byeonhan confederacy",
-    "desc": "과거에 존재했던 한국의 연맹 왕국",
+    "qid": "Q716528",
+    "ko": "원삼국 시대",
+    "en": "Proto–Three Kingdoms of Korea",
+    "desc": null,
     "types": [
-     "과거에 존재했던 나라"
+     "시대"
     ],
     "start": {
-     "prop": "P571",
-     "year": -201,
+     "prop": "P580",
+     "year": -151,
      "precision": 7
     },
     "end": {
-     "prop": "P576",
-     "year": 400,
+     "prop": "P582",
+     "year": 200,
      "precision": 7
     },
-    "term": "변한"
+    "term": "삼한"
    },
    "others": [
-    {
-     "qid": "Q704278",
-     "ko": "마한",
-     "en": "Mahan confederacy",
-     "desc": "과거에 존재했던 한국의 연맹 왕국",
-     "types": [
-      "국가 연합",
-      "과거에 존재했던 나라"
-     ],
-     "start": {
-      "prop": "P571",
-      "year": 100,
-      "precision": 7
-     },
-     "end": {
-      "prop": "P576",
-      "year": 300,
-      "precision": 7
-     },
-     "term": "마한"
-    },
-    {
-     "qid": "Q716528",
-     "ko": "원삼국 시대",
-     "en": "Proto–Three Kingdoms of Korea",
-     "desc": null,
-     "types": [
-      "시대"
-     ],
-     "start": {
-      "prop": "P580",
-      "year": -151,
-      "precision": 7
-     },
-     "end": {
-      "prop": "P582",
-      "year": 200,
-      "precision": 7
-     },
-     "term": "삼한"
-    },
     {
      "qid": "Q1376093",
      "ko": "삼한",
@@ -3476,15 +3594,49 @@
       "precision": 9
      },
      "term": "삼한"
+    },
+    {
+     "qid": "Q1378584",
+     "ko": "변한",
+     "en": "Byeonhan confederacy",
+     "desc": "과거에 존재했던 한국의 연맹 왕국",
+     "types": [
+      "과거에 존재했던 나라"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": -201,
+      "precision": 7
+     },
+     "end": {
+      "prop": "P576",
+      "year": 400,
+      "precision": 7
+     },
+     "term": "변한"
+    },
+    {
+     "qid": "Q704278",
+     "ko": "마한",
+     "en": "Mahan confederacy",
+     "desc": "과거에 존재했던 한국의 연맹 왕국",
+     "types": [
+      "국가 연합",
+      "과거에 존재했던 나라"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 100,
+      "precision": 7
+     },
+     "end": {
+      "prop": "P576",
+      "year": 300,
+      "precision": 7
+     },
+     "term": "마한"
     }
-   ],
-   "cliopatria": {
-    "names": [
-     "Byeonhan"
-    ],
-    "from": -91,
-    "to": 566
-   }
+   ]
   },
   {
    "id": "korea-hansagun",
@@ -3681,7 +3833,7 @@
      "precision": 9
     },
     "end": {
-     "prop": "P582",
+     "prop": "P576",
      "year": 660,
      "precision": 9
     },
@@ -3996,6 +4148,46 @@
    },
    "others": [
     {
+     "qid": "Q706537",
+     "ko": "발해 문왕",
+     "en": "King Mun of Balhae",
+     "desc": "발해의 제3대 국왕 (?–793)",
+     "types": [
+      "사람"
+     ],
+     "start": {
+      "prop": "P569",
+      "year": 750,
+      "precision": 7
+     },
+     "end": {
+      "prop": "P570",
+      "year": 793,
+      "precision": 9
+     },
+     "term": "발해"
+    },
+    {
+     "qid": "Q704083",
+     "ko": "발해 무왕",
+     "en": "Mu of Balhae",
+     "desc": "발해의 제2대 국왕 (?–737)",
+     "types": [
+      "사람"
+     ],
+     "start": {
+      "prop": "P569",
+      "year": 650,
+      "precision": 7
+     },
+     "end": {
+      "prop": "P570",
+      "year": 737,
+      "precision": 9
+     },
+     "term": "발해"
+    },
+    {
      "qid": "Q703195",
      "ko": "후발해",
      "en": "Later Balhae",
@@ -4013,38 +4205,6 @@
       "year": 1009,
       "precision": 9
      },
-     "term": "발해"
-    },
-    {
-     "qid": "Q702079",
-     "ko": "발해 고왕",
-     "en": "Go of Balhae",
-     "desc": "발해의 초대 국왕 (?–719)",
-     "types": [
-      "사람"
-     ],
-     "start": {
-      "prop": "P569",
-      "year": 645,
-      "precision": 9
-     },
-     "end": {
-      "prop": "P570",
-      "year": 719,
-      "precision": 11
-     },
-     "term": "발해"
-    },
-    {
-     "qid": "Q181969",
-     "ko": "보하이해",
-     "en": "Bohai Sea",
-     "desc": "황해 내의 내해",
-     "types": [
-      "연해"
-     ],
-     "start": null,
-     "end": null,
      "term": "발해"
     }
    ],
@@ -4201,9 +4361,9 @@
      "precision": 9
     },
     "end": {
-     "prop": "P582",
+     "prop": "P576",
      "year": 1392,
-     "precision": 9
+     "precision": 11
     },
     "term": "고려"
    },
@@ -4700,6 +4860,27 @@
      "term": "대한제국"
     },
     {
+     "qid": "Q8047970",
+     "ko": "대한제국 원",
+     "en": "Korean won",
+     "desc": null,
+     "types": [
+      "통화",
+      "원"
+     ],
+     "start": {
+      "prop": "P580",
+      "year": 1900,
+      "precision": 9
+     },
+     "end": {
+      "prop": "P582",
+      "year": 1910,
+      "precision": 9
+     },
+     "term": "대한제국"
+    },
+    {
      "qid": "Q257425",
      "ko": "대한제국 고종",
      "en": "Gojong of the Korean Empire",
@@ -4717,22 +4898,6 @@
       "year": 1919,
       "precision": 11
      },
-     "term": "대한제국"
-    },
-    {
-     "qid": "Q127296",
-     "ko": "대한민국의 국기",
-     "en": "flag of South Korea",
-     "desc": "동아시아 국가 대한민국의 국기, 일명 '태극기'",
-     "types": [
-      "국기"
-     ],
-     "start": {
-      "prop": "P571",
-      "year": 1883,
-      "precision": 11
-     },
-     "end": null,
      "term": "대한제국"
     }
    ],
@@ -4808,13 +4973,11 @@
      "term": "일제강점기"
     },
     {
-     "qid": "Q17346839",
-     "ko": "일제강점기의 해양 사고",
-     "en": "list of maritime disasters in   Korea during Japanese occupation",
+     "qid": "Q12613744",
+     "ko": "일제강점기의 음반사",
+     "en": null,
      "desc": null,
-     "types": [
-      "위키미디어 목록 문서"
-     ],
+     "types": [],
      "start": null,
      "end": null,
      "term": "일제강점기"
@@ -4848,6 +5011,18 @@
    },
    "others": [
     {
+     "qid": "Q349",
+     "ko": "스포츠",
+     "en": "sport",
+     "desc": "주로 체력을 이용해 서로 겨루는 행위들을 말함",
+     "types": [
+      "type of activity"
+     ],
+     "start": null,
+     "end": null,
+     "term": "운동"
+    },
+    {
      "qid": "Q219067",
      "ko": "운동",
      "en": "physical exercise",
@@ -4863,18 +5038,6 @@
      "en": "motion",
      "desc": "시간에 따라 물체의 위치가 변하는 것",
      "types": [],
-     "start": null,
-     "end": null,
-     "term": "운동"
-    },
-    {
-     "qid": "Q349",
-     "ko": "스포츠",
-     "en": "sport",
-     "desc": "주로 체력을 이용해 서로 겨루는 행위들을 말함",
-     "types": [
-      "type of activity"
-     ],
      "start": null,
      "end": null,
      "term": "운동"
@@ -4913,38 +5076,38 @@
    },
    "others": [
     {
-     "qid": "Q59281",
-     "ko": "임시정부",
-     "en": "provisional government",
-     "desc": null,
+     "qid": "Q12592569",
+     "ko": "대한민국 임시정부 구미외교위원부",
+     "en": "Gumi Foreign Affairs Committee of the Provisional Government of the Republic of Korea",
+     "desc": "일제강점기 대한민국 임시정부의 미국, 유럽 측 대표기관",
      "types": [
-      "정부형태"
-     ],
-     "start": null,
-     "end": null,
-     "term": "임시정부"
-    },
-    {
-     "qid": "Q55729081",
-     "ko": "국립대한민국임시정부기념관",
-     "en": "National Memorial of the Korean Provisional Government",
-     "desc": "서울 서대문구 현저동에 위치한 기념관",
-     "types": [
-      "역사 박물관",
-      "기념관"
+      "외교"
      ],
      "start": {
-      "prop": "P571",
-      "year": 2022,
+      "prop": "P580",
+      "year": 1919,
       "precision": 11
      },
      "end": null,
-     "term": "임시정부"
+     "term": "대한민국 임시정부"
     },
     {
      "qid": "Q27967278",
      "ko": "대한민국 임시정부 유적지",
      "en": "Provisional Government of the Republic of Korea in Shanghai",
+     "desc": null,
+     "types": [
+      "건물",
+      "문화유산"
+     ],
+     "start": null,
+     "end": null,
+     "term": "대한민국 임시정부"
+    },
+    {
+     "qid": "Q28416371",
+     "ko": "대한민국 임시정부 항주 유적지 기념관",
+     "en": "Korean Provisional Government Hangzhou Historic Site Memorial Hall",
      "desc": null,
      "types": [
       "건물",
@@ -5110,9 +5273,9 @@
       "시즌"
      ],
      "start": {
-      "prop": "P585",
+      "prop": "P580",
       "year": 2002,
-      "precision": 9
+      "precision": 11
      },
      "end": {
       "prop": "P582",
@@ -5323,6 +5486,18 @@
    },
    "others": [
     {
+     "qid": "Q12580647",
+     "ko": "6·25 전쟁일",
+     "en": "Korean War Day",
+     "desc": "대한민국의 기념일",
+     "types": [
+      "대한민국의 기념일"
+     ],
+     "start": null,
+     "end": null,
+     "term": "6·25 전쟁"
+    },
+    {
      "qid": "Q198",
      "ko": "전쟁",
      "en": "war",
@@ -5336,35 +5511,23 @@
      "term": "전쟁"
     },
     {
-     "qid": "Q1194961",
-     "ko": "전쟁",
-     "en": "The War",
-     "desc": "아르놀트 뵈클린의 그림",
+     "qid": "Q151701",
+     "ko": "전쟁해군",
+     "en": "Kriegsmarine",
+     "desc": "독일 국방군의 해전 분파",
      "types": [
-      "회화"
+      "해군"
      ],
      "start": {
       "prop": "P571",
-      "year": 1896,
-      "precision": 9
+      "year": 1935,
+      "precision": 11
      },
-     "end": null,
-     "term": "전쟁"
-    },
-    {
-     "qid": "Q3778533",
-     "ko": "전쟁",
-     "en": "La Guerre",
-     "desc": "앙리 루소의 그림",
-     "types": [
-      "회화"
-     ],
-     "start": {
-      "prop": "P571",
-      "year": 1894,
-      "precision": 8
+     "end": {
+      "prop": "P576",
+      "year": 1945,
+      "precision": 11
      },
-     "end": null,
      "term": "전쟁"
     }
    ]
@@ -5424,18 +5587,17 @@
      "term": "혁명"
     },
     {
-     "qid": "Q3458427",
-     "ko": "혁명",
-     "en": "Révolutions",
-     "desc": "장마리 귀스타브 르클레지오의 소설",
+     "qid": "Q18808",
+     "ko": "평양시",
+     "en": "Pyongyang",
+     "desc": "조선민주주의인민공화국의 수도",
      "types": [
-      "저작물"
+      "도시",
+      "직할시",
+      "인구 10만 명 이상 도시",
+      "최상위 행정 구역"
      ],
-     "start": {
-      "prop": "P577",
-      "year": 2003,
-      "precision": 9
-     },
+     "start": null,
      "end": null,
      "term": "혁명"
     }
@@ -5870,25 +6032,25 @@
      "term": "하"
     },
     {
+     "qid": "Q1043107",
+     "ko": "샤",
+     "en": "Xia",
+     "desc": "중국의 성씨 (夏)",
+     "types": [
+      "가족 이름",
+      "한성"
+     ],
+     "start": null,
+     "end": null,
+     "term": "夏"
+    },
+    {
      "qid": "Q20008602",
      "ko": "하",
      "en": "Ha",
      "desc": "한국의 성씨",
      "types": [
       "가족 이름"
-     ],
-     "start": null,
-     "end": null,
-     "term": "하"
-    },
-    {
-     "qid": "Q3083948",
-     "ko": "허",
-     "en": "He",
-     "desc": "중국의 성씨 (何)",
-     "types": [
-      "가족 이름",
-      "한성"
      ],
      "start": null,
      "end": null,
@@ -5903,20 +6065,43 @@
    "kind": "polity",
    "start_year": -1600,
    "end_year": -1046,
-   "verdict": "날짜 없음",
+   "verdict": "일치",
    "best": {
-    "qid": "Q179700",
-    "ko": "상",
-    "en": "statue",
-    "desc": "사람이나 동물을 조각해서 만든 예술 작품",
+    "qid": "Q128938",
+    "ko": "상나라",
+    "en": "Shang dynasty",
+    "desc": "역사적으로 실존했다고 여겨지는 중국 최초의 왕조",
     "types": [
-     "조각의 장르"
+     "문화",
+     "제후",
+     "style",
+     "시대"
     ],
-    "start": null,
-    "end": null,
+    "start": {
+     "prop": "P571",
+     "year": -1600,
+     "precision": 9
+    },
+    "end": {
+     "prop": "P576",
+     "year": -1046,
+     "precision": 9
+    },
     "term": "상"
    },
    "others": [
+    {
+     "qid": "Q179700",
+     "ko": "상",
+     "en": "statue",
+     "desc": "사람이나 동물을 조각해서 만든 예술 작품",
+     "types": [
+      "조각의 장르"
+     ],
+     "start": null,
+     "end": null,
+     "term": "상"
+    },
     {
      "qid": "Q618779",
      "ko": "상",
@@ -5938,20 +6123,15 @@
      "start": null,
      "end": null,
      "term": "상"
-    },
-    {
-     "qid": "Q750652",
-     "ko": "상",
-     "en": "mourning",
-     "desc": null,
-     "types": [
-      "부정적 감정"
-     ],
-     "start": null,
-     "end": null,
-     "term": "상"
     }
-   ]
+   ],
+   "cliopatria": {
+    "names": [
+     "Shang Dynasty"
+    ],
+    "from": -1600,
+    "to": -1001
+   }
   },
   {
    "id": "china-western-zhou",
@@ -6009,21 +6189,21 @@
      "term": "서주"
     },
     {
-     "qid": "Q1061289",
-     "ko": "서주 무왕",
-     "en": "King Wu of Zhou",
-     "desc": "주나라의 제1대 천자",
+     "qid": "Q388766",
+     "ko": "서주 성왕",
+     "en": "King Cheng of Zhou",
+     "desc": null,
      "types": [
       "사람"
      ],
      "start": {
       "prop": "P569",
-      "year": -1151,
+      "year": -1101,
       "precision": 7
      },
      "end": {
       "prop": "P570",
-      "year": -1043,
+      "year": -1021,
       "precision": 9
      },
      "term": "서주"
@@ -6092,74 +6272,92 @@
    "kind": "polity",
    "start_year": -221,
    "end_year": -206,
-   "verdict": "어긋남",
+   "verdict": "일치",
    "best": {
-    "qid": "Q7352",
-    "ko": "진",
-    "en": "Jin dynasty",
-    "desc": "중국의 왕조 (265~420)",
+    "qid": "Q7183",
+    "ko": "진나라",
+    "en": "Qin dynasty",
+    "desc": "중국 최초의 통일 왕조",
     "types": [
      "시대",
-     "중국 왕조",
      "historical Chinese state"
     ],
     "start": {
      "prop": "P571",
-     "year": 266,
+     "year": -221,
      "precision": 9
     },
     "end": {
      "prop": "P576",
-     "year": 420,
+     "year": -206,
      "precision": 9
     },
-    "term": "진"
+    "term": "진나라"
    },
    "others": [
     {
-     "qid": "Q959362",
+     "qid": "Q7352",
      "ko": "진",
-     "en": "gin",
-     "desc": null,
+     "en": "Jin dynasty",
+     "desc": "중국의 왕조 (265~420)",
      "types": [
-      "증류주"
+      "시대",
+      "중국 왕조",
+      "historical Chinese state"
      ],
-     "start": null,
-     "end": null,
+     "start": {
+      "prop": "P571",
+      "year": 266,
+      "precision": 9
+     },
+     "end": {
+      "prop": "P576",
+      "year": 420,
+      "precision": 9
+     },
      "term": "진"
     },
     {
-     "qid": "Q735428",
-     "ko": "진",
-     "en": "town of China",
-     "desc": null,
+     "qid": "Q47974",
+     "ko": "산시성",
+     "en": "Shaanxi",
+     "desc": "중화인민공화국의 성. 섬서성",
      "types": [
-      "designation for an administrative territorial entity of a single country"
+      "성"
      ],
      "start": null,
      "end": null,
-     "term": "진"
+     "term": "秦"
     },
     {
-     "qid": "Q718600",
+     "qid": "Q34756",
      "ko": "진",
-     "en": "Jin",
-     "desc": "중국의 성씨 (金)",
+     "en": "Qin",
+     "desc": null,
      "types": [
-      "가족 이름",
-      "한성"
+      "제후",
+      "Twelve Vassals"
      ],
-     "start": null,
-     "end": null,
+     "start": {
+      "prop": "P571",
+      "year": -905,
+      "precision": 9
+     },
+     "end": {
+      "prop": "P576",
+      "year": -221,
+      "precision": 9
+     },
      "term": "진"
     }
    ],
    "cliopatria": {
     "names": [
-     "Western Jin"
+     "Qin Dynasty",
+     "Zhai"
     ],
-    "from": 265,
-    "to": 425
+    "from": -218,
+    "to": -204
    }
   },
   {
@@ -6233,21 +6431,21 @@
      "term": "전한"
     },
     {
-     "qid": "Q434207",
-     "ko": "톈한",
-     "en": "Tian Han",
-     "desc": "중화인민공화국의 현대 극작가 (1898–1986)",
+     "qid": "Q7225",
+     "ko": "전한 무제",
+     "en": "Emperor Wu of Han",
+     "desc": "전한의 제7대 황제",
      "types": [
       "사람"
      ],
      "start": {
       "prop": "P569",
-      "year": 1898,
+      "year": -156,
       "precision": 11
      },
      "end": {
       "prop": "P570",
-      "year": 1968,
+      "year": -87,
       "precision": 11
      },
      "term": "전한"
@@ -6261,49 +6459,29 @@
    "kind": "polity",
    "start_year": 9,
    "end_year": 23,
-   "verdict": "부분 일치",
+   "verdict": "일치",
    "best": {
-    "qid": "Q7250",
-    "ko": "왕망",
-    "en": "Wang Mang",
-    "desc": null,
+    "qid": "Q504769",
+    "ko": "신나라",
+    "en": "Xin dynasty",
+    "desc": "중국 제국의 왕조(AD 9~23년)",
     "types": [
-     "사람"
+     "중국 왕조",
+     "historical Chinese state"
     ],
     "start": {
-     "prop": "P569",
-     "year": -45,
+     "prop": "P571",
+     "year": 9,
      "precision": 9
     },
     "end": {
-     "prop": "P570",
+     "prop": "P576",
      "year": 23,
-     "precision": 11
+     "precision": 9
     },
-    "term": "왕망"
+    "term": "신"
    },
    "others": [
-    {
-     "qid": "Q504769",
-     "ko": "신나라",
-     "en": "Xin dynasty",
-     "desc": "중국 제국의 왕조(AD 9~23년)",
-     "types": [
-      "중국 왕조",
-      "historical Chinese state"
-     ],
-     "start": {
-      "prop": "P571",
-      "year": 9,
-      "precision": 9
-     },
-     "end": {
-      "prop": "P576",
-      "year": 23,
-      "precision": 9
-     },
-     "term": "신"
-    },
     {
      "qid": "Q178885",
      "ko": "신",
@@ -6325,8 +6503,35 @@
      "start": null,
      "end": null,
      "term": "신"
+    },
+    {
+     "qid": "Q7250",
+     "ko": "왕망",
+     "en": "Wang Mang",
+     "desc": null,
+     "types": [
+      "사람"
+     ],
+     "start": {
+      "prop": "P569",
+      "year": -45,
+      "precision": 9
+     },
+     "end": {
+      "prop": "P570",
+      "year": 23,
+      "precision": 11
+     },
+     "term": "왕망"
     }
-   ]
+   ],
+   "cliopatria": {
+    "names": [
+     "Xin Dynasty"
+    ],
+    "from": 6,
+    "to": 29
+   }
   },
   {
    "id": "china-eastern-han",
@@ -6580,27 +6785,23 @@
    },
    "others": [
     {
-     "qid": "Q68489359",
-     "ko": "동진",
-     "en": "Dong-jin",
-     "desc": "남성의 이름",
+     "qid": "Q7400",
+     "ko": "동진 간문제",
+     "en": "Emperor Jianwen of Jin",
+     "desc": null,
      "types": [
-      "남성의 이름"
+      "사람"
      ],
-     "start": null,
-     "end": null,
-     "term": "동진"
-    },
-    {
-     "qid": "Q141045765",
-     "ko": "동진",
-     "en": null,
-     "desc": "조선시대 평안도의 진(鎭)",
-     "types": [
-      "과거에 존재했던 행정 구역"
-     ],
-     "start": null,
-     "end": null,
+     "start": {
+      "prop": "P569",
+      "year": 320,
+      "precision": 9
+     },
+     "end": {
+      "prop": "P570",
+      "year": 372,
+      "precision": 9
+     },
      "term": "동진"
     },
     {
@@ -6623,6 +6824,26 @@
       "prop": "P582",
       "year": 439,
       "precision": 9
+     },
+     "term": "동진"
+    },
+    {
+     "qid": "Q7392",
+     "ko": "동진 원제",
+     "en": "Emperor Yuan of Jin",
+     "desc": "중국 동진의 초대 황제",
+     "types": [
+      "사람"
+     ],
+     "start": {
+      "prop": "P569",
+      "year": 276,
+      "precision": 9
+     },
+     "end": {
+      "prop": "P570",
+      "year": 323,
+      "precision": 11
      },
      "term": "동진"
     }
@@ -6783,24 +7004,47 @@
    "kind": "polity",
    "start_year": 618,
    "end_year": 907,
-   "verdict": "어긋남",
+   "verdict": "일치",
    "best": {
-    "qid": "Q22748",
-    "ko": "당",
-    "en": "Die PARTEI",
-    "desc": null,
+    "qid": "Q9683",
+    "ko": "당나라",
+    "en": "Tang dynasty",
+    "desc": "중국의 왕조",
     "types": [
-     "독일의 정당"
+     "문화",
+     "style",
+     "시대",
+     "중국 왕조"
     ],
     "start": {
-     "prop": "P571",
-     "year": 2004,
-     "precision": 11
+     "prop": "P580",
+     "year": 618,
+     "precision": 9
     },
-    "end": null,
+    "end": {
+     "prop": "P576",
+     "year": 907,
+     "precision": 9
+    },
     "term": "당"
    },
    "others": [
+    {
+     "qid": "Q22748",
+     "ko": "당",
+     "en": "Die PARTEI",
+     "desc": null,
+     "types": [
+      "독일의 정당"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 2004,
+      "precision": 11
+     },
+     "end": null,
+     "term": "당"
+    },
     {
      "qid": "Q4154462",
      "ko": "당",
@@ -6826,21 +7070,15 @@
      "start": null,
      "end": null,
      "term": "당"
-    },
-    {
-     "qid": "Q96748278",
-     "ko": "당",
-     "en": "Dang",
-     "desc": "한어 이름 (當 / 当)",
-     "types": [
-      "이름",
-      "한어 이름"
-     ],
-     "start": null,
-     "end": null,
-     "term": "당"
     }
-   ]
+   ],
+   "cliopatria": {
+    "names": [
+     "Tang Dynasty"
+    ],
+    "from": 623,
+    "to": 910
+   }
   },
   {
    "id": "china-wudai",
@@ -6889,74 +7127,90 @@
    "kind": "polity",
    "start_year": 916,
    "end_year": 1125,
-   "verdict": "어긋남",
+   "verdict": "일치",
    "best": {
-    "qid": "Q819556",
-    "ko": "요",
-    "en": "Yao",
-    "desc": null,
+    "qid": "Q4958",
+    "ko": "요나라",
+    "en": "Liao dynasty",
+    "desc": "거란족이 중국 화북지역을 정복하고 세운 왕조",
     "types": [
-     "전설 속 인물"
+     "중국 왕조",
+     "historical Chinese state"
     ],
     "start": {
-     "prop": "P569",
-     "year": -2324,
+     "prop": "P571",
+     "year": 916,
      "precision": 9
     },
     "end": {
-     "prop": "P570",
-     "year": -2206,
+     "prop": "P576",
+     "year": 1125,
      "precision": 9
     },
-    "term": "요"
+    "term": "요나라"
    },
    "others": [
     {
-     "qid": "Q218332",
-     "ko": "거란",
-     "en": "Khitan people",
-     "desc": "남만주와 내몽골의 시라무렌 강 유역에 나타나 거주하던 동호 민족",
+     "qid": "Q819556",
+     "ko": "요",
+     "en": "Yao",
+     "desc": null,
      "types": [
-      "민족"
+      "전설 속 인물"
+     ],
+     "start": {
+      "prop": "P569",
+      "year": -2324,
+      "precision": 9
+     },
+     "end": {
+      "prop": "P570",
+      "year": -2206,
+      "precision": 9
+     },
+     "term": "요"
+    },
+    {
+     "qid": "Q11445462",
+     "ko": "요나라",
+     "en": "Yō Nara",
+     "desc": null,
+     "types": [
+      "사람"
+     ],
+     "start": {
+      "prop": "P569",
+      "year": 1942,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P570",
+      "year": 2007,
+      "precision": 11
+     },
+     "term": "요나라"
+    },
+    {
+     "qid": "Q9383473",
+     "ko": "요",
+     "en": "Yō",
+     "desc": "남성의 이름",
+     "types": [
+      "남녀공통 이름",
+      "undifferentiated Japanese kana given name"
      ],
      "start": null,
      "end": null,
-     "term": "거란"
-    },
-    {
-     "qid": "Q6401800",
-     "ko": "거란 소자",
-     "en": "Khitan small script",
-     "desc": null,
-     "types": [
-      "문자",
-      "미해독 문자",
-      "logographic writing system",
-      "단일형 문자"
-     ],
-     "start": {
-      "prop": "P571",
-      "year": 924,
-      "precision": 9
-     },
-     "end": null,
-     "term": "거란"
-    },
-    {
-     "qid": "Q667774",
-     "ko": "거란 문자",
-     "en": "Khitan scripts",
-     "desc": null,
-     "types": [],
-     "start": {
-      "prop": "P571",
-      "year": 920,
-      "precision": 9
-     },
-     "end": null,
-     "term": "거란"
+     "term": "요"
     }
-   ]
+   ],
+   "cliopatria": {
+    "names": [
+     "Liao Dynasty"
+    ],
+    "from": 911,
+    "to": 1125
+   }
   },
   {
    "id": "china-northern-song",
@@ -7151,38 +7405,46 @@
    "kind": "polity",
    "start_year": 1115,
    "end_year": 1234,
-   "verdict": "어긋남",
+   "verdict": "일치",
    "best": {
-    "qid": "Q897",
-    "ko": "금",
-    "en": "gold",
-    "desc": "빛나는 노란색의 무른 금속",
+    "qid": "Q5066",
+    "ko": "금나라",
+    "en": "Jin dynasty",
+    "desc": "여진족이 화북을 정복하여 세운 왕조",
     "types": [
-     "원소",
-     "귀금속",
-     "metallic material"
+     "중국 왕조",
+     "historical Chinese state"
     ],
     "start": {
-     "prop": "P575",
-     "year": -6001,
-     "precision": 6
+     "prop": "P571",
+     "year": 1115,
+     "precision": 9
     },
-    "end": null,
-    "term": "금"
+    "end": {
+     "prop": "P576",
+     "year": 1234,
+     "precision": 9
+    },
+    "term": "금나라"
    },
    "others": [
     {
-     "qid": "Q753880",
-     "ko": "여진",
-     "en": "Jurchen people",
-     "desc": "만주의 민족",
+     "qid": "Q897",
+     "ko": "금",
+     "en": "gold",
+     "desc": "빛나는 노란색의 무른 금속",
      "types": [
-      "민족",
-      "인민"
+      "원소",
+      "귀금속",
+      "metallic material"
      ],
-     "start": null,
+     "start": {
+      "prop": "P575",
+      "year": -6001,
+      "precision": 6
+     },
      "end": null,
-     "term": "여진"
+     "term": "금"
     },
     {
      "qid": "Q649022",
@@ -7195,18 +7457,36 @@
      "term": "금"
     },
     {
-     "qid": "Q308442",
-     "ko": "여진",
-     "en": "aftershock",
-     "desc": "큰 지진이 발생한 후 뒤이어 발생하는 작은 규모의 지진",
+     "qid": "Q912240",
+     "ko": "여진 문자",
+     "en": "Jurchen script",
+     "desc": null,
      "types": [
-      "지진의 유형"
+      "문자",
+      "logographic writing system",
+      "단일형 문자",
+      "자연 문자"
      ],
-     "start": null,
-     "end": null,
+     "start": {
+      "prop": "P580",
+      "year": 1119,
+      "precision": 7
+     },
+     "end": {
+      "prop": "P582",
+      "year": 1600,
+      "precision": 7
+     },
      "term": "여진"
     }
-   ]
+   ],
+   "cliopatria": {
+    "names": [
+     "Great Jin"
+    ],
+    "from": 1126,
+    "to": 1235
+   }
   },
   {
    "id": "china-southern-song",
@@ -7239,6 +7519,46 @@
    },
    "others": [
     {
+     "qid": "Q7492",
+     "ko": "남송 효종",
+     "en": "Emperor Xiaozong of Song",
+     "desc": null,
+     "types": [
+      "사람"
+     ],
+     "start": {
+      "prop": "P569",
+      "year": 1127,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P570",
+      "year": 1194,
+      "precision": 11
+     },
+     "term": "남송"
+    },
+    {
+     "qid": "Q7503",
+     "ko": "남송 소제",
+     "en": "Emperor Bing of Song",
+     "desc": null,
+     "types": [
+      "사람"
+     ],
+     "start": {
+      "prop": "P569",
+      "year": 1272,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P570",
+      "year": 1279,
+      "precision": 11
+     },
+     "term": "남송"
+    },
+    {
      "qid": "Q7489",
      "ko": "남송 고종",
      "en": "Emperor Gaozong of Song",
@@ -7257,46 +7577,6 @@
       "precision": 11
      },
      "term": "남송"
-    },
-    {
-     "qid": "Q7498",
-     "ko": "남송 도종",
-     "en": "Emperor Duzong of Song",
-     "desc": "13세기 중국의 황제 (1240–1274)",
-     "types": [
-      "사람"
-     ],
-     "start": {
-      "prop": "P569",
-      "year": 1240,
-      "precision": 11
-     },
-     "end": {
-      "prop": "P570",
-      "year": 1274,
-      "precision": 11
-     },
-     "term": "남송"
-    },
-    {
-     "qid": "Q7497",
-     "ko": "남송 이종",
-     "en": "Emperor Lizong of Song",
-     "desc": "13세기 중국 황제 (1205–1264)",
-     "types": [
-      "사람"
-     ],
-     "start": {
-      "prop": "P569",
-      "year": 1205,
-      "precision": 11
-     },
-     "end": {
-      "prop": "P570",
-      "year": 1264,
-      "precision": 11
-     },
-     "term": "남송"
     }
    ]
   },
@@ -7307,25 +7587,68 @@
    "kind": "polity",
    "start_year": 1271,
    "end_year": 1368,
-   "verdict": "어긋남",
+   "verdict": "일치",
    "best": {
-    "qid": "Q202040",
-    "ko": "원",
-    "en": "won",
-    "desc": "대한민국의 통화",
+    "qid": "Q7313",
+    "ko": "원나라",
+    "en": "Yuan dynasty",
+    "desc": "1271년에 몽골 제국의 제5대 황제 쿠빌라이가 세운 나라",
     "types": [
-     "통화",
-     "원"
+     "정복왕조",
+     "시대",
+     "historical Chinese state"
     ],
     "start": {
-     "prop": "P580",
-     "year": 1947,
-     "precision": 11
+     "prop": "P571",
+     "year": 1271,
+     "precision": 9
     },
-    "end": null,
-    "term": "원"
+    "end": {
+     "prop": "P576",
+     "year": 1368,
+     "precision": 9
+    },
+    "term": "원나라"
    },
    "others": [
+    {
+     "qid": "Q10531418",
+     "ko": "원나라",
+     "en": "imperial house of the Yuan Empire",
+     "desc": null,
+     "types": [
+      "정복왕조",
+      "귀족가문"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1260,
+      "precision": 9
+     },
+     "end": {
+      "prop": "P576",
+      "year": 1367,
+      "precision": 9
+     },
+     "term": "원나라"
+    },
+    {
+     "qid": "Q202040",
+     "ko": "원",
+     "en": "won",
+     "desc": "대한민국의 통화",
+     "types": [
+      "통화",
+      "원"
+     ],
+     "start": {
+      "prop": "P580",
+      "year": 1947,
+      "precision": 11
+     },
+     "end": null,
+     "term": "원"
+    },
     {
      "qid": "Q17278",
      "ko": "원",
@@ -7339,34 +7662,17 @@
      "start": null,
      "end": null,
      "term": "원"
-    },
-    {
-     "qid": "Q1130812",
-     "ko": "원",
-     "en": "Wen",
-     "desc": "중극의 성씨 (文)",
-     "types": [
-      "가족 이름",
-      "한성"
-     ],
-     "start": null,
-     "end": null,
-     "term": "원"
-    },
-    {
-     "qid": "Q12010491",
-     "ko": "원",
-     "en": "Wen",
-     "desc": "중국의 성씨 (温)",
-     "types": [
-      "가족 이름",
-      "한성"
-     ],
-     "start": null,
-     "end": null,
-     "term": "원"
     }
-   ]
+   ],
+   "cliopatria": {
+    "names": [
+     "Great Yuan",
+     "Yuan Dynasty",
+     "Great Mongol State"
+    ],
+    "from": -110,
+    "to": 1925
+   }
   },
   {
    "id": "china-ming",
@@ -7412,25 +7718,24 @@
      "term": "명"
     },
     {
-     "qid": "Q202444",
-     "ko": "이름",
-     "en": "given name",
-     "desc": "가족 안에서 개인을 구별하기 위한, 성명에서 성씨를 제외한 이름",
+     "qid": "Q18324363",
+     "ko": "명",
+     "en": "Myeong",
+     "desc": "성씨",
      "types": [
-      "name particle"
+      "가족 이름"
      ],
      "start": null,
      "end": null,
      "term": "명"
     },
     {
-     "qid": "Q11087786",
-     "ko": "밍",
-     "en": "Ming",
-     "desc": "중국의 성씨 (明)",
+     "qid": "Q202444",
+     "ko": "이름",
+     "en": "given name",
+     "desc": "가족 안에서 개인을 구별하기 위한, 성명에서 성씨를 제외한 이름",
      "types": [
-      "가족 이름",
-      "한성"
+      "name particle"
      ],
      "start": null,
      "end": null,
@@ -7452,21 +7757,61 @@
    "kind": "polity",
    "start_year": 1636,
    "end_year": 1912,
-   "verdict": "날짜 없음",
+   "verdict": "일치",
    "best": {
-    "qid": "Q9795791",
-    "ko": "청",
-    "en": "Cheng",
-    "desc": "중국의 성씨 (程)",
+    "qid": "Q8733",
+    "ko": "청나라",
+    "en": "Qing dynasty",
+    "desc": "중국의 마지막 왕조",
     "types": [
-     "가족 이름",
-     "한성"
+     "과거에 존재했던 나라",
+     "시대",
+     "historical Chinese state"
     ],
-    "start": null,
-    "end": null,
-    "term": "청"
+    "start": {
+     "prop": "P580",
+     "year": 1636,
+     "precision": 9
+    },
+    "end": {
+     "prop": "P576",
+     "year": 1912,
+     "precision": 9
+    },
+    "term": "청나라"
    },
    "others": [
+    {
+     "qid": "Q3408526",
+     "ko": "청나라 치하 몽골",
+     "en": "Mongolia during Qing rule",
+     "desc": "몽골이 후금 및 청의 지배를 받았던 시기",
+     "types": [],
+     "start": {
+      "prop": "P571",
+      "year": 1635,
+      "precision": 9
+     },
+     "end": {
+      "prop": "P582",
+      "year": 1911,
+      "precision": 9
+     },
+     "term": "청나라"
+    },
+    {
+     "qid": "Q9795791",
+     "ko": "청",
+     "en": "Cheng",
+     "desc": "중국의 성씨 (程)",
+     "types": [
+      "가족 이름",
+      "한성"
+     ],
+     "start": null,
+     "end": null,
+     "term": "청"
+    },
     {
      "qid": "Q11074526",
      "ko": "청",
@@ -7479,34 +7824,15 @@
      "start": null,
      "end": null,
      "term": "청"
-    },
-    {
-     "qid": "Q11484275",
-     "ko": "청",
-     "en": "government office",
-     "desc": "일본 행정기관의 조직 단위이자 용어",
-     "types": [
-      "정부 조직",
-      "government offices"
-     ],
-     "start": null,
-     "end": null,
-     "term": "청"
-    },
-    {
-     "qid": "Q96184837",
-     "ko": "청",
-     "en": "Cheng",
-     "desc": "한어 이름 (成)",
-     "types": [
-      "이름",
-      "한어 이름"
-     ],
-     "start": null,
-     "end": null,
-     "term": "청"
     }
-   ]
+   ],
+   "cliopatria": {
+    "names": [
+     "Qing Dynasty"
+    ],
+    "from": 1645,
+    "to": 1911
+   }
   },
   {
    "id": "china-opium-war",
@@ -7740,32 +8066,35 @@
      "term": "중화민국"
     },
     {
-     "qid": "Q712849",
-     "ko": "국립 정치 대학",
-     "en": "National Chengchi University",
-     "desc": "중화민국의 국립 대학이다",
+     "qid": "Q887003",
+     "ko": "중화민국의 총통",
+     "en": "President of the Republic of China",
+     "desc": "중화민국 국가원수",
      "types": [
-      "국립 대학",
-      "연구형 대학",
-      "open-access publisher"
+      "직위"
      ],
      "start": {
       "prop": "P571",
-      "year": 1927,
-      "precision": 9
+      "year": 1912,
+      "precision": 11
      },
      "end": null,
      "term": "중화민국"
     },
     {
-     "qid": "Q1151968",
-     "ko": "중화민국의 역사",
-     "en": "history of the Republic of China",
+     "qid": "Q697093",
+     "ko": "중화민국 교육부",
+     "en": "Ministry of Education of Taiwan",
      "desc": null,
      "types": [
-      "분야사"
+      "교육부",
+      "중화민국 중앙행정기관"
      ],
-     "start": null,
+     "start": {
+      "prop": "P571",
+      "year": 1912,
+      "precision": 9
+     },
      "end": null,
      "term": "중화민국"
     }
@@ -7858,6 +8187,23 @@
    },
    "others": [
     {
+     "qid": "Q755179",
+     "ko": "중국 인민해방군 해군",
+     "en": "People's Liberation Army Navy",
+     "desc": "중국 인민해방군의 해양전 분파",
+     "types": [
+      "해군",
+      "PLA branch"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1949,
+      "precision": 11
+     },
+     "end": null,
+     "term": "중화인민공화국"
+    },
+    {
      "qid": "Q59261",
      "ko": "중화인민공화국 국무원",
      "en": "State Council of the People's Republic of China",
@@ -7877,24 +8223,19 @@
      "term": "중화인민공화국"
     },
     {
-     "qid": "Q50231",
-     "ko": "중화인민공화국의 행정 구역",
-     "en": "administrative territorial entity of the People's Republic of China",
-     "desc": "중화인민공화국의 지역 구분 체계.",
-     "types": [],
-     "start": null,
-     "end": null,
-     "term": "중화인민공화국"
-    },
-    {
-     "qid": "Q130582",
-     "ko": "중국 축구 국가대표팀",
-     "en": "China men's national football team",
-     "desc": "중국의 남자 축구 대표팀",
+     "qid": "Q200106",
+     "ko": "중국 인민해방군",
+     "en": "People’s Liberation Army",
+     "desc": "중국공산당의 군대",
      "types": [
-      "men's national association football team"
+      "군대",
+      "정규군"
      ],
-     "start": null,
+     "start": {
+      "prop": "P571",
+      "year": 1927,
+      "precision": 11
+     },
      "end": null,
      "term": "중화인민공화국"
     }
@@ -8021,23 +8362,27 @@
      "term": "시대"
     },
     {
+     "qid": "Q19825637",
+     "ko": "시대역량",
+     "en": "New Power Party",
+     "desc": null,
+     "types": [
+      "정당"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 2015,
+      "precision": 11
+     },
+     "end": null,
+     "term": "시대"
+    },
+    {
      "qid": "Q6428674",
      "ko": "시대",
      "en": "era",
      "desc": "연대학 또는 역사학의 목적을 위해 정의된 시간의 범위",
      "types": [],
-     "start": null,
-     "end": null,
-     "term": "시대"
-    },
-    {
-     "qid": "Q11514315",
-     "ko": "시대",
-     "en": "historical period",
-     "desc": "역사의 한 단락",
-     "types": [
-      "분야사"
-     ],
      "start": null,
      "end": null,
      "term": "시대"
@@ -8087,23 +8432,27 @@
      "term": "시대"
     },
     {
+     "qid": "Q19825637",
+     "ko": "시대역량",
+     "en": "New Power Party",
+     "desc": null,
+     "types": [
+      "정당"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 2015,
+      "precision": 11
+     },
+     "end": null,
+     "term": "시대"
+    },
+    {
      "qid": "Q6428674",
      "ko": "시대",
      "en": "era",
      "desc": "연대학 또는 역사학의 목적을 위해 정의된 시간의 범위",
      "types": [],
-     "start": null,
-     "end": null,
-     "term": "시대"
-    },
-    {
-     "qid": "Q11514315",
-     "ko": "시대",
-     "en": "historical period",
-     "desc": "역사의 한 단락",
-     "types": [
-      "분야사"
-     ],
      "start": null,
      "end": null,
      "term": "시대"
@@ -8152,23 +8501,27 @@
      "term": "시대"
     },
     {
+     "qid": "Q19825637",
+     "ko": "시대역량",
+     "en": "New Power Party",
+     "desc": null,
+     "types": [
+      "정당"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 2015,
+      "precision": 11
+     },
+     "end": null,
+     "term": "시대"
+    },
+    {
      "qid": "Q6428674",
      "ko": "시대",
      "en": "era",
      "desc": "연대학 또는 역사학의 목적을 위해 정의된 시간의 범위",
      "types": [],
-     "start": null,
-     "end": null,
-     "term": "시대"
-    },
-    {
-     "qid": "Q11514315",
-     "ko": "시대",
-     "en": "historical period",
-     "desc": "역사의 한 단락",
-     "types": [
-      "분야사"
-     ],
      "start": null,
      "end": null,
      "term": "시대"
@@ -8217,23 +8570,27 @@
      "term": "시대"
     },
     {
+     "qid": "Q19825637",
+     "ko": "시대역량",
+     "en": "New Power Party",
+     "desc": null,
+     "types": [
+      "정당"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 2015,
+      "precision": 11
+     },
+     "end": null,
+     "term": "시대"
+    },
+    {
      "qid": "Q6428674",
      "ko": "시대",
      "en": "era",
      "desc": "연대학 또는 역사학의 목적을 위해 정의된 시간의 범위",
      "types": [],
-     "start": null,
-     "end": null,
-     "term": "시대"
-    },
-    {
-     "qid": "Q11514315",
-     "ko": "시대",
-     "en": "historical period",
-     "desc": "역사의 한 단락",
-     "types": [
-      "분야사"
-     ],
      "start": null,
      "end": null,
      "term": "시대"
@@ -8289,23 +8646,27 @@
      "term": "시대"
     },
     {
+     "qid": "Q19825637",
+     "ko": "시대역량",
+     "en": "New Power Party",
+     "desc": null,
+     "types": [
+      "정당"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 2015,
+      "precision": 11
+     },
+     "end": null,
+     "term": "시대"
+    },
+    {
      "qid": "Q6428674",
      "ko": "시대",
      "en": "era",
      "desc": "연대학 또는 역사학의 목적을 위해 정의된 시간의 범위",
      "types": [],
-     "start": null,
-     "end": null,
-     "term": "시대"
-    },
-    {
-     "qid": "Q11514315",
-     "ko": "시대",
-     "en": "historical period",
-     "desc": "역사의 한 단락",
-     "types": [
-      "분야사"
-     ],
      "start": null,
      "end": null,
      "term": "시대"
@@ -8361,23 +8722,27 @@
      "term": "시대"
     },
     {
+     "qid": "Q19825637",
+     "ko": "시대역량",
+     "en": "New Power Party",
+     "desc": null,
+     "types": [
+      "정당"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 2015,
+      "precision": 11
+     },
+     "end": null,
+     "term": "시대"
+    },
+    {
      "qid": "Q6428674",
      "ko": "시대",
      "en": "era",
      "desc": "연대학 또는 역사학의 목적을 위해 정의된 시간의 범위",
      "types": [],
-     "start": null,
-     "end": null,
-     "term": "시대"
-    },
-    {
-     "qid": "Q11514315",
-     "ko": "시대",
-     "en": "historical period",
-     "desc": "역사의 한 단락",
-     "types": [
-      "분야사"
-     ],
      "start": null,
      "end": null,
      "term": "시대"
@@ -8423,35 +8788,45 @@
    },
    "others": [
     {
-     "qid": "Q1074150",
-     "ko": "막부",
-     "en": "shogunate",
-     "desc": "일본의 중세부터 근현대까지 일본을 실질적으로 통치했던 무인정권",
+     "qid": "Q11650911",
+     "ko": "가마쿠라 막부의 집권",
+     "en": "list of Kamakura shikken",
+     "desc": "위키미디어 목록 항목",
      "types": [
-      "정부"
+      "위키미디어 목록 문서"
      ],
      "start": null,
      "end": null,
-     "term": "막부"
+     "term": "가마쿠라 막부"
     },
     {
-     "qid": "Q11060548",
-     "ko": "막부",
-     "en": "mufu",
-     "desc": null,
-     "types": [],
+     "qid": "Q11650889",
+     "ko": "가마쿠라 막부의 정이대장군",
+     "en": "list of Kamakura shoguns",
+     "desc": "위키미디어 목록 항목",
+     "types": [
+      "위키미디어 목록 문서"
+     ],
      "start": null,
      "end": null,
-     "term": "막부"
+     "term": "가마쿠라 막부"
     },
     {
-     "qid": "Q11060547",
-     "ko": "막부",
-     "en": "mufu",
-     "desc": null,
-     "types": [],
+     "qid": "Q131767",
+     "ko": "세이이타이쇼군",
+     "en": "shogun",
+     "desc": "일본 막부의 우두머리",
+     "types": [
+      "군사 계급",
+      "East Asian extra-statutory office",
+      "직업"
+     ],
      "start": null,
-     "end": null,
+     "end": {
+      "prop": "P576",
+      "year": 1868,
+      "precision": 11
+     },
      "term": "막부"
     }
    ],
@@ -8535,23 +8910,15 @@
      "term": "신정"
     },
     {
-     "qid": "Q11503793",
-     "ko": "신정",
-     "en": "Shin",
-     "desc": "일본의 니가타현 사도군에 있던 정",
+     "qid": "Q44405",
+     "ko": "신정 정치",
+     "en": "theocracy",
+     "desc": null,
      "types": [
-      "일본의 폐지된 시구정촌"
+      "정부형태"
      ],
-     "start": {
-      "prop": "P571",
-      "year": 1889,
-      "precision": 11
-     },
-     "end": {
-      "prop": "P576",
-      "year": 1901,
-      "precision": 11
-     },
+     "start": null,
+     "end": null,
      "term": "신정"
     }
    ],
@@ -8615,25 +8982,33 @@
      "term": "무로마치 막부"
     },
     {
-     "qid": "Q1074150",
-     "ko": "막부",
-     "en": "shogunate",
-     "desc": "일본의 중세부터 근현대까지 일본을 실질적으로 통치했던 무인정권",
+     "qid": "Q10236347",
+     "ko": "무로마치 막부의 정이대장군",
+     "en": null,
+     "desc": "위키미디어 목록 항목",
      "types": [
-      "정부"
+      "위키미디어 목록 문서"
      ],
      "start": null,
      "end": null,
-     "term": "막부"
+     "term": "무로마치 막부"
     },
     {
-     "qid": "Q11060548",
-     "ko": "막부",
-     "en": "mufu",
-     "desc": null,
-     "types": [],
+     "qid": "Q131767",
+     "ko": "세이이타이쇼군",
+     "en": "shogun",
+     "desc": "일본 막부의 우두머리",
+     "types": [
+      "군사 계급",
+      "East Asian extra-statutory office",
+      "직업"
+     ],
      "start": null,
-     "end": null,
+     "end": {
+      "prop": "P576",
+      "year": 1868,
+      "precision": 11
+     },
      "term": "막부"
     }
    ],
@@ -8737,23 +9112,27 @@
      "term": "시대"
     },
     {
+     "qid": "Q19825637",
+     "ko": "시대역량",
+     "en": "New Power Party",
+     "desc": null,
+     "types": [
+      "정당"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 2015,
+      "precision": 11
+     },
+     "end": null,
+     "term": "시대"
+    },
+    {
      "qid": "Q6428674",
      "ko": "시대",
      "en": "era",
      "desc": "연대학 또는 역사학의 목적을 위해 정의된 시간의 범위",
      "types": [],
-     "start": null,
-     "end": null,
-     "term": "시대"
-    },
-    {
-     "qid": "Q11514315",
-     "ko": "시대",
-     "en": "historical period",
-     "desc": "역사의 한 단락",
-     "types": [
-      "분야사"
-     ],
      "start": null,
      "end": null,
      "term": "시대"
@@ -8792,25 +9171,21 @@
    },
    "others": [
     {
-     "qid": "Q1074150",
-     "ko": "막부",
-     "en": "shogunate",
-     "desc": "일본의 중세부터 근현대까지 일본을 실질적으로 통치했던 무인정권",
+     "qid": "Q131767",
+     "ko": "세이이타이쇼군",
+     "en": "shogun",
+     "desc": "일본 막부의 우두머리",
      "types": [
-      "정부"
+      "군사 계급",
+      "East Asian extra-statutory office",
+      "직업"
      ],
      "start": null,
-     "end": null,
-     "term": "막부"
-    },
-    {
-     "qid": "Q11060548",
-     "ko": "막부",
-     "en": "mufu",
-     "desc": null,
-     "types": [],
-     "start": null,
-     "end": null,
+     "end": {
+      "prop": "P576",
+      "year": 1868,
+      "precision": 11
+     },
      "term": "막부"
     },
     {
@@ -8831,6 +9206,18 @@
       "year": 1868,
       "precision": 9
      },
+     "term": "에도 막부"
+    },
+    {
+     "qid": "Q11490276",
+     "ko": "에도 막부의 정이대장군",
+     "en": null,
+     "desc": "위키미디어 목록 항목",
+     "types": [
+      "위키미디어 목록 문서"
+     ],
+     "start": null,
+     "end": null,
      "term": "에도 막부"
     }
    ],
@@ -8886,23 +9273,27 @@
      "term": "시대"
     },
     {
+     "qid": "Q19825637",
+     "ko": "시대역량",
+     "en": "New Power Party",
+     "desc": null,
+     "types": [
+      "정당"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 2015,
+      "precision": 11
+     },
+     "end": null,
+     "term": "시대"
+    },
+    {
      "qid": "Q6428674",
      "ko": "시대",
      "en": "era",
      "desc": "연대학 또는 역사학의 목적을 위해 정의된 시간의 범위",
      "types": [],
-     "start": null,
-     "end": null,
-     "term": "시대"
-    },
-    {
-     "qid": "Q11514315",
-     "ko": "시대",
-     "en": "historical period",
-     "desc": "역사의 한 단락",
-     "types": [
-      "분야사"
-     ],
      "start": null,
      "end": null,
      "term": "시대"
@@ -8952,23 +9343,27 @@
      "term": "시대"
     },
     {
+     "qid": "Q19825637",
+     "ko": "시대역량",
+     "en": "New Power Party",
+     "desc": null,
+     "types": [
+      "정당"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 2015,
+      "precision": 11
+     },
+     "end": null,
+     "term": "시대"
+    },
+    {
      "qid": "Q6428674",
      "ko": "시대",
      "en": "era",
      "desc": "연대학 또는 역사학의 목적을 위해 정의된 시간의 범위",
      "types": [],
-     "start": null,
-     "end": null,
-     "term": "시대"
-    },
-    {
-     "qid": "Q11514315",
-     "ko": "시대",
-     "en": "historical period",
-     "desc": "역사의 한 단락",
-     "types": [
-      "분야사"
-     ],
      "start": null,
      "end": null,
      "term": "시대"
@@ -8982,18 +9377,20 @@
    "kind": "era",
    "start_year": 1926,
    "end_year": 1945,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q5157309",
-    "ko": "전전기",
-    "en": "Preprophase",
-    "desc": "식물 세포에서 체세포 분열 중에 발생하는 추가적인 단계",
-    "types": [],
-    "start": null,
-    "end": null,
-    "term": "전전기"
-   },
-   "others": []
+   "verdict": "못 찾음",
+   "best": null,
+   "others": [
+    {
+     "qid": "Q5157309",
+     "ko": "전전기",
+     "en": "Preprophase",
+     "desc": "식물 세포에서 체세포 분열 중에 발생하는 추가적인 단계",
+     "types": [],
+     "start": null,
+     "end": null,
+     "term": "전전기"
+    }
+   ]
   },
   {
    "id": "japan-pacific-war",
@@ -9153,23 +9550,27 @@
      "term": "시대"
     },
     {
+     "qid": "Q19825637",
+     "ko": "시대역량",
+     "en": "New Power Party",
+     "desc": null,
+     "types": [
+      "정당"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 2015,
+      "precision": 11
+     },
+     "end": null,
+     "term": "시대"
+    },
+    {
      "qid": "Q6428674",
      "ko": "시대",
      "en": "era",
      "desc": "연대학 또는 역사학의 목적을 위해 정의된 시간의 범위",
      "types": [],
-     "start": null,
-     "end": null,
-     "term": "시대"
-    },
-    {
-     "qid": "Q11514315",
-     "ko": "시대",
-     "en": "historical period",
-     "desc": "역사의 한 단락",
-     "types": [
-      "분야사"
-     ],
      "start": null,
      "end": null,
      "term": "시대"
@@ -9219,6 +9620,22 @@
      "term": "레이"
     },
     {
+     "qid": "Q12494180",
+     "ko": "레이",
+     "en": "Lay",
+     "desc": null,
+     "types": [
+      "사람"
+     ],
+     "start": {
+      "prop": "P569",
+      "year": 1991,
+      "precision": 11
+     },
+     "end": null,
+     "term": "레이"
+    },
+    {
      "qid": "Q816829",
      "ko": "시대",
      "en": "periodization",
@@ -9229,19 +9646,6 @@
      "start": null,
      "end": null,
      "term": "시대"
-    },
-    {
-     "qid": "Q2588021",
-     "ko": "레이",
-     "en": "Leigh",
-     "desc": null,
-     "types": [
-      "마을",
-      "unparished area"
-     ],
-     "start": null,
-     "end": null,
-     "term": "레이"
     }
    ]
   },
@@ -9275,20 +9679,6 @@
    },
    "others": [
     {
-     "qid": "Q269323",
-     "ko": "자연철학",
-     "en": "natural philosophy",
-     "desc": "사변적 고찰을 통해 자연을 종합적, 통일적으로 해석해 설명하려는 철학",
-     "types": [
-      "protoscience",
-      "자연 계열",
-      "철학의 분야"
-     ],
-     "start": null,
-     "end": null,
-     "term": "자연철학"
-    },
-    {
      "qid": "Q205921",
      "ko": "자연철학의 수학적 원리",
      "en": "Philosophiæ Naturalis Principia Mathematica",
@@ -9317,6 +9707,22 @@
      "start": {
       "prop": "P571",
       "year": 2000,
+      "precision": 11
+     },
+     "end": null,
+     "term": "탈레스"
+    },
+    {
+     "qid": "Q128356",
+     "ko": "탈레스 알레니아 스페이스",
+     "en": "Thales Alenia Space",
+     "desc": "프랑스의 우주항공 기업",
+     "types": [
+      "합작투자"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 2007,
       "precision": 11
      },
      "end": null,
@@ -9364,45 +9770,9 @@
    "kind": null,
    "start_year": -460,
    "end_year": -370,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q11190",
-    "ko": "의학",
-    "en": "medicine",
-    "desc": "질병의 진료와 치료를 목적으로 하는 학문",
-    "types": [
-     "작업 분야",
-     "학문 분야",
-     "주요 학문",
-     "학문"
-    ],
-    "start": null,
-    "end": null,
-    "term": "의학"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
-    {
-     "qid": "Q17026038",
-     "ko": "의학",
-     "en": "Gī-ha̍k",
-     "desc": null,
-     "types": [],
-     "start": null,
-     "end": null,
-     "term": "의학"
-    },
-    {
-     "qid": "Q136292495",
-     "ko": "의학",
-     "en": "Igaku",
-     "desc": null,
-     "types": [
-      "음악 작품/작곡"
-     ],
-     "start": null,
-     "end": null,
-     "term": "의학"
-    },
     {
      "qid": "Q199897",
      "ko": "의학주제표목",
@@ -9420,6 +9790,46 @@
      },
      "end": null,
      "term": "의학"
+    },
+    {
+     "qid": "Q11190",
+     "ko": "의학",
+     "en": "medicine",
+     "desc": "질병의 진료와 치료를 목적으로 하는 학문",
+     "types": [
+      "작업 분야",
+      "학문 분야",
+      "주요 학문",
+      "학문"
+     ],
+     "start": null,
+     "end": null,
+     "term": "의학"
+    },
+    {
+     "qid": "Q931309",
+     "ko": "의학촬영",
+     "en": "medical imaging",
+     "desc": "의료에서 인체 내부의 숨겨진 구조 등을 시각화하는 것",
+     "types": [
+      "학문",
+      "medical test type"
+     ],
+     "start": null,
+     "end": null,
+     "term": "의학"
+    },
+    {
+     "qid": "Q1071953",
+     "ko": "의학유전학",
+     "en": "medical genetics",
+     "desc": "의학의 하위 분야",
+     "types": [
+      "진료과"
+     ],
+     "start": null,
+     "end": null,
+     "term": "의학"
     }
    ]
   },
@@ -9430,20 +9840,22 @@
    "kind": null,
    "start_year": -384,
    "end_year": -322,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q1051198",
-    "ko": "자연학",
-    "en": "Physics",
-    "desc": "아리스토텔레스가 쓴 자연에 대한 책",
-    "types": [
-     "저작물"
-    ],
-    "start": null,
-    "end": null,
-    "term": "자연학"
-   },
-   "others": []
+   "verdict": "못 찾음",
+   "best": null,
+   "others": [
+    {
+     "qid": "Q1051198",
+     "ko": "자연학",
+     "en": "Physics",
+     "desc": "아리스토텔레스가 쓴 자연에 대한 책",
+     "types": [
+      "저작물"
+     ],
+     "start": null,
+     "end": null,
+     "term": "자연학"
+    }
+   ]
   },
   {
    "id": "science-euclid",
@@ -9528,12 +9940,18 @@
      "term": "아르키메데스"
     },
     {
-     "qid": "Q213486",
-     "ko": "아르키메데스의 다면체",
-     "en": "Archimedean solid",
+     "qid": "Q146938",
+     "ko": "아르키메데스 갈고리",
+     "en": "claw of Archimedes",
      "desc": null,
-     "types": [],
-     "start": null,
+     "types": [
+      "무기 종류"
+     ],
+     "start": {
+      "prop": "P575",
+      "year": -211,
+      "precision": 8
+     },
      "end": null,
      "term": "아르키메데스"
     }
@@ -9605,21 +10023,22 @@
    "kind": null,
    "start_year": 820,
    "end_year": 820,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q3968",
-    "ko": "대수학",
-    "en": "algebra",
-    "desc": "수학의 한 분야",
-    "types": [
-     "수학의 분과",
-     "수학 이론"
-    ],
-    "start": null,
-    "end": null,
-    "term": "대수학"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q3968",
+     "ko": "대수학",
+     "en": "algebra",
+     "desc": "수학의 한 분야",
+     "types": [
+      "수학의 분과",
+      "수학 이론"
+     ],
+     "start": null,
+     "end": null,
+     "term": "대수학"
+    },
     {
      "qid": "Q192760",
      "ko": "대수학의 기본 정리",
@@ -9649,14 +10068,18 @@
      "term": "대수학"
     },
     {
-     "qid": "Q5018842",
-     "ko": "대수학의 역사",
-     "en": "history of algebra",
+     "qid": "Q5358925",
+     "ko": "대수학 원론",
+     "en": "Elements of Algebra",
      "desc": null,
      "types": [
-      "분야사"
+      "교과서"
      ],
-     "start": null,
+     "start": {
+      "prop": "P577",
+      "year": 1765,
+      "precision": 9
+     },
      "end": null,
      "term": "대수학"
     }
@@ -9895,6 +10318,22 @@
      "term": "전지"
     },
     {
+     "qid": "Q253626",
+     "ko": "전지현",
+     "en": "Jun Ji-hyun",
+     "desc": "대한민국의 여자 배우",
+     "types": [
+      "사람"
+     ],
+     "start": {
+      "prop": "P569",
+      "year": 1981,
+      "precision": 11
+     },
+     "end": null,
+     "term": "전지"
+    },
+    {
      "qid": "Q12969198",
      "ko": "전지",
      "en": "art of paper cutting",
@@ -9902,18 +10341,6 @@
      "types": [
       "공예",
       "type of arts"
-     ],
-     "start": null,
-     "end": null,
-     "term": "전지"
-    },
-    {
-     "qid": "Q283530",
-     "ko": "전지",
-     "en": "Chinese paper cutting",
-     "desc": null,
-     "types": [
-      "예술 양식"
      ],
      "start": null,
      "end": null,
@@ -10132,6 +10559,16 @@
      "term": "주기율표"
     },
     {
+     "qid": "Q83306",
+     "ko": "주기율표 족",
+     "en": "group",
+     "desc": "주기율표의 세로줄로 묶인 원소",
+     "types": [],
+     "start": null,
+     "end": null,
+     "term": "주기율표"
+    },
+    {
      "qid": "Q1325857",
      "ko": "주기율표",
      "en": "Periodic table",
@@ -10140,16 +10577,6 @@
       "위키미디어 중복 문서",
       "periodic table form"
      ],
-     "start": null,
-     "end": null,
-     "term": "주기율표"
-    },
-    {
-     "qid": "Q2685995",
-     "ko": "주기율표",
-     "en": "periodic table",
-     "desc": "바닥 상태의 중성 기체 원자의 전자 배열",
-     "types": [],
      "start": null,
      "end": null,
      "term": "주기율표"
@@ -10491,28 +10918,33 @@
      "term": "성가"
     },
     {
-     "qid": "Q11074534",
-     "ko": "성가",
-     "en": "Chengjia",
-     "desc": null,
-     "types": [],
-     "start": null,
+     "qid": "Q48435",
+     "ko": "사그라다 파밀리아",
+     "en": "Basilica and Expiatory Church of the Holy Family",
+     "desc": "스페인 바르셀로나에 지어지고 있는 로마 가톨릭 성당",
+     "types": [
+      "minor basilica",
+      "expiatory temple"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1882,
+      "precision": 11
+     },
      "end": null,
      "term": "성가"
     },
     {
-     "qid": "Q141728056",
-     "ko": "성가",
-     "en": null,
-     "desc": null,
+     "qid": "Q484692",
+     "ko": "찬가",
+     "en": "hymn",
+     "desc": "일반적으로 종교에서 부르는 노래 종류 가운데 하나",
      "types": [
-      "웹 시리즈"
+      "음악 장르",
+      "lyric poetry genre",
+      "노래 종류"
      ],
-     "start": {
-      "prop": "P580",
-      "year": 2025,
-      "precision": 11
-     },
+     "start": null,
      "end": null,
      "term": "성가"
     }
@@ -10567,6 +10999,34 @@
    },
    "others": [
     {
+     "qid": "Q340853",
+     "ko": "아르스 노바 (동음이의)",
+     "en": "Ars nova",
+     "desc": "위키백과 동음이의어 문서",
+     "types": [
+      "위키미디어 동음이의어 문서"
+     ],
+     "start": null,
+     "end": null,
+     "term": "아르스 노바"
+    },
+    {
+     "qid": "Q1952",
+     "ko": "노바스코샤주",
+     "en": "Nova Scotia",
+     "desc": null,
+     "types": [
+      "province of Canada"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1867,
+      "precision": 9
+     },
+     "end": null,
+     "term": "노바"
+    },
+    {
      "qid": "Q974188",
      "ko": "노바",
      "en": "Nova",
@@ -10578,39 +11038,6 @@
      "start": {
       "prop": "P571",
       "year": 2009,
-      "precision": 9
-     },
-     "end": null,
-     "term": "노바"
-    },
-    {
-     "qid": "Q7063995",
-     "ko": "노바",
-     "en": "Nova",
-     "desc": "마블 코믹스의 슈퍼히어로 캐릭터",
-     "types": [
-      "만화 등장인물",
-      "extraterrestrial–human hybrid in a work of fiction"
-     ],
-     "start": {
-      "prop": "P571",
-      "year": 2011,
-      "precision": 9
-     },
-     "end": null,
-     "term": "노바"
-    },
-    {
-     "qid": "Q12772632",
-     "ko": "노바",
-     "en": "New Majority",
-     "desc": "슬로베니아의 정당",
-     "types": [
-      "정당"
-     ],
-     "start": {
-      "prop": "P571",
-      "year": 2012,
       "precision": 9
      },
      "end": null,
@@ -10709,24 +11136,54 @@
    "kind": null,
    "start_year": 1600,
    "end_year": 1643,
-   "verdict": "어긋남",
-   "best": {
-    "qid": "Q865907",
-    "ko": "탄생",
-    "en": "Birth",
-    "desc": null,
-    "types": [
-     "영화"
-    ],
-    "start": {
-     "prop": "P577",
-     "year": 2004,
-     "precision": 11
-    },
-    "end": null,
-    "term": "탄생"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q14819852",
+     "ko": "출생",
+     "en": "birth",
+     "desc": "자식을 낳는 출산의 과정이나 행위",
+     "types": [
+      "biological process type",
+      "행사 유형"
+     ],
+     "start": null,
+     "end": null,
+     "term": "탄생"
+    },
+    {
+     "qid": "Q865907",
+     "ko": "탄생",
+     "en": "Birth",
+     "desc": null,
+     "types": [
+      "영화"
+     ],
+     "start": {
+      "prop": "P577",
+      "year": 2004,
+      "precision": 11
+     },
+     "end": null,
+     "term": "탄생"
+    },
+    {
+     "qid": "Q116464655",
+     "ko": "탄생/재탄생",
+     "en": "Birth/rebirth",
+     "desc": null,
+     "types": [
+      "영화"
+     ],
+     "start": {
+      "prop": "P577",
+      "year": 2023,
+      "precision": 9
+     },
+     "end": null,
+     "term": "탄생"
+    },
     {
      "qid": "Q11631482",
      "ko": "탄생",
@@ -10742,35 +11199,6 @@
      },
      "end": null,
      "term": "탄생"
-    },
-    {
-     "qid": "Q114434171",
-     "ko": "탄생",
-     "en": "A Birth",
-     "desc": "2022년 대한민국의 영화",
-     "types": [
-      "영화"
-     ],
-     "start": {
-      "prop": "P577",
-      "year": 2022,
-      "precision": 11
-     },
-     "end": null,
-     "term": "탄생"
-    },
-    {
-     "qid": "Q14819852",
-     "ko": "출생",
-     "en": "birth",
-     "desc": "자식을 낳는 출산의 과정이나 행위",
-     "types": [
-      "biological process type",
-      "행사 유형"
-     ],
-     "start": null,
-     "end": null,
-     "term": "탄생"
     }
    ]
   },
@@ -10781,38 +11209,43 @@
    "kind": null,
    "start_year": 1600,
    "end_year": 1750,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q816829",
-    "ko": "시대",
-    "en": "periodization",
-    "desc": null,
-    "types": [
-     "field of study"
-    ],
-    "start": null,
-    "end": null,
-    "term": "시대"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q816829",
+     "ko": "시대",
+     "en": "periodization",
+     "desc": null,
+     "types": [
+      "field of study"
+     ],
+     "start": null,
+     "end": null,
+     "term": "시대"
+    },
+    {
+     "qid": "Q19825637",
+     "ko": "시대역량",
+     "en": "New Power Party",
+     "desc": null,
+     "types": [
+      "정당"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 2015,
+      "precision": 11
+     },
+     "end": null,
+     "term": "시대"
+    },
     {
      "qid": "Q6428674",
      "ko": "시대",
      "en": "era",
      "desc": "연대학 또는 역사학의 목적을 위해 정의된 시간의 범위",
      "types": [],
-     "start": null,
-     "end": null,
-     "term": "시대"
-    },
-    {
-     "qid": "Q11514315",
-     "ko": "시대",
-     "en": "historical period",
-     "desc": "역사의 한 단락",
-     "types": [
-      "분야사"
-     ],
      "start": null,
      "end": null,
      "term": "시대"
@@ -10848,7 +11281,7 @@
      "웹 브라우저"
     ],
     "start": {
-     "prop": "P571",
+     "prop": "P577",
      "year": 2015,
      "precision": 11
     },
@@ -11038,38 +11471,43 @@
    "kind": null,
    "start_year": 1750,
    "end_year": 1820,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q816829",
-    "ko": "시대",
-    "en": "periodization",
-    "desc": null,
-    "types": [
-     "field of study"
-    ],
-    "start": null,
-    "end": null,
-    "term": "시대"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q816829",
+     "ko": "시대",
+     "en": "periodization",
+     "desc": null,
+     "types": [
+      "field of study"
+     ],
+     "start": null,
+     "end": null,
+     "term": "시대"
+    },
+    {
+     "qid": "Q19825637",
+     "ko": "시대역량",
+     "en": "New Power Party",
+     "desc": null,
+     "types": [
+      "정당"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 2015,
+      "precision": 11
+     },
+     "end": null,
+     "term": "시대"
+    },
     {
      "qid": "Q6428674",
      "ko": "시대",
      "en": "era",
      "desc": "연대학 또는 역사학의 목적을 위해 정의된 시간의 범위",
      "types": [],
-     "start": null,
-     "end": null,
-     "term": "시대"
-    },
-    {
-     "qid": "Q11514315",
-     "ko": "시대",
-     "en": "historical period",
-     "desc": "역사의 한 단락",
-     "types": [
-      "분야사"
-     ],
      "start": null,
      "end": null,
      "term": "시대"
@@ -11222,9 +11660,9 @@
       "dramatico-musical work"
      ],
      "start": {
-      "prop": "P577",
+      "prop": "P1191",
       "year": 2009,
-      "precision": 9
+      "precision": 11
      },
      "end": null,
      "term": "모차르트"
@@ -11548,19 +11986,8 @@
    "kind": null,
    "start_year": 1813,
    "end_year": 1883,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q279272",
-    "ko": "악극",
-    "en": "Musikdrama",
-    "desc": null,
-    "types": [
-     "musical concept"
-    ],
-    "start": null,
-    "end": null,
-    "term": "악극"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
     {
      "qid": "Q2088357",
@@ -11569,6 +11996,18 @@
      "desc": "기악이나 성악을 연주하는 사람의 모임, 단체의 이름은 대개 별개의 이름을 사용함",
      "types": [
       "단체의 유형"
+     ],
+     "start": null,
+     "end": null,
+     "term": "악극"
+    },
+    {
+     "qid": "Q279272",
+     "ko": "악극",
+     "en": "Musikdrama",
+     "desc": null,
+     "types": [
+      "musical concept"
      ],
      "start": null,
      "end": null,
@@ -11684,58 +12123,46 @@
    "kind": null,
    "start_year": 1862,
    "end_year": 1918,
-   "verdict": "부분 일치",
+   "verdict": "일치",
    "best": {
-    "qid": "Q40415",
-    "ko": "인상주의",
-    "en": "Impressionism",
-    "desc": "19세기 서양 미술사조",
+    "qid": "Q4700",
+    "ko": "클로드 드뷔시",
+    "en": "Claude Debussy",
+    "desc": "프랑스의 작곡가 (1862-1918)",
     "types": [
-     "예술 사조",
-     "예술 장르",
-     "예술 양식",
-     "painting movement"
+     "사람"
     ],
     "start": {
-     "prop": "P571",
-     "year": 1860,
-     "precision": 8
+     "prop": "P569",
+     "year": 1862,
+     "precision": 11
     },
-    "end": null,
-    "term": "인상주의"
+    "end": {
+     "prop": "P570",
+     "year": 1918,
+     "precision": 11
+    },
+    "term": "드뷔시"
    },
    "others": [
     {
-     "qid": "Q4700",
-     "ko": "클로드 드뷔시",
-     "en": "Claude Debussy",
-     "desc": "프랑스의 작곡가 (1862-1918)",
+     "qid": "Q40415",
+     "ko": "인상주의",
+     "en": "Impressionism",
+     "desc": "19세기 서양 미술사조",
      "types": [
-      "사람"
+      "예술 사조",
+      "예술 장르",
+      "예술 양식",
+      "painting movement"
      ],
      "start": {
-      "prop": "P569",
-      "year": 1862,
-      "precision": 11
+      "prop": "P571",
+      "year": 1860,
+      "precision": 8
      },
-     "end": {
-      "prop": "P570",
-      "year": 1918,
-      "precision": 11
-     },
-     "term": "드뷔시"
-    },
-    {
-     "qid": "Q10264626",
-     "ko": "드뷔시",
-     "en": "Debussy",
-     "desc": "위키미디어 동음이의어 문서",
-     "types": [
-      "위키미디어 동음이의어 문서"
-     ],
-     "start": null,
      "end": null,
-     "term": "드뷔시"
+     "term": "인상주의"
     },
     {
      "qid": "Q837182",
@@ -11746,6 +12173,22 @@
       "musical movement"
      ],
      "start": null,
+     "end": null,
+     "term": "인상주의"
+    },
+    {
+     "qid": "Q15116752",
+     "ko": "인상주의자의 땅",
+     "en": "Pays des Impressionnistes",
+     "desc": "조직",
+     "types": [
+      "단체"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 2001,
+      "precision": 9
+     },
      "end": null,
      "term": "인상주의"
     }
@@ -11884,20 +12327,21 @@
    "kind": null,
    "start_year": 1900,
    "end_year": 1945,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q163214",
-    "ko": "확산",
-    "en": "diffusion",
-    "desc": "농도가 높은 쪽에서 낮은 쪽으로 분자가 자발적으로 이동하는 현상",
-    "types": [
-     "물리 법칙"
-    ],
-    "start": null,
-    "end": null,
-    "term": "확산"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q163214",
+     "ko": "확산",
+     "en": "diffusion",
+     "desc": "농도가 높은 쪽에서 낮은 쪽으로 분자가 자발적으로 이동하는 현상",
+     "types": [
+      "물리 법칙"
+     ],
+     "start": null,
+     "end": null,
+     "term": "확산"
+    },
     {
      "qid": "Q899360",
      "ko": "확산강조 MRI",
@@ -11921,10 +12365,10 @@
      "term": "확산"
     },
     {
-     "qid": "Q11067835",
-     "ko": "확산능",
-     "en": "pulmonary diffusing capacity",
-     "desc": null,
+     "qid": "Q114617315",
+     "ko": "확산 모델",
+     "en": "diffusion model",
+     "desc": "일종의 잠재 변수 생성 모델",
      "types": [],
      "start": null,
      "end": null,
@@ -11950,20 +12394,22 @@
    "kind": null,
    "start_year": 1950,
    "end_year": 1980,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q163829",
-    "ko": "신시사이저",
-    "en": "synthesizer",
-    "desc": "소리로 변환될 수 있는 오디오 신호를 생성하는 전자 악기",
-    "types": [
-     "악기의 유형"
-    ],
-    "start": null,
-    "end": null,
-    "term": "신시사이저"
-   },
-   "others": []
+   "verdict": "못 찾음",
+   "best": null,
+   "others": [
+    {
+     "qid": "Q163829",
+     "ko": "신시사이저",
+     "en": "synthesizer",
+     "desc": "소리로 변환될 수 있는 오디오 신호를 생성하는 전자 악기",
+     "types": [
+      "악기의 유형"
+     ],
+     "start": null,
+     "end": null,
+     "term": "신시사이저"
+    }
+   ]
   },
   {
    "id": "music-rocknroll",
@@ -11972,24 +12418,54 @@
    "kind": null,
    "start_year": 1954,
    "end_year": 1965,
-   "verdict": "어긋남",
-   "best": {
-    "qid": "Q865907",
-    "ko": "탄생",
-    "en": "Birth",
-    "desc": null,
-    "types": [
-     "영화"
-    ],
-    "start": {
-     "prop": "P577",
-     "year": 2004,
-     "precision": 11
-    },
-    "end": null,
-    "term": "탄생"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q14819852",
+     "ko": "출생",
+     "en": "birth",
+     "desc": "자식을 낳는 출산의 과정이나 행위",
+     "types": [
+      "biological process type",
+      "행사 유형"
+     ],
+     "start": null,
+     "end": null,
+     "term": "탄생"
+    },
+    {
+     "qid": "Q865907",
+     "ko": "탄생",
+     "en": "Birth",
+     "desc": null,
+     "types": [
+      "영화"
+     ],
+     "start": {
+      "prop": "P577",
+      "year": 2004,
+      "precision": 11
+     },
+     "end": null,
+     "term": "탄생"
+    },
+    {
+     "qid": "Q116464655",
+     "ko": "탄생/재탄생",
+     "en": "Birth/rebirth",
+     "desc": null,
+     "types": [
+      "영화"
+     ],
+     "start": {
+      "prop": "P577",
+      "year": 2023,
+      "precision": 9
+     },
+     "end": null,
+     "term": "탄생"
+    },
     {
      "qid": "Q11631482",
      "ko": "탄생",
@@ -12003,35 +12479,6 @@
       "year": 1990,
       "precision": 9
      },
-     "end": null,
-     "term": "탄생"
-    },
-    {
-     "qid": "Q114434171",
-     "ko": "탄생",
-     "en": "A Birth",
-     "desc": "2022년 대한민국의 영화",
-     "types": [
-      "영화"
-     ],
-     "start": {
-      "prop": "P577",
-      "year": 2022,
-      "precision": 11
-     },
-     "end": null,
-     "term": "탄생"
-    },
-    {
-     "qid": "Q14819852",
-     "ko": "출생",
-     "en": "birth",
-     "desc": "자식을 낳는 출산의 과정이나 행위",
-     "types": [
-      "biological process type",
-      "행사 유형"
-     ],
-     "start": null,
      "end": null,
      "term": "탄생"
     }
@@ -12072,24 +12519,54 @@
    "kind": null,
    "start_year": 1973,
    "end_year": 2000,
-   "verdict": "어긋남",
-   "best": {
-    "qid": "Q865907",
-    "ko": "탄생",
-    "en": "Birth",
-    "desc": null,
-    "types": [
-     "영화"
-    ],
-    "start": {
-     "prop": "P577",
-     "year": 2004,
-     "precision": 11
-    },
-    "end": null,
-    "term": "탄생"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q14819852",
+     "ko": "출생",
+     "en": "birth",
+     "desc": "자식을 낳는 출산의 과정이나 행위",
+     "types": [
+      "biological process type",
+      "행사 유형"
+     ],
+     "start": null,
+     "end": null,
+     "term": "탄생"
+    },
+    {
+     "qid": "Q865907",
+     "ko": "탄생",
+     "en": "Birth",
+     "desc": null,
+     "types": [
+      "영화"
+     ],
+     "start": {
+      "prop": "P577",
+      "year": 2004,
+      "precision": 11
+     },
+     "end": null,
+     "term": "탄생"
+    },
+    {
+     "qid": "Q116464655",
+     "ko": "탄생/재탄생",
+     "en": "Birth/rebirth",
+     "desc": null,
+     "types": [
+      "영화"
+     ],
+     "start": {
+      "prop": "P577",
+      "year": 2023,
+      "precision": 9
+     },
+     "end": null,
+     "term": "탄생"
+    },
     {
      "qid": "Q11631482",
      "ko": "탄생",
@@ -12103,35 +12580,6 @@
       "year": 1990,
       "precision": 9
      },
-     "end": null,
-     "term": "탄생"
-    },
-    {
-     "qid": "Q114434171",
-     "ko": "탄생",
-     "en": "A Birth",
-     "desc": "2022년 대한민국의 영화",
-     "types": [
-      "영화"
-     ],
-     "start": {
-      "prop": "P577",
-      "year": 2022,
-      "precision": 11
-     },
-     "end": null,
-     "term": "탄생"
-    },
-    {
-     "qid": "Q14819852",
-     "ko": "출생",
-     "en": "birth",
-     "desc": "자식을 낳는 출산의 과정이나 행위",
-     "types": [
-      "biological process type",
-      "행사 유형"
-     ],
-     "start": null,
      "end": null,
      "term": "탄생"
     }
@@ -12185,38 +12633,37 @@
      "term": "MTV"
     },
     {
-     "qid": "Q3062264",
-     "ko": null,
-     "en": "MTV Brasil",
+     "qid": "Q207599",
+     "ko": "MTV 유럽 뮤직 어워드",
+     "en": "MTV Europe Music Awards",
      "desc": null,
      "types": [
-      "텔레비전 네트워크",
-      "텔레비전 방송국"
+      "음악 상",
+      "annual music awards ceremony",
+      "group of awards"
      ],
      "start": {
       "prop": "P571",
-      "year": 1990,
-      "precision": 11
+      "year": 1994,
+      "precision": 9
      },
-     "end": {
-      "prop": "P576",
-      "year": 2013,
-      "precision": 11
-     },
+     "end": null,
      "term": "MTV"
     },
     {
-     "qid": "Q3323914",
-     "ko": null,
-     "en": "MTV",
+     "qid": "Q223703",
+     "ko": "MTV 비디오 뮤직 어워드",
+     "en": "MTV Video Music Awards",
      "desc": null,
      "types": [
-      "텔레비전 채널"
+      "텔레비전 프로그램",
+      "음악 상",
+      "group of awards"
      ],
      "start": {
       "prop": "P571",
-      "year": 1997,
-      "precision": 11
+      "year": 1984,
+      "precision": 9
      },
      "end": null,
      "term": "MTV"
@@ -12230,24 +12677,25 @@
    "kind": null,
    "start_year": 1992,
    "end_year": 2025,
-   "verdict": "어긋남",
-   "best": {
-    "qid": "Q3380707",
-    "ko": "성장",
-    "en": "Sheng Jiang",
-    "desc": "중화인민공화국의 남자 레슬링 선수",
-    "types": [
-     "사람"
-    ],
-    "start": {
-     "prop": "P569",
-     "year": 1983,
-     "precision": 11
-    },
-    "end": null,
-    "term": "성장"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q3380707",
+     "ko": "성장",
+     "en": "Sheng Jiang",
+     "desc": "중화인민공화국의 남자 레슬링 선수",
+     "types": [
+      "사람"
+     ],
+     "start": {
+      "prop": "P569",
+      "year": 1983,
+      "precision": 11
+     },
+     "end": null,
+     "term": "성장"
+    },
     {
      "qid": "Q1342838",
      "ko": "성장",
@@ -12261,26 +12709,30 @@
      "term": "성장"
     },
     {
-     "qid": "Q26156758",
-     "ko": "성장",
-     "en": "Growth",
-     "desc": null,
+     "qid": "Q277111",
+     "ko": "성장의 한계",
+     "en": "The Limits to Growth",
+     "desc": "1972년 논문",
      "types": [
-      "노말 타입 포켓몬 기술",
-      "status move",
-      "Beautiful move"
+      "기술 보고서",
+      "학술 작품",
+      "저작물"
      ],
-     "start": null,
+     "start": {
+      "prop": "P577",
+      "year": 1972,
+      "precision": 9
+     },
      "end": null,
      "term": "성장"
     },
     {
-     "qid": "Q2975633",
-     "ko": "성장물",
-     "en": "coming-of-age fiction",
-     "desc": "주인공의 성장을 주제로 한 이야기 장르",
+     "qid": "Q223945",
+     "ko": "성장소설",
+     "en": "Bildungsroman",
+     "desc": null,
      "types": [
-      "fiction genre"
+      "소설 장르"
      ],
      "start": null,
      "end": null,
@@ -12295,34 +12747,34 @@
    "kind": null,
    "start_year": 1999,
    "end_year": 2025,
-   "verdict": "날짜 없음",
+   "verdict": "부분 일치",
    "best": {
-    "qid": "Q220499",
-    "ko": "스트리밍",
-    "en": "streaming media",
-    "desc": "멀티미디어 전달방식",
+    "qid": "Q741291",
+    "ko": "스트리밍 SIMD 확장",
+    "en": "Streaming SIMD Extensions",
+    "desc": null,
     "types": [
-     "경제 분과",
-     "product distribution method"
+     "명령 세트"
     ],
-    "start": null,
+    "start": {
+     "prop": "P580",
+     "year": 1999,
+     "precision": 9
+    },
     "end": null,
     "term": "스트리밍"
    },
    "others": [
     {
-     "qid": "Q741291",
-     "ko": "스트리밍 SIMD 확장",
-     "en": "Streaming SIMD Extensions",
-     "desc": null,
+     "qid": "Q220499",
+     "ko": "스트리밍",
+     "en": "streaming media",
+     "desc": "멀티미디어 전달방식",
      "types": [
-      "명령 세트"
+      "경제 분과",
+      "product distribution method"
      ],
-     "start": {
-      "prop": "P580",
-      "year": 1999,
-      "precision": 9
-     },
+     "start": null,
      "end": null,
      "term": "스트리밍"
     },
@@ -12337,16 +12789,18 @@
      "term": "스트리밍"
     },
     {
-     "qid": "Q63241860",
-     "ko": "스트리밍 서비스",
-     "en": "streaming service",
+     "qid": "Q133522386",
+     "ko": "스트리밍 (영화)",
+     "en": "Streaming",
      "desc": null,
      "types": [
-      "소프트웨어 분류",
-      "service type",
-      "type of website"
+      "영화"
      ],
-     "start": null,
+     "start": {
+      "prop": "P577",
+      "year": 2025,
+      "precision": 11
+     },
      "end": null,
      "term": "스트리밍"
     }
@@ -12359,23 +12813,8 @@
    "kind": null,
    "start_year": -30000,
    "end_year": -13000,
-   "verdict": "어긋남",
-   "best": {
-    "qid": "Q214334",
-    "ko": "동굴벽화",
-    "en": "cave painting",
-    "desc": null,
-    "types": [
-     "회화 장르"
-    ],
-    "start": {
-     "prop": "P1319",
-     "year": -38001,
-     "precision": 6
-    },
-    "end": null,
-    "term": "동굴벽화"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
     {
      "qid": "Q172125",
@@ -12393,6 +12832,22 @@
      },
      "end": null,
      "term": "라스코"
+    },
+    {
+     "qid": "Q214334",
+     "ko": "동굴벽화",
+     "en": "cave painting",
+     "desc": null,
+     "types": [
+      "회화 장르"
+     ],
+     "start": {
+      "prop": "P1319",
+      "year": -38001,
+      "precision": 6
+     },
+     "end": null,
+     "term": "동굴벽화"
     },
     {
      "qid": "Q374096",
@@ -12420,22 +12875,8 @@
    "kind": null,
    "start_year": -3000,
    "end_year": -1000,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q11634",
-    "ko": "조각",
-    "en": "art of sculpture",
-    "desc": "미술 감상을 목적으로 다양한 소재를 깎아서 만들어진 입체 작품, 또는 그러한 미술 행위",
-    "types": [
-     "취미",
-     "form of art",
-     "예술 장르",
-     "type of arts"
-    ],
-    "start": null,
-    "end": null,
-    "term": "조각"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
     {
      "qid": "Q9286",
@@ -12450,6 +12891,21 @@
       "year": 1752,
       "precision": 9
      },
+     "end": null,
+     "term": "조각"
+    },
+    {
+     "qid": "Q11634",
+     "ko": "조각",
+     "en": "art of sculpture",
+     "desc": "미술 감상을 목적으로 다양한 소재를 깎아서 만들어진 입체 작품, 또는 그러한 미술 행위",
+     "types": [
+      "취미",
+      "form of art",
+      "예술 장르",
+      "type of arts"
+     ],
+     "start": null,
      "end": null,
      "term": "조각"
     },
@@ -12531,21 +12987,6 @@
    },
    "others": [
     {
-     "qid": "Q11634",
-     "ko": "조각",
-     "en": "art of sculpture",
-     "desc": "미술 감상을 목적으로 다양한 소재를 깎아서 만들어진 입체 작품, 또는 그러한 미술 행위",
-     "types": [
-      "취미",
-      "form of art",
-      "예술 장르",
-      "type of arts"
-     ],
-     "start": null,
-     "end": null,
-     "term": "조각"
-    },
-    {
      "qid": "Q9286",
      "ko": "조각가자리",
      "en": "Sculptor",
@@ -12558,6 +12999,21 @@
       "year": 1752,
       "precision": 9
      },
+     "end": null,
+     "term": "조각"
+    },
+    {
+     "qid": "Q11634",
+     "ko": "조각",
+     "en": "art of sculpture",
+     "desc": "미술 감상을 목적으로 다양한 소재를 깎아서 만들어진 입체 작품, 또는 그러한 미술 행위",
+     "types": [
+      "취미",
+      "form of art",
+      "예술 장르",
+      "type of arts"
+     ],
+     "start": null,
      "end": null,
      "term": "조각"
     },
@@ -12586,23 +13042,24 @@
    "kind": null,
    "start_year": -100,
    "end_year": 300,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q12271",
-    "ko": "건축",
-    "en": "architecture",
-    "desc": "건물이나 다른 구조물을 계획하고 설계하고 건설하는 과정과",
-    "types": [
-     "경제 분과",
-     "field of study",
-     "학문 분야",
-     "학문"
-    ],
-    "start": null,
-    "end": null,
-    "term": "건축"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q12271",
+     "ko": "건축",
+     "en": "architecture",
+     "desc": "건물이나 다른 구조물을 계획하고 설계하고 건설하는 과정과",
+     "types": [
+      "경제 분과",
+      "field of study",
+      "학문 분야",
+      "학문"
+     ],
+     "start": null,
+     "end": null,
+     "term": "건축"
+    },
     {
      "qid": "Q41176",
      "ko": "건물",
@@ -12650,20 +13107,21 @@
    "kind": null,
    "start_year": 330,
    "end_year": 1200,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q132137",
-    "ko": "이콘",
-    "en": "icon",
-    "desc": null,
-    "types": [
-     "예술 작품의 유형"
-    ],
-    "start": null,
-    "end": null,
-    "term": "이콘"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q132137",
+     "ko": "이콘",
+     "en": "icon",
+     "desc": null,
+     "types": [
+      "예술 작품의 유형"
+     ],
+     "start": null,
+     "end": null,
+     "term": "이콘"
+    },
     {
      "qid": "Q1171562",
      "ko": "코마로프 파일",
@@ -12849,14 +13307,18 @@
      "term": "고딕"
     },
     {
-     "qid": "Q176483",
-     "ko": "고딕 건축",
-     "en": "Gothic architecture",
-     "desc": "중세 시대 말 유럽에서 번성한 중세 건축 양식의 하나",
+     "qid": "Q485395",
+     "ko": "고딕 록",
+     "en": "gothic rock",
+     "desc": null,
      "types": [
-      "건축 양식"
+      "음악 장르"
      ],
-     "start": null,
+     "start": {
+      "prop": "P571",
+      "year": 1979,
+      "precision": 9
+     },
      "end": null,
      "term": "고딕"
     }
@@ -12953,29 +13415,68 @@
    "kind": null,
    "start_year": 1400,
    "end_year": 1490,
-   "verdict": "부분 일치",
+   "verdict": "어긋남",
    "best": {
-    "qid": "Q4692",
-    "ko": "르네상스",
-    "en": "Renaissance",
-    "desc": "14세기~16세기 유럽의 문예 부흥기",
+    "qid": "Q1472236",
+    "ko": "초기 르네상스",
+    "en": "Early Renaissance",
+    "desc": null,
     "types": [
      "예술 사조",
-     "문화 운동"
+     "시대"
     ],
     "start": {
-     "prop": "P580",
-     "year": 1400,
-     "precision": 7
+     "prop": "P571",
+     "year": 1420,
+     "precision": 8
     },
     "end": {
-     "prop": "P582",
-     "year": 1650,
-     "precision": 7
+     "prop": "P576",
+     "year": 1500,
+     "precision": 9
     },
-    "term": "르네상스"
+    "term": "초기 르네상스"
    },
    "others": [
+    {
+     "qid": "Q4692",
+     "ko": "르네상스",
+     "en": "Renaissance",
+     "desc": "14세기~16세기 유럽의 문예 부흥기",
+     "types": [
+      "예술 사조",
+      "문화 운동"
+     ],
+     "start": {
+      "prop": "P580",
+      "year": 1400,
+      "precision": 7
+     },
+     "end": {
+      "prop": "P582",
+      "year": 1650,
+      "precision": 7
+     },
+     "term": "르네상스"
+    },
+    {
+     "qid": "Q201405",
+     "ko": "르네상스 음악",
+     "en": "Renaissance music",
+     "desc": null,
+     "types": [
+      "음악 장르",
+      "musical movement",
+      "music by period of time"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1400,
+      "precision": 9
+     },
+     "end": null,
+     "term": "르네상스"
+    },
     {
      "qid": "Q23731823",
      "ko": "르네상스",
@@ -12988,43 +13489,6 @@
       "prop": "P571",
       "year": 2016,
       "precision": 11
-     },
-     "end": null,
-     "term": "르네상스"
-    },
-    {
-     "qid": "Q1472236",
-     "ko": "초기 르네상스",
-     "en": "Early Renaissance",
-     "desc": null,
-     "types": [
-      "예술 사조",
-      "시대"
-     ],
-     "start": {
-      "prop": "P571",
-      "year": 1420,
-      "precision": 8
-     },
-     "end": {
-      "prop": "P576",
-      "year": 1500,
-      "precision": 9
-     },
-     "term": "초기 르네상스"
-    },
-    {
-     "qid": "Q1065943",
-     "ko": "르네상스",
-     "en": "Renaissance",
-     "desc": "영국의 프로그레시브 록 밴드",
-     "types": [
-      "음악 밴드"
-     ],
-     "start": {
-      "prop": "P571",
-      "year": 1969,
-      "precision": 9
      },
      "end": null,
      "term": "르네상스"
@@ -13120,49 +13584,49 @@
    "end_year": 1527,
    "verdict": "부분 일치",
    "best": {
-    "qid": "Q4692",
-    "ko": "르네상스",
-    "en": "Renaissance",
-    "desc": "14세기~16세기 유럽의 문예 부흥기",
+    "qid": "Q1474884",
+    "ko": "전성기 르네상스",
+    "en": "High Renaissance",
+    "desc": "16세기 초 이탈리아 도시국가에서 많은 수의 걸작들이 나온 시기",
     "types": [
+     "건축 양식",
      "예술 사조",
-     "문화 운동"
+     "style",
+     "시대"
     ],
     "start": {
      "prop": "P580",
-     "year": 1400,
-     "precision": 7
+     "year": 1494,
+     "precision": 9
     },
     "end": {
      "prop": "P582",
-     "year": 1650,
-     "precision": 7
+     "year": 1527,
+     "precision": 9
     },
-    "term": "르네상스"
+    "term": "전성기 르네상스"
    },
    "others": [
     {
-     "qid": "Q1474884",
-     "ko": "전성기 르네상스",
-     "en": "High Renaissance",
-     "desc": "16세기 초 이탈리아 도시국가에서 많은 수의 걸작들이 나온 시기",
+     "qid": "Q4692",
+     "ko": "르네상스",
+     "en": "Renaissance",
+     "desc": "14세기~16세기 유럽의 문예 부흥기",
      "types": [
-      "건축 양식",
       "예술 사조",
-      "style",
-      "시대"
+      "문화 운동"
      ],
      "start": {
       "prop": "P580",
-      "year": 1494,
-      "precision": 9
+      "year": 1400,
+      "precision": 7
      },
      "end": {
       "prop": "P582",
-      "year": 1527,
-      "precision": 9
+      "year": 1650,
+      "precision": 7
      },
-     "term": "전성기 르네상스"
+     "term": "르네상스"
     },
     {
      "qid": "Q23731823",
@@ -13238,17 +13702,8 @@
    "kind": null,
    "start_year": 1600,
    "end_year": 1700,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q42314818",
-    "ko": "미술",
-    "en": "art",
-    "desc": "시각 예술의 총칭",
-    "types": [],
-    "start": null,
-    "end": null,
-    "term": "미술"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
     {
      "qid": "Q838948",
@@ -13273,6 +13728,22 @@
       "학문"
      ],
      "start": null,
+     "end": null,
+     "term": "미술"
+    },
+    {
+     "qid": "Q337531",
+     "ko": "미술 아카데미",
+     "en": "Académie des beaux-arts",
+     "desc": null,
+     "types": [
+      "national art academy"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1803,
+      "precision": 9
+     },
      "end": null,
      "term": "미술"
     },
@@ -13584,17 +14055,8 @@
    "kind": null,
    "start_year": 1800,
    "end_year": 1850,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q42314818",
-    "ko": "미술",
-    "en": "art",
-    "desc": "시각 예술의 총칭",
-    "types": [],
-    "start": null,
-    "end": null,
-    "term": "미술"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
     {
      "qid": "Q838948",
@@ -13619,6 +14081,22 @@
       "학문"
      ],
      "start": null,
+     "end": null,
+     "term": "미술"
+    },
+    {
+     "qid": "Q337531",
+     "ko": "미술 아카데미",
+     "en": "Académie des beaux-arts",
+     "desc": null,
+     "types": [
+      "national art academy"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1803,
+      "precision": 9
+     },
      "end": null,
      "term": "미술"
     },
@@ -13666,20 +14144,6 @@
    },
    "others": [
     {
-     "qid": "Q10857409",
-     "ko": "사실주의",
-     "en": "realism",
-     "desc": null,
-     "types": [
-      "건축 양식",
-      "예술 사조",
-      "예술 양식"
-     ],
-     "start": null,
-     "end": null,
-     "term": "사실주의"
-    },
-    {
      "qid": "Q2642826",
      "ko": "사실주의",
      "en": "French Realism",
@@ -13693,6 +14157,20 @@
       "year": 1848,
       "precision": 9
      },
+     "end": null,
+     "term": "사실주의"
+    },
+    {
+     "qid": "Q10857409",
+     "ko": "사실주의",
+     "en": "realism",
+     "desc": null,
+     "types": [
+      "건축 양식",
+      "예술 사조",
+      "예술 양식"
+     ],
+     "start": null,
      "end": null,
      "term": "사실주의"
     }
@@ -14344,16 +14822,6 @@
    },
    "others": [
     {
-     "qid": "Q42314818",
-     "ko": "미술",
-     "en": "art",
-     "desc": "시각 예술의 총칭",
-     "types": [],
-     "start": null,
-     "end": null,
-     "term": "미술"
-    },
-    {
      "qid": "Q47783",
      "ko": "포스트모더니즘",
      "en": "Postmodernism",
@@ -14365,6 +14833,22 @@
      "start": {
       "prop": "P580",
       "year": 1940,
+      "precision": 8
+     },
+     "end": null,
+     "term": "포스트모던"
+    },
+    {
+     "qid": "Q647114",
+     "ko": "포스트모던 철학",
+     "en": "postmodern philosophy",
+     "desc": null,
+     "types": [
+      "철학적 운동"
+     ],
+     "start": {
+      "prop": "P580",
+      "year": 1960,
       "precision": 8
      },
      "end": null,
@@ -14552,30 +15036,9 @@
    "kind": null,
    "start_year": -800,
    "end_year": -400,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q1948412",
-    "ko": "사상",
-    "en": "morphism",
-    "desc": null,
-    "types": [],
-    "start": null,
-    "end": null,
-    "term": "사상"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
-    {
-     "qid": "Q370502",
-     "ko": "사상",
-     "en": "mapping",
-     "desc": "(때로 구조를 보존한다고 가정되는) 함수",
-     "types": [
-      "비정식적 수학 개념"
-     ],
-     "start": null,
-     "end": null,
-     "term": "사상"
-    },
     {
      "qid": "Q12909644",
      "ko": "정치 사상",
@@ -14583,6 +15046,28 @@
      "desc": "사회적이나 정치적 문제에 대하여 갖는 생각이나, 정치색을 가진 사상",
      "types": [
       "세계관의 종류"
+     ],
+     "start": null,
+     "end": null,
+     "term": "사상"
+    },
+    {
+     "qid": "Q1948412",
+     "ko": "사상",
+     "en": "morphism",
+     "desc": null,
+     "types": [],
+     "start": null,
+     "end": null,
+     "term": "사상"
+    },
+    {
+     "qid": "Q370502",
+     "ko": "사상",
+     "en": "mapping",
+     "desc": "(때로 구조를 보존한다고 가정되는) 함수",
+     "types": [
+      "비정식적 수학 개념"
      ],
      "start": null,
      "end": null,
@@ -14609,44 +15094,44 @@
    "kind": null,
    "start_year": -599,
    "end_year": -527,
-   "verdict": "일치",
+   "verdict": "부분 일치",
    "best": {
-    "qid": "Q9422",
-    "ko": "마하비라",
-    "en": "Mahavira",
-    "desc": "자이나교의 제24대 최고 스승",
+    "qid": "Q9232",
+    "ko": "자이나교",
+    "en": "Jainism",
+    "desc": "인도에서 창시된 종교",
     "types": [
-     "티르탄카라",
-     "실존이 불분명한 인물"
+     "종교"
     ],
     "start": {
-     "prop": "P569",
-     "year": -599,
-     "precision": 9
+     "prop": "P571",
+     "year": -501,
+     "precision": 7
     },
-    "end": {
-     "prop": "P570",
-     "year": -527,
-     "precision": 9
-    },
-    "term": "마하비라"
+    "end": null,
+    "term": "자이나교"
    },
    "others": [
     {
-     "qid": "Q9232",
-     "ko": "자이나교",
-     "en": "Jainism",
-     "desc": "인도에서 창시된 종교",
+     "qid": "Q9422",
+     "ko": "마하비라",
+     "en": "Mahavira",
+     "desc": "자이나교의 제24대 최고 스승",
      "types": [
-      "종교"
+      "티르탄카라",
+      "실존이 불분명한 인물"
      ],
      "start": {
-      "prop": "P571",
-      "year": -501,
-      "precision": 7
+      "prop": "P569",
+      "year": -599,
+      "precision": 9
      },
-     "end": null,
-     "term": "자이나교"
+     "end": {
+      "prop": "P570",
+      "year": -527,
+      "precision": 9
+     },
+     "term": "마하비라"
     },
     {
      "qid": "Q2613100",
@@ -14764,28 +15249,6 @@
    },
    "others": [
     {
-     "qid": "Q7257060",
-     "ko": "공자",
-     "en": "gongzi",
-     "desc": null,
-     "types": [],
-     "start": null,
-     "end": null,
-     "term": "공자"
-    },
-    {
-     "qid": "Q140373216",
-     "ko": "공자",
-     "en": "Confucius",
-     "desc": "열자의 4장",
-     "types": [
-      "장"
-     ],
-     "start": null,
-     "end": null,
-     "term": "공자"
-    },
-    {
      "qid": "Q1041328",
      "ko": "공자진",
      "en": "Gong Zizhen",
@@ -14802,6 +15265,45 @@
       "prop": "P570",
       "year": 1841,
       "precision": 11
+     },
+     "term": "공자"
+    },
+    {
+     "qid": "Q834650",
+     "ko": "공자학원",
+     "en": "Confucius Institute",
+     "desc": "중화인민공화국의 통제를 받는 교육기관, 선전기관",
+     "types": [
+      "비영리 단체",
+      "government-organized non-governmental organization",
+      "교육기관",
+      "문화 기관"
+     ],
+     "start": {
+      "prop": "P569",
+      "year": 1955,
+      "precision": 9
+     },
+     "end": null,
+     "term": "공자"
+    },
+    {
+     "qid": "Q644544",
+     "ko": "공자새",
+     "en": "Confuciusornis",
+     "desc": null,
+     "types": [
+      "화석 분류군"
+     ],
+     "start": {
+      "prop": "P580",
+      "year": -125000001,
+      "precision": 3
+     },
+     "end": {
+      "prop": "P582",
+      "year": -120000001,
+      "precision": 2
      },
      "term": "공자"
     }
@@ -14909,17 +15411,18 @@
    },
    "others": [
     {
-     "qid": "Q575248",
+     "qid": "Q49138",
      "ko": "예수",
      "en": "Jesus",
-     "desc": null,
+     "desc": "《사우스 파크》 시리즈의 등장인물로, 사우스 파크의 거주민 중 하나이다.",
      "types": [
-      "영화"
+      "허구의 사람",
+      "애니메이션 캐릭터"
      ],
      "start": {
-      "prop": "P577",
-      "year": 1980,
-      "precision": 11
+      "prop": "P569",
+      "year": -6,
+      "precision": 9
      },
      "end": null,
      "term": "예수"
@@ -14970,28 +15473,9 @@
    "kind": null,
    "start_year": 33,
    "end_year": 67,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q846929",
-    "ko": "선교",
-    "en": "bridge",
-    "desc": "하나의 선박 안에서 전체 선박을 지휘할 수 있는 공간",
-    "types": [],
-    "start": null,
-    "end": null,
-    "term": "선교"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
-    {
-     "qid": "Q31175457",
-     "ko": "선교",
-     "en": null,
-     "desc": null,
-     "types": [],
-     "start": null,
-     "end": null,
-     "term": "선교"
-    },
     {
      "qid": "Q219477",
      "ko": "선교사",
@@ -15005,12 +15489,35 @@
      "term": "선교"
     },
     {
+     "qid": "Q846929",
+     "ko": "선교",
+     "en": "bridge",
+     "desc": "하나의 선박 안에서 전체 선박을 지휘할 수 있는 공간",
+     "types": [],
+     "start": null,
+     "end": null,
+     "term": "선교"
+    },
+    {
      "qid": "Q219561",
      "ko": "정상위",
      "en": "missionary position",
      "desc": "성교 체위 중 하나",
      "types": [
       "성교 체위"
+     ],
+     "start": null,
+     "end": null,
+     "term": "선교"
+    },
+    {
+     "qid": "Q910375",
+     "ko": "선교학",
+     "en": "missiology",
+     "desc": "선교 활동에 중점을 둔 실천신학의 한 영역",
+     "types": [
+      "field of study",
+      "주요 학문"
      ],
      "start": null,
      "end": null,
@@ -15183,31 +15690,6 @@
    },
    "others": [
     {
-     "qid": "Q230604",
-     "ko": "무함마드",
-     "en": "Muhammad (surah)",
-     "desc": "쿠란의 제47장",
-     "types": [
-      "수라"
-     ],
-     "start": null,
-     "end": null,
-     "term": "무함마드"
-    },
-    {
-     "qid": "Q124362083",
-     "ko": "창시",
-     "en": "Changxi",
-     "desc": "한어 이름 (長錫 / 长锡)",
-     "types": [
-      "이름",
-      "한어 이름"
-     ],
-     "start": null,
-     "end": null,
-     "term": "창시"
-    },
-    {
      "qid": "Q57553",
      "ko": "무함마드 6세",
      "en": "Mohammed VI of Morocco",
@@ -15222,6 +15704,42 @@
      },
      "end": null,
      "term": "무함마드"
+    },
+    {
+     "qid": "Q6892571",
+     "ko": "무하마드 빈 살만 알 사우드",
+     "en": "Mohammed bin Salman Al Saud",
+     "desc": "사우디아라비아의 왕세자이자 총리",
+     "types": [
+      "사람"
+     ],
+     "start": {
+      "prop": "P569",
+      "year": 1985,
+      "precision": 11
+     },
+     "end": null,
+     "term": "무함마드"
+    },
+    {
+     "qid": "Q34105",
+     "ko": "호스니 무바라크",
+     "en": "Hosni Mubarak",
+     "desc": "이집트의 제4대 대통령 (1928–2020)",
+     "types": [
+      "사람"
+     ],
+     "start": {
+      "prop": "P569",
+      "year": 1928,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P570",
+      "year": 2020,
+      "precision": 11
+     },
+     "term": "무함마드"
     }
    ]
   },
@@ -15232,20 +15750,21 @@
    "kind": null,
    "start_year": 632,
    "end_year": 750,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q163214",
-    "ko": "확산",
-    "en": "diffusion",
-    "desc": "농도가 높은 쪽에서 낮은 쪽으로 분자가 자발적으로 이동하는 현상",
-    "types": [
-     "물리 법칙"
-    ],
-    "start": null,
-    "end": null,
-    "term": "확산"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q163214",
+     "ko": "확산",
+     "en": "diffusion",
+     "desc": "농도가 높은 쪽에서 낮은 쪽으로 분자가 자발적으로 이동하는 현상",
+     "types": [
+      "물리 법칙"
+     ],
+     "start": null,
+     "end": null,
+     "term": "확산"
+    },
     {
      "qid": "Q899360",
      "ko": "확산강조 MRI",
@@ -15269,10 +15788,10 @@
      "term": "확산"
     },
     {
-     "qid": "Q11067835",
-     "ko": "확산능",
-     "en": "pulmonary diffusing capacity",
-     "desc": null,
+     "qid": "Q114617315",
+     "ko": "확산 모델",
+     "en": "diffusion model",
+     "desc": "일종의 잠재 변수 생성 모델",
      "types": [],
      "start": null,
      "end": null,
@@ -15298,28 +15817,9 @@
    "kind": null,
    "start_year": 1096,
    "end_year": 1291,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q219067",
-    "ko": "운동",
-    "en": "physical exercise",
-    "desc": "여가에 계획적, 구조적, 반복적으로 하는 신체 활동",
-    "types": [],
-    "start": null,
-    "end": null,
-    "term": "운동"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
-    {
-     "qid": "Q79782",
-     "ko": "운동",
-     "en": "motion",
-     "desc": "시간에 따라 물체의 위치가 변하는 것",
-     "types": [],
-     "start": null,
-     "end": null,
-     "term": "운동"
-    },
     {
      "qid": "Q349",
      "ko": "스포츠",
@@ -15328,6 +15828,26 @@
      "types": [
       "type of activity"
      ],
+     "start": null,
+     "end": null,
+     "term": "운동"
+    },
+    {
+     "qid": "Q219067",
+     "ko": "운동",
+     "en": "physical exercise",
+     "desc": "여가에 계획적, 구조적, 반복적으로 하는 신체 활동",
+     "types": [],
+     "start": null,
+     "end": null,
+     "term": "운동"
+    },
+    {
+     "qid": "Q79782",
+     "ko": "운동",
+     "en": "motion",
+     "desc": "시간에 따라 물체의 위치가 변하는 것",
+     "types": [],
      "start": null,
      "end": null,
      "term": "운동"
@@ -15456,16 +15976,16 @@
      "term": "주희"
     },
     {
-     "qid": "Q16068618",
-     "ko": "주희",
-     "en": "Joo Hee",
-     "desc": "성우",
+     "qid": "Q8071155",
+     "ko": "주시좐",
+     "en": "Zhu Xijuan",
+     "desc": "중국 배우",
      "types": [
       "사람"
      ],
      "start": {
       "prop": "P569",
-      "year": 1950,
+      "year": 1938,
       "precision": 11
      },
      "end": null,
@@ -15697,32 +16217,9 @@
    "kind": null,
    "start_year": 1700,
    "end_year": 1800,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q85502",
-    "ko": "세속화",
-    "en": "secularisation",
-    "desc": null,
-    "types": [
-     "과정"
-    ],
-    "start": null,
-    "end": null,
-    "term": "세속화"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
-    {
-     "qid": "Q136329089",
-     "ko": "계몽주의",
-     "en": "the Enlightenment",
-     "desc": "17세기 후반 서유럽에서 시작되어 전 유럽으로 확산된 문화, 철학, 문학 및 지식 운동",
-     "types": [
-      "intellectual movement"
-     ],
-     "start": null,
-     "end": null,
-     "term": "계몽주의"
-    },
     {
      "qid": "Q1208474",
      "ko": "아토스의 에우티미우스",
@@ -15741,6 +16238,30 @@
       "year": 1028,
       "precision": 9
      },
+     "term": "계몽주의"
+    },
+    {
+     "qid": "Q85502",
+     "ko": "세속화",
+     "en": "secularisation",
+     "desc": null,
+     "types": [
+      "과정"
+     ],
+     "start": null,
+     "end": null,
+     "term": "세속화"
+    },
+    {
+     "qid": "Q136329089",
+     "ko": "계몽주의",
+     "en": "the Enlightenment",
+     "desc": "17세기 후반 서유럽에서 시작되어 전 유럽으로 확산된 문화, 철학, 문학 및 지식 운동",
+     "types": [
+      "intellectual movement"
+     ],
+     "start": null,
+     "end": null,
      "term": "계몽주의"
     },
     {
@@ -15773,20 +16294,8 @@
    "kind": null,
    "start_year": 1860,
    "end_year": 1894,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q124362083",
-    "ko": "창시",
-    "en": "Changxi",
-    "desc": "한어 이름 (長錫 / 长锡)",
-    "types": [
-     "이름",
-     "한어 이름"
-    ],
-    "start": null,
-    "end": null,
-    "term": "창시"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
     {
      "qid": "Q504568",
@@ -15807,6 +16316,19 @@
      "desc": null,
      "types": [
       "중국의 현"
+     ],
+     "start": null,
+     "end": null,
+     "term": "창시"
+    },
+    {
+     "qid": "Q124362083",
+     "ko": "창시",
+     "en": "Changxi",
+     "desc": "한어 이름 (長錫 / 长锡)",
+     "types": [
+      "이름",
+      "한어 이름"
      ],
      "start": null,
      "end": null,
@@ -15864,20 +16386,21 @@
    "kind": null,
    "start_year": 1900,
    "end_year": 2025,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q85502",
-    "ko": "세속화",
-    "en": "secularisation",
-    "desc": null,
-    "types": [
-     "과정"
-    ],
-    "start": null,
-    "end": null,
-    "term": "세속화"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q85502",
+     "ko": "세속화",
+     "en": "secularisation",
+     "desc": null,
+     "types": [
+      "과정"
+     ],
+     "start": null,
+     "end": null,
+     "term": "세속화"
+    },
     {
      "qid": "Q7444786",
      "ko": "세속화 신학",
@@ -16551,28 +17074,43 @@
    "kind": null,
    "start_year": 980,
    "end_year": 1198,
-   "verdict": "부분 일치",
+   "verdict": "날짜 없음",
    "best": {
-    "qid": "Q8011",
-    "ko": "이븐 시나",
-    "en": "Avicenna",
-    "desc": "페르시아 제국의 철학자, 의학자 (980–1037)",
+    "qid": "Q193104",
+    "ko": "이슬람 철학",
+    "en": "Islamic philosophy",
+    "desc": "이슬람 전통에서 비롯된 것이 특징인 철학",
     "types": [
-     "사람"
+     "작업 분야",
+     "문화 운동",
+     "학문",
+     "철학의 분야"
     ],
-    "start": {
-     "prop": "P569",
-     "year": 980,
-     "precision": 9
-    },
-    "end": {
-     "prop": "P570",
-     "year": 1037,
-     "precision": 9
-    },
-    "term": "이븐 시나"
+    "start": null,
+    "end": null,
+    "term": "이슬람 철학"
    },
    "others": [
+    {
+     "qid": "Q8011",
+     "ko": "이븐 시나",
+     "en": "Avicenna",
+     "desc": "페르시아 제국의 철학자, 의학자 (980–1037)",
+     "types": [
+      "사람"
+     ],
+     "start": {
+      "prop": "P569",
+      "year": 980,
+      "precision": 9
+     },
+     "end": {
+      "prop": "P570",
+      "year": 1037,
+      "precision": 9
+     },
+     "term": "이븐 시나"
+    },
     {
      "qid": "Q39837",
      "ko": "이븐 루시드",
@@ -16607,21 +17145,6 @@
      "start": null,
      "end": null,
      "term": "철학"
-    },
-    {
-     "qid": "Q193104",
-     "ko": "이슬람 철학",
-     "en": "Islamic philosophy",
-     "desc": "이슬람 전통에서 비롯된 것이 특징인 철학",
-     "types": [
-      "작업 분야",
-      "문화 운동",
-      "학문",
-      "철학의 분야"
-     ],
-     "start": null,
-     "end": null,
-     "term": "이슬람 철학"
     }
    ]
   },
@@ -16634,50 +17157,51 @@
    "end_year": 1350,
    "verdict": "날짜 없음",
    "best": {
-    "qid": "Q5891",
-    "ko": "철학",
-    "en": "philosophy",
-    "desc": "존재·사상·지식·행동 등 객관적인 답이 확립되지 않은 문제를 논리적으로 고찰하는 학문",
-    "types": [
-     "장르",
-     "작업 분야",
-     "자연 계열",
-     "주요 학문"
-    ],
+    "qid": "Q41679",
+    "ko": "스콜라 철학",
+    "en": "scholasticism",
+    "desc": null,
+    "types": [],
     "start": null,
     "end": null,
-    "term": "철학"
+    "term": "스콜라 철학"
    },
    "others": [
     {
-     "qid": "Q41679",
-     "ko": "스콜라 철학",
-     "en": "scholasticism",
-     "desc": null,
-     "types": [],
-     "start": null,
-     "end": null,
-     "term": "스콜라 철학"
-    },
-    {
-     "qid": "Q96722901",
+     "qid": "Q5891",
      "ko": "철학",
-     "en": "Korean Journal of Philosophy",
-     "desc": "한국철학회의 학술지",
+     "en": "philosophy",
+     "desc": "존재·사상·지식·행동 등 객관적인 답이 확립되지 않은 문제를 논리적으로 고찰하는 학문",
      "types": [
-      "philosophy journal"
+      "장르",
+      "작업 분야",
+      "자연 계열",
+      "주요 학문"
      ],
      "start": null,
      "end": null,
      "term": "철학"
     },
     {
-     "qid": "Q122639576",
-     "ko": "철학",
-     "en": "Cheol-hak",
-     "desc": "남성의 이름",
+     "qid": "Q4964182",
+     "ko": "철학자",
+     "en": "philosopher",
+     "desc": "철학을 연구하는 사람",
      "types": [
-      "남성의 이름"
+      "직업"
+     ],
+     "start": null,
+     "end": null,
+     "term": "철학"
+    },
+    {
+     "qid": "Q752297",
+     "ko": "철학박사",
+     "en": "Doctor of Philosophy",
+     "desc": "학위의 하나",
+     "types": [
+      "학위",
+      "postgraduate diploma"
      ],
      "start": null,
      "end": null,
@@ -16773,20 +17297,40 @@
    "kind": null,
    "start_year": 1287,
    "end_year": 1347,
-   "verdict": "날짜 없음",
+   "verdict": "부분 일치",
    "best": {
-    "qid": "Q202253",
-    "ko": "유명론",
-    "en": "nominalism",
-    "desc": null,
+    "qid": "Q43936",
+    "ko": "오컴의 윌리엄",
+    "en": "William of Ockham",
+    "desc": "14세기 잉글랜드의 신학자 (1287–1347)",
     "types": [
-     "철학 이론"
+     "사람"
     ],
-    "start": null,
-    "end": null,
-    "term": "유명론"
+    "start": {
+     "prop": "P569",
+     "year": 1287,
+     "precision": 9
+    },
+    "end": {
+     "prop": "P570",
+     "year": 1349,
+     "precision": 11
+    },
+    "term": "오컴"
    },
    "others": [
+    {
+     "qid": "Q202253",
+     "ko": "유명론",
+     "en": "nominalism",
+     "desc": null,
+     "types": [
+      "철학 이론"
+     ],
+     "start": null,
+     "end": null,
+     "term": "유명론"
+    },
     {
      "qid": "Q1001942",
      "ko": "오컴",
@@ -16799,26 +17343,6 @@
      ],
      "start": null,
      "end": null,
-     "term": "오컴"
-    },
-    {
-     "qid": "Q43936",
-     "ko": "오컴의 윌리엄",
-     "en": "William of Ockham",
-     "desc": "14세기 잉글랜드의 신학자 (1287–1347)",
-     "types": [
-      "사람"
-     ],
-     "start": {
-      "prop": "P569",
-      "year": 1287,
-      "precision": 9
-     },
-     "end": {
-      "prop": "P570",
-      "year": 1349,
-      "precision": 11
-     },
      "term": "오컴"
     },
     {
@@ -16845,22 +17369,33 @@
    "kind": null,
    "start_year": 1350,
    "end_year": 1500,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q46158",
-    "ko": "인문주의",
-    "en": "humanism",
-    "desc": null,
-    "types": [
-     "세계관",
-     "유파",
-     "ethical theory"
-    ],
-    "start": null,
-    "end": null,
-    "term": "인문주의"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q846933",
+     "ko": "르네상스 인문주의자",
+     "en": "renaissance humanism",
+     "desc": "신 중심적 사고보다 인간중심적 사고에 강조를 두는 학자",
+     "types": [
+      "문화 운동"
+     ],
+     "start": null,
+     "end": null,
+     "term": "르네상스 인문주의"
+    },
+    {
+     "qid": "Q1542868",
+     "ko": "르네상스 인문주의자들 목록",
+     "en": "list of Renaissance humanists",
+     "desc": "위키미디어 목록 항목",
+     "types": [
+      "위키미디어 목록 문서"
+     ],
+     "start": null,
+     "end": null,
+     "term": "르네상스 인문주의"
+    },
     {
      "qid": "Q113903993",
      "ko": "인문주의민주중도당",
@@ -16883,30 +17418,16 @@
      "term": "인문주의"
     },
     {
-     "qid": "Q846933",
-     "ko": "르네상스 인문주의자",
-     "en": "renaissance humanism",
-     "desc": "신 중심적 사고보다 인간중심적 사고에 강조를 두는 학자",
-     "types": [
-      "문화 운동"
-     ],
-     "start": null,
-     "end": null,
-     "term": "르네상스 인문주의"
-    },
-    {
-     "qid": "Q1312539",
-     "ko": "인문주의자당",
-     "en": "Humanist Party",
+     "qid": "Q46158",
+     "ko": "인문주의",
+     "en": "humanism",
      "desc": null,
      "types": [
-      "인본당"
+      "세계관",
+      "유파",
+      "ethical theory"
      ],
-     "start": {
-      "prop": "P571",
-      "year": 1984,
-      "precision": 9
-     },
+     "start": null,
      "end": null,
      "term": "인문주의"
     }
@@ -17060,14 +17581,20 @@
      "term": "데카르트"
     },
     {
-     "qid": "Q379226",
-     "ko": "데카르트주의",
-     "en": "Cartesianism",
+     "qid": "Q947377",
+     "ko": "데카르트 잠수부",
+     "en": "Cartesian diver",
      "desc": null,
      "types": [
-      "철학적 운동"
+      "demonstration",
+      "조립",
+      "physics experiment"
      ],
-     "start": null,
+     "start": {
+      "prop": "P571",
+      "year": 1648,
+      "precision": 9
+     },
      "end": null,
      "term": "데카르트"
     }
@@ -17137,24 +17664,42 @@
    "kind": null,
    "start_year": 1632,
    "end_year": 1704,
-   "verdict": "어긋남",
-   "best": {
-    "qid": "Q14339915",
-    "ko": "로크",
-    "en": "Locke",
-    "desc": null,
-    "types": [
-     "영화"
-    ],
-    "start": {
-     "prop": "P577",
-     "year": 2013,
-     "precision": 11
-    },
-    "end": null,
-    "term": "로크"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q14339915",
+     "ko": "로크",
+     "en": "Locke",
+     "desc": null,
+     "types": [
+      "영화"
+     ],
+     "start": {
+      "prop": "P577",
+      "year": 2013,
+      "precision": 11
+     },
+     "end": null,
+     "term": "로크"
+    },
+    {
+     "qid": "Q220668",
+     "ko": "로크브륀카프마르탱",
+     "en": "Roquebrune-Cap-Martin",
+     "desc": "프랑스 남동부 프로방스알프코트다쥐르 지역의 알프마리팀주에 있는 코뮌",
+     "types": [
+      "코뮌",
+      "국경도시"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 970,
+      "precision": 9
+     },
+     "end": null,
+     "term": "로크"
+    },
     {
      "qid": "Q83368",
      "ko": "경험론",
@@ -17174,18 +17719,6 @@
      "en": "roc",
      "desc": "전설의 새",
      "types": [],
-     "start": null,
-     "end": null,
-     "term": "로크"
-    },
-    {
-     "qid": "Q1143202",
-     "ko": "로크",
-     "en": "roque",
-     "desc": null,
-     "types": [
-      "스포츠의 종류"
-     ],
      "start": null,
      "end": null,
      "term": "로크"
@@ -17479,33 +18012,45 @@
    "kind": null,
    "start_year": 1789,
    "end_year": 1873,
-   "verdict": "날짜 없음",
+   "verdict": "어긋남",
    "best": {
-    "qid": "Q160590",
+    "qid": "Q1197767",
     "ko": "공리주의",
-    "en": "utilitarianism",
-    "desc": "자유론",
+    "en": "Utilitarianism",
+    "desc": null,
     "types": [
-     "ethical theory"
+     "저작물"
     ],
-    "start": null,
+    "start": {
+     "prop": "P577",
+     "year": 1861,
+     "precision": 9
+    },
     "end": null,
     "term": "공리주의"
    },
    "others": [
     {
-     "qid": "Q1197767",
+     "qid": "Q160590",
      "ko": "공리주의",
-     "en": "Utilitarianism",
-     "desc": null,
+     "en": "utilitarianism",
+     "desc": "자유론",
      "types": [
-      "저작물"
+      "ethical theory"
      ],
-     "start": {
-      "prop": "P577",
-      "year": 1861,
-      "precision": 9
-     },
+     "start": null,
+     "end": null,
+     "term": "공리주의"
+    },
+    {
+     "qid": "Q12584655",
+     "ko": "공리주의 (동음이의)",
+     "en": null,
+     "desc": "위키미디어 동음이의어 문서",
+     "types": [
+      "위키미디어 동음이의어 문서"
+     ],
+     "start": null,
      "end": null,
      "term": "공리주의"
     },
@@ -17528,18 +18073,6 @@
       "precision": 11
      },
      "term": "벤담"
-    },
-    {
-     "qid": "Q12584655",
-     "ko": "공리주의 (동음이의)",
-     "en": null,
-     "desc": "위키미디어 동음이의어 문서",
-     "types": [
-      "위키미디어 동음이의어 문서"
-     ],
-     "start": null,
-     "end": null,
-     "term": "공리주의"
     }
    ]
   },
@@ -17787,24 +18320,26 @@
      "term": "후설"
     },
     {
-     "qid": "Q853589",
-     "ko": "후설 모음",
-     "en": "back vowel",
-     "desc": "구어에서 사용되는 모음의 일종",
-     "types": [],
+     "qid": "Q4953701",
+     "ko": "괄호치기",
+     "en": "bracketing",
+     "desc": "에드문트 후설의 현상학에서 판단을 유보하는 것을 말한다",
+     "types": [
+      "철학적 개념"
+     ],
      "start": null,
      "end": null,
-     "term": "후설"
+     "term": "현상학"
     },
     {
-     "qid": "Q29653",
-     "ko": "후설 원순 고모음",
-     "en": "close back rounded vowel",
+     "qid": "Q16177273",
+     "ko": "현상학적 교육사상",
+     "en": null,
      "desc": null,
      "types": [],
      "start": null,
      "end": null,
-     "term": "후설"
+     "term": "현상학"
     }
    ]
   },
@@ -17815,24 +18350,36 @@
    "kind": null,
    "start_year": 1910,
    "end_year": 1953,
-   "verdict": "어긋남",
+   "verdict": "날짜 없음",
    "best": {
-    "qid": "Q178068",
-    "ko": "비트겐슈타인",
-    "en": "Wittgenstein",
-    "desc": null,
+    "qid": "Q183216",
+    "ko": "분석철학",
+    "en": "analytic philosophy",
+    "desc": "철학의 한 종류",
     "types": [
-     "영화"
+     "철학적 운동"
     ],
-    "start": {
-     "prop": "P577",
-     "year": 1993,
-     "precision": 9
-    },
+    "start": null,
     "end": null,
-    "term": "비트겐슈타인"
+    "term": "분석철학"
    },
    "others": [
+    {
+     "qid": "Q178068",
+     "ko": "비트겐슈타인",
+     "en": "Wittgenstein",
+     "desc": null,
+     "types": [
+      "영화"
+     ],
+     "start": {
+      "prop": "P577",
+      "year": 1993,
+      "precision": 9
+     },
+     "end": null,
+     "term": "비트겐슈타인"
+    },
     {
      "qid": "Q2415991",
      "ko": "러셀",
@@ -17850,26 +18397,18 @@
      "term": "러셀"
     },
     {
-     "qid": "Q183216",
-     "ko": "분석철학",
-     "en": "analytic philosophy",
-     "desc": "철학의 한 종류",
+     "qid": "Q129817",
+     "ko": "러셀 크로",
+     "en": "Russell Crowe",
+     "desc": "뉴질랜드 배우",
      "types": [
-      "철학적 운동"
+      "사람"
      ],
-     "start": null,
-     "end": null,
-     "term": "분석철학"
-    },
-    {
-     "qid": "Q1158262",
-     "ko": "러셀",
-     "en": "Russell",
-     "desc": "성씨",
-     "types": [
-      "가족 이름"
-     ],
-     "start": null,
+     "start": {
+      "prop": "P569",
+      "year": 1964,
+      "precision": 11
+     },
      "end": null,
      "term": "러셀"
     }
@@ -17898,56 +18437,44 @@
    },
    "others": [
     {
-     "qid": "Q65328331",
-     "ko": "카뮈",
-     "en": null,
+     "qid": "Q1247929",
+     "ko": "실존주의는 휴머니즘이다",
+     "en": "Existentialism and Humanism",
      "desc": null,
      "types": [
-      "위키미디어 동음이의어 문서"
+      "문학 작품"
+     ],
+     "start": {
+      "prop": "P577",
+      "year": 1946,
+      "precision": 9
+     },
+     "end": null,
+     "term": "실존주의"
+    },
+    {
+     "qid": "Q556014",
+     "ko": "실존주의 상담",
+     "en": "existential therapy",
+     "desc": null,
+     "types": [
+      "type of psychotherapy"
      ],
      "start": null,
      "end": null,
-     "term": "카뮈"
+     "term": "실존주의"
     },
     {
-     "qid": "Q34670",
-     "ko": "알베르 카뮈",
-     "en": "Albert Camus",
-     "desc": "프랑스의 소설가, 언론인, 철학자 (1913~1960)",
+     "qid": "Q4530195",
+     "ko": "실존주의 심리학",
+     "en": "existential psychology",
+     "desc": null,
      "types": [
-      "사람"
+      "branch of psychology"
      ],
-     "start": {
-      "prop": "P569",
-      "year": 1913,
-      "precision": 11
-     },
-     "end": {
-      "prop": "P570",
-      "year": 1960,
-      "precision": 11
-     },
-     "term": "카뮈"
-    },
-    {
-     "qid": "Q9364",
-     "ko": "장폴 사르트르",
-     "en": "Jean-Paul Sartre",
-     "desc": "프랑스의 작가이자 철학자 (1905–1980)",
-     "types": [
-      "사람"
-     ],
-     "start": {
-      "prop": "P569",
-      "year": 1905,
-      "precision": 11
-     },
-     "end": {
-      "prop": "P570",
-      "year": 1980,
-      "precision": 11
-     },
-     "term": "사르트르"
+     "start": null,
+     "end": null,
+     "term": "실존주의"
     }
    ]
   },
@@ -17958,27 +18485,16 @@
    "kind": null,
    "start_year": 1960,
    "end_year": 1990,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q179168",
-    "ko": "구조주의",
-    "en": "structuralism",
-    "desc": null,
-    "types": [
-     "이론"
-    ],
-    "start": null,
-    "end": null,
-    "term": "구조주의"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
     {
-     "qid": "Q7625074",
+     "qid": "Q179168",
      "ko": "구조주의",
      "en": "structuralism",
-     "desc": "현대 수리철학의 사조",
+     "desc": null,
      "types": [
-      "철학 이론"
+      "이론"
      ],
      "start": null,
      "end": null,
@@ -18008,6 +18524,18 @@
      "en": "structural linguistics",
      "desc": null,
      "types": [],
+     "start": null,
+     "end": null,
+     "term": "구조주의"
+    },
+    {
+     "qid": "Q7625074",
+     "ko": "구조주의",
+     "en": "structuralism",
+     "desc": "현대 수리철학의 사조",
+     "types": [
+      "철학 이론"
+     ],
      "start": null,
      "end": null,
      "term": "구조주의"
@@ -18047,19 +18575,8 @@
    "kind": null,
    "start_year": 1970,
    "end_year": 2025,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q279438",
-    "ko": "기술철학",
-    "en": "philosophy of technology",
-    "desc": null,
-    "types": [
-     "철학의 분야"
-    ],
-    "start": null,
-    "end": null,
-    "term": "기술철학"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
     {
      "qid": "Q538733",
@@ -18072,6 +18589,18 @@
      "start": null,
      "end": null,
      "term": "응용윤리"
+    },
+    {
+     "qid": "Q279438",
+     "ko": "기술철학",
+     "en": "philosophy of technology",
+     "desc": null,
+     "types": [
+      "철학의 분야"
+     ],
+     "start": null,
+     "end": null,
+     "term": "기술철학"
     }
    ]
   },
@@ -18245,21 +18774,22 @@
    "kind": null,
    "start_year": -800,
    "end_year": -700,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q37484",
-    "ko": "서사시",
-    "en": "epic poem",
-    "desc": "자연, 사물의 창조, 신의 업적, 영웅 전기 등을 주제로 하는 이야기 시",
-    "types": [
-     "문학 장르",
-     "예술 사조"
-    ],
-    "start": null,
-    "end": null,
-    "term": "서사시"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q37484",
+     "ko": "서사시",
+     "en": "epic poem",
+     "desc": "자연, 사물의 창조, 신의 업적, 영웅 전기 등을 주제로 하는 이야기 시",
+     "types": [
+      "문학 장르",
+      "예술 사조"
+     ],
+     "start": null,
+     "end": null,
+     "term": "서사시"
+    },
     {
      "qid": "Q578605",
      "ko": "서사시환",
@@ -18281,36 +18811,9 @@
    "kind": null,
    "start_year": -500,
    "end_year": -400,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q80930",
-    "ko": "비극",
-    "en": "tragedy",
-    "desc": null,
-    "types": [
-     "theatrical genre"
-    ],
-    "start": null,
-    "end": null,
-    "term": "비극"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
-    {
-     "qid": "Q1053359",
-     "ko": "비극의 탄생",
-     "en": "The Birth of Tragedy",
-     "desc": null,
-     "types": [
-      "문학 작품"
-     ],
-     "start": {
-      "prop": "P571",
-      "year": 1872,
-      "precision": 9
-     },
-     "end": null,
-     "term": "비극"
-    },
     {
      "qid": "Q189072",
      "ko": "고대 그리스 연극",
@@ -18324,6 +18827,34 @@
      "term": "그리스 비극"
     },
     {
+     "qid": "Q1053359",
+     "ko": "비극의 탄생",
+     "en": "The Birth of Tragedy",
+     "desc": null,
+     "types": [
+      "문학 작품"
+     ],
+     "start": {
+      "prop": "P577",
+      "year": 1872,
+      "precision": 9
+     },
+     "end": null,
+     "term": "비극"
+    },
+    {
+     "qid": "Q80930",
+     "ko": "비극",
+     "en": "tragedy",
+     "desc": null,
+     "types": [
+      "theatrical genre"
+     ],
+     "start": null,
+     "end": null,
+     "term": "비극"
+    },
+    {
      "qid": "Q1187198",
      "ko": "비극의 열흘",
      "en": "Ten Tragic Days",
@@ -18332,7 +18863,7 @@
       "쿠데타"
      ],
      "start": {
-      "prop": "P580",
+      "prop": "P585",
       "year": 1913,
       "precision": 11
      },
@@ -18352,21 +18883,22 @@
    "kind": null,
    "start_year": -400,
    "end_year": 400,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q8276",
-    "ko": "마하바라타",
-    "en": "Mahabharata",
-    "desc": null,
-    "types": [
-     "경전",
-     "문학 작품"
-    ],
-    "start": null,
-    "end": null,
-    "term": "마하바라타"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q8276",
+     "ko": "마하바라타",
+     "en": "Mahabharata",
+     "desc": null,
+     "types": [
+      "경전",
+      "문학 작품"
+     ],
+     "start": null,
+     "end": null,
+     "term": "마하바라타"
+    },
     {
      "qid": "Q37293",
      "ko": "라마야나",
@@ -18525,19 +19057,6 @@
    },
    "others": [
     {
-     "qid": "Q1318295",
-     "ko": "이야기",
-     "en": "narrative",
-     "desc": "어떤 사물이나 사실, 현상에 대하여 일정한 줄거리를 갖고 하는 말이나 글",
-     "types": [
-      "장르",
-      "form of art"
-     ],
-     "start": null,
-     "end": null,
-     "term": "이야기"
-    },
-    {
      "qid": "Q3226622",
      "ko": "겐지 이야기",
      "en": "The Tale of Genji",
@@ -18554,20 +19073,40 @@
      "term": "겐지 이야기"
     },
     {
-     "qid": "Q47063979",
-     "ko": "이야기",
-     "en": "The Tale",
+     "qid": "Q1134579",
+     "ko": "겐지 이야기 천년기 Genji",
+     "en": "Genji Monogatari Sennenki",
+     "desc": null,
+     "types": [
+      "일본 TV 애니메이션 시리즈"
+     ],
+     "start": {
+      "prop": "P580",
+      "year": 2009,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P582",
+      "year": 2009,
+      "precision": 11
+     },
+     "term": "겐지 이야기"
+    },
+    {
+     "qid": "Q5533292",
+     "ko": "겐지 이야기: 천년의 수수께끼",
+     "en": "Genji Monogatari: Sennen no Nazo",
      "desc": null,
      "types": [
       "영화"
      ],
      "start": {
       "prop": "P577",
-      "year": 2018,
-      "precision": 11
+      "year": 2011,
+      "precision": 9
      },
      "end": null,
-     "term": "이야기"
+     "term": "겐지 이야기"
     }
    ]
   },
@@ -18578,24 +19117,25 @@
    "kind": null,
    "start_year": 1308,
    "end_year": 1320,
-   "verdict": "어긋남",
-   "best": {
-    "qid": "Q40185",
-    "ko": "신곡",
-    "en": "The Divine Comedy",
-    "desc": "1321년 출판된 단테 알리기에리의 서사시",
-    "types": [
-     "문학 작품"
-    ],
-    "start": {
-     "prop": "P571",
-     "year": 1320,
-     "precision": 9
-    },
-    "end": null,
-    "term": "신곡"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q40185",
+     "ko": "신곡",
+     "en": "The Divine Comedy",
+     "desc": "1321년 출판된 단테 알리기에리의 서사시",
+     "types": [
+      "문학 작품"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1320,
+      "precision": 9
+     },
+     "end": null,
+     "term": "신곡"
+    },
     {
      "qid": "Q18648329",
      "ko": "신곡초등학교",
@@ -18722,12 +19262,15 @@
    "end_year": 1600,
    "verdict": "부분 일치",
    "best": {
-    "qid": "Q18990",
-    "ko": "훈민정음",
-    "en": "Hunminjeongeum",
-    "desc": "조선 세종이 창제한 문자 체계와 해설서",
+    "qid": "Q8222",
+    "ko": "한글",
+    "en": "Hangul",
+    "desc": "한국어권 문자 체계",
     "types": [
-     "저작물"
+     "음절문자",
+     "phonetic transcription",
+     "자질문자",
+     "인공 문자"
     ],
     "start": {
      "prop": "P571",
@@ -18739,15 +19282,12 @@
    },
    "others": [
     {
-     "qid": "Q8222",
-     "ko": "한글",
-     "en": "Hangul",
-     "desc": "한국어권 문자 체계",
+     "qid": "Q18990",
+     "ko": "훈민정음",
+     "en": "Hunminjeongeum",
+     "desc": "조선 세종이 창제한 문자 체계와 해설서",
      "types": [
-      "음절문자",
-      "phonetic transcription",
-      "자질문자",
-      "인공 문자"
+      "저작물"
      ],
      "start": {
       "prop": "P571",
@@ -18953,7 +19493,7 @@
      "문학 작품"
     ],
     "start": {
-     "prop": "P577",
+     "prop": "P571",
      "year": 1667,
      "precision": 9
     },
@@ -18961,18 +19501,6 @@
     "term": "실낙원"
    },
    "others": [
-    {
-     "qid": "Q11444814",
-     "ko": "실낙원",
-     "en": "失楽園",
-     "desc": "위키미디어 동음이의어 문서",
-     "types": [
-      "위키미디어 동음이의어 문서"
-     ],
-     "start": null,
-     "end": null,
-     "term": "실낙원"
-    },
     {
      "qid": "Q140936452",
      "ko": "실낙원 (영화)",
@@ -18988,6 +19516,18 @@
      },
      "end": null,
      "term": "실낙원"
+    },
+    {
+     "qid": "Q11444814",
+     "ko": "실낙원",
+     "en": "失楽園",
+     "desc": "위키미디어 동음이의어 문서",
+     "types": [
+      "위키미디어 동음이의어 문서"
+     ],
+     "start": null,
+     "end": null,
+     "term": "실낙원"
     }
    ]
   },
@@ -18998,31 +19538,20 @@
    "kind": null,
    "start_year": 1700,
    "end_year": 1900,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q8261",
-    "ko": "소설",
-    "en": "novel",
-    "desc": "가공의 이야기를 다루는 문학 장르",
-    "types": [
-     "문학 양식"
-    ],
-    "start": null,
-    "end": null,
-    "term": "소설"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
     {
-     "qid": "Q717065",
-     "ko": "춘향전",
-     "en": "Chunhyangjeon",
-     "desc": "조선의 고전 소설",
+     "qid": "Q8261",
+     "ko": "소설",
+     "en": "novel",
+     "desc": "가공의 이야기를 다루는 문학 장르",
      "types": [
-      "저작물"
+      "문학 양식"
      ],
      "start": null,
      "end": null,
-     "term": "춘향전"
+     "term": "소설"
     },
     {
      "qid": "Q22098640",
@@ -19041,12 +19570,24 @@
      "term": "춘향전"
     },
     {
-     "qid": "Q59126",
-     "ko": "소설",
-     "en": "xiaoshuo",
-     "desc": "문학의 한 부류",
+     "qid": "Q717065",
+     "ko": "춘향전",
+     "en": "Chunhyangjeon",
+     "desc": "조선의 고전 소설",
      "types": [
-      "문학 양식"
+      "저작물"
+     ],
+     "start": null,
+     "end": null,
+     "term": "춘향전"
+    },
+    {
+     "qid": "Q6625963",
+     "ko": "소설가",
+     "en": "novelist",
+     "desc": "지속적으로 소설 작품을 저술, 발표하는 직업",
+     "types": [
+      "전문직"
      ],
      "start": null,
      "end": null,
@@ -19061,22 +19602,23 @@
    "kind": null,
    "start_year": 1700,
    "end_year": 1789,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q8242",
-    "ko": "문학",
-    "en": "literature",
-    "desc": "예술작품으로 쓰여진 것",
-    "types": [
-     "유형",
-     "group of works",
-     "type of arts"
-    ],
-    "start": null,
-    "end": null,
-    "term": "문학"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q8242",
+     "ko": "문학",
+     "en": "literature",
+     "desc": "예술작품으로 쓰여진 것",
+     "types": [
+      "유형",
+      "group of works",
+      "type of arts"
+     ],
+     "start": null,
+     "end": null,
+     "term": "문학"
+    },
     {
      "qid": "Q58854",
      "ko": "문학평론",
@@ -19211,22 +19753,23 @@
    "kind": null,
    "start_year": 1798,
    "end_year": 1850,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q8242",
-    "ko": "문학",
-    "en": "literature",
-    "desc": "예술작품으로 쓰여진 것",
-    "types": [
-     "유형",
-     "group of works",
-     "type of arts"
-    ],
-    "start": null,
-    "end": null,
-    "term": "문학"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q8242",
+     "ko": "문학",
+     "en": "literature",
+     "desc": "예술작품으로 쓰여진 것",
+     "types": [
+      "유형",
+      "group of works",
+      "type of arts"
+     ],
+     "start": null,
+     "end": null,
+     "term": "문학"
+    },
     {
      "qid": "Q58854",
      "ko": "문학평론",
@@ -19277,39 +19820,16 @@
    "kind": null,
    "start_year": 1830,
    "end_year": 1880,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q8261",
-    "ko": "소설",
-    "en": "novel",
-    "desc": "가공의 이야기를 다루는 문학 장르",
-    "types": [
-     "문학 양식"
-    ],
-    "start": null,
-    "end": null,
-    "term": "소설"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
     {
-     "qid": "Q59126",
+     "qid": "Q8261",
      "ko": "소설",
-     "en": "xiaoshuo",
-     "desc": "문학의 한 부류",
+     "en": "novel",
+     "desc": "가공의 이야기를 다루는 문학 장르",
      "types": [
       "문학 양식"
-     ],
-     "start": null,
-     "end": null,
-     "term": "소설"
-    },
-    {
-     "qid": "Q1190980",
-     "ko": "소설",
-     "en": "Xiaoxue",
-     "desc": "24절기의 20번째",
-     "types": [
-      "절기"
      ],
      "start": null,
      "end": null,
@@ -19322,6 +19842,37 @@
      "desc": "지속적으로 소설 작품을 저술, 발표하는 직업",
      "types": [
       "전문직"
+     ],
+     "start": null,
+     "end": null,
+     "term": "소설"
+    },
+    {
+     "qid": "Q3281156",
+     "ko": "소설가가 되자",
+     "en": "Shōsetsuka ni Narō",
+     "desc": "일본의 소설 투고 사이트",
+     "types": [
+      "웹사이트",
+      "온라인 출판사",
+      "publishing platform",
+      "온라인 커뮤니티"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 2004,
+      "precision": 11
+     },
+     "end": null,
+     "term": "소설"
+    },
+    {
+     "qid": "Q59126",
+     "ko": "소설",
+     "en": "xiaoshuo",
+     "desc": "문학의 한 부류",
+     "types": [
+      "문학 양식"
      ],
      "start": null,
      "end": null,
@@ -19362,6 +19913,19 @@
    },
    "others": [
     {
+     "qid": "Q56000",
+     "ko": "자연주의",
+     "en": "naturalism",
+     "desc": null,
+     "types": [
+      "세계관",
+      "철학적 운동"
+     ],
+     "start": null,
+     "end": null,
+     "term": "자연주의"
+    },
+    {
      "qid": "Q55995",
      "ko": "자연주의",
      "en": "Naturalism",
@@ -19370,19 +19934,6 @@
       "예술 사조",
       "철학적 질",
       "예술 양식"
-     ],
-     "start": null,
-     "end": null,
-     "term": "자연주의"
-    },
-    {
-     "qid": "Q56000",
-     "ko": "자연주의",
-     "en": "naturalism",
-     "desc": null,
-     "types": [
-      "세계관",
-      "철학적 운동"
      ],
      "start": null,
      "end": null,
@@ -19476,31 +20027,31 @@
    "end_year": 1940,
    "verdict": "날짜 없음",
    "best": {
-    "qid": "Q8242",
-    "ko": "문학",
-    "en": "literature",
-    "desc": "예술작품으로 쓰여진 것",
+    "qid": "Q971480",
+    "ko": "모더니즘 문학",
+    "en": "modernist literature",
+    "desc": null,
     "types": [
-     "유형",
-     "group of works",
-     "type of arts"
+     "literary movement"
     ],
     "start": null,
     "end": null,
-    "term": "문학"
+    "term": "모더니즘 문학"
    },
    "others": [
     {
-     "qid": "Q971480",
-     "ko": "모더니즘 문학",
-     "en": "modernist literature",
-     "desc": null,
+     "qid": "Q8242",
+     "ko": "문학",
+     "en": "literature",
+     "desc": "예술작품으로 쓰여진 것",
      "types": [
-      "literary movement"
+      "유형",
+      "group of works",
+      "type of arts"
      ],
      "start": null,
      "end": null,
-     "term": "모더니즘 문학"
+     "term": "문학"
     },
     {
      "qid": "Q58854",
@@ -19549,20 +20100,8 @@
    "kind": null,
    "start_year": 1945,
    "end_year": 2025,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q1498333",
-    "ko": "현대문학",
-    "en": "contemporary literature",
-    "desc": null,
-    "types": [
-     "문학 장르",
-     "장르"
-    ],
-    "start": null,
-    "end": null,
-    "term": "현대문학"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
     {
      "qid": "Q11286386",
@@ -19597,6 +20136,19 @@
      "term": "현대문학"
     },
     {
+     "qid": "Q1498333",
+     "ko": "현대문학",
+     "en": "contemporary literature",
+     "desc": null,
+     "types": [
+      "문학 장르",
+      "장르"
+     ],
+     "start": null,
+     "end": null,
+     "term": "현대문학"
+    },
+    {
      "qid": "Q52852875",
      "ko": "현대문학이론학회",
      "en": "The Society of Modern Literature Theory",
@@ -19621,35 +20173,51 @@
    "kind": null,
    "start_year": 1960,
    "end_year": 1980,
-   "verdict": "어긋남",
+   "verdict": "날짜 없음",
    "best": {
-    "qid": "Q552820",
-    "ko": "붐",
-    "en": "Boom",
+    "qid": "Q1352538",
+    "ko": "라틴아메리카 붐",
+    "en": "Latín mmg todos",
     "desc": null,
     "types": [
-     "사람"
+     "literary movement"
     ],
-    "start": {
-     "prop": "P569",
-     "year": 1982,
-     "precision": 11
-    },
+    "start": null,
     "end": null,
-    "term": "붐"
+    "term": "라틴아메리카 붐"
    },
    "others": [
     {
-     "qid": "Q1352538",
-     "ko": "라틴아메리카 붐",
-     "en": "Latín mmg todos",
+     "qid": "Q552820",
+     "ko": "붐",
+     "en": "Boom",
      "desc": null,
      "types": [
-      "literary movement"
+      "사람"
      ],
-     "start": null,
+     "start": {
+      "prop": "P569",
+      "year": 1982,
+      "precision": 11
+     },
      "end": null,
-     "term": "라틴아메리카 붐"
+     "term": "붐"
+    },
+    {
+     "qid": "Q16246617",
+     "ko": "붐비치",
+     "en": "Boom Beach",
+     "desc": "2014년 비디오 게임",
+     "types": [
+      "비디오 게임"
+     ],
+     "start": {
+      "prop": "P577",
+      "year": 2014,
+      "precision": 11
+     },
+     "end": null,
+     "term": "붐"
     },
     {
      "qid": "Q796520",
@@ -19658,21 +20226,6 @@
      "desc": null,
      "types": [
       "주거지"
-     ],
-     "start": null,
-     "end": null,
-     "term": "붐"
-    },
-    {
-     "qid": "Q109291111",
-     "ko": "붐",
-     "en": "붐",
-     "desc": null,
-     "types": [
-      "유니코드 문자",
-      "한글 글자",
-      "KS X 1001 character",
-      "KPS 9566 character"
      ],
      "start": null,
      "end": null,
@@ -19689,32 +20242,32 @@
    "end_year": 2000,
    "verdict": "날짜 없음",
    "best": {
-    "qid": "Q8242",
-    "ko": "문학",
-    "en": "literature",
-    "desc": "예술작품으로 쓰여진 것",
+    "qid": "Q113013",
+    "ko": "포스트모던 문학",
+    "en": "postmodern literature",
+    "desc": null,
     "types": [
-     "유형",
-     "group of works",
-     "type of arts"
+     "문학 장르",
+     "literary movement"
     ],
     "start": null,
     "end": null,
-    "term": "문학"
+    "term": "포스트모던 문학"
    },
    "others": [
     {
-     "qid": "Q113013",
-     "ko": "포스트모던 문학",
-     "en": "postmodern literature",
-     "desc": null,
+     "qid": "Q8242",
+     "ko": "문학",
+     "en": "literature",
+     "desc": "예술작품으로 쓰여진 것",
      "types": [
-      "문학 장르",
-      "literary movement"
+      "유형",
+      "group of works",
+      "type of arts"
      ],
      "start": null,
      "end": null,
-     "term": "포스트모던 문학"
+     "term": "문학"
     },
     {
      "qid": "Q58854",
@@ -19787,30 +20340,18 @@
    },
    "others": [
     {
-     "qid": "Q16192475",
-     "ko": "시작",
-     "en": "start",
+     "qid": "Q1271407",
+     "ko": "시작은 키스!",
+     "en": "Delicacy",
      "desc": null,
      "types": [
-      "앨범"
+      "영화"
      ],
      "start": {
       "prop": "P577",
-      "year": 2004,
-      "precision": 11
+      "year": 2011,
+      "precision": 9
      },
-     "end": null,
-     "term": "시작"
-    },
-    {
-     "qid": "Q3882778",
-     "ko": "시작",
-     "en": "onset",
-     "desc": null,
-     "types": [
-      "musical concept"
-     ],
-     "start": null,
      "end": null,
      "term": "시작"
     },
@@ -19826,6 +20367,22 @@
      "start": null,
      "end": null,
      "term": "시작"
+    },
+    {
+     "qid": "Q16192475",
+     "ko": "시작",
+     "en": "start",
+     "desc": null,
+     "types": [
+      "앨범"
+     ],
+     "start": {
+      "prop": "P577",
+      "year": 2004,
+      "precision": 11
+     },
+     "end": null,
+     "term": "시작"
     }
    ]
   },
@@ -19836,18 +20393,39 @@
    "kind": null,
    "start_year": -3500,
    "end_year": -3000,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q446",
-    "ko": "바퀴",
-    "en": "wheel",
-    "desc": "굴대에 달린 동그란 물체로 굴림으로써 마찰을 줄이고 물체의 이동을 편리하게 하는 장치",
-    "types": [],
-    "start": null,
-    "end": null,
-    "term": "바퀴"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q446",
+     "ko": "바퀴",
+     "en": "wheel",
+     "desc": "굴대에 달린 동그란 물체로 굴림으로써 마찰을 줄이고 물체의 이동을 편리하게 하는 장치",
+     "types": [],
+     "start": null,
+     "end": null,
+     "term": "바퀴"
+    },
+    {
+     "qid": "Q296367",
+     "ko": "숭덕제",
+     "en": "Hong Taiji",
+     "desc": "청나라의 제2대 황제",
+     "types": [
+      "사람"
+     ],
+     "start": {
+      "prop": "P569",
+      "year": 1592,
+      "precision": 11
+     },
+     "end": {
+      "prop": "P570",
+      "year": 1643,
+      "precision": 11
+     },
+     "term": "수레"
+    },
     {
      "qid": "Q234668",
      "ko": "수레",
@@ -19869,19 +20447,6 @@
      "start": null,
      "end": null,
      "term": "바퀴"
-    },
-    {
-     "qid": "Q304479",
-     "ko": "바퀴",
-     "en": "turn",
-     "desc": null,
-     "types": [
-      "각도의 단위",
-      "legal units of measurement"
-     ],
-     "start": null,
-     "end": null,
-     "term": "바퀴"
     }
    ]
   },
@@ -19892,18 +20457,19 @@
    "kind": null,
    "start_year": -3200,
    "end_year": -3200,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q12579633",
-    "ko": "발명",
-    "en": "invention",
-    "desc": "새로운 만든 제작자",
-    "types": [],
-    "start": null,
-    "end": null,
-    "term": "발명"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q12579633",
+     "ko": "발명",
+     "en": "invention",
+     "desc": "새로운 만든 제작자",
+     "types": [],
+     "start": null,
+     "end": null,
+     "term": "발명"
+    },
     {
      "qid": "Q205375",
      "ko": "발명가",
@@ -19918,24 +20484,28 @@
      "term": "발명"
     },
     {
+     "qid": "Q387125",
+     "ko": "발명가의 날",
+     "en": "Inventors' Day",
+     "desc": null,
+     "types": [
+      "명절"
+     ],
+     "start": {
+      "prop": "P585",
+      "year": 1983,
+      "precision": 11
+     },
+     "end": null,
+     "term": "발명"
+    },
+    {
      "qid": "Q1148272",
      "ko": "발명가 목록",
      "en": "list of inventors",
      "desc": "위키미디어 목록 항목",
      "types": [
       "위키미디어 목록 문서"
-     ],
-     "start": null,
-     "end": null,
-     "term": "발명"
-    },
-    {
-     "qid": "Q1088283",
-     "ko": "발명 연표",
-     "en": "timeline of historic inventions",
-     "desc": "발명의 역사에 관한 연표",
-     "types": [
-      "연표"
      ],
      "start": null,
      "end": null,
@@ -19950,21 +20520,22 @@
    "kind": null,
    "start_year": -3300,
    "end_year": -1200,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q11016",
-    "ko": "기술",
-    "en": "technology",
-    "desc": null,
-    "types": [
-     "경제 분과",
-     "학문"
-    ],
-    "start": null,
-    "end": null,
-    "term": "기술"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q11016",
+     "ko": "기술",
+     "en": "technology",
+     "desc": null,
+     "types": [
+      "경제 분과",
+      "학문"
+     ],
+     "start": null,
+     "end": null,
+     "term": "기술"
+    },
     {
      "qid": "Q2695280",
      "ko": "기술",
@@ -20010,20 +20581,21 @@
    "kind": null,
    "start_year": -1200,
    "end_year": -500,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q163214",
-    "ko": "확산",
-    "en": "diffusion",
-    "desc": "농도가 높은 쪽에서 낮은 쪽으로 분자가 자발적으로 이동하는 현상",
-    "types": [
-     "물리 법칙"
-    ],
-    "start": null,
-    "end": null,
-    "term": "확산"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q163214",
+     "ko": "확산",
+     "en": "diffusion",
+     "desc": "농도가 높은 쪽에서 낮은 쪽으로 분자가 자발적으로 이동하는 현상",
+     "types": [
+      "물리 법칙"
+     ],
+     "start": null,
+     "end": null,
+     "term": "확산"
+    },
     {
      "qid": "Q899360",
      "ko": "확산강조 MRI",
@@ -20047,10 +20619,10 @@
      "term": "확산"
     },
     {
-     "qid": "Q11067835",
-     "ko": "확산능",
-     "en": "pulmonary diffusing capacity",
-     "desc": null,
+     "qid": "Q114617315",
+     "ko": "확산 모델",
+     "en": "diffusion model",
+     "desc": "일종의 잠재 변수 생성 모델",
      "types": [],
      "start": null,
      "end": null,
@@ -20065,26 +20637,15 @@
    "kind": null,
    "start_year": -312,
    "end_year": 300,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q22657",
-    "ko": "콘크리트",
-    "en": "concrete",
-    "desc": "건설용 자재 중 하나",
-    "types": [],
-    "start": null,
-    "end": null,
-    "term": "콘크리트"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
     {
-     "qid": "Q5159067",
+     "qid": "Q22657",
      "ko": "콘크리트",
-     "en": "concrete finisher",
-     "desc": null,
-     "types": [
-      "전문직"
-     ],
+     "en": "concrete",
+     "desc": "건설용 자재 중 하나",
+     "types": [],
      "start": null,
      "end": null,
      "term": "콘크리트"
@@ -20096,6 +20657,22 @@
      "desc": null,
      "types": [],
      "start": null,
+     "end": null,
+     "term": "콘크리트"
+    },
+    {
+     "qid": "Q106514501",
+     "ko": "콘크리트 유토피아",
+     "en": "Concrete Utopia",
+     "desc": "대한민국의 영화",
+     "types": [
+      "영화"
+     ],
+     "start": {
+      "prop": "P577",
+      "year": 2023,
+      "precision": 11
+     },
      "end": null,
      "term": "콘크리트"
     },
@@ -20118,40 +20695,40 @@
    "kind": null,
    "start_year": 105,
    "end_year": 105,
-   "verdict": "어긋남",
+   "verdict": "날짜 없음",
    "best": {
-    "qid": "Q229235",
-    "ko": "채륜",
-    "en": "Cai Lun",
-    "desc": "중국 후한 중기의 환관으로 종이를 발명한 인물",
+    "qid": "Q335415",
+    "ko": "제지술",
+    "en": "papermaking",
+    "desc": "종이를 만드는 일",
     "types": [
-     "사람"
+     "경제 분과",
+     "활동"
     ],
-    "start": {
-     "prop": "P569",
-     "year": 50,
-     "precision": 9
-    },
-    "end": {
-     "prop": "P570",
-     "year": 121,
-     "precision": 9
-    },
-    "term": "채륜"
+    "start": null,
+    "end": null,
+    "term": "제지술"
    },
    "others": [
     {
-     "qid": "Q335415",
-     "ko": "제지술",
-     "en": "papermaking",
-     "desc": "종이를 만드는 일",
+     "qid": "Q229235",
+     "ko": "채륜",
+     "en": "Cai Lun",
+     "desc": "중국 후한 중기의 환관으로 종이를 발명한 인물",
      "types": [
-      "경제 분과",
-      "활동"
+      "사람"
      ],
-     "start": null,
-     "end": null,
-     "term": "제지술"
+     "start": {
+      "prop": "P569",
+      "year": 50,
+      "precision": 9
+     },
+     "end": {
+      "prop": "P570",
+      "year": 121,
+      "precision": 9
+     },
+     "term": "채륜"
     }
    ]
   },
@@ -20236,18 +20813,19 @@
    "kind": null,
    "start_year": 850,
    "end_year": 1300,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q4262",
-    "ko": "전파",
-    "en": "radio wave",
-    "desc": "전자기파의 일종",
-    "types": [],
-    "start": null,
-    "end": null,
-    "term": "전파"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q4262",
+     "ko": "전파",
+     "en": "radio wave",
+     "desc": "전자기파의 일종",
+     "types": [],
+     "start": null,
+     "end": null,
+     "term": "전파"
+    },
     {
      "qid": "Q217012",
      "ko": "전파 은하",
@@ -20271,12 +20849,12 @@
      "term": "전파"
     },
     {
-     "qid": "Q1931185",
-     "ko": "전파원",
-     "en": "astronomical radio source",
+     "qid": "Q4306",
+     "ko": "전파천문학",
+     "en": "radio astronomy",
      "desc": null,
      "types": [
-      "천체 유형"
+      "branch of astronomy"
      ],
      "start": null,
      "end": null,
@@ -20304,18 +20882,46 @@
    "end_year": 1400,
    "verdict": "날짜 없음",
    "best": {
-    "qid": "Q376",
-    "ko": "시계",
-    "en": "clock",
-    "desc": "시간을 나타내거나 시간을 재는 기계나 장치",
+    "qid": "Q3103207",
+    "ko": "기계식 시계",
+    "en": "mechanical watch",
+    "desc": null,
     "types": [
-     "객체의 유형"
+     "timepiece"
     ],
     "start": null,
     "end": null,
-    "term": "시계"
+    "term": "기계식 시계"
    },
    "others": [
+    {
+     "qid": "Q10574",
+     "ko": "시계자리",
+     "en": "Horologium",
+     "desc": null,
+     "types": [
+      "별자리"
+     ],
+     "start": {
+      "prop": "P575",
+      "year": 1752,
+      "precision": 9
+     },
+     "end": null,
+     "term": "시계"
+    },
+    {
+     "qid": "Q376",
+     "ko": "시계",
+     "en": "clock",
+     "desc": "시간을 나타내거나 시간을 재는 기계나 장치",
+     "types": [
+      "객체의 유형"
+     ],
+     "start": null,
+     "end": null,
+     "term": "시계"
+    },
     {
      "qid": "Q21077079",
      "ko": "시계",
@@ -20329,30 +20935,6 @@
       "year": 1957,
       "precision": 9
      },
-     "end": null,
-     "term": "시계"
-    },
-    {
-     "qid": "Q3103207",
-     "ko": "기계식 시계",
-     "en": "mechanical watch",
-     "desc": null,
-     "types": [
-      "timepiece"
-     ],
-     "start": null,
-     "end": null,
-     "term": "기계식 시계"
-    },
-    {
-     "qid": "Q28453542",
-     "ko": "시계",
-     "en": "Clock",
-     "desc": null,
-     "types": [
-      "모바일 응용 소프트웨어"
-     ],
-     "start": null,
      "end": null,
      "term": "시계"
     }
@@ -20385,6 +20967,19 @@
    },
    "others": [
     {
+     "qid": "Q85974393",
+     "ko": "금속활자장",
+     "en": "Geumsok Hwaljajang",
+     "desc": "金屬活字匠",
+     "types": [
+      "장인",
+      "공예"
+     ],
+     "start": null,
+     "end": null,
+     "term": "금속활자"
+    },
+    {
      "qid": "Q718418",
      "ko": "유네스코 직지상",
      "en": "Jikji Memory of the World Prize",
@@ -20414,18 +21009,6 @@
       "year": 418,
       "precision": 9
      },
-     "end": null,
-     "term": "직지"
-    },
-    {
-     "qid": "Q341173",
-     "ko": "직지사역",
-     "en": "Jikjisa Station",
-     "desc": null,
-     "types": [
-      "철도역"
-     ],
-     "start": null,
      "end": null,
      "term": "직지"
     }
@@ -20463,33 +21046,24 @@
    "kind": null,
    "start_year": 1590,
    "end_year": 1610,
-   "verdict": "어긋남",
-   "best": {
-    "qid": "Q4213",
-    "ko": "망원경",
-    "en": "telescope",
-    "desc": "전자기파를 이용하여 멀리 있는 물체를 관측하는 장치",
-    "types": [
-     "발명"
-    ],
-    "start": {
-     "prop": "P571",
-     "year": 1607,
-     "precision": 9
-    },
-    "end": null,
-    "term": "망원경"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
     {
-     "qid": "Q196538",
-     "ko": "현미경",
-     "en": "microscope",
-     "desc": "물체를 확대하여 관찰하는 장치",
-     "types": [],
-     "start": null,
+     "qid": "Q4213",
+     "ko": "망원경",
+     "en": "telescope",
+     "desc": "전자기파를 이용하여 멀리 있는 물체를 관측하는 장치",
+     "types": [
+      "발명"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1607,
+      "precision": 9
+     },
      "end": null,
-     "term": "현미경"
+     "term": "망원경"
     },
     {
      "qid": "Q10492",
@@ -20522,6 +21096,16 @@
      },
      "end": null,
      "term": "망원경"
+    },
+    {
+     "qid": "Q196538",
+     "ko": "현미경",
+     "en": "microscope",
+     "desc": "물체를 확대하여 관찰하는 장치",
+     "types": [],
+     "start": null,
+     "end": null,
+     "term": "현미경"
     }
    ]
   },
@@ -20532,20 +21116,21 @@
    "kind": null,
    "start_year": 1764,
    "end_year": 1785,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q59172",
-    "ko": "방적",
-    "en": "spinning",
-    "desc": null,
-    "types": [
-     "직물 공법"
-    ],
-    "start": null,
-    "end": null,
-    "term": "방적"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q59172",
+     "ko": "방적",
+     "en": "spinning",
+     "desc": null,
+     "types": [
+      "직물 공법"
+     ],
+     "start": null,
+     "end": null,
+     "term": "방적"
+    },
     {
      "qid": "Q1053481",
      "ko": "기계화보병",
@@ -20591,36 +21176,24 @@
    "kind": null,
    "start_year": 1769,
    "end_year": 1769,
-   "verdict": "날짜 없음",
+   "verdict": "어긋남",
    "best": {
-    "qid": "Q12760",
-    "ko": "증기기관",
-    "en": "steam engine",
+    "qid": "Q3099902",
+    "ko": "와트 증기기관",
+    "en": "Watt steam engine",
     "desc": null,
     "types": [
-     "engine class"
+     "증기기관"
     ],
-    "start": null,
+    "start": {
+     "prop": "P571",
+     "year": 1776,
+     "precision": 9
+    },
     "end": null,
-    "term": "증기기관"
+    "term": "와트 증기기관"
    },
    "others": [
-    {
-     "qid": "Q3099902",
-     "ko": "와트 증기기관",
-     "en": "Watt steam engine",
-     "desc": null,
-     "types": [
-      "증기기관"
-     ],
-     "start": {
-      "prop": "P571",
-      "year": 1776,
-      "precision": 9
-     },
-     "end": null,
-     "term": "와트 증기기관"
-    },
     {
      "qid": "Q171043",
      "ko": "증기 기관차",
@@ -20653,6 +21226,18 @@
       "year": 2021,
       "precision": 11
      },
+     "term": "증기기관"
+    },
+    {
+     "qid": "Q12760",
+     "ko": "증기기관",
+     "en": "steam engine",
+     "desc": null,
+     "types": [
+      "engine class"
+     ],
+     "start": null,
+     "end": null,
      "term": "증기기관"
     }
    ]
@@ -20898,20 +21483,21 @@
    "kind": null,
    "start_year": 1879,
    "end_year": 1900,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q1318740",
-    "ko": "전등",
-    "en": "light bulb",
-    "desc": "전기를 통해 빛을 내는 발광기구",
-    "types": [
-     "제품 분류"
-    ],
-    "start": null,
-    "end": null,
-    "term": "전등"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q1318740",
+     "ko": "전등",
+     "en": "light bulb",
+     "desc": "전기를 통해 빛을 내는 발광기구",
+     "types": [
+      "제품 분류"
+     ],
+     "start": null,
+     "end": null,
+     "term": "전등"
+    },
     {
      "qid": "Q962420",
      "ko": "전등 스위치",
@@ -20955,20 +21541,8 @@
    "kind": null,
    "start_year": 1886,
    "end_year": 1908,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q752870",
-    "ko": "자동차",
-    "en": "motor vehicle",
-    "desc": "철로 등 보조 장치의 도움 없이 스스로 바퀴를 굴려 이동할 수 있는 차량",
-    "types": [
-     "교통수단",
-     "type of vehicle"
-    ],
-    "start": null,
-    "end": null,
-    "term": "자동차"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
     {
      "qid": "Q1420",
@@ -21001,6 +21575,19 @@
       "year": 1893,
       "precision": 9
      },
+     "end": null,
+     "term": "자동차"
+    },
+    {
+     "qid": "Q752870",
+     "ko": "자동차",
+     "en": "motor vehicle",
+     "desc": "철로 등 보조 장치의 도움 없이 스스로 바퀴를 굴려 이동할 수 있는 차량",
+     "types": [
+      "교통수단",
+      "type of vehicle"
+     ],
+     "start": null,
      "end": null,
      "term": "자동차"
     },
@@ -21062,6 +21649,22 @@
      "term": "라디오"
     },
     {
+     "qid": "Q44190",
+     "ko": "라디오헤드",
+     "en": null,
+     "desc": "영국의 록 밴드",
+     "types": [
+      "음악 밴드"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1985,
+      "precision": 9
+     },
+     "end": null,
+     "term": "라디오"
+    },
+    {
      "qid": "Q130857",
      "ko": "디스크 자키",
      "en": "disc jockey",
@@ -21069,20 +21672,6 @@
      "types": [
       "직업",
       "musical profession"
-     ],
-     "start": null,
-     "end": null,
-     "term": "라디오"
-    },
-    {
-     "qid": "Q2635894",
-     "ko": "라디오 드라마",
-     "en": "radio drama",
-     "desc": "라디오 방송을 전달 매체로 삼은 드라마",
-     "types": [
-      "radio format",
-      "radio genre",
-      "audio content genre"
      ],
      "start": null,
      "end": null,
@@ -21169,18 +21758,20 @@
    "kind": null,
    "start_year": 1913,
    "end_year": 1913,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q215768",
-    "ko": "대량생산",
-    "en": "mass production",
-    "desc": null,
-    "types": [],
-    "start": null,
-    "end": null,
-    "term": "대량생산"
-   },
-   "others": []
+   "verdict": "못 찾음",
+   "best": null,
+   "others": [
+    {
+     "qid": "Q215768",
+     "ko": "대량생산",
+     "en": "mass production",
+     "desc": null,
+     "types": [],
+     "start": null,
+     "end": null,
+     "term": "대량생산"
+    }
+   ]
   },
   {
    "id": "technology-haber",
@@ -21189,18 +21780,19 @@
    "kind": null,
    "start_year": 1913,
    "end_year": 1913,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q83323",
-    "ko": "비료",
-    "en": "fertilizer",
-    "desc": "필수 영양소를 공급하기 위해 토양이나 식물에 적용되는 천연 또는 합성 물질",
-    "types": [],
-    "start": null,
-    "end": null,
-    "term": "비료"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q83323",
+     "ko": "비료",
+     "en": "fertilizer",
+     "desc": "필수 영양소를 공급하기 위해 토양이나 식물에 적용되는 천연 또는 합성 물질",
+     "types": [],
+     "start": null,
+     "end": null,
+     "term": "비료"
+    },
     {
      "qid": "Q1249453",
      "ko": "급조폭발물",
@@ -21254,6 +21846,22 @@
    },
    "others": [
     {
+     "qid": "Q28942158",
+     "ko": null,
+     "en": "ENIAC Short Code",
+     "desc": null,
+     "types": [
+      "프로그래밍 언어"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1946,
+      "precision": 9
+     },
+     "end": null,
+     "term": "ENIAC"
+    },
+    {
      "qid": "Q7889",
      "ko": "비디오 게임",
      "en": "video game",
@@ -21265,20 +21873,6 @@
      "start": null,
      "end": null,
      "term": "컴퓨터"
-    },
-    {
-     "qid": "Q169399",
-     "ko": "에니악",
-     "en": "ENIAC",
-     "desc": null,
-     "types": [
-      "decimal computer",
-      "진공관 컴퓨터",
-      "one-of-a-kind computer"
-     ],
-     "start": null,
-     "end": null,
-     "term": "ENIAC"
     },
     {
      "qid": "Q7397",
@@ -21333,19 +21927,6 @@
      "term": "트랜지스터"
     },
     {
-     "qid": "Q173451",
-     "ko": "트랜지스터-트랜지스터 논리",
-     "en": "transistor–transistor logic",
-     "desc": null,
-     "types": [
-      "기술 표준",
-      "logic circuit technology family"
-     ],
-     "start": null,
-     "end": null,
-     "term": "트랜지스터"
-    },
-    {
      "qid": "Q7834322",
      "ko": "트랜지스터 컴퓨터",
      "en": "transistor computer",
@@ -21360,6 +21941,19 @@
      },
      "end": null,
      "term": "트랜지스터"
+    },
+    {
+     "qid": "Q173451",
+     "ko": "트랜지스터-트랜지스터 논리",
+     "en": "transistor–transistor logic",
+     "desc": null,
+     "types": [
+      "기술 표준",
+      "logic circuit technology family"
+     ],
+     "start": null,
+     "end": null,
+     "term": "트랜지스터"
     }
    ]
   },
@@ -21370,25 +21964,45 @@
    "kind": null,
    "start_year": 1957,
    "end_year": 1957,
-   "verdict": "어긋남",
+   "verdict": "부분 일치",
    "best": {
-    "qid": "Q18572033",
-    "ko": "스푸트니크",
-    "en": "Sputnik",
+    "qid": "Q170413",
+    "ko": "스푸트니크 계획",
+    "en": "Sputnik programme",
     "desc": null,
     "types": [
-     "포털 사이트",
-     "뉴스 통신사"
+     "space mission"
     ],
     "start": {
-     "prop": "P571",
-     "year": 2014,
-     "precision": 11
+     "prop": "P580",
+     "year": 1957,
+     "precision": 9
     },
-    "end": null,
+    "end": {
+     "prop": "P582",
+     "year": 1961,
+     "precision": 9
+    },
     "term": "스푸트니크"
    },
    "others": [
+    {
+     "qid": "Q18572033",
+     "ko": "스푸트니크",
+     "en": "Sputnik",
+     "desc": null,
+     "types": [
+      "포털 사이트",
+      "뉴스 통신사"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 2014,
+      "precision": 11
+     },
+     "end": null,
+     "term": "스푸트니크"
+    },
     {
      "qid": "Q631613",
      "ko": "스푸트니크",
@@ -21410,38 +22024,14 @@
      "term": "스푸트니크"
     },
     {
-     "qid": "Q170413",
-     "ko": "스푸트니크 계획",
-     "en": "Sputnik programme",
-     "desc": null,
+     "qid": "Q80811",
+     "ko": "스푸트니크 1호",
+     "en": "Sputnik 1",
+     "desc": "소비에트 연방의 세계 첫 인공위성",
      "types": [
-      "space mission"
+      "artificial satellite of the Earth"
      ],
-     "start": {
-      "prop": "P580",
-      "year": 1957,
-      "precision": 9
-     },
-     "end": {
-      "prop": "P582",
-      "year": 1961,
-      "precision": 9
-     },
-     "term": "스푸트니크"
-    },
-    {
-     "qid": "Q28537651",
-     "ko": "스푸트니크",
-     "en": "Sputnik",
-     "desc": null,
-     "types": [
-      "영화 제작사"
-     ],
-     "start": {
-      "prop": "P571",
-      "year": 1987,
-      "precision": 9
-     },
+     "start": null,
      "end": null,
      "term": "스푸트니크"
     }
@@ -21531,23 +22121,6 @@
      "term": "ARPANET"
     },
     {
-     "qid": "Q5368234",
-     "ko": "인터넷",
-     "en": "Internet Co.",
-     "desc": null,
-     "types": [
-      "사업",
-      "기업"
-     ],
-     "start": {
-      "prop": "P571",
-      "year": 1988,
-      "precision": 10
-     },
-     "end": null,
-     "term": "인터넷"
-    },
-    {
      "qid": "Q37312",
      "ko": "인터넷 영화 데이터베이스",
      "en": "IMDb",
@@ -21565,6 +22138,25 @@
      },
      "end": null,
      "term": "인터넷"
+    },
+    {
+     "qid": "Q461",
+     "ko": "인터넷 아카이브",
+     "en": "Internet Archive",
+     "desc": "온라인 디지털 도서관을 구축해 유지하고 있는 비영리 단체",
+     "types": [
+      "비영리 단체",
+      "전자 도서관",
+      "커뮤니티 오거나이제이션",
+      "웹 아카이브"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1996,
+      "precision": 10
+     },
+     "end": null,
+     "term": "인터넷"
     }
    ]
   },
@@ -21577,38 +22169,38 @@
    "end_year": 1990,
    "verdict": "어긋남",
    "best": {
-    "qid": "Q68",
-    "ko": "컴퓨터",
-    "en": "computer",
-    "desc": "산술 또는 논리 연산을 수행하기 위한 범용 장치",
+    "qid": "Q16338",
+    "ko": "개인용 컴퓨터",
+    "en": "personal computer",
+    "desc": "기업이나 가정에서 개인이 사용하는 컴퓨터",
     "types": [
-     "기계",
-     "발명"
+     "class of computers"
     ],
     "start": {
      "prop": "P575",
-     "year": 1945,
+     "year": 1957,
      "precision": 9
     },
     "end": null,
-    "term": "컴퓨터"
+    "term": "개인용 컴퓨터"
    },
    "others": [
     {
-     "qid": "Q16338",
-     "ko": "개인용 컴퓨터",
-     "en": "personal computer",
-     "desc": "기업이나 가정에서 개인이 사용하는 컴퓨터",
+     "qid": "Q68",
+     "ko": "컴퓨터",
+     "en": "computer",
+     "desc": "산술 또는 논리 연산을 수행하기 위한 범용 장치",
      "types": [
-      "class of computers"
+      "기계",
+      "발명"
      ],
      "start": {
       "prop": "P575",
-      "year": 1957,
+      "year": 1945,
       "precision": 9
      },
      "end": null,
-     "term": "개인용 컴퓨터"
+     "term": "컴퓨터"
     },
     {
      "qid": "Q7889",
@@ -21669,27 +22261,18 @@
    "kind": null,
    "start_year": 1992,
    "end_year": 2007,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q22645",
-    "ko": "스마트폰",
-    "en": "smartphone",
-    "desc": "휴대용 컴퓨터를 탑재한 무선 통신 장치",
-    "types": [],
-    "start": null,
-    "end": null,
-    "term": "스마트폰"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
     {
-     "qid": "Q1941618",
-     "ko": "이동통신사",
-     "en": "mobile network operator",
-     "desc": "무선 통신 서비스들의 제공자",
+     "qid": "Q22645",
+     "ko": "스마트폰",
+     "en": "smartphone",
+     "desc": "휴대용 컴퓨터를 탑재한 무선 통신 장치",
      "types": [],
      "start": null,
      "end": null,
-     "term": "이동통신"
+     "term": "스마트폰"
     },
     {
      "qid": "Q1121542",
@@ -21704,14 +22287,28 @@
      "term": "스마트폰"
     },
     {
-     "qid": "Q24901351",
-     "ko": "스마트폰 좀비",
-     "en": "smartphones and pedestrian safety",
-     "desc": "걸으면서 스마트폰을 조작하는 행위",
-     "types": [
-      "낱말"
-     ],
+     "qid": "Q1941618",
+     "ko": "이동통신사",
+     "en": "mobile network operator",
+     "desc": "무선 통신 서비스들의 제공자",
+     "types": [],
      "start": null,
+     "end": null,
+     "term": "이동통신"
+    },
+    {
+     "qid": "Q116178439",
+     "ko": "스마트폰을 떨어뜨렸을 뿐인데",
+     "en": "Unlocked",
+     "desc": "대한민국의 미스터리, 범죄 스릴러 영화",
+     "types": [
+      "영화"
+     ],
+     "start": {
+      "prop": "P577",
+      "year": 2023,
+      "precision": 11
+     },
      "end": null,
      "term": "스마트폰"
     }
@@ -21783,20 +22380,40 @@
    "kind": null,
    "start_year": 2012,
    "end_year": 2018,
-   "verdict": "날짜 없음",
+   "verdict": "부분 일치",
    "best": {
-    "qid": "Q10931",
+    "qid": "Q7760569",
     "ko": "혁명",
-    "en": "revolution",
-    "desc": "권력이나 조직 구조의 갑작스런 변화",
+    "en": "The Revolution",
+    "desc": "2006년 다큐멘터리 프로그램",
     "types": [
-     "과정의 종류"
+     "텔레비전 시리즈"
     ],
-    "start": null,
-    "end": null,
+    "start": {
+     "prop": "P580",
+     "year": 2012,
+     "precision": 11
+    },
+    "end": {
+     "prop": "P582",
+     "year": 2012,
+     "precision": 11
+    },
     "term": "혁명"
    },
    "others": [
+    {
+     "qid": "Q10931",
+     "ko": "혁명",
+     "en": "revolution",
+     "desc": "권력이나 조직 구조의 갑작스런 변화",
+     "types": [
+      "과정의 종류"
+     ],
+     "start": null,
+     "end": null,
+     "term": "혁명"
+    },
     {
      "qid": "Q1027212",
      "ko": "혁명",
@@ -21809,22 +22426,6 @@
       "prop": "P577",
       "year": 1986,
       "precision": 11
-     },
-     "end": null,
-     "term": "혁명"
-    },
-    {
-     "qid": "Q3458427",
-     "ko": "혁명",
-     "en": "Révolutions",
-     "desc": "장마리 귀스타브 르클레지오의 소설",
-     "types": [
-      "저작물"
-     ],
-     "start": {
-      "prop": "P577",
-      "year": 2003,
-      "precision": 9
      },
      "end": null,
      "term": "혁명"
