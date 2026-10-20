@@ -43,20 +43,36 @@ function norm(s) {
   return String(s || '').replace(/[\s·・,.'"『』「」《》()（）\-–]/g, '').toLowerCase();
 }
 
-/** 제목에서 찾아볼 이름들 — 원래 제목, 괄호 뺀 것, 괄호 속, '와/과/·'로 나눈 것 */
-function termsOf(title) {
+const HAN = /[\u3400-\u9fff]/;
+
+/**
+ * 제목에서 찾아볼 이름들. full = 제목 그대로(또는 괄호만 뺀 것) — 이름이 같으면 같은 것으로 본다.
+ * part = 괄호 속·'와/과/·'로 나눈 조각·뒤쪽 낱말 — 조각만 같은 엉뚱한 것(영화 '탄생', 정당 '당')이
+ * 많아서, 연도까지 맞을 때만 인정한다.
+ * 중국 왕조처럼 한 글자 이름은 'X나라'로, 한자가 있으면 중국어로도 찾는다.
+ */
+function termsOf(entry) {
+  const title = entry.title;
   const clean = title.replace(/[『』「」《》]/g, '').trim();
-  const out = [clean];
+  const out = [{ t: clean, full: true, lang: 'ko' }];
   const base = clean.replace(/\s*[(（][^)）]*[)）]\s*/g, ' ').replace(/\s+/g, ' ').trim();
-  if (base && base !== clean) out.push(base);
+  if (base && base !== clean) out.push({ t: base, full: true, lang: 'ko' });
+  if (entry._ds === 'china' && base.length <= 2) {
+    out.push({ t: base + '나라', full: true, lang: 'ko' }, { t: base + ' 왕조', full: true, lang: 'ko' });
+  }
   (clean.match(/[(（]([^)）]+)[)）]/g) || []).forEach((p) => {
-    p.slice(1, -1).split(/[·,]/).forEach((x) => { x = x.replace(/\s*중심$/, '').trim(); if (x.length >= 2) out.push(x); });
+    p.slice(1, -1).split(/[·,]/).forEach((x) => {
+      x = x.replace(/\s*중심$/, '').trim();
+      if (HAN.test(x)) out.push({ t: x, full: true, lang: 'zh' }, { t: x + '朝', full: true, lang: 'zh' });
+      else if (x.length >= 2) out.push({ t: x, full: false, lang: 'ko' });
+    });
   });
-  base.split(/\s*(?:와|과|및|·)\s+|·/).forEach((x) => { x = x.trim(); if (x.length >= 2 && x !== base) out.push(x); });
+  base.split(/\s*(?:와|과|및|·)\s+|·/).forEach((x) => { x = x.trim(); if (x.length >= 2 && x !== base) out.push({ t: x, full: false, lang: 'ko' }); });
   // '뉴턴 프린키피아' 처럼 사람 + 작품이면 뒤쪽(작품)도
   const words = base.split(' ');
-  if (words.length >= 2) out.push(words.slice(1).join(' '));
-  return Array.from(new Set(out)).slice(0, 6);
+  if (words.length >= 2) out.push({ t: words.slice(1).join(' '), full: false, lang: 'ko' });
+  const seen = {};
+  return out.filter((x) => { const k = x.lang + ':' + x.t; if (seen[k]) return false; seen[k] = 1; return true; }).slice(0, 8);
 }
 
 // ------------------------------------------------------------ 점수
@@ -73,7 +89,7 @@ function closest(list, year) {
   return best;
 }
 
-function judge(entry, cand, term) {
+function judge(entry, cand, term, full) {
   const s = closest(cand.start, entry.start_year);
   const e = closest(cand.end, entry.end_year);
   const single = entry.start_year === entry.end_year;
@@ -82,9 +98,10 @@ function judge(entry, cand, term) {
   const startOk = !!s && Math.abs(s.year - entry.start_year) <= tolS;
   // 한 해짜리 사건은 끝이 없거나, 시작 연도가 맞으면 끝도 맞은 것으로
   const endOk = e ? Math.abs(e.year - entry.end_year) <= tolE : (single && startOk);
-  const exact = norm(cand.ko) === norm(term) || norm(cand.ko) === norm(entry.title);
+  const exact = full && (norm(cand.ko) === norm(term) || norm(cand.ko) === norm(entry.title) || !!cand.zhExact);
   let score = 0;
   if (exact) score += 3;
+  if (!full && !startOk && !endOk) score -= 4;   // 조각 이름만 같고 연도도 안 맞으면 남의 것
   if (startOk) score += 2.2;
   if (endOk) score += 2;
   if (s || e) score += 0.5;
@@ -95,6 +112,7 @@ function judge(entry, cand, term) {
 function verdict(entry, best) {
   if (!best) return '못 찾음';
   const j = best.j;
+  if (!j.exact && !j.startOk && !j.endOk) return '못 찾음';   // 이름도 연도도 확실하지 않으면 후보일 뿐
   if (!j.s && !j.e) return j.exact ? '날짜 없음' : '못 찾음';
   if (j.startOk && j.endOk) return '일치';
   if (j.startOk || j.endOk) return '부분 일치';
@@ -104,9 +122,13 @@ function verdict(entry, best) {
 // ------------------------------------------------------------ 실행
 
 console.log(`[대조] 항목 ${entries.length}개 — Wikidata 에서 찾는 중`);
-const termsBy = entries.map((e) => termsOf(e.title));
-const allTerms = [].concat.apply([], termsBy);
-const found = wd.searchMany(allTerms, 'ko', 5);
+const termsBy = entries.map((e) => termsOf(e));
+const all = [].concat.apply([], termsBy);
+const found = {};
+['ko', 'zh'].forEach((lang) => {
+  const got = wd.searchMany(all.filter((x) => x.lang === lang).map((x) => x.t), lang, 8);
+  Object.keys(got).forEach((t) => { found[lang + ':' + t] = got[t]; });
+});
 console.log('');
 
 const qids = new Set();
@@ -122,12 +144,13 @@ try { C = clio.load(); } catch (err) { console.warn('  Cliopatria 를 건너뜁�
 const results = entries.map((entry, i) => {
   const cands = [];
   termsBy[i].forEach((term) => {
-    (found[term] || []).forEach((r) => {
+    (found[term.lang + ':' + term.t] || []).forEach((r) => {
       const c = info[r.qid];
       if (!c || cands.some((x) => x.c.qid === r.qid)) return;
-      const j = judge(entry, c, term);
-      j.score += (5 - r.rank) * 0.15;   // 검색 순위가 높을수록 조금 더
-      cands.push({ c: c, j: j, term: term });
+      // 중국어로 찾은 것은 검색 1위면 이름이 같은 것으로 본다(한국어 이름이 없을 수 있어서)
+      const j = judge(entry, Object.assign({}, c, { zhExact: term.lang === 'zh' && r.rank === 0 }), term.t, term.full);
+      j.score += (8 - r.rank) * 0.1;   // 검색 순위가 높을수록 조금 더
+      cands.push({ c: c, j: j, term: term.t });
     });
   });
   cands.sort((a, b) => b.j.score - a.j.score);
