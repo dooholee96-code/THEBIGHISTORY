@@ -34,7 +34,8 @@
         "성악"
       ],
       "sources": [],
-      "status": "draft"
+      "status": "draft",
+      "dating_note": "그레고리우스 1세(재위 590~604년)에 연원을 두는 전승을 따랐다. 지금 전하는 형태는 8~9세기 카롤링거 시대에 정리된 것으로 본다."
     },
     {
       "id": "music-guido",
@@ -86,7 +87,8 @@
         "다성"
       ],
       "sources": [],
-      "status": "draft"
+      "status": "draft",
+      "dating_note": "필리프 드 비트리의 이론서 『아르스 노바』(1320년경)를 시작으로 잡았다. 1310년대로 보기도 한다."
     },
     {
       "id": "music-renaissance-poly",

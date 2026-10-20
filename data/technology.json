@@ -283,7 +283,8 @@
         "동력"
       ],
       "sources": [],
-      "status": "draft"
+      "status": "draft",
+      "dating_note": "와트가 분리 응축기 특허를 받은 1769년이다. 그의 첫 상업용 기관은 1776년에 설치되었다."
     },
     {
       "id": "technology-railway",
@@ -336,7 +337,8 @@
         "통신"
       ],
       "sources": [],
-      "status": "draft"
+      "status": "draft",
+      "dating_note": "모스가 워싱턴-볼티모어 전신선을 연 1844년부터 대서양 해저 케이블이 상설된 1866년까지다. 전기 전신 실험은 1816년(로널즈) 등 그 전부터 있었다."
     },
     {
       "id": "technology-telephone",
@@ -581,7 +583,8 @@
         "정보"
       ],
       "sources": [],
-      "status": "draft"
+      "status": "draft",
+      "dating_note": "애플 II·코모도어 PET·TRS-80이 나온 1977년부터다. 그 이전의 조립식 소형 컴퓨터(알테어 8800, 1975년 등)는 넣지 않았다."
     },
     {
       "id": "technology-www",

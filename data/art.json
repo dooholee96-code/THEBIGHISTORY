@@ -210,7 +210,8 @@
         "회화"
       ],
       "sources": [],
-      "status": "draft"
+      "status": "draft",
+      "dating_note": "피렌체 미술을 기준으로 한 15세기(1400~1490년경)다. 마사초가 활동한 1420년대부터로 보기도 한다."
     },
     {
       "id": "art-northern-renaissance",
@@ -422,7 +423,8 @@
         "회화"
       ],
       "sources": [],
-      "status": "draft"
+      "status": "draft",
+      "dating_note": "첫 인상주의 전시회(1874년)부터 마지막 여덟 번째 전시회(1886년)까지다. 화풍 자체는 1860년대부터 형성되었다."
     },
     {
       "id": "art-post-impressionism",

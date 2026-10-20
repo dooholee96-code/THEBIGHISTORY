@@ -119,16 +119,17 @@
       "title": "에피쿠로스 학파",
       "wikidata": "Q179541",
       "region": "지중해",
-      "start_year": -341,
+      "start_year": -307,
       "end_year": -270,
-      "era_note": "기원전 341년 ~ 기원전 270년",
+      "era_note": "기원전 307년 ~ 기원전 270년",
       "description": "원자론에 근거해 평정심(아타락시아)을 최고 선으로 보았다.",
       "tags": [
         "고대",
         "윤리학"
       ],
       "sources": [],
-      "status": "draft"
+      "status": "draft",
+      "dating_note": "에피쿠로스가 아테네에 학원 '정원'을 연 기원전 307년경부터 그가 죽은 기원전 270년까지로 잡았다. 학파는 그 뒤 로마 시대까지 이어졌다."
     },
     {
       "id": "philosophy-stoicism",
@@ -480,7 +481,8 @@
         "윤리학"
       ],
       "sources": [],
-      "status": "draft"
+      "status": "draft",
+      "dating_note": "벤담의 『도덕과 입법의 원리 서설』(1789년)부터 밀이 죽은 1873년까지다. 밀의 『공리주의』는 1861년에 잡지에 처음 실렸다."
     },
     {
       "id": "philosophy-marx",

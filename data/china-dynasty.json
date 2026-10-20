@@ -304,7 +304,8 @@
         "분열기"
       ],
       "sources": [],
-      "status": "draft"
+      "status": "draft",
+      "dating_note": "오대는 송이 건국된 960년에 끝나지만, 십국의 마지막인 북한이 979년에 멸망해 979년까지로 잡았다."
     },
     {
       "id": "china-liao",
@@ -475,7 +476,8 @@
         "전쟁"
       ],
       "sources": [],
-      "status": "draft"
+      "status": "draft",
+      "dating_note": "제1차 아편전쟁(1840~1842년, 난징조약)이다. 발단을 1839년으로 보기도 하며, 제2차 아편전쟁(1856~1860년)은 따로다."
     },
     {
       "id": "china-taiping",
