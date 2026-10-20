@@ -9,7 +9,9 @@
      · 열마다 사건이 자리를 잡는다: 넉넉하면 카드, 빠듯하면 이름표, 더 빠듯하면 점, 그래도 안 되면 '+N'
        (중요한 것부터 — 나라·왕조 > 시대 > 나머지)
      · 국가사 열 왼쪽 가는 띠 = 그 나라의 왕조·시대가 이어진 기간(겹치면 나란히)
-     · 열 이름은 화면 위에, 시대 이름은 화면 왼쪽에 붙어 따라온다
+     · 연도 축은 국가사 열과 주제사 열 사이에 끼어 그림과 함께 옆으로 움직이고,
+       화면 밖으로 나가려 하면 왼쪽·오른쪽 가장자리에 붙어 따라온다
+     · 열 이름은 화면 위에, 시대 이름은 연도 축 옆에 붙어 따라온다
      · 먼 곳으로 갈 때는 잠깐 물러났다 다가가는 비행(Prezi 의 장면 전환)
      · 끝에 닿아도 벽처럼 멈추지 않는다 — 손가락을 따라 고무줄처럼 늘어났다가 놓으면 튕겨 돌아온다
      · 눕히기(스타워즈 오프닝처럼) — 두 손가락을 나란히 위아래로 밀거나 Alt(Option)+휠, Alt+끌기, T 키.
@@ -95,8 +97,10 @@
     var PRESENT = opts.present || T_MAX;
 
     var cols = [];   // { ds, events(우선순위 순), spans, laneN }
-    var cam = { t0: -4200, s: 0.1, u0: 0 };   // 맨 위의 해, 1년당 px, 화면 왼쪽 끝의 열 위치(열 단위)
-    var motion = { mode: 'idle', vt: 0, vu: 0, fly: null, zoomTo: null };
+    // 맨 위의 해, 1년당 px, 화면 왼쪽(여백 다음)에 오는 그림의 가로 위치(px)
+    var cam = { t0: -4200, s: 0.1, x0: 0 };
+    var motion = { mode: 'idle', vt: 0, vx: 0, fly: null, zoomTo: null };
+    var axisAt = 0;   // 연도 축이 끼는 자리 — 이 번호의 열 앞(국가사 열 수)
     var pointers = {};
     var gesture = null;
     var hits = [];
@@ -109,15 +113,44 @@
     // ----------------------------------------------------------- 좌표
 
     function narrow() { return W < 640; }
+    var MARGIN = 8;
     function axisW() { return narrow() ? 58 : 84; }
-    function originX() { return axisW() + 8; }
-    function viewW() { return Math.max(1, W - originX() - 8); }
+    function viewW() { return Math.max(1, W - MARGIN * 2); }
     function cw() { return colWidth(cam.s); }
     function focusY() { return unproj(W / 2, opts.focusY ? opts.focusY() : Hv * 0.36).y; }
     function yOf(year) { return (year - cam.t0) * cam.s; }
     function yearAt(y) { return cam.t0 + y / cam.s; }
-    function xOfCol(u) { return originX() + (u - cam.u0) * cw(); }
-    function colAt(x) { return cam.u0 + (x - originX()) / cw(); }
+
+    // 가로 — 그림(world) px. 열들 사이 axisAt 자리에 연도 축 칸(axisW)이 끼어 있다
+    function colWX(i) { return i * cw() + (i >= axisAt ? axisW() : 0); }
+    function worldW() { return cols.length * cw() + axisW(); }
+    function sxOf(wx) { return MARGIN + wx - cam.x0; }          // 그림 px → 화면 x
+    function xOfCol(i) { return sxOf(colWX(i)); }
+    /** 연도 축 칸의 화면 왼쪽 — 화면 밖으로 나가려 하면 가장자리에 붙는다 */
+    function axisLeft() { return clamp(sxOf(axisAt * cw()), 0, W - axisW()); }
+    /** 오른쪽 가장자리에 붙었으면 눈금을 뒤집어 그림 쪽(왼쪽)을 보게 */
+    function axisFlip() { return sxOf(axisAt * cw()) > W - axisW(); }
+    /** 연도 축 선(눈금·초점 고리가 붙는 쪽)의 x */
+    function axisLine() { return axisFlip() ? axisLeft() : axisLeft() + axisW(); }
+
+    // 줌하면 열 너비가 바뀌므로, 가리키던 자리를 '열 좌표 u'로 기억했다가 다시 px 로 푼다.
+    // u: 축 앞 열은 0..axisAt, 축 칸은 axisAt..axisAt+1, 그 뒤 열은 axisAt+1.. (끊김 없이 이어진다)
+    function uOfWX(wx) {
+      var c = cw(), a = axisAt * c, aw = axisW();
+      if (wx < a) return wx / c;
+      if (wx < a + aw) return axisAt + (wx - a) / aw;
+      return axisAt + 1 + (wx - a - aw) / c;
+    }
+    function wxOfU(u) {
+      var c = cw();
+      if (u < axisAt) return u * c;
+      if (u < axisAt + 1) return axisAt * c + (u - axisAt) * axisW();
+      return axisAt * c + axisW() + (u - axisAt - 1) * c;
+    }
+    function uAtScreen(x) { return uOfWX(cam.x0 + x - MARGIN); }
+    /** 화면 x 에 u 가 오도록 */
+    function pinU(u, x) { cam.x0 = wxOfU(u) - (x - MARGIN); }
+    function colU(i) { return i < axisAt ? i : i + 1; }   // 진짜 열 번호 → u
     function sMin() { return (Hv * 0.92) / (T_MAX - T_MIN); }
 
     // ----------------------------------------------------------- 원근
@@ -145,12 +178,13 @@
     /** 카메라가 머물 수 있는 범위 — 초점선의 해는 역사 안, 화면은 열들 안 */
     function limits() {
       var fy = focusY();
-      var n = cols.length;
-      var vis = viewW() / cw();
-      var mid = -(vis - n) / 2;                            // 그림이 화면보다 좁으면 가운데
+      var ww = worldW();
+      var vis = viewW();
+      var mid = -(vis - ww) / 2;                           // 그림이 화면보다 좁으면 가운데
+      var pad = cw() * 0.25;
       return {
         tA: T_MIN - fy / cam.s, tB: T_MAX - fy / cam.s,
-        uA: n <= vis ? mid : -0.25, uB: n <= vis ? mid : n - vis + 0.25
+        xA: ww <= vis ? mid : -pad, xB: ww <= vis ? mid : ww - vis + pad
       };
     }
 
@@ -164,7 +198,7 @@
       if (loose()) return;
       var L = limits();
       cam.t0 = clamp(cam.t0, L.tA, L.tB);
-      cam.u0 = clamp(cam.u0, L.uA, L.uB);
+      cam.x0 = clamp(cam.x0, L.xA, L.xB);
     }
 
     // 넘친 거리 o(px) → 화면에서 실제로 넘어가 보이는 거리. 멀리 끌수록 덜 따라온다
@@ -212,7 +246,7 @@
      * @param columns  켜진 카테고리(열 순서 = 매니페스트 순서)
      */
     function setData(entries, columns) {
-      var keepU = cols.length ? cam.u0 : null;
+      var keepU = cols.length && W ? uAtScreen(W / 2) : null;   // 가운데 보던 자리
       cols = columns.map(function (ds) {
         var mine = entries.filter(function (e) { return e._dataset === ds.id; });
         var events = mine.slice().sort(function (a, b) {
@@ -229,7 +263,11 @@
         spans.forEach(function (sp) { sp.lane = Math.min(sp.lane, 2); });   // 3줄을 넘으면 마지막 줄에 겹쳐 그린다
         return { ds: ds, events: events, spans: spans, laneN: Math.min(3, laneN) };
       });
-      if (keepU != null) cam.u0 = keepU;
+      // 연도 축은 앞쪽 국가사 열들 뒤에. 국가사만·주제사만 켜져 있으면 맨 앞에
+      var nations = 0;
+      while (nations < cols.length && cols[nations].ds.track === 'nation') nations += 1;
+      axisAt = nations > 0 && nations < cols.length ? nations : 0;
+      if (keepU != null) pinU(keepU, W / 2);
       clampCam();
       invalidate();
     }
@@ -386,7 +424,8 @@
       var yTop = yearAt(-40);
       var yBot = yearAt(H + 40);
       var c = cw();
-      var ax = axisW();
+      var axL = axisLeft();
+      var ax = axL + axisW();      // 연도 축 칸의 오른쪽
       var focusYear = yearAt(focusY());
 
       // 1) 시대 띠(아주 옅은 면 + 경계선)와 장면 경계
@@ -401,27 +440,22 @@
           if (i === 0) return;
           var y = yOf(sc.start_year);
           if (y < HEAD_H || y > H) return;
-          pp.line(ax, y, W, y, colors.line, 1, 1, [4, 6]);
+          pp.line(0, y, W, y, colors.line, 1, 1, [4, 6]);
         });
       });
 
       // 2) 열 — 경계선, 그리고 열마다 왕조 띠와 사건
-      var firstCol = Math.max(0, Math.floor(cam.u0) - 1);
-      var lastCol = Math.min(cols.length - 1, Math.ceil(cam.u0 + viewW() / c) + 1);
-      pp.clip(ax, 0, W - ax, H);
-      for (var i = firstCol; i <= lastCol; i += 1) {
+      for (var i = 0; i < cols.length; i += 1) {
         var x = xOfCol(i);
+        if (x > W || x + c < 0) continue;
         pp.line(x, 0, x, H, colors.line, 0.5, 1);
+        // 축 바로 앞 열과 마지막 열은 오른쪽 경계도
+        if (i === cols.length - 1 || i === axisAt - 1) pp.line(x + c, 0, x + c, H, colors.line, 0.5, 1);
         drawColumn(cols[i], x, c, yTop, yBot, focusYear);
       }
-      if (cols.length) {
-        var xr = xOfCol(cols.length);
-        pp.line(xr, 0, xr, H, colors.line, 0.5, 1);
-      }
-      pp.unclip();
 
-      // 3) 시간 눈금 — 왼쪽에 붙어 있다
-      drawAxis(ax, yTop, yBot);
+      // 3) 시간 눈금 — 열들 사이에 끼어 함께 움직이고, 화면 밖으로 나가려 하면 가장자리에 붙는다
+      drawAxis(axL, yTop, yBot);
       pp.end({
         th: geo.on ? geo.th : 0, P: geo.P, yP: geo.yP,
         pivot: geo.on ? geo.Dtop : geo.yP,          // 납작할 땐 판 좌표 = 화면 좌표
@@ -433,11 +467,11 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, W, Hv);
 
-      // 4) 시대 이름·장면 이름 — 화면 왼쪽 위에 붙어 따라온다
-      drawEraTitles(ax);
+      // 4) 시대 이름·장면 이름 — 연도 축 옆 위쪽에 붙어 따라온다
+      drawEraTitles(axL, ax);
 
       // 5) 열 이름 — 화면 위에 붙어 있다
-      drawHeads(firstCol, lastCol, c);
+      drawHeads(c);
     }
 
     function drawColumn(col, x, c, yTop, yBot, focusYear) {
@@ -490,9 +524,15 @@
       });
     }
 
-    function drawAxis(ax, yTop, yBot) {
-      // 눈금 칸 바탕(열이 옆으로 지나가도 읽히게). 눕히면 비스듬한 띠가 무거워 보여 옅게
-      pp.rect(0, 0, ax, H, colors.sky, geo.th > 0.02 ? 0.5 : 0.86);
+    /** axL = 연도 축 칸의 왼쪽(화면 x). 눈금·글자는 칸 오른쪽 선(ax)에 붙는다 */
+    function drawAxis(axL, yTop, yBot) {
+      var flip = axisFlip();
+      var ax = axisLine();
+      var dir = flip ? -1 : 1;                 // 눈금이 그림 쪽으로 뻗는 방향의 반대
+      var tx = flip ? axL + 12 : ax - 12;      // 연도 글자 자리
+      var align = flip ? 'left' : 'right';
+      // 눈금 칸 바탕(가장자리에 붙어 열 위에 얹혀도 읽히게). 눕히면 비스듬한 띠가 무거워 보여 옅게
+      pp.rect(axL, 0, axisW(), H, colors.sky, geo.th > 0.02 ? 0.5 : 0.86);
 
       var step = STEPS[STEPS.length - 1];
       for (var k = 0; k < STEPS.length; k += 1) { if (STEPS[k] * cam.s >= 56) { step = STEPS[k]; break; } }
@@ -501,15 +541,15 @@
       for (var yr = first; yr <= lastTick; yr += step) {
         var y = yOf(yr);
         var major = (yr / step) % 5 === 0;
-        pp.line(ax - (major ? 10 : 6), y, ax, y, colors.line, major ? 0.9 : 0.45, 1);
+        pp.line(ax - dir * (major ? 10 : 6), y, ax, y, colors.line, major ? 0.9 : 0.45, 1);
         if (yr === 0) continue;
         var ink = major ? colors.inkBg : colors.inkBg2;
         var fNum = font(12, major ? '700' : '');
         if (yr < 0) {
-          pp.text('기원전', ax - 12, y - 6, font(10), ink, 1, 'right');
-          pp.text(String(-yr), ax - 12, y + 8, fNum, ink, 1, 'right');
+          pp.text('기원전', tx, y - 6, font(10), ink, 1, align);
+          pp.text(String(-yr), tx, y + 8, fNum, ink, 1, align);
         } else {
-          pp.text(String(yr), ax - 12, y + 4, fNum, ink, 1, 'right');
+          pp.text(String(yr), tx, y + 4, fNum, ink, 1, align);
         }
       }
       var yNow = Math.min(H, yOf(PRESENT));
@@ -517,15 +557,17 @@
 
       // '지금' — 시간축의 끝
       if (yNow > 0 && yNow < H) {
-        pp.line(ax - 12, yNow, W, yNow, colors.star, 1, 2);
+        pp.line(0, yNow, W, yNow, colors.star, 1, 2);
         pp.circle(ax, yNow, 5, colors.star);
-        pp.text('지금', ax + 10, yNow + 24, font(15, '700', true), colors.star);
-        pp.text('이야기는 여기서부터 아직 쓰이는 중', ax + 50, yNow + 24, font(12), colors.inkBg2);
+        // 축이 오른쪽 가장자리에 붙어 있으면 글은 축 왼쪽에
+        var right = ax + 260 < W;
+        pp.text('지금', right ? ax + 10 : axL - 10, yNow + 24, font(15, '700', true), colors.star, 1, right ? 'left' : 'right');
+        pp.text('이야기는 여기서부터 아직 쓰이는 중', right ? ax + 50 : axL - 50, yNow + 24, font(12), colors.inkBg2, 1, right ? 'left' : 'right');
       }
     }
 
-    /** 시대 이름(띠 안에서 화면 위쪽에 붙어 따라옴) + 장면 이름 */
-    function drawEraTitles(ax) {
+    /** 시대 이름(띠 안에서 화면 위쪽에 붙어 따라옴) + 장면 이름 — 연도 축 오른쪽(자리가 없으면 왼쪽) */
+    function drawEraTitles(axL, ax) {
       // 판 위 시대 경계를 화면으로 옮겨 놓고, 그 사이에서 위쪽에 붙인다
       var top = geo.on ? Math.max(HEAD_H, proj(ax, 0).y) : HEAD_H;
       var axAt = function (sy) { return proj(ax, unproj(W / 2, sy).y).x; };
@@ -534,12 +576,12 @@
         var b = proj(ax, yOf(era.end_year)).y;
         if (b - a < 40 || b < top || a > Hv) return;
         var y = clamp(top + 30, a + 30, b - 10);
-        var bx0 = axAt(y);
         ctx.font = '700 24px ' + colors.display;
         var tw = ctx.measureText(era.label).width;
         ctx.font = '12px ' + colors.sans;
         var rw = ctx.measureText(era.range || '').width;
-        var bx = bx0 + 8;
+        var bx = axAt(y) + 8;
+        if (bx + tw + rw + 24 > W) bx = proj(axL, unproj(W / 2, y).y).x - tw - rw - 28;
         ctx.fillStyle = colors.sky;
         ctx.globalAlpha = 0.82;
         roundRect(bx - 6, y - 25, tw + rw + 28, 34, 12);
@@ -561,6 +603,7 @@
           var sx = sp.x + 8;
           ctx.font = '12px ' + colors.sans;
           var lw = ctx.measureText('· ' + sc.label).width;
+          if (sx + lw + 10 > W) sx = proj(axL, yOf(sc.start_year)).x - lw - 14;
           ctx.globalAlpha = Math.min(1, (sp.f - 0.4) * 4);
           ctx.fillStyle = colors.sky;
           ctx.globalAlpha *= 0.8;
@@ -575,24 +618,23 @@
     }
 
     /** 열 이름 줄 — 화면 맨 위에 붙어 있다. 좁으면 색 점만 */
-    function drawHeads(firstCol, lastCol, c0) {
+    function drawHeads(c0) {
       // 눕혀 있으면 머리글 줄 높이(화면)에 닿는 판의 깊이에서 열이 어디 있는지로 줄 세운다
       var py = Math.max(0, unproj(W / 2, HEAD_H / 2).y);
       var f = proj(W / 2, py).f;
       var c = c0 * f;
-      var ax = proj(axisW(), py).x;
+      var left = proj(0, py).x;
       var right = proj(W, py).x;
-      var bg0 = geo.th > 0.02 ? 0 : ax;   // 눕혔을 땐 줄 바탕을 화면 폭 그대로
       ctx.fillStyle = colors.sky;
       ctx.globalAlpha = 0.9;
-      ctx.fillRect(bg0, 0, W - bg0, HEAD_H);
+      ctx.fillRect(0, 0, W, HEAD_H);
       ctx.globalAlpha = 1;
       ctx.save();
-      ctx.beginPath(); ctx.rect(ax, 0, right - ax, HEAD_H); ctx.clip();
-      for (var i = firstCol; i <= lastCol; i += 1) {
+      ctx.beginPath(); ctx.rect(left, 0, right - left, HEAD_H); ctx.clip();
+      for (var i = 0; i < cols.length; i += 1) {
         var col = cols[i];
-        if (!col) continue;
         var x = W / 2 + (xOfCol(i) - W / 2) * f;
+        if (x > W || x + c < 0) continue;
         ctx.fillStyle = colors.foam;
         roundRect(x + 3, 4, c - 6, HEAD_H - 8, 10);
         ctx.fill();
@@ -607,7 +649,7 @@
       }
       ctx.restore();
       ctx.strokeStyle = colors.line;
-      ctx.beginPath(); ctx.moveTo(bg0, HEAD_H); ctx.lineTo(W, HEAD_H); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, HEAD_H); ctx.lineTo(W, HEAD_H); ctx.stroke();
     }
 
     // ------------------------------------------------- 자리 잡기(겹치지 않게)
@@ -719,7 +761,7 @@
           s: cam.s,
           moving: moving,
           dragging: !!(gesture && gesture.active),
-          ringX: proj(axisW(), focusY()).x,
+          ringX: proj(axisLine(), focusY()).x,
           tilt: tilt.cur
         });
       }
@@ -730,17 +772,17 @@
     function step(dt, t) {
       if (motion.mode === 'fling') {
         cam.t0 += motion.vt * dt;
-        cam.u0 += motion.vu * dt;
+        cam.x0 += motion.vx * dt;
         var k = Math.exp(-FRICTION * dt);
         var L = limits();
         // 끝을 넘어서면 확 붙잡혀 느려진다 — 그다음엔 튕겨 돌아오기
         var outT = cam.t0 < L.tA || cam.t0 > L.tB;
-        var outU = cam.u0 < L.uA || cam.u0 > L.uB;
+        var outU = cam.x0 < L.xA || cam.x0 > L.xB;
         var hard = Math.exp(-26 * dt);
         motion.vt *= outT ? hard : k;
-        motion.vu *= outU ? hard : k;
+        motion.vx *= outU ? hard : k;
         var slowT = Math.abs(motion.vt * cam.s) < (outT ? 60 : 8);
-        var slowU = Math.abs(motion.vu * cw()) < (outU ? 60 : 8);
+        var slowU = Math.abs(motion.vx) < (outU ? 60 : 8);
         if (slowT && slowU) motion.mode = outT || outU ? 'spring' : 'idle';
         return motion.mode !== 'idle';
       }
@@ -748,12 +790,12 @@
         var B = limits();
         var pull = 1 - Math.exp(-SPRING * dt);
         var gt = clamp(cam.t0, B.tA, B.tB);
-        var gu = clamp(cam.u0, B.uA, B.uB);
+        var gx = clamp(cam.x0, B.xA, B.xB);
         cam.t0 += (gt - cam.t0) * pull;
-        cam.u0 += (gu - cam.u0) * pull;
-        if (Math.abs(gt - cam.t0) * cam.s < 0.4 && Math.abs(gu - cam.u0) * cw() < 0.4) {
+        cam.x0 += (gx - cam.x0) * pull;
+        if (Math.abs(gt - cam.t0) * cam.s < 0.4 && Math.abs(gx - cam.x0) < 0.4) {
           cam.t0 = gt;
-          cam.u0 = gu;
+          cam.x0 = gx;
           motion.mode = 'idle';
         }
         return motion.mode !== 'idle';
@@ -765,7 +807,7 @@
         var logS = f.logS0 + (f.logS1 - f.logS0) * e - f.bump * 4 * e * (1 - e);
         cam.s = Math.exp(logS);
         cam.t0 = (f.y0 + (f.y1 - f.y0) * e) - f.fy / cam.s;
-        if (f.u1 != null) cam.u0 = f.u0 + (f.u1 - f.u0) * e;
+        pinU(f.u0 + (f.u1 - f.u0) * e, W / 2);   // 가운데 보던 자리(또는 고른 열)를 가운데에
         if (p >= 1) motion.mode = 'idle';
         return motion.mode !== 'idle';
       }
@@ -776,7 +818,7 @@
         if (Math.abs(z.logS - nxt) < 0.002) nxt = z.logS;
         cam.s = clamp(Math.exp(nxt), sMin(), S_MAX);
         cam.t0 = z.year - z.y / cam.s;
-        cam.u0 = z.u - (z.x - originX()) / cw();
+        pinU(z.u, z.x);
         if (nxt === z.logS) motion.mode = 'idle';
         return motion.mode !== 'idle';
       }
@@ -793,12 +835,12 @@
       var fy = focusY();
       var y0 = yearAt(fy);
       year = clamp(year, T_MIN, T_MAX);
-      var u1 = null;
-      if (o.col != null && o.col >= 0) u1 = o.col + 0.5 - (viewW() / colWidth(s)) / 2;
+      var u0 = uAtScreen(W / 2);
+      var u1 = o.col != null && o.col >= 0 ? colU(o.col) + 0.5 : u0;
       if (reduced || o.instant) {
         cam.s = s;
         cam.t0 = year - fy / s;
-        if (u1 != null) cam.u0 = u1;
+        pinU(u1, W / 2);
         motion.mode = 'idle';
         invalidate();
         return;
@@ -808,7 +850,7 @@
       motion.fly = {
         t0: now(), dur: clamp(520 + 170 * Math.log(1 + distPx / H) / Math.LN2, 520, 1700),
         y0: y0, y1: year, logS0: Math.log(cam.s), logS1: Math.log(s), bump: bump, fy: fy,
-        u0: cam.u0, u1: u1
+        u0: u0, u1: u1
       };
       motion.mode = 'fly';
       lastT = 0;
@@ -829,7 +871,7 @@
       motion.zoomTo = {
         logS: target, x: x, y: y,
         year: same ? motion.zoomTo.year : yearAt(y),
-        u: same ? motion.zoomTo.u : colAt(x)
+        u: same ? motion.zoomTo.u : uAtScreen(x)
       };
       motion.mode = 'zoom';
       lastT = 0;
@@ -838,7 +880,7 @@
 
     function panBy(dy, dx) {
       motion.mode = 'idle';
-      if (dx) { cam.u0 += dx / cw(); clampCam(); }
+      if (dx) { cam.x0 += dx; clampCam(); }
       flyTo(yearAt(focusY() + (dy || 0)), cam.s);
     }
 
@@ -904,7 +946,7 @@
         var L = limits();
         gesture = {
           kind: 'pan', id: e.pointerId, x0: p.x, y0: p.y, sx0: p.sx, sy0: p.sy, at: e.timeStamp, active: false, samples: [],
-          t0: unrubber(cam.t0, L.tA, L.tB, cam.s, Hv), u0: unrubber(cam.u0, L.uA, L.uB, cw(), W)
+          t0: unrubber(cam.t0, L.tA, L.tB, cam.s, Hv), cx0: unrubber(cam.x0, L.xA, L.xB, 1, W)
         };
       } else if (ids.length === 2) {
         // 어느 쪽인지 정해질 때까지 그대로 — 정해지면 처음 자리 기준으로 이어 간다
@@ -915,7 +957,7 @@
     function startPinch(a, b) {
       var mx = (a.x + b.x) / 2;
       var my = (a.y + b.y) / 2;
-      gesture = { kind: 'pinch', d0: Math.max(20, Math.hypot(a.x - b.x, a.y - b.y)), s0: cam.s, year: yearAt(my), u: colAt(mx), active: true };
+      gesture = { kind: 'pinch', d0: Math.max(20, Math.hypot(a.x - b.x, a.y - b.y)), s0: cam.s, year: yearAt(my), u: uAtScreen(mx), active: true };
     }
 
     canvas.addEventListener('pointermove', function (e) {
@@ -955,8 +997,8 @@
         // 상하좌우 어디로든 — 그림 한 장을 손으로 미는 것처럼. 끝 너머로는 고무줄처럼
         var L = limits();
         cam.t0 = rubber(gesture.t0 - dy / cam.s, L.tA, L.tB, cam.s, Hv);
-        cam.u0 = rubber(gesture.u0 - dx / cw(), L.uA, L.uB, cw(), W);
-        gesture.samples.push({ t: e.timeStamp, t0: cam.t0, u0: cam.u0 });
+        cam.x0 = rubber(gesture.cx0 - dx, L.xA, L.xB, 1, W);
+        gesture.samples.push({ t: e.timeStamp, t0: cam.t0, x0: cam.x0 });
         while (gesture.samples.length > 2 && e.timeStamp - gesture.samples[0].t > 100) gesture.samples.shift();
         invalidate();
       } else if (gesture.kind === 'pinch') {
@@ -969,7 +1011,7 @@
         var my = (a.y + b.y) / 2;
         cam.s = clamp(gesture.s0 * d / gesture.d0, sMin(), S_MAX);
         cam.t0 = gesture.year - my / cam.s;
-        cam.u0 = gesture.u - (mx - originX()) / cw();
+        pinU(gesture.u, mx);
         invalidate();
       }
     });
@@ -991,20 +1033,20 @@
         // 손가락 하나가 남으면 그 손가락으로 이어서 끌 수 있게
         var rest = Object.keys(pointers);
         gesture = rest.length === 1
-          ? { kind: 'pan', id: Number(rest[0]), x0: pointers[rest[0]].x, y0: pointers[rest[0]].y, sx0: pointers[rest[0]].sx, sy0: pointers[rest[0]].sy, t0: cam.t0, u0: cam.u0, at: e.timeStamp, active: true, samples: [] }
+          ? { kind: 'pan', id: Number(rest[0]), x0: pointers[rest[0]].x, y0: pointers[rest[0]].y, sx0: pointers[rest[0]].sx, sy0: pointers[rest[0]].sy, t0: cam.t0, cx0: cam.x0, at: e.timeStamp, active: true, samples: [] }
           : null;
         return;
       }
       gesture = null;
       canvas.classList.remove('is-dragging');
       var L = limits();
-      var out = cam.t0 < L.tA || cam.t0 > L.tB || cam.u0 < L.uA || cam.u0 > L.uB;
+      var out = cam.t0 < L.tA || cam.t0 > L.tB || cam.x0 < L.xA || cam.x0 > L.xB;
       if (g.active) {
         var s = g.samples;
         if (s.length > 1 && e.timeStamp - s[s.length - 1].t < 90) {
           var span = Math.max(8, s[s.length - 1].t - s[0].t) / 1000;
           motion.vt = (s[s.length - 1].t0 - s[0].t0) / span;
-          motion.vu = (s[s.length - 1].u0 - s[0].u0) / span;
+          motion.vx = (s[s.length - 1].x0 - s[0].x0) / span;
           motion.mode = 'fling';
         } else {
           motion.mode = out ? 'spring' : 'idle';
@@ -1057,14 +1099,14 @@
       if (e.shiftKey && !dx) {
         // Shift+휠은 가로 이동
         motion.mode = 'idle';
-        cam.u0 += dy / cw();
+        cam.x0 += dy;
         invalidate();
         return;
       }
       if (Math.abs(dx) > Math.abs(dy) * 0.5 && !e.ctrlKey) {
         // 트랙패드를 옆·대각선으로 밀면 그쪽으로 그대로 이동
         motion.mode = 'idle';
-        cam.u0 += dx / cw();
+        cam.x0 += dx;
         cam.t0 += dy / cam.s;
         invalidate();
         return;
@@ -1098,9 +1140,9 @@
       redraw: invalidate,
       flyTo: flyTo,
       flyToRange: flyToRange,
-      zoomBy: function (f) { zoomAround(originX() + viewW() / 2, focusY(), f); },
+      zoomBy: function (f) { zoomAround(W / 2, focusY(), f); },
       panBy: panBy,
-      axisX: function () { return proj(axisW(), focusY()).x; },
+      axisX: function () { return proj(axisLine(), focusY()).x; },
       /** 눕히기 — 0(납작) ~ TILT_MAX 라디안 */
       setTilt: function (th, instant) { setTilt(th, instant); if (!instant) settleTilt(); },
       toggleTilt: function () { setTilt(tilt.target > TILT_SNAP ? 0 : TILT_ON); },
@@ -1112,7 +1154,7 @@
         setTilt(0, true);
         cam.s = clamp(((Hv - HEAD_H) * 0.86) / (T_MAX + 4200), sMin(), S_MAX);
         cam.t0 = -4200 - (Hv * 0.04 + HEAD_H) / cam.s;
-        cam.u0 = 0;
+        pinU(axisAt + 0.5, W / 2);   // 연도 축이 화면 가운데에(국가사는 왼쪽, 주제사는 오른쪽)
         clampCam();
         invalidate();
       },
@@ -1125,7 +1167,8 @@
       },
       get year() { return clamp(yearAt(focusY()), T_MIN, T_MAX); },
       get scale() { return cam.s; },
-      get column() { return cam.u0; }
+      /** 화면 가운데의 열 좌표(축 칸 포함, 확인용) */
+      get column() { return uAtScreen(W / 2); }
     };
   }
 

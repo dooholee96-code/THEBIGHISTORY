@@ -204,7 +204,9 @@
     renderer.setClearColor(0x000000, 0);
 
     // --- 글자판(문자열 → 텍스처 한 칸). 가득 차면 비우고 다시 쓴다
-    var TS = 2;   // 판 1px 당 글자판 픽셀
+    var TS = 2;   // 판 1px 당 글자판 픽셀 — 화면 배율(dpr)에 맞춘다(resize). 납작할 때 1:1 이라 또렷하고 번지지 않는다
+    var PAD = 6;  // 글자 칸 안쪽 여백(글자판 픽셀)
+    var GAP = 12; // 칸과 칸 사이 — 멀리서(밉맵) 볼 때 이웃 칸이 섞이지 않을 만큼
     var maxTex = renderer.capabilities.maxTextureSize || 4096;
     var AW = Math.min(4096, maxTex);
     var AH = Math.min(2048, maxTex);
@@ -246,7 +248,7 @@
       var w = measureCtx.measureText(str).width;
       var asc = Math.ceil(font.px * 0.95) + 2;
       var desc = Math.ceil(font.px * 0.3) + 2;
-      var cw = Math.ceil(w * TS) + 6;
+      var cw = Math.ceil(w * TS) + PAD * 3;   // 왼쪽 여백 PAD + 오른쪽 2PAD(밉맵에서 이웃 글자가 번지지 않게)
       var ch = Math.ceil((asc + desc) * TS);
       if (cw > AW) cw = AW;
       // 높이가 맞는 줄(선반)을 찾고, 없으면 새 줄
@@ -259,11 +261,11 @@
         if (shelfY + ch > AH) { resetAtlas(); return glyph(str, font); }
         shelf = { y: shelfY, h: ch, x: 0 };
         shelves.push(shelf);
-        shelfY += ch + 2;
+        shelfY += ch + GAP;
       }
       var sx = shelf.x;
       var sy = shelf.y;
-      shelf.x += cw + 2;
+      shelf.x += cw + GAP;
 
       if (scratch.width < cw || scratch.height < ch) {
         scratch.width = Math.max(scratch.width, cw);
@@ -275,7 +277,7 @@
       sctx.font = css;
       sctx.fillStyle = '#fff';
       sctx.textBaseline = 'alphabetic';
-      sctx.fillText(str, 1, asc);
+      sctx.fillText(str, PAD / TS, asc);
       upload(sx, sy, cw, ch);
 
       g = {
@@ -405,6 +407,8 @@
       kind: 'gl',
       resize: function (w, h, hv, dpr) {
         W = w; Hv = hv;
+        var ts = Math.min(2, Math.max(1, dpr));
+        if (ts !== TS) { TS = ts; resetAtlas(); }
         renderer.setPixelRatio(dpr);
         renderer.setSize(w, hv, false);
         canvas.style.height = '';
@@ -437,7 +441,7 @@
         if (!str) return;
         var g = glyph(str, font);
         var left = align === 'right' ? x - g.w : (align === 'center' ? x - g.w / 2 : x);
-        push(left - 1, y - g.asc, g.pw, g.h, color, alpha, 1, 0, 0, 0, [g.u0, g.v0, g.u1, g.v1]);
+        push(left - PAD / TS, y - g.asc, g.pw, g.h, color, alpha, 1, 0, 0, 0, [g.u0, g.v0, g.u1, g.v1]);
       },
       measure: function (str, font) {
         measureCtx.font = fontCss(font);
