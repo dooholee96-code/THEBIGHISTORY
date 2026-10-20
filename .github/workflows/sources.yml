@@ -1,6 +1,7 @@
 # 공개 데이터 대조 — Wikidata·Cliopatria 와 우리 항목을 견준 리포트를 만든다.
 # 손으로 실행(Actions 탭 → sources → Run workflow)하거나 매주 월요일 새벽에 돈다.
-# 결과(data/review/)는 실행 결과의 Artifacts 에서 내려받는다 — 데이터 파일은 바꾸지 않는다.
+# 결과(data/review/)는 data-review 브랜치에 올라가고, 실행 결과의 Artifacts 에서도 내려받을 수 있다.
+# 데이터 파일(data/*.json)은 바꾸지 않는다 — 고칠지는 리포트를 보고 사람이 정한다.
 name: sources
 
 on:
@@ -9,7 +10,7 @@ on:
     - cron: '17 18 * * 0'   # 매주 월요일 03:17 (한국 시각)
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   match:
@@ -26,3 +27,19 @@ jobs:
         with:
           name: review-${{ github.run_number }}
           path: data/review/
+      - name: 리포트를 data-review 브랜치에
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          cp -r data/review /tmp/review
+          git fetch origin data-review || true
+          if git show-ref --quiet refs/remotes/origin/data-review; then
+            git checkout -B data-review origin/data-review
+          else
+            git checkout --orphan data-review
+            git rm -rq --cached . && git clean -fdq
+          fi
+          rm -rf data && mkdir -p data && cp -r /tmp/review data/review
+          git add data/review
+          git commit -m "대조 리포트 ${GITHUB_RUN_NUMBER} (${GITHUB_SHA::7})" || echo "바뀐 것 없음"
+          git push origin data-review
