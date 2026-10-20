@@ -23,7 +23,7 @@
       } catch (err) { /* 저장소를 못 읽어도 기본(라이트)으로 */ }
     })();
   </script>
-  <link rel="stylesheet" href="css/styles.css?v=6ca7bd48" />
+  <link rel="stylesheet" href="css/styles.css?v=5d84d57f" />
 </head>
 <body>
   <!-- 테마는 <html class="is-night"> 로 바뀐다(설정 탭, app.js). 기본은 라이트 -->
@@ -48,67 +48,18 @@
           </svg>
           <h1 class="brand__title">빅 히스토리 연표</h1>
         </div>
-        <div class="head__actions">
-          <!-- 보기 방식: 타임라인(기본) / 표 -->
-          <div class="seg" id="view-seg" role="radiogroup" aria-label="보기 방식">
-            <span class="seg__pill" aria-hidden="true"></span>
-            <button class="seg__btn is-active" type="button" role="radio" aria-checked="true" data-view="zoom">탐험</button>
-            <button class="seg__btn" type="button" role="radio" aria-checked="false" data-view="timeline">타임라인</button>
-            <button class="seg__btn" type="button" role="radio" aria-checked="false" data-view="table">표</button>
-          </div>
-          <!-- 표 보기에서만: 기본은 연도 축까지 표 전체가 한 장처럼, 켜면 연도 축만 왼쪽에 붙는다 -->
-          <button class="pill-btn pin-btn" id="pin-toggle" type="button" aria-pressed="false"
-                  title="연도 축을 왼쪽에 고정하고 칸만 옆으로 넘기기">
-            <span class="pin-btn__box" aria-hidden="true"></span>연도 고정
-          </button>
-        </div>
       </header>
 
-      <!-- 1. 연표 — 끌기·던지기는 js/motion.js, 아래 계기판은 js/hud.js -->
-      <main class="view view--timeline" id="view-timeline">
+      <!-- 1. 연표(탐험) — 그림판은 js/zoom.js, 아래 계기판은 js/hud.js -->
+      <main class="view view--timeline is-zoom" id="view-timeline">
         <!-- 디오라마 무대 — 연표 뒤에 화면 크기로 깔리고, 초점선이 있는 장면의 그림이 교차 페이드로 바뀐다 -->
         <div class="stage" id="stage" aria-hidden="true"></div>
-        <div class="scroll" id="scroll">
-          <div class="scroll__inner" id="scroll-inner">
-            <div class="intro" id="intro">
-              <!-- 당근을 안고 둥실 떠 있는 시로 -->
-              <svg class="intro__shiro" viewBox="0 0 120 120" aria-hidden="true">
-                <ellipse cx="60" cy="98" rx="26" ry="16" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/>
-                <ellipse cx="47" cy="30" rx="8" ry="22" transform="rotate(-8 47 30)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/><ellipse cx="47" cy="32" rx="3.5" ry="14" transform="rotate(-8 47 32)" fill="#F2C4CE"/>
-                <ellipse cx="73" cy="30" rx="8" ry="22" transform="rotate(8 73 30)" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/><ellipse cx="73" cy="32" rx="3.5" ry="14" transform="rotate(8 73 32)" fill="#F2C4CE"/>
-                <circle cx="60" cy="66" r="28" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.5"/>
-                <circle cx="49" cy="64" r="3" fill="#3A2A24"/><circle cx="71" cy="64" r="3" fill="#3A2A24"/>
-                <circle cx="41" cy="74" r="5.5" fill="#F2C4CE"/><circle cx="79" cy="74" r="5.5" fill="#F2C4CE"/>
-                <path d="M56 74q4 4 8 0" fill="none" stroke="#3A2A24" stroke-width="2" stroke-linecap="round"/>
-                <g transform="translate(66 92) rotate(28)"><path d="M-6-12c0-4 12-4 12 0l-4 30c-1 3-3 3-4 0z" fill="#E8955B"/><path d="M-4-4h8M-3 4h6M-2 12h4" fill="none" stroke="#C97B3F" stroke-width="1.4" stroke-linecap="round"/><path d="M-5-14c-4-6-3-12 1-13 1 6 2 9 4 11zM1-14c0-8 4-12 8-12-2 6-4 9-6 12zM-2-14c-1-7 2-12 5-13 0 6-1 9-2 12z" fill="#8FB58A"/></g>
-                <ellipse cx="44" cy="106" rx="7" ry="3.5" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.2"/><ellipse cx="76" cy="106" rx="7" ry="3.5" fill="#FFF8EF" stroke="#CFAFB8" stroke-width="1.2"/>
-              </svg>
-              <p class="intro__eyebrow">동굴벽화에서 오늘까지</p>
-              <p class="intro__title">시로와 함께<br />시대를 깡충 건너 보세요</p>
-              <p class="intro__hint">
-                <span class="intro__arrow" aria-hidden="true">↓</span>
-                끌어서 던지거나 휠을 굴려 보세요. 아래 띠에서 시로를 밀면 시대를 건너뜁니다.
-                왼쪽 색 띠는 나라마다 왕조·시대가 이어진 기간입니다.
-              </p>
-            </div>
-            <!-- 나라별 왕조·시대 색 띠(타임라인 보기) — 줄 위치를 잰 뒤 app.js 가 그린다 -->
-            <div class="lanes" id="lanes" aria-hidden="true" hidden></div>
-            <div id="chapters"></div>
-            <div class="outro" id="outro">
-              <p class="outro__title">여기까지가 지금입니다</p>
-              <p class="notice" id="draft-notice">
-                모든 항목은 검토 전 초안이며 출처가 확인되지 않았습니다. 삽화 자리는 나중에 실제 그림으로 채웁니다.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 탐험(기본 보기) — 시간 자체를 줌하는 캔버스. js/zoom.js -->
+        <!-- 시간 자체를 줌하는 캔버스. js/zoom.js -->
         <div class="zoom-box">
           <!-- 눕는 판(열·사건·연도 눈금) 위에 납작한 덮개(열·시대 이름, 손가락 입력)가 겹친다 -->
           <canvas class="zoom-plane" id="zoom-plane" aria-hidden="true"></canvas>
           <canvas class="zoom" id="zoom" role="img"
-                  aria-label="역사 전체를 확대·축소하며 둘러보는 캔버스. 사건을 글로 차례대로 읽으려면 위의 타임라인 보기를 쓰세요."></canvas>
+                  aria-label="역사 전체를 확대·축소하며 둘러보는 캔버스. 사건을 글로 차례대로 읽으려면 검색 탭의 전체 목록을 쓰세요."></canvas>
         </div>
 
         <!-- 초점선: 여기에 걸린 줄의 해가 계기판 숫자가 된다 -->
@@ -224,7 +175,7 @@
 
             <p class="card__label">개인정보</p>
             <p class="card__text">
-              분석 도구와 추적 스크립트를 쓰지 않고, 쿠키도 사용하지 않으며, 이용자 정보를 수집하지 않습니다. 보기 설정(타임라인/표, 연도 고정)·테마 선택과 갈림길 진행 상황만 이 기기의 브라우저 저장소에 남고 어디로도 보내지 않습니다.
+              분석 도구와 추적 스크립트를 쓰지 않고, 쿠키도 사용하지 않으며, 이용자 정보를 수집하지 않습니다. 테마 선택·안내를 봤는지·갈림길 진행 상황만 이 기기의 브라우저 저장소에 남고 어디로도 보내지 않습니다.
               바깥으로 나가는 요청은 위 글꼴을 받아오는 것뿐이며, 홈 화면에 추가하면 오프라인에서도 열립니다.
             </p>
           </div>
@@ -234,20 +185,6 @@
       <nav class="tabbar" role="tablist" aria-label="화면 전환">
         <div class="tabbar__inner" id="tabs"></div>
       </nav>
-    </div>
-
-    <!-- 월·일 팝업 -->
-    <div class="scrim" id="day-scrim" hidden></div>
-    <div class="daydlg" id="day-dialog" role="dialog" aria-labelledby="day-year" hidden>
-      <div class="daydlg__head">
-        <span class="dot" id="day-dot"></span>
-        <div class="daydlg__title">
-          <p class="daydlg__cat" id="day-cat"></p>
-          <h2 class="daydlg__year" id="day-year"></h2>
-        </div>
-        <button class="icon-btn" id="day-close" type="button" aria-label="닫기">✕</button>
-      </div>
-      <div class="daydlg__body" id="day-rows"></div>
     </div>
 
     <!-- 상세 시트 -->
@@ -266,13 +203,11 @@
     <div class="loading" id="loading">불러오는 중…</div>
   </div>
 
-  <script src="js/data.js?v=6ca7bd48"></script>
-  <script src="js/chapters.js?v=6ca7bd48"></script>
-  <script src="js/timeline.js?v=6ca7bd48"></script>
-  <script src="js/motion.js?v=6ca7bd48"></script>
-  <script src="js/hud.js?v=6ca7bd48"></script>
-  <script src="js/branch.js?v=6ca7bd48"></script>
-  <script src="js/zoom.js?v=6ca7bd48"></script>
-  <script src="js/app.js?v=6ca7bd48"></script>
+  <script src="js/data.js?v=5d84d57f"></script>
+  <script src="js/common.js?v=5d84d57f"></script>
+  <script src="js/hud.js?v=5d84d57f"></script>
+  <script src="js/branch.js?v=5d84d57f"></script>
+  <script src="js/zoom.js?v=5d84d57f"></script>
+  <script src="js/app.js?v=5d84d57f"></script>
 </body>
 </html>

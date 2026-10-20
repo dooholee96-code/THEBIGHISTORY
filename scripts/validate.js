@@ -34,6 +34,7 @@ const QUIET = args.includes('--quiet');
 
 const errors = [];
 const warnings = [];
+const DESC_MAX = 100;   // 설명 길이 한도(글자)
 const fixes = [];
 
 const rel = (p) => path.relative(ROOT, p);
@@ -193,6 +194,13 @@ for (const ds of manifest.datasets || []) {
         warn(file, `${where} — 위키 계열 자료(${src}) 는 확인용으로만 쓰고 문장을 옮기지 마세요. (data/LICENSE.md 참고)`);
       }
     });
+
+    // 설명은 한 문장짜리 간략 해설만 — 팝업에도 연도·사건·설명·출처만 나온다.
+    const desc = String(entry.description || '').trim();
+    const sentences = desc.split(/(?<=[.!?。])\s+/).filter(Boolean).length;
+    if (sentences > 1 || desc.length > DESC_MAX) {
+      warn(file, `${where} — 설명은 한 문장, ${DESC_MAX}자 이내로 적어 주세요(지금 ${sentences}문장 ${desc.length}자).`);
+    }
 
     // 왕조·국가사는 kind 가 있어야 색 띠와 '지금 이때'에 들어간다(없으면 빠진다).
     if (ds.track === 'nation' && !entry.kind) {

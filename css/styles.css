@@ -219,13 +219,6 @@ body {
 
 .pill-btn:hover { background: #fff; }
 
-.head__actions {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
 /* 보기 방식 스위치 — 짙은 알약이 통통 튀며 옮겨 간다 */
 .seg {
   position: relative;
@@ -266,8 +259,6 @@ body {
 .seg__btn.is-active { font-weight: 700; color: var(--foam); }
 
 /* '연도 고정'은 표 보기에서만 의미가 있다 */
-.pin-btn { display: none; }
-.is-view-table .pin-btn { display: inline-flex; }
 
 /* 테마 설정(설정 탭) — 시스템 / 라이트 / 다크 */
 .seg--theme {
@@ -283,42 +274,6 @@ body {
 .card__text--hint { font-size: 12.5px; color: var(--ink-2); }
 
 /* 연도 고정 스위치 — 켜지면 작은 상자에 체크가 톡 */
-.pin-btn {
-  align-items: center;
-  gap: 8px;
-}
-
-.pin-btn__box {
-  width: 16px;
-  height: 16px;
-  border-radius: 5px;
-  border: 1.5px solid var(--line);
-  background: var(--foam-2);
-  position: relative;
-  transition: background-color .2s ease, border-color .2s ease;
-}
-
-.pin-btn__box::after {
-  content: "";
-  position: absolute;
-  left: 4px;
-  top: 1px;
-  width: 4px;
-  height: 8px;
-  border: solid #fff;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg) scale(0);
-  transition: transform .4s var(--spring);
-}
-
-.pin-btn[aria-pressed="true"] { font-weight: 700; }
-
-.pin-btn[aria-pressed="true"] .pin-btn__box {
-  background: var(--caramel);
-  border-color: var(--caramel);
-}
-
-.pin-btn[aria-pressed="true"] .pin-btn__box::after { transform: rotate(45deg) scale(1); }
 
 /* 잠깐 떴다 사라지는 안내 */
 .toast {
@@ -367,9 +322,6 @@ body {
 }
 
 /* 연표를 끄는 중에는 눌린 효과를 주지 않는다 */
-.scroll.is-dragging .event:active,
-.scroll.is-dragging .tl-card:active,
-.scroll.is-dragging .more-chip:active { transform: none; }
 
 /* ------------------------------------------------------------ 화면 */
 
@@ -389,96 +341,17 @@ body {
 .view--timeline { position: relative; }
 
 /* 연표 창 — 브라우저 스크롤 대신 js/motion.js 가 움직인다 */
-.scroll {
-  height: 100%;
-  overflow: hidden;
-  overflow: clip;
-  touch-action: none;
-  -webkit-user-select: none;
-  user-select: none;
-  cursor: grab;
-}
-
-.scroll.is-dragging { cursor: grabbing; }
-.scroll.is-dragging .event,
-.scroll.is-dragging .tl-card,
-.scroll.is-dragging .more-chip { cursor: grabbing; }
-
-.scroll__inner {
-  position: relative;
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 0 16px;
-  will-change: transform;
-}
 
 /* 첫 화면 — 시작 안내 */
-.intro {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 0 0 18px 88px;
-  color: var(--ink-bg);
-}
-
-.intro__shiro {
-  position: absolute;
-  right: 6px;
-  bottom: 12px;
-  width: 96px;
-  height: 96px;
-  animation: float 4.2s ease-in-out infinite;
-}
 
 @keyframes float {
   0%, 100% { transform: translateY(0) rotate(-3deg); }
   50% { transform: translateY(-9px) rotate(3deg); }
 }
 
-.intro__eyebrow {
-  margin: 0 0 6px;
-  font-size: 13px;
-  letter-spacing: .12em;
-  color: var(--ink-bg-2);
-}
-
-.intro__title {
-  margin: 0 0 10px;
-  font-family: var(--display);
-  font-size: clamp(30px, 5vw, 42px);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-}
-
-.intro__hint {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.65;
-  color: var(--ink-bg-2);
-  max-width: 30ch;
-}
-
-.intro__arrow {
-  display: inline-block;
-  margin-right: 4px;
-  animation: nudge-down 1.6s var(--spring) infinite;
-}
-
 @keyframes nudge-down {
   0%, 55%, 100% { transform: translateY(0); }
   25% { transform: translateY(5px); }
-}
-
-.outro { padding: 30px 0 0 88px; }
-
-.outro__title {
-  margin: 0 0 8px;
-  font-family: var(--display);
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--ink-bg);
 }
 
 /* 초점선 — 여기 걸린 줄의 해가 계기판 숫자 */
@@ -568,32 +441,7 @@ body {
 
 .loading[hidden] { display: none; }
 
-/* -------------------------------------------------------- 시대 섹션 */
-
-.chapter {
-  position: relative;
-  padding: 26px 0 14px;
-}
-
-/* 시대 디오라마 — 좌우 레터박스에서 진하고 표 뒤에서는 흐려진다 */
-.chapter__art {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 100vw;
-  transform: translateX(-50%);
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-  opacity: .75;
-  /* 섹션에는 색 블롭만. 디오라마 그림은 연표 뒤 무대(.stage)에 있다 */
-  background-repeat: no-repeat;
-  -webkit-mask-image: linear-gradient(90deg, #000 0, rgba(0, 0, 0, .9) 14%, rgba(0, 0, 0, .28) 32%, rgba(0, 0, 0, .14) 50%, rgba(0, 0, 0, .28) 68%, rgba(0, 0, 0, .9) 86%, #000 100%);
-  mask-image: linear-gradient(90deg, #000 0, rgba(0, 0, 0, .9) 14%, rgba(0, 0, 0, .28) 32%, rgba(0, 0, 0, .14) 50%, rgba(0, 0, 0, .28) 68%, rgba(0, 0, 0, .9) 86%, #000 100%);
-}
-
-.is-night .chapter__art { opacity: .9; }
+/* ------------------------------------------------------ 디오라마 무대 */
 
 /* 디오라마 무대 — 연표 뒤에 화면 크기로 깔린다. 장면 그림(.stage__art)은 모두 여기 겹쳐 있고,
    초점선이 있는 장면만 보이도록 app.js 가 opacity 를 바꾼다(경계에서는 교차 페이드).
@@ -611,7 +459,6 @@ body {
 }
 
 .is-night .stage { opacity: .9; }
-.view--timeline .scroll { position: relative; z-index: 1; }
 
 .stage__art {
   position: absolute;
@@ -640,8 +487,6 @@ body {
 
 /* 폰: 레터박스가 없으니 그림을 위쪽에 작게 깔고 아래로 흐려지게 */
 @media (max-width: 899px) {
-  .chapter__art { opacity: .5; }
-  .is-night .chapter__art { opacity: .6; }
   .stage {
     opacity: .9;
     -webkit-mask-image: none;
@@ -670,88 +515,9 @@ body {
   92%, 100% { translate: -160vw 0; scale: 1.04; }
 }
 
-.chapter__art-label {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  max-width: 12ch;
-  text-align: right;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 10px;
-  letter-spacing: .06em;
-  line-height: 1.5;
-  opacity: .5;
-  color: var(--ink-bg);
-}
-
-@media (max-width: 1219px) {
-  .chapter__art-label { display: none; }
-}
-
-/* 시대 머리의 표식 — 귀 둘 쫑긋한 토끼 얼굴 */
-.chapter__mark,
-.tl-head__mark {
-  position: absolute;
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  background: var(--foam);
-  border: 1.5px solid #cfafb8;
-  box-shadow: 0 0 0 3px var(--sky);
-}
-
-.chapter__mark::before,
-.chapter__mark::after,
-.tl-head__mark::before,
-.tl-head__mark::after {
-  content: "";
-  position: absolute;
-  top: -13px;
-  width: 7px;
-  height: 16px;
-  border-radius: 4px;
-  background: var(--foam);
-  border: 1.5px solid #cfafb8;
-  box-sizing: border-box;
-}
-
-.chapter__mark::before,
-.tl-head__mark::before { left: 2px; transform: rotate(-12deg); }
-.chapter__mark::after,
-.tl-head__mark::after { right: 2px; transform: rotate(12deg); }
-
-.chapter__mark { left: 64px; top: 30px; }
-
-.chapter__head {
-  position: relative;
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  margin-bottom: 14px;
-  padding-left: 88px;
-}
-
-.chapter__title {
-  margin: 0;
-  font-family: var(--display);
-  font-size: 34px;
-  line-height: 1;
-  font-weight: 700;
-  color: var(--ink-bg);
-}
-
-.is-night .chapter__title { text-shadow: 0 2px 10px rgba(0, 0, 0, .25); }
-
-.chapter__range {
-  font-size: 13px;
-  color: var(--ink-bg-2);
-  font-variant-numeric: tabular-nums;
-}
-
-/* ------------------------------------------------------- 타임라인 */
+/* ------------------------------------- 시간축 카드(갈림길 화면이 쓴다) */
 
 /* 모바일 우선: [색 띠][연도│별][카드]  /  넓은 화면: [색 띠][국가사 카드][연도][주제사 카드] */
-.scroll__inner,
 .branch-tl {
   --lane-w: 7px;
   --lane-gap: 2px;
@@ -760,30 +526,6 @@ body {
 }
 
 /* 나라별 왕조·시대 색 띠 */
-.lanes {
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  left: 16px;
-  width: var(--gutter);
-  height: 0;
-}
-
-.lanes[hidden] { display: none; }
-
-.lane-bar {
-  position: absolute;
-  left: calc(var(--lane) * (var(--lane-w) + var(--lane-gap)));
-  width: var(--lane-w);
-  border-radius: 4px;
-  opacity: .55;
-  cursor: pointer;
-  transform-origin: 50% 50%;
-  transition: opacity .25s ease, transform .4s var(--spring);
-}
-
-.lane-bar:hover { opacity: .85; }
-.lane-bar.is-live { opacity: 1; transform: scaleX(1.4); box-shadow: 0 0 0 2px var(--sky), 0 0 10px currentColor; }
 
 .tl {
   position: relative;
@@ -800,13 +542,6 @@ body {
   width: 2px;
   border-radius: 1px;
   background: var(--line-bg);
-}
-
-.chapter__head.tl-head { padding-left: calc(var(--gutter) + var(--mark-w) + 6px); }
-
-.tl-head__mark {
-  left: calc(var(--gutter) + var(--mark-w) - 22px);
-  top: 4px;
 }
 
 .tl-year {
@@ -858,20 +593,10 @@ body {
   transition: transform .45s var(--spring);
 }
 
-.tl-year.is-focus .tl-dot {
-  --dotc: var(--star);
-  transform: scale(1.5) rotate(12deg);
-  filter: drop-shadow(0 0 6px var(--star-glow));
-  animation: hop-dot 1.6s ease-in-out infinite;
-}
-
 @keyframes hop-dot {
   0%, 100% { transform: scale(1.5) rotate(12deg); }
   50% { transform: scale(1.7) rotate(18deg) translateY(-1px); }
 }
-
-.tl-year.is-focus .tl-mark__num { transform: scale(1.12); color: var(--focus-ink); }
-.tl-year.is-focus .tl-mark__pre { color: var(--focus-ink); }
 
 .tl-side {
   grid-column: 3;
@@ -908,10 +633,6 @@ body {
 
 .tl-card:hover { background: #fff; }
 
-.tl-year.is-focus .tl-card {
-  box-shadow: 0 0 0 1.5px var(--card-focus), 0 8px 24px var(--star-glow);
-}
-
 .tl-card__cat {
   display: flex;
   align-items: center;
@@ -921,7 +642,6 @@ body {
 }
 
 .tl-card__cat .dot { width: 7px; height: 7px; }
-.tl-card__md { margin-left: auto; font-variant-numeric: tabular-nums; }
 
 .tl-card__title {
   font-size: 16px;
@@ -981,72 +701,13 @@ body {
 
 .zoom.is-dragging { cursor: grabbing; }
 .is-zoom .zoom-box { display: block; }
-.is-zoom .scroll { display: none; }
 
 /* 막간 무대 — 카드 없는 빈 구간. 뒤 무대의 디오라마가 이 사이로 온전히 보인다 */
-.tl-stage {
-  position: relative;
-  height: 40vh;
-  min-height: 240px;
-  display: flex;
-  align-items: flex-end;
-  padding: 0 0 14px calc(var(--gutter) + var(--mark-w) + 6px);
-  pointer-events: none;
-}
-
-.tl-stage__cap {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  color: var(--ink-bg);
-  text-shadow: 0 1px 6px var(--sky);
-}
-
-.tl-stage__label {
-  font-family: var(--display);
-  font-size: 22px;
-  font-weight: 700;
-  line-height: 1.1;
-}
-
-.tl-stage__after { font-size: 11.5px; color: var(--ink-bg-2); max-width: 36ch; }
-
-@media (min-width: 900px) {
-  .tl-stage { justify-content: center; padding-left: var(--gutter); text-align: center; }
-  .tl-stage__cap { align-items: center; }
-}
-
-@media (max-width: 899px) {
-  .tl-stage { height: 52vh; min-height: 300px; }
-}
 
 /* 해와 해 사이 — 오래 비면 '⋯ 350년' */
-.tl-gap { position: relative; }
-
-.tl-gap__label {
-  position: absolute;
-  top: 50%;
-  left: var(--gutter);
-  width: calc(var(--mark-w) - 22px);
-  transform: translateY(-50%);
-  text-align: right;
-  font-size: 11px;
-  white-space: nowrap;
-  color: var(--ink-bg-2);
-}
-
-.tl-empty {
-  margin: 0 0 0 calc(var(--gutter) + var(--mark-w));
-  padding: 12px 14px;
-  border-radius: 14px;
-  background: var(--foam);
-  color: var(--ink);
-  font-size: 13.5px;
-}
 
 /* 넓은 화면: 가운데 축을 두고 왼쪽 국가사, 오른쪽 주제사 */
 @media (min-width: 900px) {
-  .scroll__inner,
   .branch-tl { --lane-w: 8px; --lane-gap: 3px; --mark-w: 104px; }
 
   .tl::before { left: calc(var(--gutter) + (100% - var(--gutter) - var(--mark-w)) / 2 + var(--mark-w) / 2 - 1px); }
@@ -1073,8 +734,8 @@ body {
 
   .tl-mark__pre { color: var(--ink-2); }
   .tl-mark__num { transform-origin: 50% 50%; }
-  .tl-year.is-focus .tl-mark__num { color: var(--ink); background: var(--star); }
-  .tl-year.is-focus .tl-mark__pre { color: var(--ink-2); }
+  
+  
 
   .tl-dot { right: auto; left: 50%; margin-left: -8px; top: 8px; }
 
@@ -1091,25 +752,16 @@ body {
   }
 
   .tl-side--nation .tl-card__cat { flex-direction: row-reverse; }
-  .tl-side--nation .tl-card__md { margin-left: 0; margin-right: auto; }
+  
   .tl-side--nation .tl-card__span { flex-direction: row-reverse; }
 
-  .chapter__head.tl-head {
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    padding: 30px 0 0 var(--gutter);
-  }
+  
 
-  .tl-head__mark { left: calc(var(--gutter) + (100% - var(--gutter)) / 2 - 11px); top: 0; }
+  
 
-  .tl-gap__label {
-    left: calc(var(--gutter) + (100% - var(--gutter) - var(--mark-w)) / 2);
-    width: var(--mark-w);
-    text-align: center;
-  }
+  
 
-  .tl-empty { margin: 0 auto; width: fit-content; }
+  
 }
 
 /* ------------------------------------------- 갈림길(대체역사) 화면 */
@@ -1379,75 +1031,16 @@ body {
   .branch-cols__alt { grid-column: 4; padding-left: 10px; color: var(--focus-ink); }
 }
 
-/* ------------------------------------------------------------ 표 */
-
-.table-wrap {
-  position: relative;
-  overflow: hidden;   /* 가로 위치는 motion.js 가 모든 표에 똑같이 맞춘다 */
-}
-
-/* 오른쪽에 열이 더 있다는 힌트 */
-.table-wrap::after {
-  content: "";
-  position: sticky;
-  right: 0;
-  top: 0;
-  float: right;
-  width: 26px;
-  height: 100%;
-  margin-left: -26px;
-  pointer-events: none;
-  background: linear-gradient(90deg, transparent, var(--sky));
-}
-
-.table {
-  min-width: max-content;
-  /* 가로 끝에서 더 당기면 고무줄처럼 늘어난다(--ox 는 motion.js 가 쓴다) */
-  transform: translate3d(var(--ox, 0px), 0, 0);
-}
-
-.row {
-  position: relative;
-  display: flex;
-  align-items: stretch;
-}
-
-/* 붙어 따라오는 머리행 */
-.row--head { z-index: 6; }
-
-.row--head.is-stuck .cells {
-  border-radius: 0 0 14px 14px;
-  box-shadow: var(--shadow-2);
-}
-
-.row--head.is-stuck .axis {
-  background: none;
-}
-
-/* 그림 모드(기본) — 연도 축까지 표 전체가 한 장처럼 움직인다.
-   표는 틀 밖으로 넘쳐 그대로 보이고, 연도 축은 붙지 않으며, 칸을 잘라낼 필요도 없다. */
-.is-image .table-wrap { overflow: visible; }
-.is-image .table-wrap::after { display: none; }
-.is-image .axis { position: relative; left: auto; }
-.is-image .cells { clip-path: none; }
-/* 옆으로 민 만큼 시대 삽화가 끊겨 보이지 않게 양옆으로 늘린다 */
-.is-image .chapter__art { width: calc(100vw + 2 * var(--pan-max, 0px)); }
-.is-image .focus-line::before { right: -3000px; }
+/* ------------------------------------------------------- 공통 조각 */
 
 /* 창 안으로 들어올 때 통 튀어나오는 등장 */
-.row--body,
-.tl-year,
-.empty-row,
-.chapter__head {
+.tl-year {
   opacity: 0;
   transform: translate3d(0, 22px, 0) scale(.96);
   transform-origin: 30% 50%;
 }
 
-.row--body.is-in,
-.tl-year.is-in,
-.empty-row.is-in,
-.chapter__head.is-in {
+.tl-year.is-in {
   opacity: 1;
   transform: none;
   transition:
@@ -1455,138 +1048,10 @@ body {
     transform .62s var(--spring) var(--d, 0ms);
 }
 
-/* 왼쪽 연도 축 — 가로 스크롤해도 붙어 있는다 */
-.axis {
-  flex: 0 0 88px;
-  min-width: 0;   /* 긴 글자 때문에 축이 넓어져 열이 머리행과 어긋나지 않게 */
-  position: sticky;
-  left: 0;
-  z-index: 3;
-  background: linear-gradient(90deg, var(--sky) 0 74px, var(--line-bg) 74px 76px, transparent 76px);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 10px 20px 10px 4px;
-  text-align: right;
-}
-
-.is-image .axis { background: linear-gradient(90deg, transparent 0 74px, var(--line-bg) 74px 76px, transparent 76px); }
-
-.row--head .axis { z-index: 4; padding: 0; }
-
-.axis__year { transform-origin: 100% 50%; transition: transform .45s var(--spring), color .2s ease; }
-.row.is-focus .axis__year { transform: scale(1.1); color: var(--focus-ink); }
-
-.axis__year {
-  font-family: var(--display);
-  font-size: 17px;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  line-height: 1.15;
-  color: var(--ink-bg);
-  white-space: nowrap;
-}
-
-.axis__pre {
-  font-size: 10.5px;
-  line-height: 1.2;
-  color: var(--ink-bg-2);
-  white-space: nowrap;
-}
-
-.axis__until {
-  font-size: 10.5px;
-  color: var(--ink-bg-2);
-  font-variant-numeric: tabular-nums;
-  line-height: 1.3;
-  white-space: nowrap;
-}
-
-.axis__dot {
-  position: absolute;
-  right: 3px;
-  top: 50%;
-  margin-top: -7px;
-  width: 14px; height: 14px;
-  background:
-    radial-gradient(circle at 50% 68%, var(--dotc, var(--ink-bg)) 0 30%, transparent 33%),
-    radial-gradient(circle at 18% 34%, var(--dotc, var(--ink-bg)) 0 15%, transparent 18%),
-    radial-gradient(circle at 50% 18%, var(--dotc, var(--ink-bg)) 0 15%, transparent 18%),
-    radial-gradient(circle at 82% 34%, var(--dotc, var(--ink-bg)) 0 15%, transparent 18%);
-  transition: transform .45s var(--spring);
-}
-
-.row.is-focus .axis__dot {
-  --dotc: var(--star);
-  transform: scale(1.6) rotate(12deg);
-  filter: drop-shadow(0 0 6px var(--star-glow));
-}
-
-.row.is-focus .cells { box-shadow: inset 0 0 0 1.5px var(--card-focus); background: var(--foam); }
-
-.cells {
-  flex: 1 1 auto;
-  display: flex;
-  align-items: stretch;
-  background: rgba(255, 248, 239, .92);
-  border-bottom: 1px solid var(--line);
-  color: var(--ink);
-  transition: background-color .25s ease;
-  /* 가로로 민 만큼 왼쪽을 잘라, 연도 축 아래로 칸이 비치지 않게 한다(--sx 는 motion.js) */
-  clip-path: inset(-20px -20px -20px var(--sx, 0px));
-}
-
-.row--head .cells {
-  background: var(--foam);
-  border-bottom: 1.5px solid rgba(92, 61, 46, .3);
-  border-radius: 18px 18px 0 0;
-}
-
-.col-head {
-  flex: 1 1 0;
-  min-width: 172px;
-  padding: 10px 12px;
-  border-left: 1px solid var(--line);
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  overflow: hidden;
-}
-
-.col-head:first-child,
-.cell:first-child { border-left: 0; }
-
-.col-head__name {
-  font-size: 13.5px;
-  font-weight: 700;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.col-head__count {
-  margin-left: auto;
-  font-size: 11.5px;
-  color: var(--ink-2);
-  font-variant-numeric: tabular-nums;
-}
-
 .dot {
   width: 9px; height: 9px;
   border-radius: 50%;
   flex: 0 0 auto;
-}
-
-.cell {
-  flex: 1 1 0;
-  min-width: 172px;
-  padding: 6px 8px;
-  border-left: 1px solid rgba(92, 61, 46, .1);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  justify-content: center;
 }
 
 .event {
@@ -1605,50 +1070,6 @@ body {
 }
 
 .event:hover { background: #fff; }
-
-.event__md {
-  flex: 0 0 auto;
-  font-size: 11.5px;
-  color: var(--ink-2);
-  font-variant-numeric: tabular-nums;
-}
-
-.event__name {
-  font-size: 14px;
-  line-height: 1.5;
-  text-wrap: pretty;
-}
-
-.more-chip {
-  align-self: flex-start;
-  margin-left: 7px;
-  border: 1.5px solid var(--line);
-  background: var(--foam-2);
-  font: inherit;
-  font-size: 12px;
-  color: inherit;
-  padding: 3px 10px;
-  border-radius: 999px;
-  cursor: pointer;
-}
-
-.more-chip:hover { background: #fff; }
-
-.empty-row .cells {
-  padding: 14px 16px;
-  border-top: 0;
-  border-radius: 0 0 18px 18px;
-  font-size: 13.5px;
-  display: block;
-}
-
-.notice {
-  margin: 0;
-  padding: 0 0 24px;
-  font-size: 13px;
-  line-height: 1.7;
-  color: var(--ink-bg-2);
-}
 
 /* -------------------------------------------------------- 카테고리 */
 
@@ -1878,18 +1299,6 @@ body {
   background: rgba(224, 137, 63, .1);
 }
 
-.note--dating {
-  border: 1.5px solid rgba(74, 106, 156, .4);
-  background: rgba(109, 143, 194, .12);
-  font-size: 13px;
-}
-
-.note--source {
-  border: 1.5px dashed var(--line);
-  background: var(--foam-2);
-  font-size: 13px;
-}
-
 /* ------------------------------------------------------------ 탭바 */
 
 .tabbar {
@@ -2026,7 +1435,19 @@ body {
 
 .sheet__titles { flex: 1 1 auto; min-width: 0; padding-top: 8px; }
 
-.sheet__eyebrow { margin: 0 0 4px; font-size: 13px; color: var(--ink-2); }
+/* 연도 — 앞의 색 점이 카테고리 */
+.sheet__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 4px;
+  font-family: var(--display);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+.sheet__eyebrow .dot { width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; }
 
 .sheet__title {
   margin: 0;
@@ -2050,34 +1471,16 @@ body {
   font-size: 15px;
 }
 
-.sheet__era {
-  display: inline-flex;
-  align-items: center;
-  margin: 0 8px 2px 0;
-  padding: 2px 11px;
-  border-radius: 999px;
-  background: #e6c27a;
-  color: var(--ink);
-  font-family: var(--display);
-  font-size: 17px;
-  font-weight: 700;
-}
-
-.sheet__span { margin: 0 0 14px; font-size: 13px; color: var(--ink-2); }
-
-.sheet__art {
-  margin: 0 0 14px;
-  height: 120px;
-  border-radius: 18px;
-  border: 1.5px dashed var(--line);
-  background: var(--foam-2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 11.5px;
+.sheet__source {
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line);
+  font-size: 12.5px;
+  line-height: 1.6;
   color: var(--ink-2);
 }
+
+.sheet__source.is-missing { opacity: .75; }
 
 .sheet__desc {
   margin: 0 0 14px;
@@ -2086,112 +1489,12 @@ body {
   text-wrap: pretty;
 }
 
-.tags { display: flex; flex-wrap: wrap; gap: 6px; }
-
-.tag {
-  font-size: 12.5px;
-  padding: 5px 11px;
-  border-radius: 999px;
-  background: var(--foam-2);
-  border: 0;
-  color: inherit;
-  font-family: inherit;
-  cursor: pointer;
-}
-
-.daydlg {
-  position: absolute;
-  z-index: 45;
-  inset: 0;
-  margin: auto;
-  height: fit-content;
-  width: min(420px, 92%);
-  max-height: 76%;
-  display: flex;
-  flex-direction: column;
-  background: var(--foam);
-  border-radius: 24px;
-  box-shadow: var(--shadow-3);
-  color: var(--ink);
-}
-
-.daydlg[hidden] { display: none; }
-.daydlg:not([hidden]) { animation: pop-in .46s var(--spring); }
-.daydlg.is-leaving { animation: pop-out .2s ease-in forwards; }
-
 @keyframes pop-in {
   from { opacity: 0; transform: scale(.82) translateY(14px); }
 }
 
 @keyframes pop-out {
   to { opacity: 0; transform: scale(.92); }
-}
-
-.daydlg__head {
-  padding: 16px 18px 10px;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-
-.daydlg__title { flex: 1 1 auto; min-width: 0; }
-.daydlg__cat { margin: 0; font-size: 12.5px; color: var(--ink-2); }
-
-.daydlg__year {
-  margin: 0;
-  font-family: var(--display);
-  font-size: 24px;
-  line-height: 1.1;
-  font-weight: 700;
-}
-
-.daydlg__body {
-  padding: 0 18px 16px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.dayrow {
-  display: flex;
-  gap: 11px;
-  align-items: baseline;
-  text-align: left;
-  border: 0;
-  border-top: 1px solid var(--line);
-  background: transparent;
-  font: inherit;
-  color: inherit;
-  padding: 11px 6px;
-  cursor: pointer;
-}
-
-.dayrow:hover { background: var(--foam-2); }
-
-.dayrow__md {
-  flex: 0 0 52px;
-  font-family: var(--display);
-  font-size: 15px;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-}
-
-.dayrow__text { flex: 1 1 auto; min-width: 0; }
-
-.dayrow__title {
-  display: block;
-  font-size: 14.5px;
-  font-weight: 700;
-  line-height: 1.4;
-}
-
-.dayrow__summary {
-  display: block;
-  margin-top: 2px;
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--ink-2);
 }
 
 /* ------------------------------------------------ 시간 계기판(HUD) */
@@ -2551,21 +1854,21 @@ body {
 @media (max-width: 640px) {
   .head { padding: max(12px, env(safe-area-inset-top)) 14px 8px; gap: 8px; }
   .brand__title { font-size: 20px; }
-  .scroll__inner { padding: 0 10px; }
+  
   .focus-line::before { right: 10px; }
   .hud { padding: 8px 10px 8px; }
   .hud__num { font-size: 30px; }
   .hud__step { width: 36px; height: 36px; font-size: 20px; }
-  .intro { padding-left: 84px; padding-right: 96px; }
-  .intro__title { font-size: 20px; }
-  .intro__hint { max-width: none; font-size: 13.5px; }
-  .intro__shiro { width: 84px; height: 84px; right: 0; }
-  .head__actions { gap: 6px; }
-  .head__actions .pill-btn { padding: 0 11px; font-size: 13.5px; }
+  
+  
+  
+  
+  
+  
   .seg__btn { padding: 0 9px; font-size: 13.5px; }
-  .lanes { left: 10px; }
-  .chapter__head { padding-left: 88px; }
-  .chapter__title { font-size: 28px; }
+  
+  
+  
   .view--pane { padding: 4px 12px 100px; }
   .tab { padding: 0 8px; gap: 4px; }
   .tabbar__inner { gap: 0; }
@@ -2576,7 +1879,7 @@ body {
 @media (max-width: 400px) {
   .tab { flex-direction: column; gap: 2px; height: 50px; padding: 0 11px; font-size: 11px; }
   .tabbar__pill { height: 50px; }
-  .is-view-table .brand__title { display: none; }
+  
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2585,7 +1888,7 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 1ms !important;
   }
-  .row--body, .tl-year, .empty-row, .chapter__head { opacity: 1; transform: none; }
+  .tl-year { opacity: 1; transform: none; }
   .stage__art.is-on { animation: none; }
   .scrub__spark { display: none; }
 }

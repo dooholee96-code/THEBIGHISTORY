@@ -1,45 +1,36 @@
 /* ------------------------------------------------------------------
-   앱 조립부 — 탭 전환, 시대 배경, 카테고리/검색, 상세 시트, 월·일 팝업
+   앱 조립부 — 탭 전환, 시대 배경, 탐험 그림판, 카테고리/검색, 상세 팝업
 
-   연표는 js/motion.js 가 움직이고, 움직일 때마다 onFrame 이 불립니다.
-   onFrame 은 미리 재 둔 줄 위치(layout)만 읽어서
-     배경색 · 초점 줄 · 계기판 숫자 · 붙는 머리행 · 줄 등장 효과
-   를 갱신합니다. 프레임마다 DOM 크기를 다시 재지 않는 것이 핵심입니다.
+   연표는 탐험 그림판(js/zoom.js) 하나다. 그림판의 카메라가 움직일 때마다
+   onZoomCamera 가 불려
+     배경색 · 계기판 숫자와 띠 · '지금 이때' · 뒤 무대의 디오라마
+   를 갱신한다.
    ------------------------------------------------------------------ */
 (function () {
   'use strict';
 
-  var C = window.BigHistoryChapters;
-  var T = window.BigHistoryTimeline;
-  var M = window.BigHistoryMotion;
+  var C = window.BigHistoryCommon;
   var H = window.BigHistoryHud;
   var B = window.BigHistoryBranch;
   var Z = window.BigHistoryZoom;
 
+  var reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
   var FOCUS_RATIO = 0.36;   // 보이는 높이 중 초점선 위치(위에서부터)
-  var SCENE_FADE = 280;     // 장면 그림이 바뀔 때 교차 페이드 길이(연표 px)
+  var SCENE_FADE = 280;     // 장면 그림이 바뀔 때 교차 페이드 길이(화면 px)
   var SCENE_DRIFT = 70;     // 한 장면을 지나는 동안 그림이 위로 흐르는 양(px)
 
   var el = {
     app: document.getElementById('app'),
     bgGradient: document.getElementById('bg-gradient'),
     bgBlob: document.getElementById('bg-blob'),
-    bgStars: document.getElementById('bg-stars'),
     themeSeg: document.getElementById('theme-seg'),
-    pinToggle: document.getElementById('pin-toggle'),
-    viewSeg: document.getElementById('view-seg'),
-    lanes: document.getElementById('lanes'),
     toast: document.getElementById('toast'),
     viewTimeline: document.getElementById('view-timeline'),
-    scroll: document.getElementById('scroll'),
-    inner: document.getElementById('scroll-inner'),
     stage: document.getElementById('stage'),
     zoom: document.getElementById('zoom'),
-    intro: document.getElementById('intro'),
-    outro: document.getElementById('outro'),
     focusLine: document.getElementById('focus-line'),
     hud: document.getElementById('hud'),
-    chapters: document.getElementById('chapters'),
     tabs: document.getElementById('tabs'),
     loading: document.getElementById('loading'),
 
@@ -56,15 +47,7 @@
     sheetEyebrow: document.getElementById('sheet-eyebrow'),
     sheetTitle: document.getElementById('sheet-title'),
     sheetBody: document.getElementById('sheet-body'),
-    sheetClose: document.getElementById('sheet-close'),
-
-    day: document.getElementById('day-dialog'),
-    dayScrim: document.getElementById('day-scrim'),
-    dayDot: document.getElementById('day-dot'),
-    dayCat: document.getElementById('day-cat'),
-    dayYear: document.getElementById('day-year'),
-    dayRows: document.getElementById('day-rows'),
-    dayClose: document.getElementById('day-close')
+    sheetClose: document.getElementById('sheet-close')
   };
 
   var TABS = [
@@ -91,37 +74,25 @@
     tab: 'timeline',
     night: false,      // 다크 팔레트인지. 테마 설정(system/light/dark)에서 정해진다
     theme: 'light',
-    view: 'zoom',     // 'zoom'(탐험, 기본) | 'timeline' | 'table'
-    pinned: false,    // 표 보기에서 true 면 연도 축 고정, false 면 표 전체가 한 장처럼(기본)
     eraIndex: 0,
     off: {},          // 꺼진 카테고리 id
     query: '',
-    progress: 0       // 현재 시대 안에서의 스크롤 진행도 (상태가 아니라 값만 보관)
+    progress: 0       // 현재 시대 안에서의 진행도
   };
 
-  // 연표에서 잰 위치들. measure() 가 채우고 onFrame() 이 읽기만 한다.
   var layout = {
-    dirty: true,
-    focus: 200,       // 창 위에서 초점선까지(px)
-    cover: 0,         // 계기판·탭바가 가리는 아래쪽 높이
-    rows: [],         // { node, top, h, mid, year, count, era }
-    reveal: [],       // 등장 효과를 줄 것들(시대 제목 + 줄), top 순
-    scenes: [],       // 장면 디오라마 { node, top, bottom, h, era, label, o, dy }
-    chapters: [],     // { node, top, bottom, head, headTop, headH, tableBottom, stuck }
-    segs: [],         // 스크러버 구간 { a, b, start, width }
-    anchorYear: null  // 다시 그린 뒤 초점선에 다시 맞출 해
+    focus: 200,       // 그림판 위에서 초점선까지(px)
+    cover: 0          // 계기판·탭바가 가리는 아래쪽 높이
   };
 
-  var live = {
-    sy: 0, row: -1, year: null, x: 0, introOpacity: '', pointer: 'mouse' };
+  var live = { year: null, ringX: null };
 
   var pickNodes = {};
   var tabNodes = {};
   var tabPill = null;
-  var scroller = null;
   var hud = null;
   var branch = null;
-  var zoom = null;          // 탐험(시간 줌 캔버스)
+  var zoom = null;
 
   // ------------------------------------------------------------ 유틸
 
@@ -138,6 +109,12 @@
     return Math.min(max, Math.max(min, value));
   }
 
+  /** 끝을 넘겨 끌 때 덜 따라오게(고무줄) */
+  function rubber(d, dim) {
+    var a = Math.abs(d);
+    return (d < 0 ? -1 : 1) * (a * 0.55 * dim) / (a * 0.55 + dim);
+  }
+
   function activeColumns() {
     return state.data.datasets.filter(function (ds) { return !state.off[ds.id]; });
   }
@@ -146,12 +123,10 @@
     return state.data.entries.filter(function (e) { return !state.off[e._dataset]; });
   }
 
-  function eraOf(entry) {
-    var eras = state.data.eras;
-    for (var i = 0; i < eras.length; i += 1) {
-      if (entry.start_year >= eras[i].start_year && entry.start_year < eras[i].end_year) return i;
+  function buzz(pattern) {
+    if (navigator.vibrate) {
+      try { navigator.vibrate(pattern); } catch (err) { /* 무시 */ }
     }
-    return entry.start_year < eras[0].start_year ? 0 : eras.length - 1;
   }
 
   // --------------------------------------------------------- 배경 칠하기
@@ -169,13 +144,13 @@
 
     var night = state.night;
     var A = night ? a.night : a.day;
-    var B = night ? b.night : b.day;
+    var Bc = night ? b.night : b.day;
     var blobA = night ? a.night_blob : a.day_blob;
     var blobB = night ? b.night_blob : b.day_blob;
 
     var f = clamp((t - 0.55) / 0.35, 0, 1);
-    var top = f > 0.5 ? B[0] : A[0];
-    var bottom = f > 0.5 ? B[1] : A[1];
+    var top = f > 0.5 ? Bc[0] : A[0];
+    var bottom = f > 0.5 ? Bc[1] : A[1];
     var c1 = (f > 0.5 ? blobB : blobA)[0];
     var c2 = (f > 0.5 ? blobB : blobA)[1];
 
@@ -190,404 +165,78 @@
     if (blobs !== paint.blobs) { paint.blobs = blobs; el.bgBlob.style.backgroundImage = blobs; }
   }
 
-  // ------------------------------------------------------ 연표 위치 재기
-
-  function offsetIn(node, ancestor) {
-    var top = 0;
-    while (node && node !== ancestor) {
-      top += node.offsetTop;
-      node = node.offsetParent;
-    }
-    return top;
-  }
-
-  function setHeight(node, px) {
-    var value = Math.round(px) + 'px';
-    if (node.style.height !== value) node.style.height = value;
-  }
-
-  /** 줄·시대 위치를 한 번에 재 둔다(창 크기·내용이 바뀔 때만). */
-  function measure() {
-    if (state.view === 'zoom' && !el.viewTimeline.hidden && state.data) {
-      measureZoom();
-      return;
-    }
-    if (el.viewTimeline.hidden || !el.scroll.clientHeight || !state.data) {
-      layout.dirty = true;
-      return;
-    }
-    layout.dirty = false;
-
-    var viewH = el.scroll.clientHeight;
-    var viewRect = el.scroll.getBoundingClientRect();
-    layout.cover = Math.max(0, viewRect.bottom - (hud ? hud.restTop() : el.hud.getBoundingClientRect().top));
-    layout.focus = Math.round(Math.max(110, (viewH - layout.cover) * FOCUS_RATIO));
-    el.focusLine.style.top = layout.focus + 'px';
-
-    // 처음엔 첫 시대 제목이 초점선에, 끝에선 마지막 줄이 초점선까지 올라오도록 여백을 둔다
-    // 첫 화면은 초점선 위까지 차지하되, 글이 더 길면(폰·큰 글꼴) 그만큼 늘어난다
-    el.intro.style.minHeight = Math.max(130, layout.focus - 40) + 'px';
-    setHeight(el.outro, Math.max(180, viewH - layout.focus - 10));
-
-    var inner = el.inner;
-    var chapters = [];
-    var rows = [];
-    var reveal = [];
-
-    Array.prototype.forEach.call(el.chapters.querySelectorAll('.chapter'), function (sec, index) {
-      // 표 보기에만 붙어 따라오는 머리행이 있다
-      var head = sec.querySelector('.row--head');
-      var table = sec.querySelector('.table');
-      var top = offsetIn(sec, inner);
-      var old = layout.chapters[index];
-      chapters.push({
-        node: sec,
-        top: top,
-        bottom: top + sec.offsetHeight,
-        head: head,
-        headTop: head ? offsetIn(head, inner) : 0,
-        headH: head ? head.offsetHeight : 0,
-        tableBottom: table ? offsetIn(table, inner) + table.offsetHeight : 0,
-        stuck: old && head && old.head === head ? old.stuck : 0
-      });
-
-      var title = sec.querySelector('.chapter__head');
-      reveal.push({ node: title, top: offsetIn(title, inner), h: title.offsetHeight });
-
-      Array.prototype.forEach.call(sec.querySelectorAll('[data-year], .empty-row'), function (node) {
-        var item = { node: node, top: offsetIn(node, inner), h: node.offsetHeight };
-        reveal.push(item);
-        if (!node.hasAttribute('data-year')) return;
-        // 초점선에 맞출 기준점 — 타임라인은 해의 점, 표는 줄 가운데
-        var dot = node.querySelector('.tl-dot');
-        item.mid = dot ? offsetIn(dot, inner) + dot.offsetHeight / 2 : item.top + item.h / 2;
-        item.year = Number(node.getAttribute('data-year'));
-        item.count = Number(node.getAttribute('data-count'));
-        item.era = index;
-        rows.push(item);
-      });
-    });
-
-    reveal.forEach(function (item) { item.shown = item.node.classList.contains('is-in'); });
-    reveal.sort(function (a, b) { return a.top - b.top; });
-
-    layout.chapters = chapters;
-    layout.rows = rows;
-    layout.reveal = reveal;
-    layout.scenes = measureScenes(chapters, rows);
-    if (live.row >= rows.length) live.row = -1;
-
-    placeFocusRing();
-    scroller.refresh();
-    buildScrubber();
-    buildLanes();
-
-    if (layout.anchorYear != null) {
-      var year = layout.anchorYear;
-      layout.anchorYear = null;
-      var target = null;
-      for (var i = 0; i < rows.length; i += 1) {
-        if (rows[i].year >= year) { target = rows[i]; break; }
-      }
-      // 마지막 줄보다 늦은 해(탐험에서 '지금' 끝까지 갔을 때 등)면 마지막 줄로
-      if (!target && rows.length && year > rows[rows.length - 1].year) target = rows[rows.length - 1];
-      if (target) scroller.scrollTo(target.mid - layout.focus, { instant: true });
-    }
-    onFrame(scroller.info());
-  }
-
   // ------------------------------------------------- 디오라마 무대
 
-  var stageNodes = {};   // '시대번호:장면번호' → 그림 노드(한 번 만들어 계속 쓴다)
+  var stageScenes = [];   // 장면 그림 — 연도 구간 { node, a, b, label, o, dy }
 
   /** 무대에 모든 장면 그림을 한 장씩 깔아 둔다(처음엔 모두 투명). */
   function buildStage() {
     el.stage.textContent = '';
-    stageNodes = {};
-    state.data.eras.forEach(function (era, ei) {
-      C.scenesOf(era).forEach(function (sc, si) {
+    stageScenes = [];
+    state.data.eras.forEach(function (era) {
+      var scenes = C.scenesOf(era);
+      scenes.forEach(function (sc, si) {
         var node = document.createElement('div');
         node.className = 'stage__art';
         node.style.backgroundImage = 'url("' + sc.diorama + '")';
         el.stage.appendChild(node);
-        stageNodes[ei + ':' + si] = node;
+        stageScenes.push({
+          node: node, label: sc.label || '',
+          a: sc.start_year,
+          b: scenes[si + 1] ? scenes[si + 1].start_year : era.end_year,
+          o: -1, dy: NaN
+        });
       });
     });
   }
 
-  /**
-   * 장면마다 연표에서 맡는 구간을 줄 위치로 정한다(그림 자체는 무대에 있어 잘리지 않는다).
-   * 장면은 그 시작 연도 이상인 첫 줄 조금 위부터 다음 장면 직전까지. 첫 장면은 시대 맨 위부터.
-   * 줄이 없는 장면(카테고리를 꺼서 비었을 때)은 구간이 0 이 되어 건너뛴다.
-   */
-  function measureScenes(chapters, rows) {
-    var out = [];
-    chapters.forEach(function (ch, ci) {
-      var era = state.data.eras[ci];
-      var list = C.scenesOf(era).map(function (sc, si) {
-        return { node: stageNodes[ci + ':' + si], start: sc.start_year, label: sc.label || '', era: ci, o: -1, dy: NaN };
-      });
-      var chRows = rows.filter(function (r) { return r.era === ci; });
-      list.forEach(function (sc, i) {
-        // 타임라인 보기에는 장면마다 막간 무대가 있어 그 위치부터 장면이 시작된다
-        var interlude = ch.node.querySelector('.tl-stage[data-scene="' + i + '"]');
-        if (interlude) { sc.top = i === 0 ? ch.top : offsetIn(interlude, el.inner) - 40; return; }
-        if (i === 0) { sc.top = ch.top; return; }
-        var first = null;
-        for (var k = 0; k < chRows.length; k += 1) {
-          if (chRows[k].year >= sc.start) { first = chRows[k]; break; }
-        }
-        sc.top = first ? Math.max(ch.top, first.top - 60) : ch.bottom;
-      });
-      list.forEach(function (sc, i) {
-        sc.bottom = i + 1 < list.length ? list[i + 1].top : ch.bottom;
-        sc.h = Math.max(0, sc.bottom - sc.top);
-        if (sc.node) out.push(sc);
-      });
-    });
-    return out;
-  }
-
-  /** 초점선이 있는 장면의 이름(계기판에 작게) */
-  function sceneLabelAt(fy) {
-    for (var i = 0; i < layout.scenes.length; i += 1) {
-      var sc = layout.scenes[i];
-      if (sc.h > 0 && fy >= sc.top && fy < sc.bottom) return sc.label;
-    }
-    return '';
-  }
-
-  // ---------------------------------------------------- 스크러버 좌표
-
-  /**
-   * 스크러버의 0~1 은 '초점선이 가리키는 연표 좌표'와 구간별로 대응한다.
-   * 시대마다 한 구간이고 너비는 그 시대의 줄 양에 비례하되, 너무 좁아지지 않게 최소폭을 둔다.
-   */
-  function buildScrubber() {
-    var ch = layout.chapters;
-    var info = scroller.info();
-    var dMin = layout.focus;
-    var dMax = info.maxY + layout.focus;
-    var segs = ch.map(function (c, i) {
-      var a = i === 0 ? dMin : clamp(c.top, dMin, dMax);
-      var b = i === ch.length - 1 ? dMax : clamp(ch[i + 1].top, dMin, dMax);
-      return { a: a, b: Math.max(a, b), len: Math.max(0, b - a) };
-    });
-    var total = segs.reduce(function (n, g) { return n + g.len; }, 0) || 1;
-    var MIN = 0.075;
-    var sum = 0;
-    segs.forEach(function (g) { g.width = Math.max(MIN, g.len / total); sum += g.width; });
-    var start = 0;
-    segs.forEach(function (g) {
-      g.width /= sum;
-      g.start = start;
-      start += g.width;
-    });
-    layout.segs = segs;
-
-    var eras = state.data.eras;
-    hud.build(segs.map(function (g, i) {
-      var era = eras[i];
-      // 계기판 띠는 모드와 상관없이 시대 색(strip)
-      return { start: g.start, width: g.width, label: era.label, color: era.strip || (era.night_blob && era.night_blob[0]) || '#8c6a4f' };
-    }), layout.rows.map(function (row) { return ratioOf(row.mid); }));
-  }
-
-  function ratioOf(fy) {
-    var segs = layout.segs;
-    for (var i = 0; i < segs.length; i += 1) {
-      var g = segs[i];
-      if (fy < g.b || i === segs.length - 1) {
-        return clamp(g.start + clamp((fy - g.a) / Math.max(1, g.b - g.a), 0, 1) * g.width, 0, 1);
-      }
-    }
-    return 0;
-  }
-
-  function focusOf(ratio) {
-    var segs = layout.segs;
-    for (var i = 0; i < segs.length; i += 1) {
-      var g = segs[i];
-      if (ratio < g.start + g.width || i === segs.length - 1) {
-        return g.a + clamp((ratio - g.start) / Math.max(1e-6, g.width), 0, 1) * (g.b - g.a);
-      }
-    }
-    return layout.focus;
-  }
-
-  // ----------------------------------------------------- 프레임마다
-
-  /** 초점선(fy)에 가장 가까운 줄 */
-  function nearestRow(fy) {
-    var rows = layout.rows;
-    if (!rows.length) return -1;
-    var lo = 0;
-    var hi = rows.length - 1;
-    while (lo < hi) {
-      var mid = (lo + hi + 1) >> 1;
-      if (rows[mid].mid <= fy) lo = mid; else hi = mid - 1;
-    }
-    var next = Math.min(rows.length - 1, lo + 1);
-    return Math.abs(rows[next].mid - fy) < Math.abs(rows[lo].mid - fy) ? next : lo;
-  }
-
-  function buzz(pattern) {
-    if (live.pointer === 'touch' && navigator.vibrate) {
-      try { navigator.vibrate(pattern || 8); } catch (err) { /* 무시 */ }
-    }
-  }
-
-  function onFrame(info) {
-    if (state.view === 'zoom') return;
-    var chapters = layout.chapters;
-    if (!chapters.length || layout.dirty) return;
-    var fy = info.y + layout.focus;
-
-    // 1) 배경 — 초점선이 있는 시대의 색
-    var index = 0;
-    for (var i = 0; i < chapters.length; i += 1) if (chapters[i].top <= fy) index = i;
-    var ch = chapters[index];
-    var t = clamp((fy - ch.top) / Math.max(1, ch.bottom - ch.top), 0, 1);
-    state.progress = t;
-    paint(index, t);
-    if (index !== state.eraIndex) {
-      state.eraIndex = index;
-      if (info.dragging || hud.grabbing) buzz([14, 30, 10]);
-    }
-
-    // 별은 연표보다 천천히 흐른다(패럴랙스)
-    var sy = Math.round(-info.y * 0.12);
-    if (sy !== live.sy) {
-      live.sy = sy;
-      el.bgStars.style.setProperty('--sy', sy + 'px');
-    }
-
-    // 2) 초점 줄 + 계기판
-    var r = nearestRow(fy);
-    if (r !== live.row) {
-      if (live.row >= 0 && layout.rows[live.row]) layout.rows[live.row].node.classList.remove('is-focus');
-      if (r >= 0) layout.rows[r].node.classList.add('is-focus');
-      live.row = r;
-    }
-    var row = layout.rows[r];
-    var eraIndex = row ? row.era : index;
-    var year = row ? row.year : state.data.eras[index].start_year;
-    if (year !== live.year) {
-      live.year = year;
-      markLiveLanes(year);
-      hud.setOngoing(ongoingAt(year));
-    }
-    hud.setYear(live.year);
-    hud.setMeta(state.data.eras[eraIndex].label, row ? row.count : 0, sceneLabelAt(fy));
-    hud.setRatio(ratioOf(fy));
-    hud.setX(info.x, info.maxX, info.viewW, Math.abs(info.x - live.x) > 0.5);
-    // 그림 모드에서는 연도 축도 옆으로 가므로 초점선의 고리도 함께 따라간다
-    if (state.view === 'table' && !state.pinned && info.x !== live.x) {
-      el.focusLine.style.transform = info.x ? 'translate3d(' + (-info.x).toFixed(1) + 'px,0,0)' : '';
-    }
-    live.x = info.x;
-
-    // 2-1) 장면 디오라마 — 초점선이 있는 장면의 그림이 무대에 떠 있고, 장면 경계에서는
-    //      앞뒤 그림이 교차 페이드로 바뀐다. 구간을 지나는 동안 그림은 아주 조금 위로 흘러 깊이감을 준다.
-    for (var si = 0; si < layout.scenes.length; si += 1) {
-      var sc = layout.scenes[si];
-      var o = 0;
-      if (sc.h > 0) {
-        var fade = Math.min(SCENE_FADE, sc.h);
-        o = clamp(Math.min((fy - (sc.top - fade / 2)) / fade, ((sc.bottom + fade / 2) - fy) / fade), 0, 1);
-      }
+  /** 초점선의 해가 있는 장면을 보이게 하고, 경계에서는 교차 페이드(화면 px 기준). 장면 이름을 돌려준다 */
+  function updateStage(year, s) {
+    var label = '';
+    var fade = SCENE_FADE / s;   // 연도 단위
+    stageScenes.forEach(function (sc) {
+      var f = Math.min(fade, sc.b - sc.a);
+      var o = clamp(Math.min((year - (sc.a - f / 2)) / f, ((sc.b + f / 2) - year) / f), 0, 1);
       o = Math.round(o * 50) / 50;
+      if (year >= sc.a && year < sc.b) label = sc.label;
       if (o !== sc.o) {
         sc.o = o;
         sc.node.style.opacity = o ? String(o) : '';
         sc.node.classList.toggle('is-on', o > 0);
       }
-      if (!o) continue;
-      var dy = Math.round(-clamp((fy - sc.top) / Math.max(1, sc.h), 0, 1) * SCENE_DRIFT);
-      if (dy !== sc.dy) {
-        sc.dy = dy;
-        sc.node.style.transform = 'translate3d(0,' + dy + 'px,0)';
-      }
-    }
-
-    // 3) 시대 머리행이 창 위에 붙어 따라온다
-    for (var c = 0; c < chapters.length; c += 1) {
-      var cc = chapters[c];
-      if (!cc.head) continue;
-      var room = Math.max(0, cc.tableBottom - cc.headTop - cc.headH);
-      var off = Math.round(clamp(info.y - cc.headTop, 0, room) * 2) / 2;
-      if (off !== cc.stuck) {
-        cc.stuck = off;
-        cc.head.style.transform = off ? 'translate3d(0,' + off + 'px,0)' : '';
-        cc.head.classList.toggle('is-stuck', off > 0);
-      }
-    }
-
-    // 4) 창 안으로 들어오는 줄은 톡 튀어나오듯 등장
-    var items = layout.reveal;
-    var top = info.y - 40;
-    var bottom = info.y + info.viewH + 10;
-    var lo = 0;
-    var hi = items.length;
-    while (lo < hi) {
-      var m = (lo + hi) >> 1;
-      if (items[m].top + items[m].h < top) lo = m + 1; else hi = m;
-    }
-    var k = 0;
-    for (var j = lo; j < items.length && items[j].top <= bottom; j += 1) {
-      var item = items[j];
-      if (item.shown) continue;
-      item.shown = true;
-      item.node.style.setProperty('--d', Math.min(k, 12) * 34 + 'ms');
-      item.node.classList.add('is-in');
-      k += 1;
-    }
-
-    // 5) 첫 화면 안내는 내려갈수록 옅어진다
-    var fade = clamp(1 - info.y / Math.max(1, layout.focus * 0.7), 0, 1).toFixed(2);
-    if (fade !== live.introOpacity) {
-      live.introOpacity = fade;
-      el.intro.style.opacity = fade;
-    }
+      if (!o) return;
+      var dy = Math.round(-clamp((year - sc.a) / Math.max(1, sc.b - sc.a), 0, 1) * SCENE_DRIFT);
+      if (dy !== sc.dy) { sc.dy = dy; sc.node.style.transform = 'translate3d(0,' + dy + 'px,0)'; }
+    });
+    return label;
   }
 
-  // ------------------------------------------------- 탐험(시간 줌) 보기
+  // ------------------------------------------------- 탐험 그림판
 
   var zoomSegs = [];      // 계기판 띠 구간 { era, start, width }
-  var stageScenes = null; // 무대 그림 — 연도 구간 { node, a, b, label }
-  var zoomHomeDone = false;
 
-  /** 초점선 위치와 계기판이 가리는 높이만 잰다(탐험 보기는 연표 줄을 재지 않는다). */
-  function measureFocus(viewH) {
+  /** 초점선 위치와 계기판이 가리는 높이를 잰다 */
+  function measure() {
+    if (el.viewTimeline.hidden || !zoom) return;
     var viewRect = el.viewTimeline.getBoundingClientRect();
     layout.cover = Math.max(0, viewRect.bottom - (hud ? hud.restTop() : el.hud.getBoundingClientRect().top));
-    layout.focus = Math.round(Math.max(110, (viewH - layout.cover) * FOCUS_RATIO));
+    layout.focus = Math.round(Math.max(110, (el.viewTimeline.clientHeight - layout.cover) * FOCUS_RATIO));
     el.focusLine.style.top = layout.focus + 'px';
-  }
-
-  function measureZoom() {
-    layout.dirty = true;   // 타임라인으로 돌아가면 다시 잰다
-    measureFocus(el.viewTimeline.clientHeight);
     zoom.resize();
     el.focusLine.style.setProperty('--ring-x', zoom.axisX() + 'px');
-    buildZoomScrubber();
     zoom.redraw();
   }
 
-  function enterZoom(fromYear) {
-    zoom.setActive(true);
+  /** 카테고리를 바꿨을 때 — 그림판의 열과 계기판 띠를 다시 */
+  function refresh() {
     zoom.setData(visibleEntries(), activeColumns());
-    measureZoom();
-    if (!zoomHomeDone) {
-      zoomHomeDone = true;
-      zoom.home();
-    } else if (fromYear != null) {
-      zoom.flyTo(fromYear, Math.max(zoom.scale, 1.2), { instant: true });
-    }
+    buildScrubber();
+    live.year = null;   // '지금 이때'도 다시
+    zoom.redraw();
   }
 
   /** 계기판 띠 — 시대마다 한 구간, 너비는 사건 수에 비례(최소폭 보장) */
-  function buildZoomScrubber() {
+  function buildScrubber() {
     var eras = state.data.eras;
     var entries = visibleEntries();
     var counts = eras.map(function (era) {
@@ -604,10 +253,10 @@
     zoomSegs.forEach(function (g) { g.width /= sum; g.start = start; start += g.width; });
     hud.build(zoomSegs.map(function (g) {
       return { start: g.start, width: g.width, label: g.era.label, color: g.era.strip || '#8c6a4f' };
-    }), entries.map(function (e) { return zoomRatioOf(e.start_year); }));
+    }), entries.map(function (e) { return ratioOf(e.start_year); }));
   }
 
-  function zoomRatioOf(year) {
+  function ratioOf(year) {
     for (var i = 0; i < zoomSegs.length; i += 1) {
       var g = zoomSegs[i];
       if (year < g.era.end_year || i === zoomSegs.length - 1) {
@@ -618,7 +267,7 @@
     return 0;
   }
 
-  function zoomYearOf(ratio) {
+  function yearOf(ratio) {
     for (var i = 0; i < zoomSegs.length; i += 1) {
       var g = zoomSegs[i];
       if (ratio < g.start + g.width || i === zoomSegs.length - 1) {
@@ -629,42 +278,18 @@
     return 0;
   }
 
-  function zoomStepEra(dir) {
+  function eraIndexAt(year) {
     var eras = state.data.eras;
-    var year = zoom.year;
     var index = 0;
     for (var i = 0; i < eras.length; i += 1) if (eras[i].start_year <= year) index = i;
-    var target = index + dir;
-    if (target < 0 || target >= eras.length) { bumpHud(dir); return; }
-    zoom.flyToRange(eras[target].start_year, eras[target].end_year);
-  }
-
-  /** 무대 그림을 연도 구간으로(탐험 보기용) */
-  function buildStageScenes() {
-    stageScenes = [];
-    state.data.eras.forEach(function (era, ei) {
-      var scenes = C.scenesOf(era);
-      scenes.forEach(function (sc, si) {
-        var node = stageNodes[ei + ':' + si];
-        if (!node) return;
-        stageScenes.push({
-          node: node, label: sc.label || '', era: ei,
-          a: sc.start_year,
-          b: scenes[si + 1] ? scenes[si + 1].start_year : era.end_year,
-          o: -1, dy: NaN
-        });
-      });
-    });
+    return index;
   }
 
   /** 카메라가 움직일 때마다 — 계기판 숫자·띠, 배경 색, 무대 그림, '지금 이때' */
   function onZoomCamera(info) {
-    if (state.view !== 'zoom') return;
-    var eras = state.data.eras;
     var year = info.year;
-    var index = 0;
-    for (var i = 0; i < eras.length; i += 1) if (eras[i].start_year <= year) index = i;
-    var era = eras[index];
+    var index = eraIndexAt(year);
+    var era = state.data.eras[index];
     var t = clamp((year - era.start_year) / Math.max(1, era.end_year - era.start_year), 0, 1);
     state.progress = t;
     paint(index, t);
@@ -686,71 +311,26 @@
       live.year = shown;
       hud.setOngoing(ongoingAt(shown));
     }
-    hud.setRatio(zoomRatioOf(year));
-
-    // 무대 그림 — 초점선의 해가 있는 장면, 경계에서는 교차 페이드(화면 px 기준)
-    if (!stageScenes) buildStageScenes();
-    var label = '';
-    var fade = SCENE_FADE / info.s;   // 연도 단위
-    stageScenes.forEach(function (sc) {
-      var f = Math.min(fade, sc.b - sc.a);
-      var o = clamp(Math.min((year - (sc.a - f / 2)) / f, ((sc.b + f / 2) - year) / f), 0, 1);
-      o = Math.round(o * 50) / 50;
-      if (year >= sc.a && year < sc.b) label = sc.label;
-      if (o !== sc.o) {
-        sc.o = o;
-        sc.node.style.opacity = o ? String(o) : '';
-        sc.node.classList.toggle('is-on', o > 0);
-      }
-      if (!o) return;
-      var dy = Math.round(-clamp((year - sc.a) / Math.max(1, sc.b - sc.a), 0, 1) * SCENE_DRIFT);
-      if (dy !== sc.dy) { sc.dy = dy; sc.node.style.transform = 'translate3d(0,' + dy + 'px,0)'; }
-    });
-    hud.setMeta(era.label, 0, label);
+    hud.setRatio(ratioOf(year));
+    hud.setMeta(era.label, 0, updateStage(year, info.s));
   }
 
   // ------------------------------------------------------- 시대 이동
 
-  /** 시대로 건너뛸 때 초점선에 올 자리 — 그 시대의 첫 줄(없으면 제목) */
-  function eraAnchor(i) {
-    var ch = layout.chapters[i];
-    if (!ch) return layout.focus;
-    for (var r = 0; r < layout.rows.length; r += 1) {
-      if (layout.rows[r].era === i) return layout.rows[r].mid;
-    }
-    return ch.top + 44;
-  }
-
   function jumpEra(i) {
-    if (state.view === 'zoom') {
-      var era = state.data.eras[clamp(i, 0, state.data.eras.length - 1)];
-      zoom.flyToRange(era.start_year, era.end_year);
-      return;
-    }
-    if (!layout.chapters.length) return;
-    scroller.scrollTo(eraAnchor(clamp(i, 0, layout.chapters.length - 1)) - layout.focus);
+    var era = state.data.eras[clamp(i, 0, state.data.eras.length - 1)];
+    zoom.flyToRange(era.start_year, era.end_year);
   }
 
   function stepEra(dir) {
-    if (state.view === 'zoom') { zoomStepEra(dir); return; }
-    var n = layout.chapters.length;
-    if (!n) return;
-    var fy = scroller.y + layout.focus;
-    var index = 0;
-    for (var i = 0; i < n; i += 1) if (layout.chapters[i].top <= fy) index = i;
-    var target = index + dir;
-    // 시대 한가운데서 '이전'을 누르면 먼저 그 시대의 처음으로 간다
-    if (dir < 0 && fy - eraAnchor(index) > 60) target = index;
-    if (target < 0 || target >= n) {
-      bumpHud(dir);
-      return;
-    }
+    var target = eraIndexAt(zoom.year) + dir;
+    if (target < 0 || target >= state.data.eras.length) { bumpHud(dir); return; }
     jumpEra(target);
   }
 
   /** 더 갈 곳이 없을 때 계기판이 살짝 튕긴다. */
   function bumpHud(dir) {
-    if (M.reduced || !el.hud.animate) return;
+    if (reduced || !el.hud.animate) return;
     el.hud.animate([
       { transform: 'translateX(0)' },
       { transform: 'translateX(' + (dir * 9) + 'px)' },
@@ -759,21 +339,8 @@
     ], { duration: 360, easing: 'ease-out' });
   }
 
-  function onScrub(ratio, phase, type) {
-    live.pointer = type || live.pointer;
-    if (state.view === 'zoom') {
-      var yr = zoomYearOf(ratio);
-      zoom.flyTo(yr, zoom.scale, { instant: phase === 'move' });
-      return;
-    }
-    var y = focusOf(ratio) - layout.focus;
-    // 놓거나 톡 칠 때는 가장 가까운 해의 점에 맞춰 내려앉는다
-    if (phase !== 'move') {
-      var r = nearestRow(y + layout.focus);
-      if (r >= 0) y = layout.rows[r].mid - layout.focus;
-    }
-    if (phase === 'tap') scroller.scrollTo(y);
-    else scroller.follow(y, 15);
+  function onScrub(ratio, phase) {
+    zoom.flyTo(yearOf(ratio), zoom.scale, { instant: phase === 'move' });
   }
 
   // ------------------------------------------------------------ 화면
@@ -789,6 +356,7 @@
       }
     });
     placeTabPill();
+    if (zoom) zoom.setActive(id === 'timeline');
     if (id === 'timeline') measure();
     if (id === 'search') el.search.focus();
     if (id === 'info') placeThemePill();
@@ -826,86 +394,7 @@
     el.tabs.insertBefore(tabPill, el.tabs.firstChild);
   }
 
-  /**
-   * 연표(시대 섹션 + 표)를 다시 그린다.
-   * 시대마다 표가 따로 있어도 가로 위치는 motion.js 가 모든 표에 똑같이 맞춘다.
-   */
-  function renderTimeline() {
-    // 다시 그린 뒤에도 보던 해가 초점선에 오도록 기억해 둔다
-    if (live.year != null && layout.anchorYear == null && scroller.y > 1) layout.anchorYear = live.year;
-
-    var columns = activeColumns();
-    var entries = visibleEntries();
-    var handlers = { openEntry: openSheet, openDay: openDay };
-
-    // 타임라인 왼쪽 색 띠의 폭(나라 수)을 먼저 정해 두어야 줄 위치를 한 번에 잴 수 있다
-    var laneCount = state.view === 'timeline'
-      ? columns.filter(function (col) { return col.track === 'nation'; }).length : 0;
-    el.inner.style.setProperty('--lanes', String(laneCount));
-
-    var frag = document.createDocumentFragment();
-    state.data.eras.forEach(function (era) {
-      var inEra = entries.filter(function (e) {
-        return e.start_year >= era.start_year && e.start_year < era.end_year;
-      });
-      // 빈 연도로 행을 만들지 않는 것과 같은 이유로, 이 시대에 사건이 하나도 없는
-      // 카테고리는 열도 세우지 않는다. (좁은 화면에서 빈 열부터 보이는 것을 막는다)
-      var eraColumns = columns.filter(function (col) {
-        return inEra.some(function (e) { return e._dataset === col.id; });
-      });
-      var R = state.view === 'table' ? C : T;
-      frag.appendChild(R.render(era, inEra, eraColumns, handlers, state.night));
-    });
-
-    el.chapters.textContent = '';
-    el.chapters.appendChild(frag);
-    if (zoom) zoom.setData(entries, columns);
-    layout.chapters = [];
-    layout.rows = [];
-    layout.reveal = [];
-    live.row = -1;
-    live.year = null;
-    measure();
-  }
-
-  // ------------------------------------------------- 초점 고리 · 색 띠
-
-  /** 초점선의 고리를 시간축의 점 위에 맞춘다(표·타임라인, 화면 폭마다 축 위치가 다르다). */
-  function placeFocusRing() {
-    var dot = el.chapters.querySelector('.axis__dot, .tl-dot');
-    if (!dot) return;
-    var x = el.inner.offsetLeft + offsetLeftIn(dot, el.inner) + dot.offsetWidth / 2;
-    el.focusLine.style.setProperty('--ring-x', Math.round(x) + 'px');
-  }
-
-  function offsetLeftIn(node, ancestor) {
-    var left = 0;
-    while (node && node !== ancestor) {
-      left += node.offsetLeft;
-      node = node.offsetParent;
-    }
-    return left;
-  }
-
-  /** 줄 위치를 보간해 어떤 해든 세로 좌표로 바꾼다(비례 축이 아니라 줄 사이를 잇는다). */
-  function yOfYear(year) {
-    var rows = layout.rows;
-    if (!rows.length) return 0;
-    if (year <= rows[0].year) return rows[0].mid;
-    for (var i = 1; i < rows.length; i += 1) {
-      var b = rows[i];
-      if (year <= b.year) {
-        var a = rows[i - 1];
-        return a.mid + (b.mid - a.mid) * (year - a.year) / Math.max(1, b.year - a.year);
-      }
-    }
-    return rows[rows.length - 1].mid + 24;
-  }
-
-  var laneBars = [];
-
-  // 항목 종류(kind) — 왕조·국가사 데이터에 적혀 있다(schema/entries.schema.json)
-  var KIND_LABEL = { polity: '나라·왕조', era: '시대', trend: '흐름', event: '사건' };
+  // ------------------------------------------------------ 지금 이때
 
   /** 그 해에 이어지고 있었나 — 끝나는 해에는 다음 왕조에 자리를 넘긴다.
    *  데이터의 마지막 해(지금, 2025)로 끝나는 항목은 '아직 이어지는 중'이라 그 뒤로도 이어진다고 본다. */
@@ -921,53 +410,6 @@
       presentYear.v = state.data.entries.reduce(function (m, e) { return Math.max(m, e.end_year); }, -Infinity);
     }
     return presentYear.v;
-  }
-
-  /**
-   * 타임라인 왼쪽의 나라별 색 띠 — Histomap 처럼 '어느 왕조·시대가 동시에 이어졌나'를 보여 준다.
-   * 왕조·국가사 카테고리 하나가 한 줄(lane). 나라·왕조(polity)와 시대 구분(era)만 그리고,
-   * 흐름(trend)·사건(event)은 뺀다. 겹치는 기간은 긴 것 위에 짧은 것을 얹어 그린다.
-   */
-  function buildLanes() {
-    var box = el.lanes;
-    box.textContent = '';
-    laneBars = [];
-    if (state.view !== 'timeline' || !layout.rows.length) { box.hidden = true; return; }
-
-    var nations = state.data.datasets.filter(function (ds) { return ds.track === 'nation' && !state.off[ds.id]; });
-    box.hidden = !nations.length;
-    var frag = document.createDocumentFragment();
-
-    nations.forEach(function (ds, lane) {
-      ds.entries
-        .filter(function (e) { return (e.kind === 'polity' || e.kind === 'era') && e.end_year > e.start_year; })
-        .sort(function (a, b) { return (b.end_year - b.start_year) - (a.end_year - a.start_year); })
-        .forEach(function (entry) {
-          var top = yOfYear(entry.start_year);
-          var bottom = Math.max(top + 10, yOfYear(entry.end_year));
-          var bar = document.createElement('div');
-          bar.className = 'lane-bar';
-          bar.style.setProperty('--lane', String(lane));
-          bar.style.backgroundColor = entry._color;
-          bar.style.color = entry._color;
-          bar.style.top = top.toFixed(1) + 'px';
-          bar.style.height = (bottom - top).toFixed(1) + 'px';
-          bar.title = entry.title + ' · ' + C.periodLabel(entry.start_year, entry.end_year);
-          bar.addEventListener('click', function () { openSheet(entry); });
-          frag.appendChild(bar);
-          laneBars.push({ node: bar, entry: entry });
-        });
-    });
-
-    box.appendChild(frag);
-    if (live.year != null) markLiveLanes(live.year);
-  }
-
-  function markLiveLanes(year) {
-    for (var i = 0; i < laneBars.length; i += 1) {
-      var e = laneBars[i].entry;
-      laneBars[i].node.classList.toggle('is-live', e.start_year <= year && year <= e.end_year);
-    }
   }
 
   /**
@@ -1057,7 +499,7 @@
         btn.addEventListener('click', function () {
           state.off[ds.id] = !state.off[ds.id];
           syncCategories();
-          renderTimeline();
+          refresh();
         });
 
         pickNodes[ds.id] = btn;
@@ -1087,7 +529,7 @@
   function setAllCategories(value) {
     state.data.datasets.forEach(function (ds) { state.off[ds.id] = value; });
     syncCategories();
-    renderTimeline();
+    refresh();
   }
 
   // ------------------------------------------------------------ 검색 탭
@@ -1106,19 +548,29 @@
     });
   }
 
+  function yearsOf(entry) {
+    return C.yearLabel(entry.start_year) +
+      (entry.end_year !== entry.start_year ? ' – ' + C.yearLabel(entry.end_year) : '');
+  }
+
+  /**
+   * 검색어가 있으면 찾은 것, 없으면 모든 항목을 시대순으로 — 그림판을 볼 수 없는 화면 읽기
+   * 프로그램 이용자도 여기서 연표 전체를 글로 차례대로 읽을 수 있다.
+   */
   function renderSearch() {
     var query = state.query.trim().toLowerCase();
     var pool = state.data.entries;
     var results = query
       ? pool.filter(function (e) { return e._search.indexOf(query) !== -1; })
-      : pool.slice(0, 6);
+      : pool.slice();
+    results.sort(function (a, b) { return a.start_year - b.start_year || a.end_year - b.end_year; });
 
     el.searchCount.textContent = query
-      ? '검색 결과 ' + results.length + '건' + (results.length > 20 ? ' (20건까지 표시)' : '')
-      : '먼저 둘러보기';
+      ? '검색 결과 ' + results.length + '건 · 시대순'
+      : '전체 ' + results.length + '건 · 시대순';
 
     var frag = document.createDocumentFragment();
-    results.slice(0, 20).forEach(function (entry) {
+    results.forEach(function (entry) {
       var card = document.createElement('button');
       card.type = 'button';
       card.className = 'result';
@@ -1132,8 +584,7 @@
       meta.appendChild(dot);
       var years = document.createElement('span');
       years.className = 'result__years';
-      years.textContent = C.yearLabel(entry.start_year) +
-        (entry.end_year !== entry.start_year ? ' – ' + C.yearLabel(entry.end_year) : '');
+      years.textContent = yearsOf(entry);
       meta.appendChild(years);
       var cat = document.createElement('span');
       cat.className = 'result__cat';
@@ -1148,7 +599,7 @@
 
       var summary = document.createElement('p');
       summary.className = 'result__summary';
-      summary.textContent = entry._summary;
+      summary.textContent = entry.description;
       card.appendChild(summary);
 
       card.addEventListener('click', function () { openSheet(entry); });
@@ -1159,63 +610,34 @@
     el.searchResults.appendChild(frag);
   }
 
-  // -------------------------------------------------------- 상세 시트
+  // -------------------------------------------------------- 상세 팝업
 
+  /** 연도 · 사건 · 한 줄 설명 · 출처 — 그 이상은 넣지 않는다 */
   function openSheet(entry) {
-    closeDay();
-    el.sheetEyebrow.textContent = entry._label + ' · ' + entry.region +
-      (entry.kind ? ' · ' + KIND_LABEL[entry.kind] : '');
+    el.sheetEyebrow.textContent = '';
+    var dot = document.createElement('span');
+    dot.className = 'dot';
+    dot.style.backgroundColor = entry._color;
+    el.sheetEyebrow.appendChild(dot);
+    el.sheetEyebrow.appendChild(document.createTextNode(entry.era_note || C.periodLabel(entry.start_year, entry.end_year)));
+    el.sheetEyebrow.title = entry._label;
     el.sheetTitle.textContent = entry.title;
 
     var body = el.sheetBody;
     body.textContent = '';
-
-    var era = document.createElement('p');
-    era.className = 'sheet__era';
-    era.textContent = entry.era_note || C.periodLabel(entry.start_year, entry.end_year);
-    body.appendChild(era);
-
-    var length = entry.end_year - entry.start_year;
-    var period = C.periodLabel(entry.start_year, entry.end_year);
-    var spanParts = [];
-    if (era.textContent !== period) spanParts.push(period);
-    if (length > 0) spanParts.push('약 ' + length + '년간');
-    if (spanParts.length) {
-      var span = document.createElement('p');
-      span.className = 'sheet__span';
-      span.textContent = spanParts.join(' · ');
-      body.appendChild(span);
-    }
-
-    if (entry.art) {
-      var art = document.createElement('div');
-      art.className = 'sheet__art';
-      art.textContent = entry.art;
-      body.appendChild(art);
-    }
 
     var desc = document.createElement('p');
     desc.className = 'sheet__desc';
     desc.textContent = entry.description;
     body.appendChild(desc);
 
-    if (entry.dating_note) {
-      var dating = document.createElement('p');
-      dating.className = 'note note--dating';
-      var strong = document.createElement('strong');
-      strong.textContent = '연대 주석';
-      dating.appendChild(strong);
-      dating.appendChild(document.createTextNode(' — ' + entry.dating_note));
-      body.appendChild(dating);
-    }
-
     var source = document.createElement('p');
+    source.className = 'sheet__source';
     if (entry.sources && entry.sources.length) {
-      source.className = 'note note--dating';
-      source.textContent = '확인한 자료 — ' + entry.sources.join(' · ');
+      source.textContent = '출처 · ' + entry.sources.join(' · ');
     } else {
-      source.className = 'note note--source';
-      source.textContent = '출처 미확인 — 검토 전 초안입니다.';
+      source.classList.add('is-missing');
+      source.textContent = '출처 · 아직 확인 전(검토 전 초안)';
     }
     body.appendChild(source);
 
@@ -1233,26 +655,6 @@
         });
         body.appendChild(go);
       });
-    }
-
-    if (entry.tags && entry.tags.length) {
-      var tags = document.createElement('div');
-      tags.className = 'tags';
-      entry.tags.forEach(function (tag) {
-        var chip = document.createElement('button');
-        chip.type = 'button';
-        chip.className = 'tag';
-        chip.textContent = '#' + tag;
-        chip.addEventListener('click', function () {
-          closeSheet();
-          el.search.value = tag;
-          state.query = tag;
-          renderSearch();
-          setTab('search');
-        });
-        tags.appendChild(chip);
-      });
-      body.appendChild(tags);
     }
 
     body.scrollTop = 0;
@@ -1279,7 +681,7 @@
 
   function conceal(node, cls, ms) {
     if (node.hidden || node.classList.contains('is-leaving') || node.classList.contains('is-flung')) return;
-    if (M.reduced) { node.hidden = true; return; }
+    if (reduced) { node.hidden = true; return; }
     node.classList.add(cls);
     clearTimeout(node._leave);
     node._leave = setTimeout(function () {
@@ -1295,7 +697,7 @@
     return !node.hidden && !node.classList.contains('is-leaving') && !node.classList.contains('is-flung');
   }
 
-  /** 시트를 손잡이로 끌어내려 닫는다. 조금만 끌면 스프링처럼 제자리로. */
+  /** 팝업을 손잡이로 끌어내려 닫는다. 조금만 끌면 스프링처럼 제자리로. */
   function bindSheetDrag() {
     var g = null;
 
@@ -1317,7 +719,7 @@
         el.sheet.classList.add('is-dragging');
         el.sheet.style.transition = 'none';
       }
-      g.dy = dy > 0 ? dy : M.rubber(dy, 140);
+      g.dy = dy > 0 ? dy : rubber(dy, 140);
       el.sheet.style.transform = 'translate3d(0,' + g.dy.toFixed(1) + 'px,0)';
       g.samples.push({ t: e.timeStamp, y: e.clientY });
       while (g.samples.length > 2 && e.timeStamp - g.samples[0].t > 100) g.samples.shift();
@@ -1343,62 +745,11 @@
       }
     }
 
-    [el.sheet.querySelector('.sheet__head')].forEach(function (zone) {
-      zone.addEventListener('pointerdown', down);
-      zone.addEventListener('pointermove', move);
-      zone.addEventListener('pointerup', up);
-      zone.addEventListener('pointercancel', up);
-    });
-  }
-
-  // ------------------------------------------------------- 월·일 팝업
-
-  function openDay(group) {
-    closeSheet();
-    el.dayDot.style.backgroundColor = group.column.color;
-    el.dayCat.textContent = group.column.label;
-    el.dayYear.textContent = C.yearLabel(group.year) + '년';
-
-    var rows = document.createDocumentFragment();
-    group.entries.slice().sort(C.sortByMd).forEach(function (entry) {
-      var row = document.createElement('button');
-      row.type = 'button';
-      row.className = 'dayrow';
-
-      var md = document.createElement('span');
-      md.className = 'dayrow__md';
-      md.textContent = entry.start_md ? C.mdLabel(entry.start_md) + '.' : '연중';
-      row.appendChild(md);
-
-      var text = document.createElement('span');
-      text.className = 'dayrow__text';
-      var title = document.createElement('span');
-      title.className = 'dayrow__title';
-      title.textContent = entry.title;
-      text.appendChild(title);
-      var summary = document.createElement('span');
-      summary.className = 'dayrow__summary';
-      summary.textContent = entry._summary;
-      text.appendChild(summary);
-      row.appendChild(text);
-
-      row.addEventListener('click', function () {
-        closeDay();
-        openSheet(entry);
-      });
-      rows.appendChild(row);
-    });
-
-    el.dayRows.textContent = '';
-    el.dayRows.appendChild(rows);
-    el.dayRows.scrollTop = 0;
-    reveal(el.day);
-    reveal(el.dayScrim);
-  }
-
-  function closeDay() {
-    conceal(el.day, 'is-leaving', 200);
-    conceal(el.dayScrim, 'is-leaving', 200);
+    var zone = el.sheet.querySelector('.sheet__head');
+    zone.addEventListener('pointerdown', down);
+    zone.addEventListener('pointermove', move);
+    zone.addEventListener('pointerup', up);
+    zone.addEventListener('pointercancel', up);
   }
 
   // ------------------------------------------------------------ 낮/야경
@@ -1407,7 +758,6 @@
     state.night = night;
     markNight(night);
     paint.gradient = paint.blobs = null;
-    renderTimeline();
     if (zoom) zoom.refreshTheme();
     paint(state.eraIndex, state.progress);
   }
@@ -1446,7 +796,7 @@
   }
 
   /**
-   * @param silent  처음 켤 때 — 아직 연표를 그리기 전이라 상태와 클래스만 맞춘다
+   * @param silent  처음 켤 때 — 아직 그리기 전이라 상태와 클래스만 맞춘다
    */
   function applyTheme(theme, save, silent) {
     state.theme = theme;
@@ -1466,93 +816,6 @@
     if (save) {
       try { localStorage.setItem(THEME_KEY, theme); } catch (err) { /* 저장 못 해도 동작엔 지장 없음 */ }
     }
-  }
-
-  // ------------------------------------------------------ 연도 고정 옵션
-
-  var PIN_KEY = 'bighistory.pinYears';
-
-  function loadPinned() {
-    try { return localStorage.getItem(PIN_KEY) === '1'; } catch (err) { return false; }
-  }
-
-  /** 연도 축을 왼쪽에 붙일지(pinned), 표 전체를 한 장처럼 움직일지(기본). */
-  function setPinned(pinned, announce) {
-    state.pinned = pinned;
-    el.pinToggle.setAttribute('aria-pressed', String(pinned));
-    el.viewTimeline.classList.toggle('is-image', !pinned && state.view === 'table');
-    el.focusLine.style.transform = '';
-    live.x = -1;
-    if (scroller) {
-      scroller.setMode(pinned ? 'pinned' : 'image');
-      onFrame(scroller.info());
-    }
-    try { localStorage.setItem(PIN_KEY, pinned ? '1' : '0'); } catch (err) { /* 저장 못 해도 동작엔 지장 없음 */ }
-    if (announce) {
-      showToast(pinned ? '연도 축을 왼쪽에 고정했어요' : '표 전체가 한 장처럼 움직여요');
-    }
-  }
-
-  // ------------------------------------------------------ 보기 방식
-
-  // 탐험이 기본이 되면서 키를 바꿨다(예전 키에는 선택이 아니라 기본값이 저장되어 있었다)
-  var VIEW_KEY = 'bighistory.view2';
-
-  function loadView() {
-    try {
-      var v = localStorage.getItem(VIEW_KEY);
-      return v === 'table' || v === 'timeline' ? v : 'zoom';
-    } catch (err) { return 'zoom'; }
-  }
-
-  /**
-   * 계기판을 알약으로 접어 둘지. 탐험은 캔버스 자체에 연도 눈금·시대 제목·나라 막대가 있어
-   * 띠와 '지금 이때'가 겹치고, 폰에서는 큰 계기판이 화면을 너무 가린다.
-   */
-  var narrowMq = window.matchMedia ? window.matchMedia('(max-width: 640px)') : null;
-  function syncHudFold() {
-    if (hud) hud.setCompact(state.view === 'zoom' || !!(narrowMq && narrowMq.matches));
-  }
-
-  /** 타임라인(기본) ↔ 표. 보던 해는 그대로 초점선에 둔다. */
-  function setView(view, announce) {
-    var from = state.view;
-    state.view = view === 'table' || view === 'timeline' ? view : 'zoom';
-    syncHudFold();
-    el.app.classList.toggle('is-view-table', state.view === 'table');
-    el.viewTimeline.classList.toggle('is-zoom', state.view === 'zoom');
-    el.viewTimeline.classList.toggle('is-image', state.view === 'table' && !state.pinned);
-    Array.prototype.forEach.call(el.viewSeg.querySelectorAll('[data-view]'), function (btn) {
-      var on = btn.getAttribute('data-view') === state.view;
-      btn.classList.toggle('is-active', on);
-      btn.setAttribute('aria-checked', String(on));
-    });
-    placeSegPill();
-    el.focusLine.style.transform = '';
-    live.x = -1;
-    try { localStorage.setItem(VIEW_KEY, state.view); } catch (err) { /* 무시 */ }
-    if (!scroller) return;
-    if (state.view === 'zoom') {
-      enterZoom(from !== 'zoom' ? live.year : null);
-      if (announce) showToast('탐험 — 어디로든 끌고, 핀치·휠로 확대해요', 2600);
-      return;
-    }
-    if (zoom) zoom.setActive(false);
-    if (from === 'zoom' && zoom) live.year = Math.round(zoom.year);
-    layout.scenes.forEach(function (sc) { sc.o = -1; sc.dy = NaN; });
-    if (stageScenes) stageScenes.forEach(function (sc) { sc.o = -1; sc.dy = NaN; });
-    if (live.year != null) layout.anchorYear = live.year;
-    scroller.setMode(state.view === 'table' && state.pinned ? 'pinned' : 'image');
-    renderTimeline();
-    if (announce) showToast(state.view === 'table' ? '표로 봅니다 — 카테고리마다 한 열' : '타임라인으로 봅니다');
-  }
-
-  function placeSegPill() {
-    var pill = el.viewSeg.querySelector('.seg__pill');
-    var on = el.viewSeg.querySelector('.is-active');
-    if (!pill || !on || !on.offsetWidth) return;
-    pill.style.width = on.offsetWidth + 'px';
-    pill.style.transform = 'translate3d(' + on.offsetLeft + 'px,0,0)';
   }
 
   function showToast(text, ms) {
@@ -1578,17 +841,6 @@
       if (darkQuery.addEventListener) darkQuery.addEventListener('change', onScheme);
       else if (darkQuery.addListener) darkQuery.addListener(onScheme);
     }
-    el.pinToggle.addEventListener('click', function () {
-      setTab('timeline');
-      setPinned(!state.pinned, true);
-    });
-    Array.prototype.forEach.call(el.viewSeg.querySelectorAll('[data-view]'), function (btn) {
-      btn.addEventListener('click', function () {
-        setTab('timeline');
-        var next = btn.getAttribute('data-view');
-        if (next !== state.view) setView(next, true);
-      });
-    });
 
     document.querySelectorAll('[data-pick]').forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -1603,36 +855,24 @@
 
     el.sheetClose.addEventListener('click', function () { closeSheet(); });
     el.sheetScrim.addEventListener('click', function () { closeSheet(); });
-    el.dayClose.addEventListener('click', closeDay);
-    el.dayScrim.addEventListener('click', closeDay);
     bindSheetDrag();
 
     document.addEventListener('keydown', onKey);
 
     var remeasure = debounce(function () {
-      // 움직이는 중(날아가기·미끄러지기)에 다시 맞추면 그 움직임이 끊기므로, 멈춰 있을 때만
-      var now = scroller.info();
-      if (live.year != null && scroller.y > 1 && !now.moving && !now.dragging) layout.anchorYear = live.year;
-      syncHudFold();
       measure();
       placeTabPill();
-      placeSegPill();
       placeThemePill();
       hud.measure();
     }, 120);
     window.addEventListener('resize', remeasure);
-    if (window.ResizeObserver) {
-      // 글꼴이 늦게 도착해 줄 높이가 바뀌는 경우까지 잡는다
-      new ResizeObserver(function () { if (!layout.dirty) remeasure(); }).observe(el.chapters);
-    }
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(remeasure);
   }
 
-  /** 키보드: ↑↓ 조금, PageUp/Down·Space 한 화면, ←→ 옆 열, 1~6 시대, / 검색 */
+  /** 키보드: ↑↓ 조금, PageUp/Down·Space 한 화면, ←→ 옆 열, +− 줌, T 눕히기, 1~6 시대, / 검색 */
   function onKey(e) {
     if (e.key === 'Escape') {
-      if (isOpen(el.day)) closeDay();
-      else if (isOpen(el.sheet)) closeSheet();
+      if (isOpen(el.sheet)) closeSheet();
       return;
     }
     var target = e.target || {};
@@ -1643,44 +883,25 @@
       setTab('search');
       return;
     }
-    if (state.tab !== 'timeline' || isOpen(el.day) || isOpen(el.sheet)) return;
+    if (state.tab !== 'timeline' || isOpen(el.sheet)) return;
     if ((e.key === ' ' || e.key === 'Enter') && target.tagName === 'BUTTON') return;
 
-    if (state.view === 'zoom') {
-      var zpage = Math.max(120, (el.viewTimeline.clientHeight - layout.cover) * 0.8);
-      switch (e.key) {
-        case 'ArrowDown': zoom.panBy(90); break;
-        case 'ArrowUp': zoom.panBy(-90); break;
-        case 'ArrowRight': zoom.panBy(0, 200); break;
-        case 'ArrowLeft': zoom.panBy(0, -200); break;
-        case 'PageDown': case ' ': zoom.panBy(e.shiftKey ? -zpage : zpage); break;
-        case 'PageUp': zoom.panBy(-zpage); break;
-        case '+': case '=': zoom.zoomBy(1.8); break;
-        case '-': case '_': zoom.zoomBy(1 / 1.8); break;
-        case 't': case 'T': case 'ㅅ': zoom.toggleTilt(); break;   // 눕히기(한글 자판이면 ㅅ)
-        case 'Home': zoom.flyToRange(state.data.eras[0].start_year, state.data.eras[state.data.eras.length - 1].end_year); break;
-        case 'End': zoom.flyTo(2025, Math.max(zoom.scale, 2)); break;
-        default:
-          if (/^[1-9]$/.test(e.key) && Number(e.key) <= state.data.eras.length) jumpEra(Number(e.key) - 1);
-          else return;
-      }
-      e.preventDefault();
-      return;
-    }
-
-    var page = Math.max(120, (el.scroll.clientHeight - layout.cover) * 0.8);
+    var page = Math.max(120, (el.viewTimeline.clientHeight - layout.cover) * 0.8);
+    var eras = state.data.eras;
     switch (e.key) {
-      case 'ArrowDown': scroller.nudge(96, 0); break;
-      case 'ArrowUp': scroller.nudge(-96, 0); break;
-      case 'ArrowRight': scroller.nudge(0, 230); break;
-      case 'ArrowLeft': scroller.nudge(0, -230); break;
-      case 'PageDown': scroller.scrollTo(scroller.y + page); break;
-      case 'PageUp': scroller.scrollTo(scroller.y - page); break;
-      case ' ': scroller.scrollTo(scroller.y + (e.shiftKey ? -page : page)); break;
-      case 'Home': scroller.scrollTo(0); break;
-      case 'End': scroller.scrollTo(Infinity); break;
+      case 'ArrowDown': zoom.panBy(90); break;
+      case 'ArrowUp': zoom.panBy(-90); break;
+      case 'ArrowRight': zoom.panBy(0, 200); break;
+      case 'ArrowLeft': zoom.panBy(0, -200); break;
+      case 'PageDown': case ' ': zoom.panBy(e.shiftKey ? -page : page); break;
+      case 'PageUp': zoom.panBy(-page); break;
+      case '+': case '=': zoom.zoomBy(1.8); break;
+      case '-': case '_': zoom.zoomBy(1 / 1.8); break;
+      case 't': case 'T': case 'ㅅ': zoom.toggleTilt(); break;   // 눕히기(한글 자판이면 ㅅ)
+      case 'Home': zoom.flyToRange(eras[0].start_year, eras[eras.length - 1].end_year); break;
+      case 'End': zoom.flyTo(presentYear(), Math.max(zoom.scale, 2)); break;
       default:
-        if (/^[1-9]$/.test(e.key) && Number(e.key) <= layout.chapters.length) jumpEra(Number(e.key) - 1);
+        if (/^[1-9]$/.test(e.key) && Number(e.key) <= eras.length) jumpEra(Number(e.key) - 1);
         else return;
     }
     e.preventDefault();
@@ -1690,37 +911,17 @@
 
   function start(data) {
     state.data = data;
-
-    state.pinned = loadPinned();
-    el.pinToggle.setAttribute('aria-pressed', String(state.pinned));
-    setView(loadView(), false);   // 스크롤러가 생기기 전이라 버튼·클래스만 맞춘다
     applyTheme(loadTheme(), false, true);
 
-    scroller = M.create(el.scroll, el.inner, {
-      mode: state.view === 'table' && state.pinned ? 'pinned' : 'image',
-      wraps: '.table-wrap',
-      onFrame: onFrame,
-      onDrag: function (phase, type) { if (type) live.pointer = type; },
-      bottomInset: function () { return layout.cover; },
-      snap: function (y) {
-        // 가까운(60px 안) 해의 점을 초점선에 맞춘다
-        var r = nearestRow(y + layout.focus);
-        if (r < 0) return null;
-        var to = layout.rows[r].mid - layout.focus;
-        return Math.abs(to - y) <= 60 ? to : null;
-      }
-    });
     hud = H.create(el.hud, { scrub: onScrub, step: stepEra, pick: openSheet });
-    syncHudFold();
-    // 펼쳐 둔 계기판은 연표를 다시 만지면 접힌다
-    [el.zoom, el.scroll].forEach(function (node) {
-      node.addEventListener('pointerdown', function () { hud.fold(); }, { passive: true });
-    });
-    window.__bhZoom = null;
+    hud.setCompact(true);   // 그림판에 연도 눈금·시대 제목이 있으니 계기판은 알약으로 접어 둔다
+    // 펼쳐 둔 계기판은 그림판을 다시 만지면 접힌다
+    el.zoom.addEventListener('pointerdown', function () { hud.fold(); }, { passive: true });
+
     zoom = Z.create(el.zoom, {
       plane: document.getElementById('zoom-plane'),
       eras: data.eras,
-      present: data.entries.reduce(function (m, e) { return Math.max(m, e.end_year); }, -Infinity),
+      present: presentYear(),
       focusY: function () { return layout.focus; },
       onCamera: onZoomCamera,
       openEntry: openSheet
@@ -1729,7 +930,6 @@
 
     branch = B.create(document.getElementById('branch-root'), {
       data: data,
-      timeline: T,
       openEntry: openSheet,
       scrollBox: document.getElementById('view-branch')
     });
@@ -1742,24 +942,24 @@
     bindEvents();
 
     syncCategories();
-    renderTimeline();
     renderSearch();
-    setTab('timeline');
     paint(0, 0);
-    if (state.view === 'zoom') {
-      enterZoom(null);
-      // 처음 온 사람에게 한 번만 조작법 안내
-      try {
-        if (!localStorage.getItem('bighistory.zoomHint')) {
-          localStorage.setItem('bighistory.zoomHint', '1');
-          setTimeout(function () { showToast('상하좌우 어디로든 끌고, 핀치·휠로 확대해요', 3600); }, 900);
-        }
-      } catch (err) { /* 무시 */ }
-    }
+    setTab('timeline');
+    zoom.setData(visibleEntries(), activeColumns());
+    buildScrubber();
+    measure();
+    zoom.home();
+
+    // 처음 온 사람에게 한 번만 조작법 안내
+    try {
+      if (!localStorage.getItem('bighistory.zoomHint')) {
+        localStorage.setItem('bighistory.zoomHint', '1');
+        setTimeout(function () { showToast('상하좌우 어디로든 끌고, 핀치·휠로 확대해요', 3600); }, 900);
+      }
+    } catch (err) { /* 무시 */ }
+
     requestAnimationFrame(function () {
       el.tabs.classList.add('is-ready');
-      placeSegPill();
-      el.viewSeg.classList.add('is-ready');
       placeThemePill();
       el.themeSeg.classList.add('is-ready');
     });
@@ -1770,9 +970,8 @@
 
   function showError(err) {
     el.loading.hidden = true;
-    el.chapters.textContent = '';
     var box = document.createElement('div');
-    box.className = 'card';
+    box.className = 'card load-error';
     var title = document.createElement('p');
     title.className = 'card__label';
     title.textContent = '데이터를 불러오지 못했습니다';
@@ -1786,7 +985,7 @@
     box.appendChild(title);
     box.appendChild(message);
     box.appendChild(hint);
-    el.chapters.appendChild(box);
+    el.viewTimeline.appendChild(box);
   }
 
   window.BigHistoryData.load().then(start).catch(function (err) {

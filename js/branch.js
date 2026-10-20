@@ -28,6 +28,38 @@
     return node;
   }
 
+  var LOG_MAX = Math.log(1 + 30000);
+
+  function yearText(year) {
+    return year < 0 ? '기원전 ' + Math.abs(year) : String(year);
+  }
+
+  /** 실제 역사 카드 — 카테고리 · 이름 · 기간 막대(10년과 1000년이 둘 다 보이게 로그 비율) */
+  function realCard(entry, openEntry, parent) {
+    var card = el('button', 'tl-card', parent);
+    card.type = 'button';
+    card.style.setProperty('--c', entry._color);
+    card.title = entry.title;
+
+    var cat = el('span', 'tl-card__cat', card);
+    el('i', 'dot', cat).style.backgroundColor = entry._color;
+    cat.appendChild(document.createTextNode(entry._label));
+
+    el('span', 'tl-card__title', card, entry.title);
+
+    var years = entry.end_year - entry.start_year;
+    if (years > 0) {
+      var span = el('span', 'tl-card__span', card);
+      var bar = el('i', 'tl-card__bar', span);
+      var w = Math.max(6, Math.min(100, Math.log(1 + years) / LOG_MAX * 100));
+      bar.style.width = (w * 0.5).toFixed(1) + '%';   // 막대는 최대 줄의 절반까지
+      el('span', 'tl-card__len', span, '~' + yearText(entry.end_year) + ' · ' + years + '년');
+    }
+
+    card.addEventListener('click', function () { openEntry(entry); });
+    return card;
+  }
+
   function yearText(year) {
     return year < 0 ? '기원전 ' + Math.abs(year) + '년' : year + '년';
   }
@@ -109,7 +141,7 @@
 
   /**
    * @param root      #branch-root
-   * @param ctx       { data, timeline(=BigHistoryTimeline), openEntry(entry), scrollBox }
+   * @param ctx       { data, openEntry(entry), scrollBox }
    */
   function create(root, ctx) {
     var data = ctx.data;
@@ -274,7 +306,7 @@
         var real = el('div', 'tl-side tl-side--nation', line);
         var alt = el('div', 'tl-side tl-side--theme', line);
         r.real.forEach(function (e) {
-          var card = ctx.timeline.card(e, { openEntry: ctx.openEntry }, real);
+          var card = realCard(e, ctx.openEntry, real);
           card.classList.add('is-real');
         });
         r.alt.forEach(function (a) {
