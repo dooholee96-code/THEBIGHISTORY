@@ -50,25 +50,39 @@ function q(body, minLinks, limit) {
 
 function regionEvents(regions, minLinks) {
   const classes = ['Q198', 'Q178561', 'Q124734', 'Q10931', 'Q131569', 'Q45382', 'Q273120', 'Q1323212', 'Q467011', 'Q3024240', 'Q11514315'];
-  return q(`VALUES ?region { ${regions.map((r) => 'wd:' + r).join(' ')} }
+  // 참전국(P710)으로만 이어진 남의 나라 전쟁(예: 이라크 전쟁)은 빼려고 나라(P17)·관할(P1001)·장소(P276)로만 잇는다.
+  // 나라가 많으면 한 질의가 시간 제한(60초)을 넘으므로 10개씩 나눠 묻는다
+  const out = [];
+  for (let i = 0; i < regions.length; i += 10) {
+    out.push(q(`VALUES ?region { ${regions.slice(i, i + 10).map((r) => 'wd:' + r).join(' ')} }
     VALUES ?cls { ${classes.map((c) => 'wd:' + c).join(' ')} }
-    ?item wdt:P31 ?cls . ?item (wdt:P17|wdt:P1001|wdt:P710|wdt:P276) ?region .`, minLinks);
+    ?item wdt:P31 ?cls . ?item (wdt:P17|wdt:P1001|wdt:P276) ?region .`, minLinks));
+  }
+  return out;
 }
+
+// 직업으로 사람을 고를 때, 이름난 다른 직업(배우·축구 선수·화가·정치인·물리학자·성직자)이 붙은 사람은 뺀다
+function notAlso(occupations) {
+  return `FILTER NOT EXISTS { ?item wdt:P106 ?other . VALUES ?other { ${occupations.map((o) => 'wd:' + o).join(' ')} } }`;
+}
+
+// 과학사 후보에서 '발견'된 나라·대륙·섬·스포츠·상표 같은 것은 종류 이름으로 거른다
+const NOT_SCIENCE = /나라|국가|대륙|섬|제도|호수|해외 영토|스포츠|취미|상표|브랜드|음료|분류군|유적|지리극|작업 분야|교통수단|재료/;
 
 const QUERIES = {
   world: [
     q('VALUES ?cls { wd:Q3024240 wd:Q48349 } ?item wdt:P31 ?cls .', 70),
     q('?item wdt:P31 wd:Q198 .', 90)
   ],
-  korea: [regionEvents(linkedBy.korea.concat(['Q884', 'Q423', 'Q28179', 'Q28233']), 12)],
-  china: [regionEvents(linkedBy.china.concat(['Q148', 'Q865', 'Q29520']), 25)],
-  japan: [regionEvents(linkedBy.japan.concat(['Q17', 'Q188712']), 25)],
-  science: [q('?item wdt:P575 ?t ; wdt:P61 ?who . FILTER NOT EXISTS { ?item wdt:P31 wd:Q11344 } FILTER NOT EXISTS { ?item wdt:P31 wd:Q5 }', 40)],
+  korea: regionEvents(linkedBy.korea.concat(['Q884', 'Q423', 'Q28179', 'Q28233']), 12),
+  china: regionEvents(linkedBy.china.concat(['Q148', 'Q865', 'Q29520']), 25),
+  japan: regionEvents(linkedBy.japan.concat(['Q17', 'Q188712']), 25),
+  science: [q('?item wdt:P575 ?t ; wdt:P61 ?who . FILTER NOT EXISTS { ?item wdt:P31 wd:Q11344 } FILTER NOT EXISTS { ?item wdt:P31 wd:Q5 }', 40, 250)],
   technology: [q('?item wdt:P31/wdt:P279? wd:Q39546 .', 30), q('?item wdt:P31 wd:Q11019 .', 40)],
-  music: [q('?item wdt:P31 wd:Q105543609 .', 30), q('?item wdt:P106 wd:Q36834 .', 90)],
+  music: [q('?item wdt:P31 wd:Q105543609 .', 30), q('?item wdt:P106 wd:Q36834 . ' + notAlso(['Q33999', 'Q937857', 'Q1028181', 'Q82955', 'Q177220', 'Q753110']), 90)],
   art: [q('?item wdt:P31 wd:Q3305213 .', 45), q('?item wdt:P31 wd:Q968159 .', 25)],
   religion: [q('?item wdt:P31 wd:Q9174 .', 35), q('VALUES ?cls { wd:Q51041800 wd:Q2061186 } ?item wdt:P31 ?cls .', 20)],
-  philosophy: [q('?item wdt:P106 wd:Q4964182 .', 110), q('?item wdt:P31 wd:Q2198855 .', 25)],
+  philosophy: [q('?item wdt:P106 wd:Q4964182 . ' + notAlso(['Q82955', 'Q169470', 'Q33999', 'Q250867', 'Q11063']), 110), q('?item wdt:P31 wd:Q2198855 .', 25)],
   literature: [q('?item wdt:P31 wd:Q7725634 .', 70), q('?item wdt:P31 wd:Q47461344 .', 70)]
 };
 
@@ -84,6 +98,7 @@ manifest.datasets.forEach((ds) => {
     rows.forEach((b) => {
       const qid = b.item.value.slice(b.item.value.lastIndexOf('/') + 1);
       if (have.has(qid) || seen.has(qid)) return;
+      if (ds.id === 'science' && b.typeLabel && NOT_SCIENCE.test(b.typeLabel.value)) return;
       seen.add(qid);
       list.push({
         qid: qid, ko: b.ko.value, desc: b.desc ? b.desc.value : '', type: b.typeLabel ? b.typeLabel.value : '',
