@@ -2669,7 +2669,7 @@
      "역사적 사건"
     ],
     "start": {
-     "prop": "P580",
+     "prop": "P585",
      "year": 1789,
      "precision": 11
     },
@@ -6558,7 +6558,7 @@
      "precision": 9
     },
     "end": {
-     "prop": "P576",
+     "prop": "P582",
      "year": 220,
      "precision": 9
     },
@@ -10293,7 +10293,7 @@
      "배터리"
     ],
     "start": {
-     "prop": "P571",
+     "prop": "P575",
      "year": 1800,
      "precision": 9
     },
@@ -10881,26 +10881,27 @@
    "kind": null,
    "start_year": 590,
    "end_year": 900,
-   "verdict": "어긋남",
-   "best": {
-    "qid": "Q26473",
-    "ko": "그레고리오 성가",
-    "en": "Gregorian chant",
-    "desc": "로마 가톨릭의 전통적인 단선율 전례성가의 한 축을 이루는 성가로, 로마 전례 양식 때 사용되는 무반주의 종교 음악이다.",
-    "types": [
-     "음악 장르",
-     "악곡의 형식",
-     "노래 종류"
-    ],
-    "start": {
-     "prop": "P571",
-     "year": 900,
-     "precision": 7
-    },
-    "end": null,
-    "term": "그레고리오 성가"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q26473",
+     "ko": "그레고리오 성가",
+     "en": "Gregorian chant",
+     "desc": "로마 가톨릭의 전통적인 단선율 전례성가의 한 축을 이루는 성가로, 로마 전례 양식 때 사용되는 무반주의 종교 음악이다.",
+     "types": [
+      "음악 장르",
+      "악곡의 형식",
+      "노래 종류"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 900,
+      "precision": 7
+     },
+     "end": null,
+     "term": "그레고리오 성가"
+    },
     {
      "qid": "Q2743935",
      "ko": "성가",
@@ -11271,24 +11272,25 @@
    "kind": null,
    "start_year": 1678,
    "end_year": 1741,
-   "verdict": "어긋남",
-   "best": {
-    "qid": "Q18913176",
-    "ko": "비발디",
-    "en": "Vivaldi",
-    "desc": null,
-    "types": [
-     "웹 브라우저"
-    ],
-    "start": {
-     "prop": "P577",
-     "year": 2015,
-     "precision": 11
-    },
-    "end": null,
-    "term": "비발디"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q18913176",
+     "ko": "비발디",
+     "en": "Vivaldi",
+     "desc": null,
+     "types": [
+      "웹 브라우저"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 2015,
+      "precision": 11
+     },
+     "end": null,
+     "term": "비발디"
+    },
     {
      "qid": "Q401312",
      "ko": "비발디",
@@ -13252,24 +13254,25 @@
    "kind": null,
    "start_year": 1150,
    "end_year": 1400,
-   "verdict": "어긋남",
-   "best": {
-    "qid": "Q767456",
-    "ko": "고딕",
-    "en": "Gothic",
-    "desc": null,
-    "types": [
-     "비디오 게임"
-    ],
-    "start": {
-     "prop": "P577",
-     "year": 2001,
-     "precision": 11
-    },
-    "end": null,
-    "term": "고딕"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q767456",
+     "ko": "고딕",
+     "en": "Gothic",
+     "desc": null,
+     "types": [
+      "비디오 게임"
+     ],
+     "start": {
+      "prop": "P577",
+      "year": 2001,
+      "precision": 11
+     },
+     "end": null,
+     "term": "고딕"
+    },
     {
      "qid": "Q644297",
      "ko": "고딕",
@@ -17877,24 +17880,25 @@
    "kind": null,
    "start_year": 1724,
    "end_year": 1804,
-   "verdict": "어긋남",
-   "best": {
-    "qid": "Q1026291",
-    "ko": "칸트",
-    "en": "Kant",
-    "desc": null,
-    "types": [
-     "city or town"
-    ],
-    "start": {
-     "prop": "P571",
-     "year": 1934,
-     "precision": 9
-    },
-    "end": null,
-    "term": "칸트"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q1026291",
+     "ko": "칸트",
+     "en": "Kant",
+     "desc": null,
+     "types": [
+      "city or town"
+     ],
+     "start": {
+      "prop": "P571",
+      "year": 1934,
+      "precision": 9
+     },
+     "end": null,
+     "term": "칸트"
+    },
     {
      "qid": "Q2725679",
      "ko": "칸트",
@@ -17920,9 +17924,9 @@
       "찬가"
      ],
      "start": {
-      "prop": "P577",
+      "prop": "P1191",
       "year": 1974,
-      "precision": 9
+      "precision": 11
      },
      "end": null,
      "term": "칸트"
@@ -18835,7 +18839,7 @@
       "문학 작품"
      ],
      "start": {
-      "prop": "P577",
+      "prop": "P571",
       "year": 1872,
       "precision": 9
      },
@@ -18863,7 +18867,7 @@
       "쿠데타"
      ],
      "start": {
-      "prop": "P585",
+      "prop": "P580",
       "year": 1913,
       "precision": 11
      },
@@ -19309,7 +19313,7 @@
       "서적의 개별 복사본"
      ],
      "start": {
-      "prop": "P577",
+      "prop": "P571",
       "year": 1446,
       "precision": 9
      },
@@ -19960,24 +19964,25 @@
    "kind": null,
    "start_year": 1883,
    "end_year": 1924,
-   "verdict": "어긋남",
-   "best": {
-    "qid": "Q1721087",
-    "ko": "카프카",
-    "en": "Kafka",
-    "desc": null,
-    "types": [
-     "영화"
-    ],
-    "start": {
-     "prop": "P577",
-     "year": 1991,
-     "precision": 9
-    },
-    "end": null,
-    "term": "카프카"
-   },
+   "verdict": "못 찾음",
+   "best": null,
    "others": [
+    {
+     "qid": "Q1721087",
+     "ko": "카프카",
+     "en": "Kafka",
+     "desc": null,
+     "types": [
+      "영화"
+     ],
+     "start": {
+      "prop": "P577",
+      "year": 1991,
+      "precision": 9
+     },
+     "end": null,
+     "term": "카프카"
+    },
     {
      "qid": "Q123510176",
      "ko": "카프카",
@@ -22237,22 +22242,24 @@
    "kind": null,
    "start_year": 1991,
    "end_year": 1991,
-   "verdict": "날짜 없음",
-   "best": {
-    "qid": "Q590890",
-    "ko": "월드와이드웹",
-    "en": "WorldWideWeb",
-    "desc": null,
-    "types": [
-     "자유 소프트웨어",
-     "웹 브라우저",
-     "HTML 편집기"
-    ],
-    "start": null,
-    "end": null,
-    "term": "월드와이드웹"
-   },
-   "others": []
+   "verdict": "못 찾음",
+   "best": null,
+   "others": [
+    {
+     "qid": "Q590890",
+     "ko": "월드와이드웹",
+     "en": "WorldWideWeb",
+     "desc": null,
+     "types": [
+      "자유 소프트웨어",
+      "웹 브라우저",
+      "HTML 편집기"
+     ],
+     "start": null,
+     "end": null,
+     "term": "월드와이드웹"
+    }
+   ]
   },
   {
    "id": "technology-mobile",
