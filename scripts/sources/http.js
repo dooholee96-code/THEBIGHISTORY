@@ -4,7 +4,7 @@
  * 외부 데이터 받기 — curl 로 부른다(이 환경의 HTTPS 프록시·인증서 설정을 그대로 쓰려고).
  *
  *   · 모든 요청에 프로젝트를 밝히는 User-Agent 를 단다(Wikimedia 정책)
- *   · 429·5xx 는 Retry-After 만큼 기다렸다 다시(최대 6번)
+ *   · 429·5xx 는 Retry-After 만큼 기다렸다 다시(최대 6번). 조회 시간 초과는 다시 보내지 않는다
  *   · 받은 응답은 .cache/sources/ 에 저장해 같은 요청을 다시 보내지 않는다(--fresh 로 무시)
  */
 
@@ -69,6 +69,12 @@ function request(url, o) {
     const head = out.slice(0, pos);
     const body = out.slice(pos);
     const status = Number((statusLine.match(/ (\d{3})/) || [])[1] || 0);
+    // 조회 서비스의 시간 초과(60초)는 같은 질의를 다시 보내도 또 넘으므로 바로 알린다
+    if (status >= 500 && /TimeoutException/.test(body)) {
+      const e = new Error(`${new URL(url).host} 질의가 시간 제한을 넘었습니다 — 질의를 가볍게 해야 합니다`);
+      e.timeout = true;
+      throw e;
+    }
     if (status === 429 || status >= 500) {
       const ra = Number((head.match(/retry-after:\s*(\d+)/i) || [])[1] || 0);
       // 오래 기다리라고 하면(공용 IP 가 통째로 제한된 경우 등) 붙잡고 있지 말고 알린다

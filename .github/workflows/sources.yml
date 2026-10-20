@@ -24,6 +24,8 @@ jobs:
       - name: Wikidata·Cliopatria 대조
         run: node scripts/match-wikidata.js
       - name: 새 항목 후보
+        continue-on-error: true   # 후보가 실패해도 대조 리포트는 올린다
+        timeout-minutes: 30
         run: node scripts/candidates-wikidata.js
       - uses: actions/upload-artifact@v4
         with:
