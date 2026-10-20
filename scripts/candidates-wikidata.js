@@ -66,8 +66,12 @@ function notAlso(occupations) {
   return `FILTER NOT EXISTS { ?item wdt:P106 ?other . VALUES ?other { ${occupations.map((o) => 'wd:' + o).join(' ')} } }`;
 }
 
-// 과학사 후보에서 '발견'된 나라·대륙·섬·스포츠·상표 같은 것은 종류 이름으로 거른다
-const NOT_SCIENCE = /나라|국가|대륙|섬|제도|호수|해외 영토|스포츠|취미|상표|브랜드|음료|분류군|유적|지리극|작업 분야|교통수단|재료/;
+// 종류 이름으로 거르는 것 — 과학사는 '발견'된 나라·섬·천체·스포츠·상표, 음악사는 국가(國歌)·캐럴, 문학사는 경전·법령·간행물
+const NOT_TYPE = {
+  science: /나라|국가|주권국|대륙|섬|제도|지역|지방|호수|해외 영토|스포츠|종목|취미|상표|브랜드|음료|분류군|유적|도시|비석|지리극|작업 분야|교통수단|재료|위성|소행성|왜행성|왜성|항성|카이퍼|사형/,
+  music: /^국가$|캐럴/,
+  literature: /경전|서신서|서간|법령|헌법|헌장|연속간행물|백과사전/
+};
 
 const QUERIES = {
   world: [
@@ -98,7 +102,7 @@ manifest.datasets.forEach((ds) => {
     rows.forEach((b) => {
       const qid = b.item.value.slice(b.item.value.lastIndexOf('/') + 1);
       if (have.has(qid) || seen.has(qid)) return;
-      if (ds.id === 'science' && b.typeLabel && NOT_SCIENCE.test(b.typeLabel.value)) return;
+      if (NOT_TYPE[ds.id] && b.typeLabel && NOT_TYPE[ds.id].test(b.typeLabel.value)) return;
       seen.add(qid);
       list.push({
         qid: qid, ko: b.ko.value, desc: b.desc ? b.desc.value : '', type: b.typeLabel ? b.typeLabel.value : '',
