@@ -11,16 +11,18 @@
       "wikidata": "Q52824",
       "region": "동아시아",
       "start_year": -14000,
-      "end_year": -300,
-      "era_note": "기원전 14000년 ~ 기원전 300년",
+      "end_year": -800,
+      "era_note": "기원전 14000년 ~ 기원전 800년",
       "description": "수렵채집과 새끼줄무늬 토기로 대표되는 일본 열도의 신석기 문화다.",
       "tags": [
         "선사",
         "문화"
       ],
-      "sources": [],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
       "status": "draft",
-      "dating_note": "토기 연대 측정에 따라 기원전 14000년경 시작으로 보는 견해가 일반적이나 편차가 크다."
+      "dating_note": "나라문화재연구소 표의 \"기원전 14,000년경~800년경\". 도쿄·교토·나라 국립박물관은 끝을 기원전 5세기(또는 3세기)로 적는다."
     },
     {
       "id": "japan-yayoi",
@@ -30,17 +32,19 @@
       "kind": "era",
       "wikidata": "Q207858",
       "region": "동아시아",
-      "start_year": -300,
+      "start_year": -800,
       "end_year": 250,
-      "era_note": "기원전 300년 ~ 250년",
+      "era_note": "기원전 800년 ~ 250년",
       "description": "한반도에서 벼농사와 금속기가 전해지며 농경사회가 성립했다.",
       "tags": [
         "고대",
         "문화"
       ],
-      "sources": [],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
       "status": "draft",
-      "dating_note": "시작 시기를 기원전 10세기로 올려 보는 견해도 있어 학설 차이가 크다."
+      "dating_note": "나라문화재연구소 표의 \"기원전 8세기경~3세기\". 도쿄·교토 국립박물관은 기원전 5세기부터로 적는다(방사성탄소 연대로 시작을 올려 보는 흐름을 반영한 차이)."
     },
     {
       "id": "japan-kofun",
@@ -51,14 +55,17 @@
       "wikidata": "Q459939",
       "region": "동아시아",
       "start_year": 250,
-      "end_year": 538,
-      "era_note": "250년 ~ 538년",
+      "end_year": 592,
+      "era_note": "250년 ~ 592년",
       "description": "거대 고분이 축조되고 야마토 정권이 열도를 통합해 간 시기다.",
       "tags": [
         "고대",
         "국가형성"
       ],
-      "sources": [],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
+      "dating_note": "나라문화재연구소 표의 \"3~6세기경\". 끝은 아스카 시대가 시작되는 592년으로 잡았다.",
       "status": "draft"
     },
     {
@@ -69,15 +76,18 @@
       "kind": "era",
       "wikidata": "Q210688",
       "region": "동아시아",
-      "start_year": 538,
+      "start_year": 592,
       "end_year": 710,
-      "era_note": "538년 ~ 710년",
+      "era_note": "592년 ~ 710년",
       "description": "불교 수용과 다이카 개신을 통해 율령국가의 기틀이 마련되었다.",
       "tags": [
         "고대",
         "왕조"
       ],
-      "sources": [],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
+      "dating_note": "스이코 천황 즉위(592년)부터 — 나라문화재연구소·교토·나라 국립박물관(도쿄국립박물관은 593년). 불교 전래(538년)를 시작으로 보기도 한다.",
       "status": "draft"
     },
     {
@@ -96,7 +106,9 @@
         "고대",
         "왕조"
       ],
-      "sources": [],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
       "status": "draft"
     },
     {
@@ -115,7 +127,10 @@
         "중세",
         "왕조"
       ],
-      "sources": [],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
+      "dating_note": "나라문화재연구소 표의 794~1185년. 도쿄국립박물관은 가마쿠라 막부 성립을 1192년으로 보아 끝을 1192년으로 적는다.",
       "status": "draft"
     },
     {
@@ -134,7 +149,10 @@
         "중세",
         "막부"
       ],
-      "sources": [],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
+      "dating_note": "시작은 1185년(나라문화재연구소·교토·나라 국립박물관). 미나모토노 요리토모가 정이대장군이 된 1192년으로 보기도 한다(도쿄국립박물관).",
       "status": "draft"
     },
     {
@@ -172,7 +190,10 @@
         "중세",
         "막부"
       ],
-      "sources": [],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
+      "dating_note": "아시카가 다카우지가 막부를 연 1336년부터. 시대 구분으로는 남북조 시대(1333~1392년) 뒤 1392년부터를 무로마치 시대로 본다(나라문화재연구소 표).",
       "status": "draft"
     },
     {
@@ -191,7 +212,10 @@
         "중세",
         "분열기"
       ],
-      "sources": [],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
+      "dating_note": "나라문화재연구소 표의 \"15~16세기경\". 오닌의 난(1467년)부터 도요토미 히데요시의 통일(1590년)까지로 잡았다.",
       "status": "draft"
     },
     {
@@ -210,9 +234,11 @@
         "근세",
         "통일"
       ],
-      "sources": [],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
       "status": "draft",
-      "dating_note": "시작은 노부나가의 상경(1568년) 또는 무로마치 막부 멸망(1573년), 끝은 세키가하라 전투(1600년) 또는 에도 막부 개창(1603년)으로 보는 등 기준이 갈린다. 여기서는 1573~1603년으로 잡았다."
+      "dating_note": "나라문화재연구소·도쿄·나라 국립박물관은 1573~1603년, 교토국립박물관은 모모야마 시대를 1573~1615년으로 적는다. 시작을 노부나가의 상경(1568년)으로 보기도 한다."
     },
     {
       "id": "japan-edo",
@@ -230,7 +256,10 @@
         "근세",
         "막부"
       ],
-      "sources": [],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
+      "dating_note": "1603~1868년(나라문화재연구소·도쿄·교토 국립박물관). 나라국립박물관은 끝을 1867년(대정봉환)으로 적는다.",
       "status": "draft"
     },
     {
@@ -249,7 +278,9 @@
         "근대",
         "국가"
       ],
-      "sources": [],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
       "status": "draft"
     },
     {
@@ -268,7 +299,9 @@
         "근대",
         "국가"
       ],
-      "sources": [],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
       "status": "draft"
     },
     {
@@ -287,7 +320,10 @@
         "근대",
         "군국주의"
       ],
-      "sources": [],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
+      "dating_note": "쇼와기(1926~1989년, 나라문화재연구소 표) 가운데 패전(1945년)까지.",
       "status": "draft"
     },
     {
@@ -401,7 +437,9 @@
         "현대",
         "국가"
       ],
-      "sources": [],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
       "status": "draft"
     },
     {
@@ -420,7 +458,9 @@
         "현대",
         "국가"
       ],
-      "sources": [],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
       "status": "draft"
     }
   ]
