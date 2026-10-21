@@ -25,6 +25,28 @@
       "dating_note": "나라문화재연구소 표의 \"기원전 14,000년경~800년경\". 도쿄·교토·나라 국립박물관은 끝을 기원전 5세기(또는 3세기)로 적는다."
     },
     {
+      "id": "japan-shellmound",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "패총 시대(오키나와)",
+      "kind": "era",
+      "area": "류큐",
+      "region": "동아시아",
+      "start_year": -14000,
+      "end_year": 1000,
+      "description": "오키나와에서 조개무지를 남기며 수렵·채집을 이어 간 긴 시기다.",
+      "tags": [
+        "선사",
+        "류큐"
+      ],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
+      "status": "draft",
+      "dating_note": "연구소 표의 \"기원전 14,000년경~10세기경\" — 대략값.",
+      "era_note": "기원전 14000년 ~ 1000년"
+    },
+    {
       "id": "japan-yayoi",
       "category": "왕조사",
       "subcategory": "일본",
@@ -45,6 +67,28 @@
       ],
       "status": "draft",
       "dating_note": "나라문화재연구소 표의 \"기원전 8세기경~3세기\". 도쿄·교토 국립박물관은 기원전 5세기부터로 적는다(방사성탄소 연대로 시작을 올려 보는 흐름을 반영한 차이)."
+    },
+    {
+      "id": "japan-epi-jomon",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "속조몬 시대(홋카이도)",
+      "kind": "era",
+      "area": "홋카이도",
+      "region": "동아시아",
+      "start_year": -500,
+      "end_year": 700,
+      "description": "혼슈가 벼농사로 넘어간 뒤에도 홋카이도에서 수렵·어로 생활이 이어진 시기다.",
+      "tags": [
+        "선사",
+        "홋카이도"
+      ],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
+      "status": "draft",
+      "dating_note": "연구소 표의 \"기원전 5세기경~7세기경\" — 세기를 연도로 옮긴 대략값.",
+      "era_note": "기원전 500년 ~ 700년"
     },
     {
       "id": "japan-kofun",
@@ -112,6 +156,28 @@
       "status": "draft"
     },
     {
+      "id": "japan-satsumon",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "사쓰몬 시대(홋카이도)",
+      "kind": "era",
+      "area": "홋카이도",
+      "region": "동아시아",
+      "start_year": 700,
+      "end_year": 1300,
+      "description": "홋카이도에서 무늬를 긁은 사쓰몬 토기를 쓰던 시기로, 아이누 문화로 이어졌다.",
+      "tags": [
+        "고대",
+        "홋카이도"
+      ],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
+      "status": "draft",
+      "dating_note": "연구소 표의 \"7세기경~13세기경\" — 대략값.",
+      "era_note": "700년 ~ 1300년"
+    },
+    {
       "id": "japan-heian",
       "category": "왕조사",
       "subcategory": "일본",
@@ -132,6 +198,28 @@
       ],
       "dating_note": "나라문화재연구소 표의 794~1185년. 도쿄국립박물관은 가마쿠라 막부 성립을 1192년으로 보아 끝을 1192년으로 적는다.",
       "status": "draft"
+    },
+    {
+      "id": "japan-gusuku",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "구스쿠 시대(오키나와)",
+      "kind": "era",
+      "area": "류큐",
+      "region": "동아시아",
+      "start_year": 1000,
+      "end_year": 1429,
+      "description": "오키나와 각지에 구스쿠(성채)가 세워지고 세력들이 다투던 시기다.",
+      "tags": [
+        "중세",
+        "류큐"
+      ],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
+      "status": "draft",
+      "dating_note": "연구소 표의 \"10세기경~15세기경\". 끝은 류큐 왕국 시작에 맞춘 대략값.",
+      "era_note": "1000년 ~ 1429년"
     },
     {
       "id": "japan-kamakura",
@@ -156,6 +244,29 @@
       "status": "draft"
     },
     {
+      "id": "japan-ainu",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "아이누 문화기",
+      "kind": "era",
+      "area": "홋카이도",
+      "region": "동아시아",
+      "start_year": 1300,
+      "end_year": 1868,
+      "description": "홋카이도의 아이누가 고유한 생활 문화를 이룬 시기다.",
+      "tags": [
+        "중세",
+        "근세",
+        "홋카이도"
+      ],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
+      "status": "draft",
+      "dating_note": "연구소 표의 \"13세기경~19세기경\". 끝은 메이지 정부의 홋카이도 개척 시작(1869년 개척사 설치)을 감안해 1868년으로 잡은 대략값.",
+      "era_note": "1300년 ~ 1868년"
+    },
+    {
       "id": "japan-kenmu",
       "category": "왕조사",
       "subcategory": "일본",
@@ -173,6 +284,27 @@
       ],
       "sources": [],
       "status": "draft"
+    },
+    {
+      "id": "japan-nanbokucho",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "남북조 시대",
+      "kind": "era",
+      "region": "동아시아",
+      "start_year": 1333,
+      "end_year": 1392,
+      "description": "교토의 북조와 요시노의 남조로 천황가가 둘로 갈려 다툰 시기다.",
+      "tags": [
+        "중세",
+        "분열"
+      ],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
+      "status": "draft",
+      "dating_note": "연구소 표의 1333~1392년(겐무 신정 포함). 1392년 남북조 합일로 끝난다.",
+      "era_note": "1333년 ~ 1392년"
     },
     {
       "id": "japan-muromachi",
@@ -195,6 +327,29 @@
       ],
       "dating_note": "아시카가 다카우지가 막부를 연 1336년부터. 시대 구분으로는 남북조 시대(1333~1392년) 뒤 1392년부터를 무로마치 시대로 본다(나라문화재연구소 표).",
       "status": "draft"
+    },
+    {
+      "id": "japan-ryukyu",
+      "category": "왕조사",
+      "subcategory": "일본",
+      "title": "류큐 왕국",
+      "kind": "polity",
+      "area": "류큐",
+      "region": "동아시아",
+      "start_year": 1429,
+      "end_year": 1879,
+      "description": "오키나와를 중심으로 중국·일본·동남아를 잇는 중계 무역으로 번영한 왕국이다.",
+      "tags": [
+        "중세",
+        "근세",
+        "류큐"
+      ],
+      "sources": [
+        "時代区分－西暦対応表,奈良文化財研究所 『英文スタイル・マニュアル：基礎編』(2022) https://sitereports.nabunken.go.jp/ja/article/26028"
+      ],
+      "status": "draft",
+      "dating_note": "연구소 표는 \"15세기경~19세기경\". 시작은 삼산 통일(1429년), 끝은 일본의 류큐 처분(1879년)으로 잡은 통설 연도이며, 이 두 해는 아직 공인 자료로 확인하지 못했다.",
+      "era_note": "1429년 ~ 1879년"
     },
     {
       "id": "japan-sengoku",
