@@ -23,7 +23,7 @@
       } catch (err) { /* 저장소를 못 읽어도 기본(라이트)으로 */ }
     })();
   </script>
-  <link rel="stylesheet" href="css/styles.css?v=de177208" />
+  <link rel="stylesheet" href="css/styles.css?v=5b438bd1" />
 </head>
 <body>
   <!-- 테마는 <html class="is-night"> 로 바뀐다(설정 탭, app.js). 기본은 라이트 -->
@@ -102,6 +102,11 @@
           </div>
         </div>
       </main>
+
+      <!-- 퀴즈(데모) — js/quiz.js. 연표 끼워 넣기 -->
+      <section class="view view--pane" id="view-quiz" hidden>
+        <div class="pane pane--narrow" id="quiz-root"></div>
+      </section>
 
       <!-- 2. 갈림길(대체역사) — js/branch.js. 가상 데이터는 data/alt/ 에만 -->
       <section class="view view--pane" id="view-branch" hidden>
@@ -203,13 +208,14 @@
     <div class="loading" id="loading">불러오는 중…</div>
   </div>
 
-  <script src="js/data.js?v=de177208"></script>
-  <script src="js/common.js?v=de177208"></script>
-  <script src="js/hud.js?v=de177208"></script>
-  <script src="js/branch.js?v=de177208"></script>
-  <script src="vendor/three.min.js?v=de177208"></script>
-  <script src="js/plane.js?v=de177208"></script>
-  <script src="js/zoom.js?v=de177208"></script>
-  <script src="js/app.js?v=de177208"></script>
+  <script src="js/data.js?v=5b438bd1"></script>
+  <script src="js/common.js?v=5b438bd1"></script>
+  <script src="js/hud.js?v=5b438bd1"></script>
+  <script src="js/branch.js?v=5b438bd1"></script>
+  <script src="js/quiz.js?v=5b438bd1"></script>
+  <script src="vendor/three.min.js?v=5b438bd1"></script>
+  <script src="js/plane.js?v=5b438bd1"></script>
+  <script src="js/zoom.js?v=5b438bd1"></script>
+  <script src="js/app.js?v=5b438bd1"></script>
 </body>
 </html>

@@ -1893,3 +1893,65 @@ body {
   .stage__art.is-on { animation: none; }
   .scrub__spark { display: none; }
 }
+
+/* ---------------------------------------------------------- 퀴즈(데모) — js/quiz.js */
+.pill-btn--strong { background: var(--ink); color: var(--foam); font-weight: 700; }
+.pill-btn--strong:hover { background: var(--ink); filter: brightness(1.12); }
+
+.quiz__top { display: flex; align-items: center; gap: 10px; margin: 6px 0 10px; }
+.quiz__title { margin: 0; font-family: var(--display); font-size: 24px; color: var(--ink-bg); }
+.quiz__badge {
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--foam);
+  box-shadow: var(--shadow-1);
+}
+.quiz__status { margin: 0 0 4px; }
+.quiz__flash { min-height: 1.6em; margin: 0 0 10px; font-size: 14.5px; font-weight: 700; color: var(--ink-bg); }
+.quiz__flash.is-ok { color: #3f8a55; }
+.quiz__flash.is-miss { color: #b5523f; }
+.quiz__hand { margin: 0 0 14px; }
+.quiz__hint { margin: 0 0 6px; font-size: 13px; color: var(--ink-bg-2); }
+.quiz__result { margin: 0 0 14px; }
+.quiz__score { margin: 0 0 10px; font-size: 26px; letter-spacing: 2px; color: var(--ink-bg); }
+
+.quiz__line { list-style: none; margin: 0; padding: 0 0 0 14px; border-left: 2px dashed var(--line-bg); }
+.quiz__slot-row, .quiz__card-row { margin: 0; padding: 4px 0; }
+
+.quiz-card {
+  display: grid;
+  gap: 3px;
+  width: 100%;
+  padding: 12px 14px;
+  border: 0;
+  border-radius: 16px;
+  text-align: left;
+  font: inherit;
+  color: var(--ink);
+  background: var(--foam);
+  box-shadow: var(--shadow-1);
+  cursor: pointer;
+}
+.quiz-card:disabled { cursor: default; opacity: 1; }
+.quiz__hand .quiz-card { border: 2px solid var(--ink); }
+.quiz-card__head { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-2); }
+.quiz-card__title { font-size: 16px; font-weight: 700; }
+.quiz-card__year { font-size: 12.5px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.quiz-card.is-ok { box-shadow: inset 4px 0 0 #5fae74, var(--shadow-1); }
+.quiz-card.is-miss { box-shadow: inset 4px 0 0 #d4735f, var(--shadow-1); }
+
+.quiz-slot {
+  width: 100%;
+  height: 34px;
+  border: 1.5px dashed var(--line-bg);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--ink-bg-2);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.quiz-slot:hover, .quiz-slot:focus-visible { border-color: var(--ink-bg); color: var(--ink-bg); background: rgba(255, 255, 255, .35); }

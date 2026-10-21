@@ -27,6 +27,7 @@ const ASSETS = [
   'js/common.js',
   'js/hud.js',
   'js/branch.js',
+  'js/quiz.js',
   'vendor/three.min.js',
   'js/plane.js',
   'js/zoom.js',

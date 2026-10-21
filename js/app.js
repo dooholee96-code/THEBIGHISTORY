@@ -13,6 +13,7 @@
   var H = window.BigHistoryHud;
   var B = window.BigHistoryBranch;
   var Z = window.BigHistoryZoom;
+  var Q = window.BigHistoryQuiz;
 
   var reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
@@ -52,15 +53,17 @@
 
   var TABS = [
     { id: 'timeline', label: '연표', view: document.getElementById('view-timeline') },
+    { id: 'quiz', label: '퀴즈', view: document.getElementById('view-quiz') },
     { id: 'branch', label: '갈림길', view: document.getElementById('view-branch') },
     { id: 'category', label: '카테고리', view: document.getElementById('view-category') },
     { id: 'search', label: '검색', view: document.getElementById('view-search') },
     { id: 'info', label: '설정', view: document.getElementById('view-info') }
   ];
 
-  // 탭 아이콘 — 발자국(연표) · 갈래길(갈림길) · 당근(카테고리) · 돋보기(검색) · 톱니(설정)
+  // 탭 아이콘 — 발자국(연표) · 카드(퀴즈) · 갈래길(갈림길) · 당근(카테고리) · 돋보기(검색) · 톱니(설정)
   var TAB_ICONS = {
     timeline: '<svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="16" rx="5.5" ry="4.5" fill="currentColor"/><circle cx="5" cy="9" r="2.6" fill="currentColor"/><circle cx="12" cy="6" r="2.6" fill="currentColor"/><circle cx="19" cy="9" r="2.6" fill="currentColor"/></svg>',
+    quiz: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="11" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="2" transform="rotate(-8 9 12.5)"/><rect x="10" y="4" width="11" height="15" rx="2.5" fill="currentColor" opacity=".85" transform="rotate(8 15.5 11.5)"/></svg>',
     branch: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22v-8M12 14C12 9 6 8 6 3M12 14c0-5 6-6 6-11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M3.5 5.5L6 3l2.5 2.5M15.5 5.5L18 3l2.5 2.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     category: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 8c2-1.5 6-1.5 8 0l-6.5 13z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M13 7c-1-3 1-5 3-5M13 7c1-3 4-4 6-3M13 7c-3-2-6-1-7 1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
     search: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5L21 21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
@@ -93,6 +96,7 @@
   var hud = null;
   var branch = null;
   var zoom = null;
+  var quiz = null;
 
   // ------------------------------------------------------------ 유틸
 
@@ -121,6 +125,20 @@
 
   function visibleEntries() {
     return state.data.entries.filter(function (e) { return !state.off[e._dataset]; });
+  }
+
+  /** 항목을 탐험 그림판에서 보여 준다 — 그 열(꺼져 있으면 켜서)과 그 해로 날아간 뒤 상세를 연다 */
+  function showInZoom(entry) {
+    if (state.off[entry._dataset]) {
+      state.off[entry._dataset] = false;
+      syncCategories();
+      refresh();
+    }
+    setTab('timeline');
+    var col = activeColumns().map(function (ds) { return ds.id; }).indexOf(entry._dataset);
+    var span = Math.max(1, entry.end_year - entry.start_year);
+    zoom.flyTo(entry.start_year + span / 2, Math.max(zoom.scale, Math.min(6, 300 / span)), { col: col });
+    setTimeout(function () { openSheet(entry); }, 900);
   }
 
   function buzz(pattern) {
@@ -946,6 +964,13 @@
       data: data,
       openEntry: openSheet,
       scrollBox: document.getElementById('view-branch')
+    });
+
+    // 퀴즈(데모) — 놓인 카드를 누르면 탐험 그림판의 그 자리로
+    quiz = Q.create(document.getElementById('quiz-root'), {
+      entries: function () { return state.data.entries; },
+      shareTitle: document.title,
+      onShow: showInZoom
     });
 
     buildTabs();
