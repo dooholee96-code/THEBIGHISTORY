@@ -23,7 +23,7 @@
       } catch (err) { /* 저장소를 못 읽어도 기본(라이트)으로 */ }
     })();
   </script>
-  <link rel="stylesheet" href="css/styles.css?v=b5c4ad02" />
+  <link rel="stylesheet" href="css/styles.css?v=70375801" />
 </head>
 <body>
   <!-- 테마는 <html class="is-night"> 로 바뀐다(설정 탭, app.js). 기본은 라이트 -->
@@ -61,18 +61,8 @@
           <canvas class="zoom" id="zoom" role="img"
                   aria-label="역사 전체를 확대·축소하며 둘러보는 캔버스. 사건을 글로 차례대로 읽으려면 검색 탭의 전체 목록을 쓰세요."></canvas>
         </div>
-
-        <!-- 펼친 항목의 상세 — 날아가 도착한 왕조·사건 옆에 붙는다. js/app.js openEntry -->
-        <div class="focus-card" id="focus-card" role="dialog" aria-labelledby="focus-title" hidden>
-          <div class="focus-card__head">
-            <div class="focus-card__titles">
-              <p class="sheet__eyebrow" id="focus-eyebrow"></p>
-              <h2 class="focus-card__title" id="focus-title"></h2>
-            </div>
-            <button class="icon-btn" id="focus-close" type="button" aria-label="닫기">✕</button>
-          </div>
-          <div class="focus-card__body" id="focus-body"></div>
-        </div>
+        <!-- 그림판에 쓴 펼친 항목의 상세를 화면 읽기 프로그램에도 -->
+        <p class="sr-only" id="focus-live" aria-live="polite"></p>
 
         <!-- 초점선: 여기에 걸린 줄의 해가 계기판 숫자가 된다 -->
         <div class="focus-line" id="focus-line" aria-hidden="true"><span></span></div>
@@ -220,14 +210,14 @@
     <div class="loading" id="loading">불러오는 중…</div>
   </div>
 
-  <script src="js/data.js?v=b5c4ad02"></script>
-  <script src="js/common.js?v=b5c4ad02"></script>
-  <script src="js/hud.js?v=b5c4ad02"></script>
-  <script src="js/branch.js?v=b5c4ad02"></script>
-  <script src="js/quiz.js?v=b5c4ad02"></script>
-  <script src="vendor/three.min.js?v=b5c4ad02"></script>
-  <script src="js/plane.js?v=b5c4ad02"></script>
-  <script src="js/zoom.js?v=b5c4ad02"></script>
-  <script src="js/app.js?v=b5c4ad02"></script>
+  <script src="js/data.js?v=70375801"></script>
+  <script src="js/common.js?v=70375801"></script>
+  <script src="js/hud.js?v=70375801"></script>
+  <script src="js/branch.js?v=70375801"></script>
+  <script src="js/quiz.js?v=70375801"></script>
+  <script src="vendor/three.min.js?v=70375801"></script>
+  <script src="js/plane.js?v=70375801"></script>
+  <script src="js/zoom.js?v=70375801"></script>
+  <script src="js/app.js?v=70375801"></script>
 </body>
 </html>

@@ -49,11 +49,7 @@
     sheetTitle: document.getElementById('sheet-title'),
     sheetBody: document.getElementById('sheet-body'),
     sheetClose: document.getElementById('sheet-close'),
-    focusCard: document.getElementById('focus-card'),
-    focusEyebrow: document.getElementById('focus-eyebrow'),
-    focusTitle: document.getElementById('focus-title'),
-    focusBody: document.getElementById('focus-body'),
-    focusClose: document.getElementById('focus-close')
+    focusLive: document.getElementById('focus-live')
   };
 
   var TABS = [
@@ -302,6 +298,7 @@
     var t = clamp((year - era.start_year) / Math.max(1, era.end_year - era.start_year), 0, 1);
     state.progress = t;
     paint(index, t);
+    el.focusLine.classList.toggle('is-reading', !!info.reading);
     if (index !== state.eraIndex) {
       state.eraIndex = index;
       if (info.dragging) buzz([14, 30, 10]);
@@ -693,11 +690,9 @@
 
   // ------------------------------------------------ 펼치기(왕조가 확대되며 상세)
 
-  var focusCard = { entry: null, shown: false };
-
   /**
    * 항목 열기 — 어디서 눌렀든(그림판·검색·퀴즈·계기판·갈림길) 연표로 와서
-   * 그 왕조·사건이 화면을 채우도록 날아가고, 도착하면 그 옆에 상세 카드가 붙는다.
+   * 그 왕조·사건이 화면을 채우도록 날아가고, 도착하면 그림판의 그 옆에 상세가 쓰인다.
    */
   function openEntry(entry) {
     if (!zoom) { openSheet(entry); return; }
@@ -708,55 +703,16 @@
     }
     if (state.tab !== 'timeline') setTab('timeline');
     if (isOpen(el.sheet)) closeSheet();
-    focusCard.entry = entry;
-    focusCard.shown = false;
-    fillEntry(entry, el.focusEyebrow, el.focusTitle, el.focusBody, closeFocus);
-    el.focusCard.hidden = true;
+    // 이 항목에서 갈라지는 가상 역사(갈림길)가 있으면 바로 들어가는 길
+    var links = branch ? branch.scenariosFor(entry.id).map(function (sc) {
+      return {
+        label: '갈림길 · ' + sc.title,
+        run: function () { zoom.blur(); setTab('branch'); branch.open(sc.id); }
+      };
+    }) : [];
     var col = activeColumns().map(function (ds) { return ds.id; }).indexOf(entry._dataset);
-    zoom.focusEntry(entry, col);
-  }
-
-  function closeFocus() {
-    focusCard.entry = null;
-    focusCard.shown = false;
-    conceal(el.focusCard, 'is-leaving', 180);
-    if (zoom) zoom.blur();
-  }
-
-  /** 그림판이 매 프레임 알려 주는 펼친 항목의 화면 자리 — 카드를 그 옆에 붙인다 */
-  function onFocusRect(r, settled) {
-    var card = el.focusCard;
-    if (!focusCard.entry) return;
-    if (!r) {   // 화면 밖으로 밀려났으면 잠깐 숨긴다(다시 들어오면 나타난다)
-      if (!card.hidden) card.hidden = true;
-      return;
-    }
-    if (!focusCard.shown && !settled) return;   // 처음엔 도착한 뒤에
-    focusCard.shown = true;
-    var box = el.viewTimeline.getBoundingClientRect();
-    var W = box.width;
-    var narrow = W < 720;
-    if (card.hidden) reveal(card);
-    if (narrow) {
-      // 좁은 화면 — 계기판 위에 붙여 둔다
-      card.style.left = '12px';
-      card.style.right = '12px';
-      card.style.top = '';
-      card.style.bottom = (layout.cover + 12) + 'px';
-      card.style.width = '';
-      return;
-    }
-    var cw = Math.min(340, W - 24);
-    var ch = card.offsetHeight || 220;
-    var x = r.x + r.w + 14;
-    if (x + cw > W - 12) x = r.x - cw - 14;         // 오른쪽에 자리가 없으면 왼쪽
-    if (x < 12) x = Math.min(W - cw - 12, Math.max(12, r.x + 10));   // 둘 다 없으면 칸 위에 겹쳐
-    var y = Math.max(46, Math.min(r.y + 6, box.height - layout.cover - ch - 12));
-    card.style.left = Math.round(x) + 'px';
-    card.style.top = Math.round(y) + 'px';
-    card.style.right = '';
-    card.style.bottom = '';
-    card.style.width = cw + 'px';
+    zoom.focusEntry(entry, col, links);
+    el.focusLive.textContent = entry.title + ', ' + (entry.era_note || C.periodLabel(entry.start_year, entry.end_year)) + '. ' + (entry.description || '');
   }
 
   function closeSheet(flung) {
@@ -949,7 +905,6 @@
 
     el.sheetClose.addEventListener('click', function () { closeSheet(); });
     el.sheetScrim.addEventListener('click', function () { closeSheet(); });
-    el.focusClose.addEventListener('click', closeFocus);
     bindSheetDrag();
 
     document.addEventListener('keydown', onKey);
@@ -968,7 +923,7 @@
   function onKey(e) {
     if (e.key === 'Escape') {
       if (isOpen(el.sheet)) closeSheet();
-      else if (focusCard.entry) closeFocus();
+      else if (zoom && zoom.focused()) zoom.blur();
       return;
     }
     var target = e.target || {};
@@ -1022,9 +977,7 @@
       focusY: function () { return layout.focus; },
       onCamera: onZoomCamera,
       openEntry: openEntry,
-      onFocus: onFocusRect,
-      // 아래를 가리는 높이 — 좁은 화면에선 계기판 위에 붙는 상세 카드 자리까지
-      bottomCover: function () { return layout.cover + (el.viewTimeline.clientWidth < 720 ? 210 : 0); }
+      bottomCover: function () { return layout.cover; }   // 아래를 가리는 계기판·탭 높이
     });
     window.__bhZoom = zoom;   // 개발자 도구에서 확인용
 

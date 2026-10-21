@@ -237,8 +237,9 @@
     var fonts = {};
     var lastTap = null;
     var pendingOpen = 0;   // 왕조 칸 톡 — 두 번 톡인지 보려고 잠깐 미룬 열기
-    var focus = null;      // 펼쳐 둔 항목 { id } — 테두리를 두르고, 화면 위 자리를 앱에 알려 상세 카드를 붙인다
+    var focus = null;      // 펼쳐 둔 항목 { id, entry, links, shown } — 테두리를 두르고 옆에 상세를 쓴다
     var focusBox = null;   // 이번 프레임에 그 항목이 그려진 판 위 자리 { x0, y0, x1, y1 }
+    var reading = false;   // 이번 프레임에 상세를 썼는가
 
     // ----------------------------------------------------------- 좌표
 
@@ -599,21 +600,14 @@
       // 4) 시대 이름·장면 이름 — 연도 축 옆 위쪽에 붙어 따라온다
       drawEraTitles(axL, ax);
 
+      // 펼친 항목의 상세 — 그 항목 바로 옆에(판을 눕혀도 똑바로 읽히게 덮개에) 쓴다
+      var again = false;
+      reading = false;
+      if (focus && focusBox) again = drawDetail();
+
       // 5) 열 이름 — 화면 위에 붙어 있다
       drawHeads(c);
-
-      // 6) 펼친 항목의 화면 위 자리 — 앱이 상세 카드를 그 옆에 붙인다(눕혔으면 원근을 씌운 자리)
-      if (focus && opts.onFocus) {
-        var r = null;
-        if (focusBox) {
-          var a = proj(focusBox.x0, focusBox.y0);
-          var b = proj(focusBox.x1, focusBox.y1);
-          r = { x: Math.min(a.x, b.x), y: Math.max(HEAD_H, Math.min(a.y, b.y)), w: Math.abs(b.x - a.x), h: 0 };
-          r.h = Math.max(0, Math.min(Hv, Math.max(a.y, b.y)) - r.y);
-          if (r.h < 4 || r.x > W || r.x + r.w < 0) r = null;
-        }
-        opts.onFocus(r, motion.mode === 'idle' && !gesture);
-      }
+      return again;
     }
 
     /** 시대 묶음 띠 폭 — 열이 넓을 때만 글자가 들어갈 만큼 */
@@ -1056,6 +1050,208 @@
       hits.push({ x: x - 9, y: y - 9, w: 18, h: 18, entry: ev });
     }
 
+
+    // ----------------------------------------------------------- 펼친 항목의 상세
+
+    var PAD = 16;
+
+    /** 글을 폭에 맞춰 줄로 나눈다 — 띄어쓰기에서, 한 낱말이 너무 길면 글자에서 */
+    function wrap(text, maxW, f) {
+      var out = [];
+      var line = '';
+      String(text).split(/\s+/).forEach(function (word) {
+        if (!word) return;
+        var t = line ? line + ' ' + word : word;
+        if (pp.measure(t, f) <= maxW) { line = t; return; }
+        if (line) out.push(line);
+        while (word.length > 1 && pp.measure(word, f) > maxW) {
+          var n = word.length - 1;
+          while (n > 1 && pp.measure(word.slice(0, n), f) > maxW) n -= 1;
+          out.push(word.slice(0, n));
+          word = word.slice(n);
+        }
+        line = word;
+      });
+      if (line) out.push(line);
+      return out;
+    }
+
+    function detailW() { return narrow() ? W - 24 : Math.min(340, W - 24); }
+
+    /** 상세의 줄들(상자 안 좌표)과 높이 — 연도 · 사건 · 한 문장 설명 · 출처 · 갈림길 */
+    function detailRows(entry, links, w) {
+      var rows = [];
+      var inner = w - PAD * 2;
+      var y = PAD + 14;
+      var C = global.BigHistoryCommon;
+      var fe = font(12, '700', true);
+      rows.push({ dot: entry._color, x: PAD + 4, y: y - 4 });
+      rows.push({ s: pfit(entry.era_note || (C ? C.periodLabel(entry.start_year, entry.end_year) : yearText(entry.start_year)), inner - 40, fe), x: PAD + 14, y: y, f: fe, c: colors.ink2 });
+      rows.push({ close: true, x: w - PAD - 6, y: PAD + 8 });
+      y += 12;
+      var ft = font(21, '700', true);
+      wrap(entry.title, inner - 30, ft).forEach(function (line) { y += 27; rows.push({ s: line, x: PAD, y: y, f: ft, c: colors.ink }); });
+      y += 8;
+      var fd = font(14);
+      wrap(entry.description || '', inner, fd).forEach(function (line) { y += 22; rows.push({ s: line, x: PAD, y: y, f: fd, c: colors.ink }); });
+      y += 14;
+      rows.push({ rule: true, y: y });
+      y += 4;
+      var fs = font(12);
+      var src = entry.sources || [];
+      if (!src.length) {
+        y += 18;
+        rows.push({ s: '출처 · 아직 확인 전(검토 전 초안)', x: PAD, y: y, f: fs, c: colors.ink2, a: 0.8 });
+      }
+      src.forEach(function (raw, i) {
+        // "이름 https://…" 꼴이면 이름을 링크로
+        var m = /^(.*?)\s*(https?:\/\/\S+)$/.exec(raw);
+        var text = (i ? '' : '출처 · ') + (m ? (m[1] || m[2]) : raw);
+        wrap(text, inner, fs).forEach(function (line) {
+          y += 18;
+          rows.push({ s: line, x: PAD, y: y, f: fs, c: colors.ink2, url: m && m[2] });
+        });
+      });
+      if (src.length && entry.status !== 'reviewed') {
+        y += 18;
+        rows.push({ s: '검토 전 초안', x: PAD, y: y, f: fs, c: colors.ink2, a: 0.7 });
+      }
+      (links || []).forEach(function (l) {
+        y += 10;
+        rows.push({ pill: l, y: y, h: 30 });
+        y += 30;
+      });
+      return { rows: rows, h: y + PAD };
+    }
+
+    // 덮개에 칠하는 붓 — 판의 붓과 같은 모양(상세를 쓸 때 쓴다)
+    var ov = {
+      rect: function (x, y, w, h, color, alpha, r) {
+        octx.fillStyle = color;
+        octx.globalAlpha = alpha == null ? 1 : alpha;
+        if (r) { roundRect(x, y, w, h, r); octx.fill(); } else octx.fillRect(x, y, w, h);
+        octx.globalAlpha = 1;
+      },
+      card: function (x, y, w, h, r, body, shadowColor, blur, dy) {
+        octx.save();
+        octx.shadowColor = shadowColor;
+        octx.shadowBlur = blur;
+        octx.shadowOffsetY = dy;
+        octx.fillStyle = body;
+        roundRect(x, y, w, h, r);
+        octx.fill();
+        octx.restore();
+      },
+      circle: function (x, y, r, color, alpha) {
+        octx.fillStyle = color;
+        octx.globalAlpha = alpha == null ? 1 : alpha;
+        octx.beginPath(); octx.arc(x, y, r, 0, 6.2832); octx.fill();
+        octx.globalAlpha = 1;
+      },
+      line: function (x1, y1, x2, y2, color, alpha, width, dash) {
+        octx.strokeStyle = color;
+        octx.globalAlpha = alpha == null ? 1 : alpha;
+        octx.lineWidth = width || 1;
+        octx.setLineDash(dash || []);
+        octx.beginPath(); octx.moveTo(x1, y1); octx.lineTo(x2, y2); octx.stroke();
+        octx.setLineDash([]);
+        octx.lineWidth = 1;
+        octx.globalAlpha = 1;
+      },
+      text: function (str, x, y, f, color, alpha, align) {
+        octx.font = (f.weight ? f.weight + ' ' : '') + f.px + 'px ' + f.family;
+        octx.fillStyle = color;
+        octx.globalAlpha = alpha == null ? 1 : alpha;
+        octx.textAlign = align || 'left';
+        octx.fillText(str, x, y);
+        octx.textAlign = 'left';
+        octx.globalAlpha = 1;
+      }
+    };
+
+    /**
+     * 펼친 항목 옆에 상세를 쓴다(화면 좌표). 넓으면 오른쪽(자리가 없으면 왼쪽, 둘 다 없으면 겹쳐),
+     * 좁으면 그 아래. 처음엔 날아가 도착한 뒤에 떠오른다. @returns 아직 떠오르는 중인가
+     */
+    function drawDetail() {
+      if (!focus.shown) {
+        if (motion.mode !== 'idle' || gesture) return false;
+        focus.shown = now();
+      }
+      var k = clamp((now() - focus.shown) / 220, 0, 1);
+      var ease = 1 - Math.pow(1 - k, 3);
+      // 판 위 자리 → 화면 자리(눕혔으면 원근을 씌운 자리)
+      var pa = proj(focusBox.x0, focusBox.y0);
+      var pb = proj(focusBox.x1, focusBox.y1);
+      var fb = { x0: Math.min(pa.x, pb.x), y0: Math.min(pa.y, pb.y), x1: Math.max(pa.x, pb.x), y1: Math.max(pa.y, pb.y) };
+      if (fb.y1 < HEAD_H || fb.y0 > Hv || fb.x1 < 0 || fb.x0 > W) return false;
+      reading = true;
+      var w = detailW();
+      var lay = detailRows(focus.entry, focus.links, w);
+      var h = lay.h;
+      var visTop = HEAD_H + 8;
+      var visBot = Hv - (opts.bottomCover ? opts.bottomCover() : 0) - 8;
+      var x;
+      var y;
+      var side = 0;   // 1 오른쪽, -1 왼쪽, 0 아래·겹침
+      if (narrow()) {
+        x = 12;
+        y = Math.max(fb.y0 + 24, Math.min(fb.y1 + 12, visBot - h));
+      } else {
+        x = fb.x1 + 14; side = 1;
+        if (x + w > W - 12) { x = fb.x0 - 14 - w; side = -1; }
+        if (x < 12) { x = clamp(fb.x0 + 10, 12, W - w - 12); side = 0; }
+        // 칸이 길면 보이는 부분 위쪽에 붙어 따라오고, 칸 끝과 함께 밀려 나간다
+        y = clamp(visTop, fb.y0, Math.max(fb.y0, fb.y1 - h));
+        if (y + h > visBot) y = Math.max(visBot - h, fb.y0 - h + 40);
+      }
+      y += (1 - ease) * 12;
+      var a = ease;
+
+      // 칸과 상세를 잇는 짧은 다리
+      if (side && a > 0.5) {
+        var by = y + 26;
+        if (by > fb.y0 && by < fb.y1) {
+          if (side > 0) ov.rect(fb.x1 + 2.5, by, x - fb.x1 - 2.5, 2.5, colors.star, 0.95);
+          else ov.rect(x + w, by, fb.x0 - 2.5 - x - w, 2.5, colors.star, 0.95);
+        }
+      }
+      if (k < 1) ov.rect(x, y, w, h, colors.foam, a, 18);
+      else ov.card(x, y, w, h, 18, colors.foam, 'rgba(58, 42, 36, .22)', 22, 6);
+      hits.push({ x: x, y: y, w: w, h: h, panel: true, scr: true });   // 상세를 눌러도 아래 칸이 열리지 않게
+
+      lay.rows.forEach(function (r) {
+        if (r.dot) { ov.circle(x + r.x, y + r.y, 4.5, r.dot, a); return; }
+        if (r.close) {
+          var cx = x + r.x;
+          var cy = y + r.y;
+          ov.circle(cx, cy, 15, colors.sky, a);
+          ov.text('✕', cx, cy + 5, font(14, '700'), colors.ink, a, 'center');
+          hits.push({ x: cx - 20, y: cy - 20, w: 40, h: 40, act: blur, scr: true });
+          return;
+        }
+        if (r.rule) { ov.line(x + PAD, y + r.y, x + w - PAD, y + r.y, colors.line, a, 1, [3, 4]); return; }
+        if (r.pill) {
+          var fp = font(13, '700');
+          ov.rect(x + PAD, y + r.y, w - PAD * 2, r.h, colors.sky, a, r.h / 2);
+          ov.text(pfit(r.pill.label + ' →', w - PAD * 2 - 24, fp), x + PAD + 14, y + r.y + 20, fp, colors.ink, a);
+          hits.push({ x: x + PAD, y: y + r.y, w: w - PAD * 2, h: r.h, act: r.pill.run, scr: true });
+          return;
+        }
+        ov.text(r.s, x + r.x, y + r.y, r.f, r.c, a * (r.a || 1));
+        if (r.url) {
+          var tw = pp.measure(r.s, r.f);
+          ov.rect(x + r.x, y + r.y + 3, tw, 1, r.c, a * 0.6);
+          hits.push({ x: x + r.x - 4, y: y + r.y - 15, w: tw + 8, h: 22, act: openUrl(r.url), scr: true });
+        }
+      });
+      return k < 1;
+    }
+
+    function openUrl(url) {
+      return function () { global.open(url, '_blank', 'noopener'); };
+    }
+
     // ----------------------------------------------------------- 움직임
 
     function frame(t) {
@@ -1066,7 +1262,7 @@
       if (stepTilt(dt)) moving = true;
       clampCam();
       var td = now();
-      draw();
+      if (draw()) moving = true;   // 상세가 떠오르는 중
       stats.draw = now() - td;
       if (opts.onCamera) {
         opts.onCamera({
@@ -1075,7 +1271,8 @@
           moving: moving,
           dragging: !!(gesture && gesture.active),
           ringX: proj(axisLine(), focusY()).x,
-          tilt: tilt.cur
+          tilt: tilt.cur,
+          reading: reading   // 상세를 펼쳐 둔 동안엔 초점선이 글 위를 지나가지 않게
         });
       }
       if (moving) raf = global.requestAnimationFrame(frame);
@@ -1203,15 +1400,18 @@
     /**
      * 항목 펼치기 — 그 왕조·시대가 화면을 채우도록 날아가고 테두리를 두른다(ChronoZoom 처럼).
      * 기간이 있으면 그 기간이 화면 높이에 맞게, 한 해짜리 사건이면 앞뒤 수십 년이 보이게.
-     * @param col 그 항목의 열 번호(켜진 열 기준). 없으면 가로는 그대로
+     * @param col   그 항목의 열 번호(켜진 열 기준). 없으면 가로는 그대로
+     * @param links 상세 아래에 붙일 길 [{ label, run }] (갈림길 등)
      */
-    function focusEntry(entry, col) {
-      focus = { id: entry.id };
+    function focusEntry(entry, col, links) {
+      focus = { id: entry.id, entry: entry, links: links || [], shown: 0 };
       var o = { col: col };
       var span = entry.end_year - entry.start_year;
+      // 좁은 화면은 상세를 칸 아래에 쓰므로 그 자리를 남긴다
+      var below = narrow() ? detailRows(entry, focus.links, detailW()).h + 16 : 0;
       if (span >= 1) {
-        // 위아래로 숨 쉴 틈을 두고 기간을 화면에 맞춘다(아래쪽 계기판·카드 자리도 남겨 둔다)
-        var room = Math.max(120, Hv - HEAD_H - (opts.bottomCover ? opts.bottomCover() : 0));
+        // 위아래로 숨 쉴 틈을 두고 기간을 화면에 맞춘다(아래쪽 계기판·상세 자리도 남겨 둔다)
+        var room = Math.max(120, Hv - HEAD_H - (opts.bottomCover ? opts.bottomCover() : 0) - below);
         var s = clamp((room * 0.62) / span, sMin(), S_MAX);
         var top = HEAD_H + room * 0.12;
         flyTo(entry.start_year + (focusY() - top) / s, s, o);
@@ -1224,7 +1424,6 @@
     function blur() {
       if (!focus) return;
       focus = null;
-      if (opts.onFocus) opts.onFocus(null, true);
       invalidate();
     }
 
@@ -1421,6 +1620,11 @@
       }
       lastTap = { t: tapAt, x: p.sx, y: p.sy };
       var h = hitAt(p);
+      if (h && (h.act || h.panel)) {   // 상세 안 — 닫기·출처·갈림길
+        clearTimeout(pendingOpen);
+        if (h.act) h.act();
+        return;
+      }
       if (!h) {
         if (focus) {
           clearTimeout(pendingOpen);
