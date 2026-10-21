@@ -361,7 +361,64 @@
       "label": "한국사",
       "color": "#d99a92",
       "region": "동아시아",
-      "order": 30
+      "order": 30,
+      "periods": [
+        {
+          "label": "고조선",
+          "start_year": -2333,
+          "end_year": -108,
+          "note": "단군 건국 전승(기원전 2333년)부터 위만조선 멸망까지"
+        },
+        {
+          "label": "여러 나라",
+          "start_year": -108,
+          "end_year": 313,
+          "note": "고조선 멸망 뒤 부여·고구려·옥저·동예·삼한이 자라던 때. 끝은 낙랑군이 밀려난 313년으로 잡음"
+        },
+        {
+          "label": "삼국 시대",
+          "start_year": 313,
+          "end_year": 676
+        },
+        {
+          "label": "남북국 시대",
+          "start_year": 676,
+          "end_year": 892,
+          "note": "나당전쟁이 끝난 676년부터 견훤이 일어선 892년까지"
+        },
+        {
+          "label": "후삼국 시대",
+          "start_year": 892,
+          "end_year": 936
+        },
+        {
+          "label": "고려 시대",
+          "start_year": 936,
+          "end_year": 1392,
+          "note": "후삼국 통일(936년)부터"
+        },
+        {
+          "label": "조선 시대",
+          "start_year": 1392,
+          "end_year": 1876
+        },
+        {
+          "label": "근대",
+          "start_year": 1876,
+          "end_year": 1910,
+          "note": "개항(1876년)부터 국권 피탈(1910년)까지"
+        },
+        {
+          "label": "일제강점기",
+          "start_year": 1910,
+          "end_year": 1945
+        },
+        {
+          "label": "현대",
+          "start_year": 1945,
+          "end_year": 2025
+        }
+      ]
     },
     {
       "id": "china",
@@ -372,7 +429,55 @@
       "label": "중국사",
       "color": "#d9a37e",
       "region": "동아시아",
-      "order": 31
+      "order": 31,
+      "periods": [
+        {
+          "label": "선진 시대",
+          "start_year": -2070,
+          "end_year": -221
+        },
+        {
+          "label": "진한 시대",
+          "start_year": -221,
+          "end_year": 220
+        },
+        {
+          "label": "위진남북조",
+          "start_year": 220,
+          "end_year": 589
+        },
+        {
+          "label": "수당 시대",
+          "start_year": 589,
+          "end_year": 907,
+          "note": "수의 통일(589년)부터"
+        },
+        {
+          "label": "오대십국",
+          "start_year": 907,
+          "end_year": 960
+        },
+        {
+          "label": "송원 시대",
+          "start_year": 960,
+          "end_year": 1368
+        },
+        {
+          "label": "명청 시대",
+          "start_year": 1368,
+          "end_year": 1912
+        },
+        {
+          "label": "민국 시대",
+          "start_year": 1912,
+          "end_year": 1949
+        },
+        {
+          "label": "현대",
+          "start_year": 1949,
+          "end_year": 2025
+        }
+      ]
     },
     {
       "id": "japan",
@@ -383,7 +488,43 @@
       "label": "일본사",
       "color": "#b9a3d4",
       "region": "동아시아",
-      "order": 32
+      "order": 32,
+      "periods": [
+        {
+          "label": "원시",
+          "start_year": -14000,
+          "end_year": 250,
+          "note": "조몬·야요이"
+        },
+        {
+          "label": "고대",
+          "start_year": 250,
+          "end_year": 1185,
+          "note": "고훈~헤이안"
+        },
+        {
+          "label": "중세",
+          "start_year": 1185,
+          "end_year": 1573,
+          "note": "가마쿠라~센고쿠"
+        },
+        {
+          "label": "근세",
+          "start_year": 1573,
+          "end_year": 1868,
+          "note": "아즈치모모야마·에도"
+        },
+        {
+          "label": "근대",
+          "start_year": 1868,
+          "end_year": 1945
+        },
+        {
+          "label": "현대",
+          "start_year": 1945,
+          "end_year": 2025
+        }
+      ]
     },
     {
       "id": "science",

@@ -88,7 +88,22 @@
           "color": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
           "region": { "type": "string" },
           "order": { "type": "integer" },
-          "hidden_by_default": { "type": "boolean" }
+          "hidden_by_default": { "type": "boolean" },
+          "periods": {
+            "type": "array",
+            "description": "국가사의 시대 묶음(예: 삼국 시대, 송원 시대). 탐험 화면에서 열 왼쪽 띠에 세로로 적힌다. 시작 연도 순, 서로 겹치지 않게.",
+            "items": {
+              "type": "object",
+              "required": ["label", "start_year", "end_year"],
+              "additionalProperties": false,
+              "properties": {
+                "label": { "type": "string", "minLength": 1 },
+                "start_year": { "type": "integer" },
+                "end_year": { "type": "integer" },
+                "note": { "type": "string", "description": "경계를 어디서 끊었는지 등 검토용 메모(화면에는 나오지 않음)" }
+              }
+            }
+          }
         }
       }
     }

@@ -91,6 +91,15 @@ for (const ds of manifest.datasets || []) {
   if (!trackIds.has(ds.track)) {
     fail(MANIFEST, `dataset "${ds.id}" 의 track "${ds.track}" 이 tracks 에 없습니다.`);
   }
+
+  // 시대 묶음 — 시작 연도 순, 겹치지 않게
+  (ds.periods || []).forEach((pd, i, list) => {
+    const where = `dataset "${ds.id}" periods[${i}] "${pd.label}"`;
+    if (ds.track !== 'nation') warn(MANIFEST, `${where} — 시대 묶음은 국가사 열에만 그려집니다.`);
+    if (pd.start_year >= pd.end_year) fail(MANIFEST, `${where} — start_year 가 end_year 보다 작아야 합니다.`);
+    if (pd.start_year === 0 || pd.end_year === 0) fail(MANIFEST, `${where} — 연도 0 은 사용하지 않습니다.`);
+    if (i > 0 && pd.start_year < list[i - 1].end_year) fail(MANIFEST, `${where} — 앞 묶음과 겹칩니다(시작 연도 순으로, 겹치지 않게).`);
+  });
 }
 
 // ----------------------------------------------------------- 시대 장면 검사
@@ -224,6 +233,27 @@ for (const ds of manifest.datasets || []) {
     // 출처 정책: draft 는 출처가 없어도 되지만, reviewed 로 올리려면 반드시 있어야 한다.
     if (entry.status === 'reviewed' && (!entry.sources || entry.sources.length === 0)) {
       fail(file, `${where} — status 가 reviewed 인데 sources 가 비어 있습니다. 확인한 자료를 적거나 draft 로 되돌리세요.`);
+    }
+  });
+
+  // 상위 왕조(parent) — 같은 파일 안에 있고, 그 기간 안에 들어가며, 고리를 이루지 않게
+  const byId = new Map(doc.entries.map((e) => [e.id, e]));
+  const BLOCK = (e) => (e.kind === 'polity' || e.kind === 'era') && e.end_year > e.start_year;
+  doc.entries.forEach((entry, i) => {
+    if (!entry.parent) return;
+    const where = `entries[${i}] "${entry.id}"`;
+    const up = byId.get(entry.parent);
+    if (!up) { fail(file, `${where} — parent "${entry.parent}" 가 같은 파일에 없습니다.`); return; }
+    if (up.id === entry.id) { fail(file, `${where} — parent 가 자기 자신입니다.`); return; }
+    if (!BLOCK(entry) || !BLOCK(up)) warn(file, `${where} — parent 는 기간이 있는 polity·era 항목끼리만 칸으로 그려집니다.`);
+    if (entry.start_year < up.start_year || entry.end_year > up.end_year) {
+      warn(file, `${where} — 기간(${entry.start_year}~${entry.end_year})이 상위 "${up.title}"(${up.start_year}~${up.end_year}) 밖으로 나갑니다. 밖은 그려지지 않습니다.`);
+    }
+    if (entry.area && !up.area) warn(file, `${where} — 하위 칸에는 area 를 적지 않습니다(상위 칸을 따릅니다).`);
+    const seen = new Set([entry.id]);
+    for (let p = up; p && p.parent; p = byId.get(p.parent)) {
+      if (seen.has(p.id)) { fail(file, `${where} — parent 가 고리를 이룹니다.`); break; }
+      seen.add(p.id);
     }
   });
 

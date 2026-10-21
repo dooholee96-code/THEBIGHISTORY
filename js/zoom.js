@@ -8,7 +8,9 @@
      · 시간 눈금은 줌에 맞춰 1만 년 → 1천 년 → 100년 → 10년 → 1년
      · 열마다 사건이 자리를 잡는다: 넉넉하면 카드, 빠듯하면 이름표, 더 빠듯하면 점, 그래도 안 되면 '+N'
        (중요한 것부터 — 나라·왕조 > 시대 > 나머지)
-     · 국가사 열 왼쪽 가는 띠 = 그 나라의 왕조·시대가 이어진 기간(겹치면 나란히)
+     · 국가사 열 = 왕조·시대 칸(나무위키 왕조 표처럼). 같은 때의 나라는 폭을 나눠 나란히,
+       하위 시기(parent)는 상위 칸 안에, 주변 지역(area)은 오른쪽 가장자리 줄에.
+       열 왼쪽 띠는 시대 묶음(매니페스트 periods — 삼국 시대·송원 시대 …)
      · 연도 축은 국가사 열과 주제사 열 사이에 끼어 그림과 함께 옆으로 움직이고,
        화면 밖으로 나가려 하면 왼쪽·오른쪽 가장자리에 붙어 따라온다
      · 열 이름은 화면 위에, 시대 이름은 연도 축 옆에 붙어 따라온다
@@ -71,6 +73,91 @@
     return lanes.length;
   }
 
+  var AREA_F = 0.16;   // 가장자리 지역 줄(탐라·류큐 등) 하나가 차지하는 폭 비율
+
+  /**
+   * 국가사 열의 왕조 칸 — 나무위키 왕조 표처럼.
+   * 시간을 시작·끝 해마다 잘라, 그 조각에 살아 있는 나라끼리 폭을 똑같이 나눈다(혼자면 꽉 차게).
+   * parent 가 있는 항목은 상위 칸 안에서 같은 방식으로, area 가 있는 항목은 오른쪽 가장자리 줄에.
+   * @returns [{ entry, y0, y1, fx0, fx1, depth, shade }]  — fx 는 칸 영역 폭에 대한 비율(0..1), y 는 해
+   */
+  function layoutBlocks(list) {
+    var byId = {};
+    list.forEach(function (e) { byId[e.id] = e; });
+    var kids = {};
+    var top = [];
+    list.forEach(function (e) {
+      if (e.parent && byId[e.parent] && e.parent !== e.id) (kids[e.parent] = kids[e.parent] || []).push(e);
+      else top.push(e);
+    });
+    // 이웃한 칸이 같은 색으로 붙어 보이지 않게 시작 순서대로 진하기를 번갈아
+    var shade = {};
+    list.slice().sort(function (a, b) { return a.start_year - b.start_year; })
+      .forEach(function (e, i) { shade[e.id] = i % 2; });
+    var pieces = [];
+
+    function place(spans, fx0, fx1, y0, y1, depth) {
+      spans = spans.filter(function (e) { return e.end_year > y0 && e.start_year < y1; });
+      if (!spans.length || depth > 3) return;
+      var main = spans.filter(function (e) { return !e.area; });
+      var side = spans.filter(function (e) { return e.area; });
+      var lanes = main.map(function (e) {
+        return { entry: e, start_year: Math.max(e.start_year, y0), end_year: Math.min(e.end_year, y1) };
+      });
+      packLanes(lanes);
+      var laneOf = {};
+      lanes.forEach(function (l) { laneOf[l.entry.id] = l.lane; });
+      var areas = [];
+      side.slice().sort(function (a, b) { return a.start_year - b.start_year; })
+        .forEach(function (e) { if (areas.indexOf(e.area) < 0) areas.push(e.area); });
+
+      var cuts = [y0, y1];
+      spans.forEach(function (e) {
+        if (e.start_year > y0 && e.start_year < y1) cuts.push(e.start_year);
+        if (e.end_year > y0 && e.end_year < y1) cuts.push(e.end_year);
+      });
+      cuts.sort(function (a, b) { return a - b; });
+      var open = {};   // 항목 id → 지금 늘이고 있는 조각
+      var mine = [];
+      function put(e, a, b, l, r) {
+        var p = open[e.id];
+        if (p && p.y1 === a && p.fx0 === l && p.fx1 === r) { p.y1 = b; return; }
+        p = { entry: e, y0: a, y1: b, fx0: l, fx1: r, depth: depth, shade: shade[e.id] };
+        open[e.id] = p;
+        mine.push(p);
+      }
+      for (var k = 0; k + 1 < cuts.length; k += 1) {
+        var a = cuts[k];
+        var b = cuts[k + 1];
+        if (b <= a) continue;
+        var live = function (e) { return e.start_year <= a && e.end_year >= b; };
+        var act = main.filter(live).sort(function (p, q) { return laneOf[p.id] - laneOf[q.id]; });
+        var actAreas = areas.filter(function (ar) { return side.some(function (e) { return e.area === ar && live(e); }); });
+        var span = fx1 - fx0;
+        var sideW = actAreas.length ? Math.min(0.45, actAreas.length * AREA_F) * span : 0;
+        var mainR = act.length ? fx1 - sideW : fx1;
+        var slot = act.length ? (mainR - fx0) / act.length : 0;
+        act.forEach(function (e, i) { put(e, a, b, fx0 + slot * i, fx0 + slot * (i + 1)); });
+        var aw = actAreas.length ? (fx1 - (act.length ? mainR : fx0)) / actAreas.length : 0;
+        side.filter(live).forEach(function (e) {
+          var j = actAreas.indexOf(e.area);
+          var l = (act.length ? mainR : fx0) + aw * j;
+          put(e, a, b, l, l + aw);
+        });
+      }
+      mine.forEach(function (p) {
+        pieces.push(p);
+        if (kids[p.entry.id]) place(kids[p.entry.id], p.fx0, p.fx1, p.y0, p.y1, depth + 1);
+      });
+    }
+
+    place(top, 0, 1, -Infinity, Infinity, 0);
+    return pieces;
+  }
+
+  /** 칸 안 이름 — 괄호 속 덧말은 좁을 때 뺀다: '삼한(마한·진한·변한)' → '삼한' */
+  function shortTitle(t) { return t.replace(/\s*\([^)]*\)\s*$/, '').trim() || t; }
+
   /**
    * @param canvas  <canvas id="zoom">
    * @param opts    { eras, present, focusY(): px, onCamera(info), openEntry(entry) }
@@ -96,7 +183,7 @@
     var T_MAX = eras[eras.length - 1].end_year;
     var PRESENT = opts.present || T_MAX;
 
-    var cols = [];   // { ds, events(우선순위 순), spans, laneN }
+    var cols = [];   // { ds, events(우선순위 순), blocks(왕조 칸 조각), periods(시대 묶음) }
     // 맨 위의 해, 1년당 px, 화면 왼쪽(여백 다음)에 오는 그림의 가로 위치(px)
     var cam = { t0: -4200, s: 0.1, x0: 0 };
     var motion = { mode: 'idle', vt: 0, vx: 0, fly: null, zoomTo: null };
@@ -255,13 +342,11 @@
           if (ra !== rb) return ra - rb;
           return (b.end_year - b.start_year) - (a.end_year - a.start_year);
         });
-        var spans = ds.track === 'nation'
-          ? mine.filter(function (e) { return (e.kind === 'polity' || e.kind === 'era') && e.end_year > e.start_year; })
-              .map(function (e) { return { entry: e, start_year: e.start_year, end_year: e.end_year }; })
+        var blocks = ds.track === 'nation'
+          ? layoutBlocks(mine.filter(function (e) { return (e.kind === 'polity' || e.kind === 'era') && e.end_year > e.start_year; }))
           : [];
-        var laneN = packLanes(spans);
-        spans.forEach(function (sp) { sp.lane = Math.min(sp.lane, 2); });   // 3줄을 넘으면 마지막 줄에 겹쳐 그린다
-        return { ds: ds, events: events, spans: spans, laneN: Math.min(3, laneN) };
+        blocks.sort(function (a, b) { return a.depth - b.depth; });   // 상위 칸을 먼저 칠한다
+        return { ds: ds, events: events, blocks: blocks, periods: ds.track === 'nation' ? (ds.periods || []) : [] };
       });
       // 연도 축은 앞쪽 국가사 열들 뒤에. 국가사만·주제사만 켜져 있으면 맨 앞에
       var nations = 0;
@@ -474,33 +559,151 @@
       drawHeads(c);
     }
 
-    function drawColumn(col, x, c, yTop, yBot, focusYear) {
-      if (!col) return;
-      var laneW = narrow() ? 5 : 6;
-      var lanesW = col.laneN ? col.laneN * (laneW + 2) + 4 : 0;
+    /** 시대 묶음 띠 폭 — 열이 넓을 때만 글자가 들어갈 만큼 */
+    function periodW(col, c) {
+      if (!col.periods.length) return 0;
+      return c >= 110 ? 20 : (c >= 60 ? 6 : 0);
+    }
 
-      // 나라별 왕조·시대 띠(겹치면 나란히)
-      col.spans.forEach(function (sp) {
-        var a = yOf(sp.start_year);
-        var b = Math.max(a + 4, yOf(sp.end_year));
+    /** 세로쓰기(한 글자씩 아래로) — 좁은 칸·띠의 이름 */
+    function drawVertical(text, cx, y, f, color, alpha, lineH) {
+      var chars = text.replace(/\s+/g, '').split('');
+      chars.forEach(function (ch, i) { pp.text(ch, cx, y + i * lineH, f, color, alpha, 'center'); });
+      return chars.length * lineH;
+    }
+
+    function stickyTop() { return geo.on ? 0 : HEAD_H + 6; }
+
+    /** 시대 묶음(삼국 시대·송원 시대…) — 열 왼쪽 띠. 누르면 그 시대로 */
+    function drawPeriods(col, x, pw) {
+      var top = stickyTop();
+      col.periods.forEach(function (pd, i) {
+        var a = yOf(pd.start_year);
+        var b = yOf(pd.end_year);
         if (b < 0 || a > H) return;
-        var e = sp.entry;
+        pp.rect(x + 2, a + 1, pw - 3, Math.max(2, b - a - 2), col.ds.color, i % 2 ? 0.34 : 0.2, 4);
+        hits.push({ x: x, y: a, w: pw, h: b - a, era: pd });
+        if (pw < 16) return;
+        var f = font(11, '700');
+        var y = Math.max(a, top) + 15;
+        var label = (b - y - 6 >= pd.label.replace(/\s+/g, '').length * 13) ? pd.label : pd.label.replace(/\s*시대$/, '');
+        if (b - y - 6 < label.replace(/\s+/g, '').length * 13) return;
+        drawVertical(label, x + 2 + (pw - 3) / 2, y, f, colors.inkBg, 0.9, 13);
+      });
+    }
+
+    /**
+     * 왕조 칸 — 옅은 색 칸 + 이름(보이는 부분 위쪽에 붙어 따라온다).
+     * @returns { labeled: {항목 id: true}, rects: [이름이 차지한 자리] } — 사건 이름표가 피해 가게
+     */
+    function drawBlocks(col, bx, bw, focusYear) {
+      var top = stickyTop();
+      var cand = {};   // 항목마다 이름을 쓸 수 있는 조각들 — 그중 가장 이른(위쪽) 것에 쓴다
+      col.blocks.forEach(function (p) {
+        var a = yOf(p.y0);
+        var b = yOf(p.y1);
+        if (b < 0 || a > H) return;
+        var e = p.entry;
+        var inset = p.depth * 3;
+        var px = bx + p.fx0 * bw + inset + 1;
+        var w = (p.fx1 - p.fx0) * bw - inset * 2 - 2;
+        if (w < 1.5) return;
         var live = e.start_year <= focusYear && focusYear < e.end_year;
-        var lx = x + 4 + sp.lane * (laneW + 2);
-        pp.rect(lx, a, laneW, b - a, e._color, live ? 1 : (e.kind === 'era' ? 0.35 : 0.55), 3);
-        hits.push({ x: lx - 3, y: a, w: laneW + 6, h: b - a, entry: e });
+        var alpha = (p.depth ? 0.16 : (e.kind === 'era' ? 0.14 : 0.2)) + p.shade * 0.07 + (live ? 0.1 : 0);
+        // 한 나라가 여러 조각으로 나뉘어도(이웃 나라가 생기고 사라질 때마다 폭이 바뀐다) 한 덩어리로 보이게,
+        // 틈과 둥근 모서리는 그 나라가 시작·끝나는 곳에만
+        var first = p.y0 <= e.start_year;
+        var last = p.y1 >= e.end_year;
+        var ga = first ? 1 : 0;
+        var gb = last ? 1 : 0;
+        pp.rect(px, a + ga, w, Math.max(2, b - a - ga - gb), e._color, alpha, first && last ? Math.min(6, w / 2) : 0);
+        hits.push({ x: px, y: a, w: w, h: b - a, entry: e });
+        var vis = b - Math.max(a, top);
+        if (vis >= 20) (cand[e.id] = cand[e.id] || []).push({ p: p, x: px, w: w, a: a, b: b });
       });
 
-      // 사건 — 이 열 안에서만 자리를 잡는다
-      var ex = x + 6 + lanesW;
-      var ew = Math.max(0, c - 12 - lanesW);
+      // 이름 자리: 화면에 보이는 조각 중 가장 위의 것부터, 가로(줄여서라도) 또는 세로로 들어가는 첫 조각
+      function fits(k) {
+        var e = k.p.entry;
+        var y = labelY(k);
+        if (y + 4 > k.b) return false;
+        var f = font(k.p.depth ? 12 : 13, '700');
+        if (pp.measure(shortTitle(e.title), f) <= k.w - 10 || k.w >= 44) return true;
+        var n = shortTitle(e.title).replace(/\s+/g, '').length;
+        return k.w >= 13 && k.b - (y - 4) >= n * 12 + 6;
+      }
+      function labelY(k) { return Math.max(k.a, top) + 17; }
+      var best = {};
+      Object.keys(cand).forEach(function (id) {
+        var list = cand[id].sort(function (p, q) { return p.a - q.a; });
+        for (var i = 0; i < list.length; i += 1) { if (fits(list[i])) { best[id] = list[i]; return; } }
+      });
+
+      var labeled = {};
+      var rects = [];
+      function hitsLabel(r) {
+        return rects.some(function (q) { return r.x < q.x + q.w && q.x < r.x + r.w && r.y < q.y + q.h && q.y < r.y + r.h; });
+      }
+      // 상위 칸 이름부터 — 하위 칸 이름이 같은 자리에 오면(같은 해에 시작) 한 줄씩 아래로 비킨다
+      Object.keys(best).map(function (id) { return best[id]; })
+        .sort(function (p, q) { return p.p.depth - q.p.depth || p.a - q.a; })
+        .forEach(function (k) {
+          var e = k.p.entry;
+          var id = e.id;
+          var y = labelY(k);
+          var f = font(k.p.depth ? 12 : 13, '700');
+          var title = e.title;
+          var tw = pp.measure(title, f);
+          if (tw > k.w - 10) { title = shortTitle(e.title); tw = pp.measure(title, f); }
+          var vt = shortTitle(e.title).replace(/\s+/g, '');
+          var vertOk = k.w >= 13 && k.b - (y - 4) >= vt.length * 12 + 6;
+          // 안 들어가면: 넉넉히 넓으면 줄여 쓰고, 좁으면(줄이면 '아바…'처럼 되니) 세로로
+          if (tw <= k.w - 10 || (k.w >= 44 && y + 4 < k.b && !(vertOk && k.w < 90))) {
+            var t = pfit(title, k.w - 10, f);
+            if (!t) return;
+            tw = pp.measure(t, f);
+            var r = { x: k.x + 2, y: y - 15, w: tw + 10, h: 21 };
+            while (hitsLabel(r) && r.y + 40 < k.b) r.y += 18;
+            if (hitsLabel(r) || r.y + 19 > k.b) return;
+            pp.text(t, k.x + 6, r.y + 15, f, colors.ink, 0.88);
+            labeled[id] = true;
+            rects.push(r);
+            return;
+          }
+          // 좁은 칸은 세로로
+          if (!vertOk) return;
+          var rv = { x: k.x, y: y - 15, w: k.w, h: vt.length * 12 + 6 };
+          if (hitsLabel(rv)) return;
+          drawVertical(vt, k.x + k.w / 2, y - 2, font(11, '700'), colors.ink, 0.88, 12);
+          labeled[id] = true;
+          rects.push(rv);
+        });
+      return { labeled: labeled, rects: rects };
+    }
+
+    function drawColumn(col, x, c, yTop, yBot, focusYear) {
+      if (!col) return;
+      var pw = periodW(col, c);
+      if (pw) drawPeriods(col, x, pw);
+
+      // 나라별 왕조·시대 칸(겹치면 나란히, 하위 시기는 안쪽에)
+      var lab = col.blocks.length ? drawBlocks(col, x + 3 + pw, c - 6 - pw, focusYear) : { labeled: {}, rects: [] };
+
+      // 사건 — 이 열 안에서만 자리를 잡는다. 이름이 이미 칸에 쓰인 왕조는 다시 쓰지 않는다
+      var ex = x + 6 + pw;
+      var ew = Math.max(0, c - 12 - pw);
       if (ew < DOT + 2) return;
       var grid = [];
       var unitsN = Math.max(1, Math.floor(ew / UNIT));
       for (var u = 0; u < unitsN; u += 1) grid.push([]);
+      lab.rects.forEach(function (r) {
+        var c0 = Math.floor((r.x - ex) / UNIT);
+        mark(grid, c0, Math.ceil((r.x + r.w - ex) / UNIT) - c0, r.y, r.y + r.h);
+      });
       var hidden = {};
       for (var k = 0; k < col.events.length; k += 1) {
         var ev = col.events[k];
+        if (lab.labeled[ev.id]) continue;
         if (ev.start_year < yTop || ev.start_year > yBot) continue;
         var y = yOf(ev.start_year);
         if (!tryPlace(grid, ex, ew, ev, y)) {

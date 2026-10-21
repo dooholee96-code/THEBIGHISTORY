@@ -7,21 +7,21 @@
    왜 캐시 우선이 아닌가: 캐시 우선으로 두면 배포한 새 코드가 반영되지 않고
    예전 화면이 계속 보인다. 오프라인 지원은 예비용 캐시만으로 충분하다. */
 
-const CACHE_VERSION = 'bighistory-4e4a4f3d';
+const CACHE_VERSION = 'bighistory-371a9995';
 const NETWORK_TIMEOUT_MS = 4000;
 
 const PRECACHE = [
   './',
   './index.html',
-  './css/styles.css?v=4e4a4f3d',
-  './js/data.js?v=4e4a4f3d',
-  './js/common.js?v=4e4a4f3d',
-  './js/hud.js?v=4e4a4f3d',
-  './js/branch.js?v=4e4a4f3d',
-  './vendor/three.min.js?v=4e4a4f3d',
-  './js/plane.js?v=4e4a4f3d',
-  './js/zoom.js?v=4e4a4f3d',
-  './js/app.js?v=4e4a4f3d',
+  './css/styles.css?v=371a9995',
+  './js/data.js?v=371a9995',
+  './js/common.js?v=371a9995',
+  './js/hud.js?v=371a9995',
+  './js/branch.js?v=371a9995',
+  './vendor/three.min.js?v=371a9995',
+  './js/plane.js?v=371a9995',
+  './js/zoom.js?v=371a9995',
+  './js/app.js?v=371a9995',
   './manifest.webmanifest',
   './icons/icon.svg',
   './art/prehistory.svg',
