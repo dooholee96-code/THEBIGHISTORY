@@ -964,11 +964,17 @@
     measure();
     zoom.home();
 
-    // 처음 온 사람에게 한 번만 조작법 안내
+    // 처음 온 사람에게 한 번만 조작법 안내(조작법이 바뀌면 키 번호를 올려 다시 보여 준다).
+    // 마우스·트랙패드는 스크롤이 이동, 핀치·⌘/Ctrl+휠이 확대 / 터치는 끌기와 두 손가락 벌리기
     try {
-      if (!localStorage.getItem('bighistory.zoomHint')) {
-        localStorage.setItem('bighistory.zoomHint', '1');
-        setTimeout(function () { showToast('상하좌우 어디로든 끌고, 핀치·휠로 확대해요', 3600); }, 900);
+      if (!localStorage.getItem('bighistory.zoomHint2')) {
+        localStorage.setItem('bighistory.zoomHint2', '1');
+        var fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
+        var mod = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? '⌘' : 'Ctrl';
+        var hint = fine
+          ? '스크롤로 이동하고, 핀치나 ' + mod + '+스크롤로 확대해요'
+          : '끌어서 이동하고, 두 손가락을 벌려 확대해요';
+        setTimeout(function () { showToast(hint, 4200); }, 900);
       }
     } catch (err) { /* 무시 */ }
 

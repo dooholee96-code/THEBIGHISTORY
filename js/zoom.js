@@ -3,7 +3,8 @@
 
    세로 = 시간(위가 옛날), 가로 = 카테고리마다 한 열(국가사 → 주제사).
    그림은 화면보다 크고, 상하좌우 어디로든 끌고 던질 수 있다.
-     · 핀치·휠로 줌 — 시간축과 열 너비가 함께 커지고 작아진다.
+     · 핀치(트랙패드·손가락)·⌘/Ctrl+휠로 줌 — 시간축과 열 너비가 함께 커지고 작아진다.
+       두 손가락 스크롤·마우스 휠은 이동(무한 캔버스 앱의 표준 — Figma·Miro·tldraw)
        멀리서 보면 모든 열이 시대 띠를 가로지르는 포스터, 다가가면 열이 넓어져 카드가 펼쳐진다
      · 시간 눈금은 줌에 맞춰 1만 년 → 1천 년 → 100년 → 10년 → 1년
      · 열마다 사건이 자리를 잡는다: 넉넉하면 카드, 빠듯하면 이름표, 더 빠듯하면 점, 그래도 안 되면 '+N'
@@ -196,6 +197,7 @@
     var stats = { draw: 0 };   // 마지막 프레임을 그리는 데 든 시간(ms, 확인용)
     var fonts = {};
     var lastTap = null;
+    var pendingOpen = 0;   // 왕조 칸 톡 — 두 번 톡인지 보려고 잠깐 미룬 열기
 
     // ----------------------------------------------------------- 좌표
 
@@ -617,7 +619,7 @@
         var ga = first ? 1 : 0;
         var gb = last ? 1 : 0;
         pp.rect(px, a + ga, w, Math.max(2, b - a - ga - gb), e._color, alpha, first && last ? Math.min(6, w / 2) : 0);
-        hits.push({ x: px, y: a, w: w, h: b - a, entry: e });
+        hits.push({ x: px, y: a, w: w, h: b - a, entry: e, block: true });
         var vis = b - Math.max(a, top);
         if (vis >= 20) (cand[e.id] = cand[e.id] || []).push({ p: p, x: px, w: w, a: a, b: b });
       });
@@ -1081,6 +1083,17 @@
       invalidate();
     }
 
+    /** 손가락을 그대로 따라가는 줌(트랙패드 핀치) — 부드럽게 늦추지 않고 바로 */
+    function zoomNow(x, y, factor) {
+      motion.mode = 'idle';
+      var year = yearAt(y);
+      var u = uAtScreen(x);
+      cam.s = clamp(cam.s * factor, sMin(), S_MAX);
+      cam.t0 = year - y / cam.s;
+      pinU(u, x);
+      invalidate();
+    }
+
     function panBy(dy, dx) {
       motion.mode = 'idle';
       if (dx) { cam.x0 += dx; clampCam(); }
@@ -1268,12 +1281,19 @@
       var tapAt = e.timeStamp;
       if (lastTap && tapAt - lastTap.t < 320 && Math.abs(lastTap.y - p.sy) < 30 && Math.abs(lastTap.x - p.sx) < 30) {
         lastTap = null;
+        clearTimeout(pendingOpen);
         zoomAround(p.x, p.y, 2.6);
         return;
       }
       lastTap = { t: tapAt, x: p.sx, y: p.sy };
       var h = hitAt(p);
       if (!h) return;
+      // 왕조 칸은 열 바탕을 거의 다 덮으므로, 두 번 톡(줌)일 수 있게 잠깐 기다렸다 연다(지도 앱과 같은 방식)
+      if (h.block && opts.openEntry) {
+        clearTimeout(pendingOpen);
+        pendingOpen = setTimeout(function () { opts.openEntry(h.entry); }, 300);
+        return;
+      }
       if (h.entry && opts.openEntry) opts.openEntry(h.entry);
       else if (h.era) flyToRange(h.era.start_year, h.era.end_year);
       else if (h.head != null) flyTo(yearAt(focusY()), Math.max(cam.s, 1.2), { col: h.head });
@@ -1283,6 +1303,11 @@
     canvas.addEventListener('pointerup', release);
     canvas.addEventListener('pointercancel', release);
 
+    // 마우스·트랙패드 — 무한 캔버스 앱(Figma·Miro·tldraw)의 표준을 따른다.
+    //   두 손가락 스크롤·마우스 휠 = 이동(위아래 = 시간, 옆 = 열). 맥은 손을 떼도 OS 가 관성 스크롤을 이어 보낸다
+    //   트랙패드 핀치 = 커서 자리에서 줌(크롬·파이어폭스·엣지는 ctrlKey 가 붙은 휠, 사파리는 gesture 이벤트)
+    //   ⌘/Ctrl + 휠 = 줌(마우스), Alt(Option) + 휠 = 눕히기, Shift + 휠 = 가로 이동(윈도 마우스)
+    var safariPinch = null;
     canvas.addEventListener('wheel', function (e) {
       if (!active) return;
       e.preventDefault();
@@ -1291,31 +1316,47 @@
       var dy = e.deltaY * unit;
       var dx = e.deltaX * unit;
       if (e.altKey) {
-        // Alt(Option)+휠 — 굴려 올리면 눕고 내리면 선다. (Ctrl+휠은 트랙패드 핀치라 줌으로 둔다)
-        // 맥에서 Option+휠은 가로로 올 때가 있어 큰 쪽을 쓴다
+        // Alt(Option)+휠 — 굴려 올리면 눕고 내리면 선다. 맥에서 Option+휠은 가로로 올 때가 있어 큰 쪽을 쓴다
         var dd = Math.abs(dx) > Math.abs(dy) ? dx : dy;
         setTilt(tilt.target - dd * 0.0035, true);
         clearTimeout(tilt.snapTimer);
         tilt.snapTimer = setTimeout(settleTilt, 260);
         return;
       }
-      if (e.shiftKey && !dx) {
-        // Shift+휠은 가로 이동
-        motion.mode = 'idle';
-        cam.x0 += dy;
-        invalidate();
+      if (e.ctrlKey || e.metaKey) {
+        if (safariPinch) return;   // 사파리가 핀치를 gesture 와 휠로 겹쳐 보내도 한 번만
+        // 마우스 휠 한 칸(줄 단위이거나 큰 값)은 부드럽게, 트랙패드 핀치(작은 값이 잇달아)는 손가락 그대로
+        var notch = e.deltaMode !== 0 || Math.abs(e.deltaY) >= 50;
+        if (notch) zoomAround(p.x, p.y, Math.exp(-clamp(dy, -100, 100) * 0.0035));
+        else zoomNow(p.x, p.y, Math.exp(-clamp(dy, -30, 30) * 0.012));
         return;
       }
-      if (Math.abs(dx) > Math.abs(dy) * 0.5 && !e.ctrlKey) {
-        // 트랙패드를 옆·대각선으로 밀면 그쪽으로 그대로 이동
-        motion.mode = 'idle';
-        cam.x0 += dx;
-        cam.t0 += dy / cam.s;
-        invalidate();
-        return;
-      }
-      zoomAround(p.x, p.y, Math.exp(-dy * (e.ctrlKey ? 0.01 : 0.0016)));
+      if (e.shiftKey && !dx) { dx = dy; dy = 0; }   // 윈도 마우스: Shift+휠은 가로(맥은 OS 가 이미 가로로 바꿔 보낸다)
+      motion.mode = 'idle';
+      cam.x0 += dx;
+      cam.t0 += dy / cam.s;
+      invalidate();
     }, { passive: false });
+
+    // 사파리(맥) 트랙패드 핀치 — 휠 대신 gesture 이벤트로 온다. 막지 않으면 페이지 전체가 확대된다.
+    // 아이폰·아이패드의 손가락 핀치도 gesture 를 보내지만 그건 포인터 이벤트가 이미 처리하므로 건너뛴다
+    function touchActive() { return Object.keys(pointers).length > 0; }
+    canvas.addEventListener('gesturestart', function (e) {
+      e.preventDefault();
+      if (!active || touchActive()) return;
+      safariPinch = { scale: 1 };
+    });
+    canvas.addEventListener('gesturechange', function (e) {
+      e.preventDefault();
+      if (!safariPinch || touchActive()) return;
+      var p = local(e);
+      zoomNow(p.x, p.y, e.scale / safariPinch.scale);
+      safariPinch.scale = e.scale;
+    });
+    canvas.addEventListener('gestureend', function (e) {
+      e.preventDefault();
+      safariPinch = null;
+    });
 
     canvas.addEventListener('dragstart', function (e) { e.preventDefault(); });
 
