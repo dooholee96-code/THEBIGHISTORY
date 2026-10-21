@@ -237,9 +237,9 @@
     var fonts = {};
     var lastTap = null;
     var pendingOpen = 0;   // 왕조 칸 톡 — 두 번 톡인지 보려고 잠깐 미룬 열기
-    var focus = null;      // 펼쳐 둔 항목 { id, entry, links, shown } — 테두리를 두르고 옆에 상세를 쓴다
-    var focusBox = null;   // 이번 프레임에 그 항목이 그려진 판 위 자리 { x0, y0, x1, y1 }
-    var reading = false;   // 이번 프레임에 상세를 썼는가
+    var focus = null;      // 펼쳐 둔 항목 { id, entry, links, block } — 열을 채우며 커지고, 이름 아래로 설명이 나온다
+    var grow = { col: -1, g: 0, target: 0 };   // 펼친 항목의 열이 넓어진 정도(0..1)
+    var reading = false;   // 펼친 항목의 설명이 나와 있는가
 
     // ----------------------------------------------------------- 좌표
 
@@ -252,31 +252,47 @@
     function yOf(year) { return (year - cam.t0) * cam.s; }
     function yearAt(y) { return cam.t0 + y / cam.s; }
 
-    // 가로 — 그림(world) px. 열들 사이 axisAt 자리에 연도 축 칸(axisW)이 끼어 있다
-    function colWX(i) { return i * cw() + (i >= axisAt ? axisW() : 0); }
-    function worldW() { return cols.length * cw() + axisW(); }
+    // 가로 — 그림(world) px. 열들 사이 axisAt 자리에 연도 축 칸(axisW)이 끼어 있다.
+    // 항목을 펼치면 그 열만 잠시 넓어진다(ChronoZoom 처럼 그 왕조가 커지며 이름 아래로 설명이 나올 자리)
+    function growW() { return narrow() ? Math.min(330, W - axisW() - 24) : 420; }
+    function colW(i) {
+      var c = cw();
+      return i === grow.col && grow.g > 0 ? c + Math.max(0, growW() - c) * grow.g : c;
+    }
+    function unitW(k) { return k === axisAt ? axisW() : colW(k < axisAt ? k : k - 1); }   // u 한 칸의 폭
+    function colWX(i) { return wxOfU(colU(i)); }
+    function worldW() { return wxOfU(cols.length + 1); }
     function sxOf(wx) { return MARGIN + wx - cam.x0; }          // 그림 px → 화면 x
     function xOfCol(i) { return sxOf(colWX(i)); }
     /** 연도 축 칸의 화면 왼쪽 — 화면 밖으로 나가려 하면 가장자리에 붙는다 */
-    function axisLeft() { return clamp(sxOf(axisAt * cw()), 0, W - axisW()); }
+    function axisLeft() { return clamp(sxOf(wxOfU(axisAt)), 0, W - axisW()); }
     /** 오른쪽 가장자리에 붙었으면 눈금을 뒤집어 그림 쪽(왼쪽)을 보게 */
-    function axisFlip() { return sxOf(axisAt * cw()) > W - axisW(); }
+    function axisFlip() { return sxOf(wxOfU(axisAt)) > W - axisW(); }
     /** 연도 축 선(눈금·초점 고리가 붙는 쪽)의 x */
     function axisLine() { return axisFlip() ? axisLeft() : axisLeft() + axisW(); }
 
     // 줌하면 열 너비가 바뀌므로, 가리키던 자리를 '열 좌표 u'로 기억했다가 다시 px 로 푼다.
     // u: 축 앞 열은 0..axisAt, 축 칸은 axisAt..axisAt+1, 그 뒤 열은 axisAt+1.. (끊김 없이 이어진다)
     function uOfWX(wx) {
-      var c = cw(), a = axisAt * c, aw = axisW();
-      if (wx < a) return wx / c;
-      if (wx < a + aw) return axisAt + (wx - a) / aw;
-      return axisAt + 1 + (wx - a - aw) / c;
+      if (wx < 0) return wx / cw();
+      var n = cols.length + 1;
+      var acc = 0;
+      for (var k = 0; k < n; k += 1) {
+        var w = unitW(k);
+        if (wx < acc + w) return k + (wx - acc) / w;
+        acc += w;
+      }
+      return n + (wx - acc) / cw();
     }
     function wxOfU(u) {
-      var c = cw();
-      if (u < axisAt) return u * c;
-      if (u < axisAt + 1) return axisAt * c + (u - axisAt) * axisW();
-      return axisAt * c + axisW() + (u - axisAt - 1) * c;
+      if (u < 0) return u * cw();
+      var n = cols.length + 1;
+      var acc = 0;
+      for (var k = 0; k < n; k += 1) {
+        if (u < k + 1) return acc + (u - k) * unitW(k);
+        acc += unitW(k);
+      }
+      return acc + (u - n) * cw();
     }
     function uAtScreen(x) { return uOfWX(cam.x0 + x - MARGIN); }
     /** 화면 x 에 u 가 오도록 */
@@ -550,10 +566,8 @@
     function draw() {
       pp.begin();
       hits = [];
-      focusBox = null;
       var yTop = yearAt(-40);
       var yBot = yearAt(H + 40);
-      var c = cw();
       var axL = axisLeft();
       var ax = axL + axisW();      // 연도 축 칸의 오른쪽
       var focusYear = yearAt(focusY());
@@ -577,11 +591,12 @@
       // 2) 열 — 경계선, 그리고 열마다 왕조 띠와 사건
       for (var i = 0; i < cols.length; i += 1) {
         var x = xOfCol(i);
-        if (x > W || x + c < 0) continue;
+        var ci = colW(i);
+        if (x > W || x + ci < 0) continue;
         pp.line(x, 0, x, H, colors.line, 0.5, 1);
         // 축 바로 앞 열과 마지막 열은 오른쪽 경계도
-        if (i === cols.length - 1 || i === axisAt - 1) pp.line(x + c, 0, x + c, H, colors.line, 0.5, 1);
-        drawColumn(cols[i], x, c, yTop, yBot, focusYear);
+        if (i === cols.length - 1 || i === axisAt - 1) pp.line(x + ci, 0, x + ci, H, colors.line, 0.5, 1);
+        drawColumn(cols[i], x, ci, yTop, yBot, focusYear);
       }
 
       // 3) 시간 눈금 — 열들 사이에 끼어 함께 움직이고, 화면 밖으로 나가려 하면 가장자리에 붙는다
@@ -600,14 +615,10 @@
       // 4) 시대 이름·장면 이름 — 연도 축 옆 위쪽에 붙어 따라온다
       drawEraTitles(axL, ax);
 
-      // 펼친 항목의 상세 — 그 항목 바로 옆에(판을 눕혀도 똑바로 읽히게 덮개에) 쓴다
-      var again = false;
-      reading = false;
-      if (focus && focusBox) again = drawDetail();
+      reading = !!focus && grow.g > 0.5;
 
       // 5) 열 이름 — 화면 위에 붙어 있다
-      drawHeads(c);
-      return again;
+      drawHeads();
     }
 
     /** 시대 묶음 띠 폭 — 열이 넓을 때만 글자가 들어갈 만큼 */
@@ -650,15 +661,20 @@
     function drawBlocks(col, bx, bw, focusYear) {
       var top = stickyTop();
       var cand = {};   // 항목마다 이름을 쓸 수 있는 조각들 — 그중 가장 이른(위쪽) 것에 쓴다
-      var mine = [];   // 펼친 항목의 조각들 — 다 모아 바깥 윤곽 하나로 두른다
+      var mine = [];   // 펼친 항목의 조각들 — 옆 칸을 덮으며 위에 그리고, 바깥 윤곽 하나로 두른다
+      var G = focus && focus.block && focus.entry._dataset === col.ds.id ? grow.g : 0;
       col.blocks.forEach(function (p) {
         var a = yOf(p.y0);
         var b = yOf(p.y1);
         if (b < 0 || a > H) return;
         var e = p.entry;
-        var inset = p.depth * 3;
-        var px = bx + p.fx0 * bw + inset + 1;
-        var w = (p.fx1 - p.fx0) * bw - inset * 2 - 2;
+        var me = !!focus && focus.id === e.id;
+        var k = me ? G : 0;   // 펼친 항목은 열을 꽉 채우도록 넓어진다
+        var inset = p.depth * 3 * (1 - k);
+        var fx0 = p.fx0 * (1 - k);
+        var fx1 = p.fx1 + (1 - p.fx1) * k;
+        var px = bx + fx0 * bw + inset + 1;
+        var w = (fx1 - fx0) * bw - inset * 2 - 2;
         if (w < 1.5) return;
         var live = e.start_year <= focusYear && focusYear < e.end_year;
         var alpha = (p.depth ? 0.16 : (e.kind === 'era' ? 0.14 : 0.2)) + p.shade * 0.07 + (live ? 0.1 : 0);
@@ -668,13 +684,23 @@
         var last = p.y1 >= e.end_year;
         var ga = first ? 1 : 0;
         var gb = last ? 1 : 0;
-        pp.rect(px, a + ga, w, Math.max(2, b - a - ga - gb), e._color, alpha, first && last ? Math.min(6, w / 2) : 0);
-        if (focus && focus.id === e.id) mine.push({ x: px, y: a + ga, w: w, h: Math.max(2, b - a - ga - gb) });
-        hits.push({ x: px, y: a, w: w, h: b - a, entry: e, block: true });
+        var rad = first && last ? Math.min(6, w / 2) : 0;
+        var hh = Math.max(2, b - a - ga - gb);
+        if (me) mine.push({ x: px, y: a + ga, w: w, h: hh, color: e._color, alpha: alpha + 0.06, rad: rad, e: e });
+        else {
+          pp.rect(px, a + ga, w, hh, e._color, alpha, rad);
+          hits.push({ x: px, y: a, w: w, h: b - a, entry: e, block: true });
+        }
         var vis = b - Math.max(a, top);
         if (vis >= 20) (cand[e.id] = cand[e.id] || []).push({ p: p, x: px, w: w, a: a, b: b });
       });
 
+      // 펼친 항목 — 옆 칸들을 덮으며 위에(바탕을 먼저 깔아 아래 칸이 비치지 않게)
+      mine.forEach(function (r) {
+        if (G > 0) pp.rect(r.x, r.y, r.w, r.h, colors.sky, 0.94 * G, r.rad);
+        pp.rect(r.x, r.y, r.w, r.h, r.color, r.alpha, r.rad);
+        hits.push({ x: r.x, y: r.y, w: r.w, h: r.h, entry: r.e, block: true });
+      });
       if (mine.length) contour(mine);
 
       // 이름 자리: 화면에 보이는 조각 중 가장 위의 것부터, 가로(줄여서라도) 또는 세로로 들어가는 첫 조각
@@ -696,8 +722,26 @@
 
       var labeled = {};
       var rects = [];
+      function overlap(r, q) { return r.x < q.x + q.w && q.x < r.x + r.w && r.y < q.y + q.h && q.y < r.y + r.h; }
       function hitsLabel(r) {
-        return rects.some(function (q) { return r.x < q.x + q.w && q.x < r.x + r.w && r.y < q.y + q.h && q.y < r.y + r.h; });
+        return rects.some(function (q) { return overlap(r, q); });
+      }
+      // 펼친 항목 — 이름 아래로 연도·설명·출처가 나온다. 덮인 옆 칸들의 이름은 쓰지 않는다
+      var fk = focus && best[focus.id];
+      if (fk) {
+        var fb = yOf(fk.p.entry.end_year);
+        var fr = drawBlockText(fk, Math.max(fk.a, top) + 17, fb, G);
+        labeled[focus.id] = true;
+        rects.push(fr);
+      }
+      var cover = G > 0.3 ? mine : [];
+      if (G > 0.3) {
+        // 펼친 칸 기간 안에서 시작하는 다른 칸은 덮였다 — 이름도, 사건 이름표도 쓰지 않는다
+        var fe = focus.entry;
+        col.blocks.forEach(function (p) {
+          var s0 = p.entry.start_year;
+          if (p.entry.id !== fe.id && s0 >= fe.start_year && s0 < fe.end_year) labeled[p.entry.id] = true;
+        });
       }
       // 상위 칸 이름부터 — 하위 칸 이름이 같은 자리에 오면(같은 해에 시작) 한 줄씩 아래로 비킨다
       Object.keys(best).map(function (id) { return best[id]; })
@@ -705,6 +749,7 @@
         .forEach(function (k) {
           var e = k.p.entry;
           var id = e.id;
+          if (labeled[id]) return;
           var y = labelY(k);
           var f = font(k.p.depth ? 12 : 13, '700');
           var title = e.title;
@@ -718,16 +763,34 @@
             if (!t) return;
             tw = pp.measure(t, f);
             var r = { x: k.x + 2, y: y - 15, w: tw + 10, h: 21 };
+            if (cover.some(function (q) { return overlap(r, q); })) { labeled[id] = true; return; }   // 덮였으면 사건으로도 쓰지 않는다
             while (hitsLabel(r) && r.y + 40 < k.b) r.y += 18;
             if (hitsLabel(r) || r.y + 19 > k.b) return;
             pp.text(t, k.x + 6, r.y + 15, f, colors.ink, 0.88);
             labeled[id] = true;
             rects.push(r);
+            // 넉넉히 커지면 이름 아래로 한 문장 설명이 비쳐 나온다(줌할수록 또렷하게)
+            var room = clamp((k.w - 150) / 60, 0, 1);
+            if (room > 0 && e.description) {
+              var fd = font(12.5);
+              var lines = wrap(e.description, k.w - 14, fd);
+              var ly = r.y + 15;
+              var n = 0;
+              while (n < lines.length && n < 4 && ly + 18 + 4 <= k.b) {
+                var dr = { x: k.x + 2, y: ly + 6, w: k.w - 4, h: 17 };
+                if (hitsLabel(dr)) break;
+                ly += 18;
+                pp.text(lines[n], k.x + 6, ly, fd, colors.ink, 0.72 * room);
+                rects.push(dr);
+                n += 1;
+              }
+            }
             return;
           }
           // 좁은 칸은 세로로
           if (!vertOk) return;
           var rv = { x: k.x, y: y - 15, w: k.w, h: vt.length * 12 + 6 };
+          if (cover.some(function (q) { return overlap(rv, q); })) { labeled[id] = true; return; }
           if (hitsLabel(rv)) return;
           drawVertical(vt, k.x + k.w / 2, y - 2, font(11, '700'), colors.ink, 0.88, 12);
           labeled[id] = true;
@@ -755,10 +818,17 @@
         var c0 = Math.floor((r.x - ex) / UNIT);
         mark(grid, c0, Math.ceil((r.x + r.w - ex) / UNIT) - c0, r.y, r.y + r.h);
       });
+      // 펼친 사건 — 카드가 열 폭으로 커지며 제목 아래로 설명이 나온다. 다른 사건은 그 둘레에
+      var fe = focus && !focus.block && focus.entry._dataset === col.ds.id ? focus.entry : null;
+      if (fe && fe.start_year >= yTop && fe.start_year <= yBot) {
+        var fy = yOf(fe.start_year);
+        var fh = drawFocusCard(fe, ex, fy - 12, ew, grow.g);
+        mark(grid, 0, grid.length, fy - 15, fy - 12 + fh + 3);
+      }
       var hidden = {};
       for (var k = 0; k < col.events.length; k += 1) {
         var ev = col.events[k];
-        if (lab.labeled[ev.id]) continue;
+        if (lab.labeled[ev.id] || ev === fe) continue;
         if (ev.start_year < yTop || ev.start_year > yBot) continue;
         var y = yOf(ev.start_year);
         if (!tryPlace(grid, ex, ew, ev, y)) {
@@ -876,11 +946,10 @@
     }
 
     /** 열 이름 줄 — 화면 맨 위에 붙어 있다. 좁으면 색 점만 */
-    function drawHeads(c0) {
+    function drawHeads() {
       // 눕혀 있으면 머리글 줄 높이(화면)에 닿는 판의 깊이에서 열이 어디 있는지로 줄 세운다
       var py = Math.max(0, unproj(W / 2, HEAD_H / 2).y);
       var f = proj(W / 2, py).f;
-      var c = c0 * f;
       var left = proj(0, py).x;
       var right = proj(W, py).x;
       ctx.fillStyle = colors.sky;
@@ -892,6 +961,7 @@
       for (var i = 0; i < cols.length; i += 1) {
         var col = cols[i];
         var x = W / 2 + (xOfCol(i) - W / 2) * f;
+        var c = colW(i) * f;
         if (x > W || x + c < 0) continue;
         ctx.fillStyle = colors.foam;
         roundRect(x + 3, 4, c - 6, HEAD_H - 8, 10);
@@ -997,7 +1067,6 @@
         if (bot > top) {
           pp.rect(r.x - t, top, t, bot - top, col, 0.95);
           pp.rect(r.x + r.w, top, t, bot - top, col, 0.95);
-          box(r.x, top, r.x + r.w, bot);
         }
         var prev = list[i - 1];
         var joined = prev && r.y - (prev.y + prev.h) <= GAP;
@@ -1015,15 +1084,8 @@
       });
     }
 
-    /** 펼친 항목이 그려진 자리를 하나로 합친다(카드를 붙일 곳) */
-    function box(x0, y0, x1, y1) {
-      if (!focusBox) { focusBox = { x0: x0, y0: y0, x1: x1, y1: y1 }; return; }
-      focusBox.x0 = Math.min(focusBox.x0, x0); focusBox.y0 = Math.min(focusBox.y0, y0);
-      focusBox.x1 = Math.max(focusBox.x1, x1); focusBox.y1 = Math.max(focusBox.y1, y1);
-    }
 
     function drawCard(ev, x, y, w) {
-      if (focus && focus.id === ev.id) outline(x, y, w, CARD_H);
       pp.card(x, y, w, CARD_H, 14, colors.foam, 'rgba(58, 42, 36, .14)', 12, 4);
       pp.strip(x, y, w, CARD_H, 14, 6, ev._color);
       var years = ev.end_year !== ev.start_year ? yearText(ev.start_year) + '–' + yearText(ev.end_year) : yearText(ev.start_year);
@@ -1035,7 +1097,6 @@
     }
 
     function drawLabel(ev, x, y, w) {
-      if (focus && focus.id === ev.id) outline(x, y, w, LABEL_H);
       var f = font(13);
       pp.rect(x, y, w, LABEL_H, colors.foam, 0.92, 12);
       pp.circle(x + 12, y + LABEL_H / 2, 4.5, ev._color);
@@ -1044,7 +1105,6 @@
     }
 
     function drawDot(ev, x, y) {
-      if (focus && focus.id === ev.id) outline(x - DOT / 2, y - DOT / 2, DOT, DOT);
       pp.circle(x, y, DOT / 2 - 1 + 0.75, colors.foam);
       pp.circle(x, y, DOT / 2 - 1 - 0.75, ev._color);
       hits.push({ x: x - 9, y: y - 9, w: 18, h: 18, entry: ev });
@@ -1052,8 +1112,6 @@
 
 
     // ----------------------------------------------------------- 펼친 항목의 상세
-
-    var PAD = 16;
 
     /** 글을 폭에 맞춰 줄로 나눈다 — 띄어쓰기에서, 한 낱말이 너무 길면 글자에서 */
     function wrap(text, maxW, f) {
@@ -1076,176 +1134,109 @@
       return out;
     }
 
-    function detailW() { return narrow() ? W - 24 : Math.min(340, W - 24); }
-
-    /** 상세의 줄들(상자 안 좌표)과 높이 — 연도 · 사건 · 한 문장 설명 · 출처 · 갈림길 */
-    function detailRows(entry, links, w) {
+    /** 설명 아래 줄들 — 한 문장 설명 · 출처(누르면 원문) · 갈림길. y 는 0 에서 아래로 */
+    function bodyRows(entry, links, w) {
       var rows = [];
-      var inner = w - PAD * 2;
-      var y = PAD + 14;
-      var C = global.BigHistoryCommon;
-      var fe = font(12, '700', true);
-      rows.push({ dot: entry._color, x: PAD + 4, y: y - 4 });
-      rows.push({ s: pfit(entry.era_note || (C ? C.periodLabel(entry.start_year, entry.end_year) : yearText(entry.start_year)), inner - 40, fe), x: PAD + 14, y: y, f: fe, c: colors.ink2 });
-      rows.push({ close: true, x: w - PAD - 6, y: PAD + 8 });
-      y += 12;
-      var ft = font(21, '700', true);
-      wrap(entry.title, inner - 30, ft).forEach(function (line) { y += 27; rows.push({ s: line, x: PAD, y: y, f: ft, c: colors.ink }); });
-      y += 8;
+      var y = 0;
       var fd = font(14);
-      wrap(entry.description || '', inner, fd).forEach(function (line) { y += 22; rows.push({ s: line, x: PAD, y: y, f: fd, c: colors.ink }); });
-      y += 14;
+      wrap(entry.description || '', w, fd).forEach(function (line) { y += 21; rows.push({ s: line, y: y, f: fd, c: colors.ink }); });
+      y += 12;
       rows.push({ rule: true, y: y });
-      y += 4;
+      y += 2;
       var fs = font(12);
       var src = entry.sources || [];
       if (!src.length) {
         y += 18;
-        rows.push({ s: '출처 · 아직 확인 전(검토 전 초안)', x: PAD, y: y, f: fs, c: colors.ink2, a: 0.8 });
+        rows.push({ s: '출처 · 아직 확인 전(검토 전 초안)', y: y, f: fs, c: colors.ink2, a: 0.8 });
       }
       src.forEach(function (raw, i) {
         // "이름 https://…" 꼴이면 이름을 링크로
         var m = /^(.*?)\s*(https?:\/\/\S+)$/.exec(raw);
         var text = (i ? '' : '출처 · ') + (m ? (m[1] || m[2]) : raw);
-        wrap(text, inner, fs).forEach(function (line) {
+        wrap(text, w, fs).forEach(function (line) {
           y += 18;
-          rows.push({ s: line, x: PAD, y: y, f: fs, c: colors.ink2, url: m && m[2] });
+          rows.push({ s: line, y: y, f: fs, c: colors.ink2, url: m && m[2] });
         });
       });
       if (src.length && entry.status !== 'reviewed') {
         y += 18;
-        rows.push({ s: '검토 전 초안', x: PAD, y: y, f: fs, c: colors.ink2, a: 0.7 });
+        rows.push({ s: '검토 전 초안', y: y, f: fs, c: colors.ink2, a: 0.7 });
       }
       (links || []).forEach(function (l) {
         y += 10;
         rows.push({ pill: l, y: y, h: 30 });
         y += 30;
       });
-      return { rows: rows, h: y + PAD };
+      return { rows: rows, h: y };
     }
 
-    // 덮개에 칠하는 붓 — 판의 붓과 같은 모양(상세를 쓸 때 쓴다)
-    var ov = {
-      rect: function (x, y, w, h, color, alpha, r) {
-        octx.fillStyle = color;
-        octx.globalAlpha = alpha == null ? 1 : alpha;
-        if (r) { roundRect(x, y, w, h, r); octx.fill(); } else octx.fillRect(x, y, w, h);
-        octx.globalAlpha = 1;
-      },
-      card: function (x, y, w, h, r, body, shadowColor, blur, dy) {
-        octx.save();
-        octx.shadowColor = shadowColor;
-        octx.shadowBlur = blur;
-        octx.shadowOffsetY = dy;
-        octx.fillStyle = body;
-        roundRect(x, y, w, h, r);
-        octx.fill();
-        octx.restore();
-      },
-      circle: function (x, y, r, color, alpha) {
-        octx.fillStyle = color;
-        octx.globalAlpha = alpha == null ? 1 : alpha;
-        octx.beginPath(); octx.arc(x, y, r, 0, 6.2832); octx.fill();
-        octx.globalAlpha = 1;
-      },
-      line: function (x1, y1, x2, y2, color, alpha, width, dash) {
-        octx.strokeStyle = color;
-        octx.globalAlpha = alpha == null ? 1 : alpha;
-        octx.lineWidth = width || 1;
-        octx.setLineDash(dash || []);
-        octx.beginPath(); octx.moveTo(x1, y1); octx.lineTo(x2, y2); octx.stroke();
-        octx.setLineDash([]);
-        octx.lineWidth = 1;
-        octx.globalAlpha = 1;
-      },
-      text: function (str, x, y, f, color, alpha, align) {
-        octx.font = (f.weight ? f.weight + ' ' : '') + f.px + 'px ' + f.family;
-        octx.fillStyle = color;
-        octx.globalAlpha = alpha == null ? 1 : alpha;
-        octx.textAlign = align || 'left';
-        octx.fillText(str, x, y);
-        octx.textAlign = 'left';
-        octx.globalAlpha = 1;
-      }
-    };
-
-    /**
-     * 펼친 항목 옆에 상세를 쓴다(화면 좌표). 넓으면 오른쪽(자리가 없으면 왼쪽, 둘 다 없으면 겹쳐),
-     * 좁으면 그 아래. 처음엔 날아가 도착한 뒤에 떠오른다. @returns 아직 떠오르는 중인가
-     */
-    function drawDetail() {
-      if (!focus.shown) {
-        if (motion.mode !== 'idle' || gesture) return false;
-        focus.shown = now();
-      }
-      var k = clamp((now() - focus.shown) / 220, 0, 1);
-      var ease = 1 - Math.pow(1 - k, 3);
-      // 판 위 자리 → 화면 자리(눕혔으면 원근을 씌운 자리)
-      var pa = proj(focusBox.x0, focusBox.y0);
-      var pb = proj(focusBox.x1, focusBox.y1);
-      var fb = { x0: Math.min(pa.x, pb.x), y0: Math.min(pa.y, pb.y), x1: Math.max(pa.x, pb.x), y1: Math.max(pa.y, pb.y) };
-      if (fb.y1 < HEAD_H || fb.y0 > Hv || fb.x1 < 0 || fb.x0 > W) return false;
-      reading = true;
-      var w = detailW();
-      var lay = detailRows(focus.entry, focus.links, w);
-      var h = lay.h;
-      var visTop = HEAD_H + 8;
-      var visBot = Hv - (opts.bottomCover ? opts.bottomCover() : 0) - 8;
-      var x;
-      var y;
-      var side = 0;   // 1 오른쪽, -1 왼쪽, 0 아래·겹침
-      if (narrow()) {
-        x = 12;
-        y = Math.max(fb.y0 + 24, Math.min(fb.y1 + 12, visBot - h));
-      } else {
-        x = fb.x1 + 14; side = 1;
-        if (x + w > W - 12) { x = fb.x0 - 14 - w; side = -1; }
-        if (x < 12) { x = clamp(fb.x0 + 10, 12, W - w - 12); side = 0; }
-        // 칸이 길면 보이는 부분 위쪽에 붙어 따라오고, 칸 끝과 함께 밀려 나간다
-        y = clamp(visTop, fb.y0, Math.max(fb.y0, fb.y1 - h));
-        if (y + h > visBot) y = Math.max(visBot - h, fb.y0 - h + 40);
-      }
-      y += (1 - ease) * 12;
-      var a = ease;
-
-      // 칸과 상세를 잇는 짧은 다리
-      if (side && a > 0.5) {
-        var by = y + 26;
-        if (by > fb.y0 && by < fb.y1) {
-          if (side > 0) ov.rect(fb.x1 + 2.5, by, x - fb.x1 - 2.5, 2.5, colors.star, 0.95);
-          else ov.rect(x + w, by, fb.x0 - 2.5 - x - w, 2.5, colors.star, 0.95);
-        }
-      }
-      if (k < 1) ov.rect(x, y, w, h, colors.foam, a, 18);
-      else ov.card(x, y, w, h, 18, colors.foam, 'rgba(58, 42, 36, .22)', 22, 6);
-      hits.push({ x: x, y: y, w: w, h: h, panel: true, scr: true });   // 상세를 눌러도 아래 칸이 열리지 않게
-
-      lay.rows.forEach(function (r) {
-        if (r.dot) { ov.circle(x + r.x, y + r.y, 4.5, r.dot, a); return; }
-        if (r.close) {
-          var cx = x + r.x;
-          var cy = y + r.y;
-          ov.circle(cx, cy, 15, colors.sky, a);
-          ov.text('✕', cx, cy + 5, font(14, '700'), colors.ink, a, 'center');
-          hits.push({ x: cx - 20, y: cy - 20, w: 40, h: 40, act: blur, scr: true });
-          return;
-        }
-        if (r.rule) { ov.line(x + PAD, y + r.y, x + w - PAD, y + r.y, colors.line, a, 1, [3, 4]); return; }
+    /** 줄들을 (x, y) 에서부터 쓴다. bottom 아래로 넘치는 줄은 쓰지 않는다 */
+    function drawRows(rows, x, y, w, alpha, bottom) {
+      rows.forEach(function (r) {
+        var ry = y + r.y;
+        if (ry + (r.h || 4) > bottom) return;
+        if (r.rule) { pp.line(x, ry, x + w, ry, colors.line, alpha, 1, [3, 4]); return; }
         if (r.pill) {
           var fp = font(13, '700');
-          ov.rect(x + PAD, y + r.y, w - PAD * 2, r.h, colors.sky, a, r.h / 2);
-          ov.text(pfit(r.pill.label + ' →', w - PAD * 2 - 24, fp), x + PAD + 14, y + r.y + 20, fp, colors.ink, a);
-          hits.push({ x: x + PAD, y: y + r.y, w: w - PAD * 2, h: r.h, act: r.pill.run, scr: true });
+          pp.rect(x, ry, w, r.h, colors.sky, alpha, r.h / 2);
+          pp.text(pfit(r.pill.label + ' →', w - 24, fp), x + 14, ry + 20, fp, colors.ink, alpha);
+          if (alpha > 0.5) hits.push({ x: x, y: ry, w: w, h: r.h, act: r.pill.run });
           return;
         }
-        ov.text(r.s, x + r.x, y + r.y, r.f, r.c, a * (r.a || 1));
+        pp.text(r.s, x, ry, r.f, r.c, alpha * (r.a || 1));
         if (r.url) {
           var tw = pp.measure(r.s, r.f);
-          ov.rect(x + r.x, y + r.y + 3, tw, 1, r.c, a * 0.6);
-          hits.push({ x: x + r.x - 4, y: y + r.y - 15, w: tw + 8, h: 22, act: openUrl(r.url), scr: true });
+          pp.rect(x, ry + 3, tw, 1, r.c, alpha * 0.6);
+          if (alpha > 0.5) hits.push({ x: x - 4, y: ry - 15, w: tw + 8, h: 22, act: openUrl(r.url) });
         }
       });
-      return k < 1;
+    }
+
+    /**
+     * 펼친 왕조 칸의 글 — 이름(크게) · 연도 · 설명 · 출처. 칸 위쪽에 붙어 따라오고 칸 끝에서 잘린다.
+     * G 는 열이 넓어진 정도 — 넓어지는 만큼 설명이 떠오른다. @returns 글이 차지한 자리
+     */
+    function drawBlockText(k, y, bottom, G) {
+      var e = k.p.entry;
+      var x = k.x + 8;
+      var w = k.w - 16;
+      var big = G > 0.5;
+      var ft = big ? font(21, '700', true) : font(k.p.depth ? 12 : 13, '700');
+      var y0 = y;
+      var lines = big ? wrap(e.title, w, ft).slice(0, 2) : [pfit(e.title, w, ft)];
+      lines.forEach(function (line, i) {
+        if (i) y += 27;
+        pp.text(line, k.x + 6, big ? y + 4 : y, ft, colors.ink, 0.92);
+      });
+      if (big) y += 4;
+      if (G > 0.02) {
+        var fe = font(12, '700', true);
+        var C = global.BigHistoryCommon;
+        y += 22;
+        pp.circle(x + 3, y - 4, 4, e._color, G);
+        pp.text(e.era_note || (C ? C.periodLabel(e.start_year, e.end_year) : yearText(e.start_year)), x + 13, y, fe, colors.ink2, G);
+        var body = bodyRows(e, focus.links, w);
+        drawRows(body.rows, x, y + 4, w, G, bottom - 6);
+        y += 4 + body.h;
+      }
+      return { x: k.x, y: y0 - 15, w: k.w, h: y - y0 + 22 };
+    }
+
+    /** 펼친 사건 카드 — 열 폭으로 커지며 제목 아래로 설명이 나온다. @returns 카드 높이 */
+    function drawFocusCard(ev, x, y, w, G) {
+      var body = bodyRows(ev, focus.links, w - 32);
+      var h = CARD_H + (body.h + 14) * G;
+      outline(x, y, w, h);
+      pp.card(x, y, w, h, 14, colors.foam, 'rgba(58, 42, 36, .16)', 14, 4);
+      pp.strip(x, y, w, h, 14, 6, ev._color);
+      hits.push({ x: x, y: y, w: w, h: h, entry: ev });
+      var years = ev.era_note || (ev.end_year !== ev.start_year ? yearText(ev.start_year) + '–' + yearText(ev.end_year) : yearText(ev.start_year));
+      var fy = font(11);
+      var ft = font(14, '700');
+      pp.text(pfit(years, w - 26, fy), x + 16, y + 20, fy, colors.ink2);
+      pp.text(pfit(ev.title, w - 26, ft), x + 16, y + 42, ft, colors.ink);
+      if (G > 0.02) drawRows(body.rows, x + 16, y + CARD_H - 2, w - 32, G, y + h);
+      return h;
     }
 
     function openUrl(url) {
@@ -1262,7 +1253,7 @@
       if (stepTilt(dt)) moving = true;
       clampCam();
       var td = now();
-      if (draw()) moving = true;   // 상세가 떠오르는 중
+      draw();
       stats.draw = now() - td;
       if (opts.onCamera) {
         opts.onCamera({
@@ -1272,7 +1263,7 @@
           dragging: !!(gesture && gesture.active),
           ringX: proj(axisLine(), focusY()).x,
           tilt: tilt.cur,
-          reading: reading   // 상세를 펼쳐 둔 동안엔 초점선이 글 위를 지나가지 않게
+          reading: reading   // 설명이 나와 있는 동안엔 초점선이 글 위를 지나가지 않게
         });
       }
       if (moving) raf = global.requestAnimationFrame(frame);
@@ -1280,6 +1271,23 @@
     }
 
     function step(dt, t) {
+      var g = stepGrow(dt);
+      return stepMotion(dt, t) || g;
+    }
+
+    /** 펼친 항목의 열이 넓어지거나 돌아온다 — 날아가는 중이 아니면 화면 가운데 자리를 붙든 채 */
+    function stepGrow(dt) {
+      if (grow.g === grow.target) return false;
+      var uC = uAtScreen(W / 2);
+      var g = grow.g + (grow.target - grow.g) * (1 - Math.exp(-dt * 7));
+      if (Math.abs(grow.target - g) < 0.004) g = grow.target;
+      grow.g = g;
+      if (!g) grow.col = -1;
+      if (motion.mode !== 'fly' && motion.mode !== 'zoom') pinU(uC, W / 2);
+      return true;
+    }
+
+    function stepMotion(dt, t) {
       if (motion.mode === 'fling') {
         cam.t0 += motion.vt * dt;
         cam.x0 += motion.vx * dt;
@@ -1404,14 +1412,24 @@
      * @param links 상세 아래에 붙일 길 [{ label, run }] (갈림길 등)
      */
     function focusEntry(entry, col, links) {
-      focus = { id: entry.id, entry: entry, links: links || [], shown: 0 };
+      var c = cols[col];
+      focus = {
+        id: entry.id, entry: entry, links: links || [],
+        block: !!c && c.blocks.some(function (p) { return p.entry.id === entry.id; })
+      };
+      // 그 열이 넓어지기 시작한다(다른 열이 넓어져 있었으면 화면 가운데를 붙든 채 바로 되돌린다)
+      if (grow.col !== col) {
+        var uC = uAtScreen(W / 2);
+        grow.col = col;
+        grow.g = 0;
+        pinU(uC, W / 2);
+      }
+      grow.target = col >= 0 ? 1 : 0;
       var o = { col: col };
       var span = entry.end_year - entry.start_year;
-      // 좁은 화면은 상세를 칸 아래에 쓰므로 그 자리를 남긴다
-      var below = narrow() ? detailRows(entry, focus.links, detailW()).h + 16 : 0;
       if (span >= 1) {
-        // 위아래로 숨 쉴 틈을 두고 기간을 화면에 맞춘다(아래쪽 계기판·상세 자리도 남겨 둔다)
-        var room = Math.max(120, Hv - HEAD_H - (opts.bottomCover ? opts.bottomCover() : 0) - below);
+        // 위아래로 숨 쉴 틈을 두고 기간을 화면에 맞춘다(아래쪽 계기판 자리도 남겨 둔다)
+        var room = Math.max(120, Hv - HEAD_H - (opts.bottomCover ? opts.bottomCover() : 0));
         var s = clamp((room * 0.62) / span, sMin(), S_MAX);
         var top = HEAD_H + room * 0.12;
         flyTo(entry.start_year + (focusY() - top) / s, s, o);
@@ -1424,6 +1442,7 @@
     function blur() {
       if (!focus) return;
       focus = null;
+      grow.target = 0;
       invalidate();
     }
 
@@ -1620,9 +1639,9 @@
       }
       lastTap = { t: tapAt, x: p.sx, y: p.sy };
       var h = hitAt(p);
-      if (h && (h.act || h.panel)) {   // 상세 안 — 닫기·출처·갈림길
+      if (h && h.act) {   // 펼친 항목 안 — 출처·갈림길
         clearTimeout(pendingOpen);
-        if (h.act) h.act();
+        h.act();
         return;
       }
       if (!h) {
