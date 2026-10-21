@@ -240,6 +240,7 @@
     var focus = null;      // 펼쳐 둔 항목 { id, entry, links, block } — 열을 채우며 커지고, 이름 아래로 설명이 나온다
     var grow = { col: -1, g: 0, target: 0 };   // 펼친 항목의 열이 넓어진 정도(0..1)
     var reading = false;   // 펼친 항목의 설명이 나와 있는가
+    var avoid = [];        // 이번 프레임에 사건이 비켜 가야 할 자리(시대 이름)
 
     // ----------------------------------------------------------- 좌표
 
@@ -571,8 +572,11 @@
       var axL = axisLeft();
       var ax = axL + axisW();      // 연도 축 칸의 오른쪽
       var focusYear = yearAt(focusY());
+      var eraSpots = eraTitleSpots(axL, ax);
+      // 납작할 땐 판 좌표 = 화면 좌표 — 사건이 시대 이름 밑에 깔리지 않게 비켜 놓는다
+      avoid = geo.on ? [] : eraSpots;
 
-      // 1) 시대 띠(아주 옅은 면 + 경계선)와 장면 경계
+      // 1) 시대 띠(아주 옅은 면 + 경계선)
       eras.forEach(function (era) {
         var a = yOf(era.start_year);
         var b = yOf(era.end_year);
@@ -580,12 +584,6 @@
         var strip = era.strip || '#8c6a4f';
         pp.rect(0, Math.max(a, 0), W, Math.min(b, H) - Math.max(a, 0), strip, 0.06);
         pp.rect(0, a, W, 1.5, strip, 0.5);
-        (era.scenes || []).forEach(function (sc, i) {
-          if (i === 0) return;
-          var y = yOf(sc.start_year);
-          if (y < HEAD_H || y > H) return;
-          pp.line(0, y, W, y, colors.line, 1, 1, [4, 6]);
-        });
       });
 
       // 2) 열 — 경계선, 그리고 열마다 왕조 띠와 사건
@@ -612,8 +610,8 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, W, Hv);
 
-      // 4) 시대 이름·장면 이름 — 연도 축 옆 위쪽에 붙어 따라온다
-      drawEraTitles(axL, ax);
+      // 4) 시대 이름 — 연도 축 옆 위쪽에 붙어 따라온다(넓은 화면만)
+      drawEraTitles(eraSpots);
 
       reading = !!focus && grow.g > 0.5;
 
@@ -814,7 +812,8 @@
       var grid = [];
       var unitsN = Math.max(1, Math.floor(ew / UNIT));
       for (var u = 0; u < unitsN; u += 1) grid.push([]);
-      lab.rects.forEach(function (r) {
+      lab.rects.concat(avoid).forEach(function (r) {
+        if (r.x + r.w < ex || r.x > ex + ew) return;
         var c0 = Math.floor((r.x - ex) / UNIT);
         mark(grid, c0, Math.ceil((r.x + r.w - ex) / UNIT) - c0, r.y, r.y + r.h);
       });
@@ -894,9 +893,10 @@
       }
     }
 
-    /** 시대 이름(띠 안에서 화면 위쪽에 붙어 따라옴) + 장면 이름 — 연도 축 오른쪽(자리가 없으면 왼쪽) */
-    function drawEraTitles(axL, ax) {
-      // 판 위 시대 경계를 화면으로 옮겨 놓고, 그 사이에서 위쪽에 붙인다
+    /** 시대 이름 자리(화면 좌표) — 띠 안에서 화면 위쪽에 붙어 따라오고, 연도 축 오른쪽(자리가 없으면 왼쪽) */
+    function eraTitleSpots(axL, ax) {
+      var out = [];
+      if (narrow()) return out;   // 좁은 화면은 열 위에 겹치므로 쓰지 않는다(계기판 알약에 시대 이름이 있다)
       var top = geo.on ? Math.max(HEAD_H, proj(ax, 0).y) : HEAD_H;
       var axAt = function (sy) { return proj(ax, unproj(W / 2, sy).y).x; };
       eras.forEach(function (era) {
@@ -910,38 +910,27 @@
         var rw = ctx.measureText(era.range || '').width;
         var bx = axAt(y) + 8;
         if (bx + tw + rw + 24 > W) bx = proj(axL, unproj(W / 2, y).y).x - tw - rw - 28;
+        out.push({ era: era, x: bx - 6, y: y - 25, w: tw + rw + 28, h: 34, tw: tw });
+      });
+      return out;
+    }
+
+    function drawEraTitles(spots) {
+      spots.forEach(function (r) {
+        var bx = r.x + 6;
+        var y = r.y + 25;
         ctx.fillStyle = colors.sky;
         ctx.globalAlpha = 0.82;
-        roundRect(bx - 6, y - 25, tw + rw + 28, 34, 12);
+        roundRect(r.x, r.y, r.w, r.h, 12);
         ctx.fill();
         ctx.globalAlpha = 1;
         ctx.font = '700 24px ' + colors.display;
         ctx.fillStyle = colors.inkBg;
-        ctx.fillText(era.label, bx + 2, y);
+        ctx.fillText(r.era.label, bx + 2, y);
         ctx.font = '12px ' + colors.sans;
         ctx.fillStyle = colors.inkBg2;
-        ctx.fillText(era.range || '', bx + tw + 12, y);
-        hits.push({ x: bx - 6, y: y - 25, w: tw + rw + 28, h: 34, era: era, scr: true });
-
-        (era.scenes || []).forEach(function (sc, i) {
-          if (i === 0) return;
-          var sp = proj(ax, yOf(sc.start_year));
-          var sy = sp.y;
-          if (sy < y + 14 || sy > Hv - 10 || sp.f < 0.4) return;   // 너무 먼 장면 이름은 생략
-          var sx = sp.x + 8;
-          ctx.font = '12px ' + colors.sans;
-          var lw = ctx.measureText('· ' + sc.label).width;
-          if (sx + lw + 10 > W) sx = proj(axL, yOf(sc.start_year)).x - lw - 14;
-          ctx.globalAlpha = Math.min(1, (sp.f - 0.4) * 4);
-          ctx.fillStyle = colors.sky;
-          ctx.globalAlpha *= 0.8;
-          roundRect(sx - 4, sy - 17, lw + 12, 20, 8);
-          ctx.fill();
-          ctx.globalAlpha = Math.min(1, (sp.f - 0.4) * 4);
-          ctx.fillStyle = colors.inkBg2;
-          ctx.fillText('· ' + sc.label, sx + 2, sy - 3);
-          ctx.globalAlpha = 1;
-        });
+        ctx.fillText(r.era.range || '', bx + r.tw + 12, y);
+        hits.push({ x: r.x, y: r.y, w: r.w, h: r.h, era: r.era, scr: true });
       });
     }
 
