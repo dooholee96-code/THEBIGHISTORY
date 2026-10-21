@@ -1,0 +1,832 @@
+{
+  "meta": {
+    "economy": {
+      "label": "경제사",
+      "category": "경제사",
+      "subcategory": "경제",
+      "color": "#b7a46a"
+    },
+    "architecture": {
+      "label": "건축사",
+      "category": "건축사",
+      "subcategory": "건축",
+      "color": "#a89b8c"
+    }
+  },
+  "entries": {
+    "economy": [
+      {
+        "id": "economy-geonwon",
+        "category": "경제사",
+        "subcategory": "경제",
+        "title": "건원중보 주조",
+        "region": "동아시아",
+        "start_year": 996,
+        "end_year": 996,
+        "description": "고려가 처음으로 쇠돈을 만들어 나라가 주도한 화폐 유통을 시도했다.",
+        "tags": [
+          "중세",
+          "화폐"
+        ],
+        "sources": [
+          "건원중보,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0002015"
+        ],
+        "status": "draft",
+        "_why": "\"996년(성종 15)에 처음으로 주조\""
+      },
+      {
+        "id": "economy-daedong",
+        "category": "경제사",
+        "subcategory": "경제",
+        "title": "대동법 시행",
+        "region": "동아시아",
+        "start_year": 1608,
+        "end_year": 1708,
+        "description": "공물을 현물 대신 쌀·베·돈으로 내게 한 제도로, 100년에 걸쳐 전국으로 넓혀졌다.",
+        "tags": [
+          "근세",
+          "조세"
+        ],
+        "sources": [
+          "대동법,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0014246"
+        ],
+        "status": "draft",
+        "_why": "\"1608년 경기도 … 1708년 황해도 순으로 100년 동안 확대\""
+      },
+      {
+        "id": "economy-sangpyeong",
+        "category": "경제사",
+        "subcategory": "경제",
+        "title": "상평통보 법화 채택",
+        "region": "동아시아",
+        "start_year": 1678,
+        "end_year": 1678,
+        "description": "조선이 상평통보를 공식 화폐로 삼아 조선 말기까지 쓰였다.",
+        "tags": [
+          "근세",
+          "화폐"
+        ],
+        "sources": [
+          "상평통보,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0027386"
+        ],
+        "status": "draft",
+        "_why": "\"1678(숙종 4)부터 … 유일한 법화\""
+      },
+      {
+        "id": "economy-gyunyeok",
+        "category": "경제사",
+        "subcategory": "경제",
+        "title": "균역법",
+        "region": "동아시아",
+        "start_year": 1750,
+        "end_year": 1750,
+        "description": "양인이 내던 군포를 1필로 줄여 군역 부담을 덜고자 한 재정 제도다.",
+        "tags": [
+          "근세",
+          "조세"
+        ],
+        "sources": [
+          "균역법,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0007303"
+        ],
+        "status": "draft",
+        "_why": "정의 \"1750년(영조 26)\""
+      },
+      {
+        "id": "economy-currency-reform",
+        "category": "경제사",
+        "subcategory": "경제",
+        "title": "화폐정리사업",
+        "region": "동아시아",
+        "start_year": 1904,
+        "end_year": 1904,
+        "description": "대한제국의 옛 화폐를 거두어들이고 새 화폐로 바꾼 사업이다.",
+        "tags": [
+          "근대",
+          "화폐"
+        ],
+        "sources": [
+          "화폐정리사업,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0064926"
+        ],
+        "status": "draft",
+        "_why": "정의 \"1904년부터 시작\""
+      },
+      {
+        "id": "economy-gukchae",
+        "category": "경제사",
+        "subcategory": "경제",
+        "title": "국채보상운동",
+        "region": "동아시아",
+        "start_year": 1907,
+        "end_year": 1908,
+        "description": "일본에 진 나랏빚을 국민 모금으로 갚아 국권을 지키려 한 운동이다.",
+        "tags": [
+          "근대",
+          "국권회복"
+        ],
+        "sources": [
+          "국채보상운동,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0006527"
+        ],
+        "status": "draft",
+        "_why": "정의 \"1907년부터 1908년 사이\""
+      },
+      {
+        "id": "economy-bretton-woods",
+        "category": "경제사",
+        "subcategory": "경제",
+        "title": "브레턴우즈 회의",
+        "region": "동아시아",
+        "start_year": 1944,
+        "end_year": 1944,
+        "description": "전후 국제 통화 질서를 위해 국제통화기금 등의 설립을 합의한 회의다.",
+        "tags": [
+          "현대",
+          "국제경제"
+        ],
+        "sources": [
+          "국제통화기금,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0006483",
+          "세계무역기구,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0029749"
+        ],
+        "status": "draft",
+        "_why": "「국제통화기금」 \"1944년 … 브레턴우즈\" "
+      },
+      {
+        "id": "economy-imf",
+        "category": "경제사",
+        "subcategory": "경제",
+        "title": "국제통화기금 발족",
+        "region": "동아시아",
+        "start_year": 1947,
+        "end_year": 1947,
+        "description": "국제 통화·금융 질서를 지키기 위한 국제기구가 활동을 시작했다.",
+        "tags": [
+          "현대",
+          "국제경제"
+        ],
+        "sources": [
+          "국제통화기금,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0006483"
+        ],
+        "status": "draft",
+        "_why": "정의 \"1947년 발족\""
+      },
+      {
+        "id": "economy-five-year-plan",
+        "category": "경제사",
+        "subcategory": "경제",
+        "title": "경제개발 5개년 계획",
+        "region": "동아시아",
+        "start_year": 1962,
+        "end_year": 1962,
+        "description": "정부 주도의 계획적 산업화가 본격적으로 시작되었다.",
+        "tags": [
+          "현대",
+          "산업화"
+        ],
+        "sources": [
+          "경제개발계획,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0002782"
+        ],
+        "status": "draft",
+        "_why": "\"1962년부터 본격적인 경제개발계획이 실시\""
+      },
+      {
+        "id": "economy-saemaul",
+        "category": "경제사",
+        "subcategory": "경제",
+        "title": "새마을운동",
+        "region": "동아시아",
+        "start_year": 1970,
+        "end_year": 1970,
+        "description": "농촌의 자조 노력을 내걸고 시작된 범국민 지역사회 개발 운동이다.",
+        "tags": [
+          "현대",
+          "산업화"
+        ],
+        "sources": [
+          "새마을운동,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0027443"
+        ],
+        "status": "draft",
+        "_why": "정의 \"1970년부터\""
+      },
+      {
+        "id": "economy-oil-shock",
+        "category": "경제사",
+        "subcategory": "경제",
+        "title": "석유파동",
+        "region": "동아시아",
+        "start_year": 1973,
+        "end_year": 1980,
+        "description": "두 차례 유가 폭등으로 세계 경제가 큰 혼란을 겪었다.",
+        "tags": [
+          "현대",
+          "국제경제"
+        ],
+        "sources": [
+          "석유파동,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0068181"
+        ],
+        "status": "draft",
+        "_why": "\"1973∼1974년 … 1978∼1980년\""
+      },
+      {
+        "id": "economy-real-name",
+        "category": "경제사",
+        "subcategory": "경제",
+        "title": "금융실명제",
+        "region": "동아시아",
+        "start_year": 1993,
+        "end_year": 1993,
+        "description": "모든 금융 거래를 실제 이름으로만 하도록 해 지하경제를 줄이려 했다.",
+        "tags": [
+          "현대",
+          "금융"
+        ],
+        "sources": [
+          "금융실명제,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0007935"
+        ],
+        "status": "draft",
+        "_why": "정의 \"1993년\""
+      },
+      {
+        "id": "economy-wto",
+        "category": "경제사",
+        "subcategory": "경제",
+        "title": "세계무역기구 출범",
+        "region": "동아시아",
+        "start_year": 1995,
+        "end_year": 1995,
+        "description": "무역 분쟁을 조정하고 자유무역을 넓히는 국제기구가 출범했다.",
+        "tags": [
+          "현대",
+          "국제경제"
+        ],
+        "sources": [
+          "세계무역기구,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0029749"
+        ],
+        "status": "draft",
+        "_why": "\"1995년 1월 1일 발족\""
+      },
+      {
+        "id": "economy-1997-crisis",
+        "category": "경제사",
+        "subcategory": "경제",
+        "title": "외환위기",
+        "region": "동아시아",
+        "start_year": 1997,
+        "end_year": 1997,
+        "description": "외화가 급격히 빠져나가 한국이 국제통화기금의 구제금융을 받았다.",
+        "tags": [
+          "현대",
+          "금융"
+        ],
+        "sources": [
+          "외환위기,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0068313"
+        ],
+        "status": "draft",
+        "_why": "\"1997년 11월 … 외환위기\""
+      }
+    ],
+    "architecture": [
+      {
+        "id": "architecture-hwangnyongsa",
+        "category": "건축사",
+        "subcategory": "건축",
+        "title": "황룡사 구층목탑",
+        "region": "동아시아",
+        "start_year": 643,
+        "end_year": 645,
+        "description": "높이 약 80m에 이른 신라의 거대한 목탑으로, 고려 때 몽골 침입으로 불탔다.",
+        "tags": [
+          "고대",
+          "불교 건축"
+        ],
+        "sources": [
+          "황룡사 구층목탑,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0065127"
+        ],
+        "status": "draft",
+        "_why": "\"643년에 착수하여 645년에 완성\""
+      },
+      {
+        "id": "architecture-bulguksa",
+        "category": "건축사",
+        "subcategory": "건축",
+        "title": "불국사 창건",
+        "region": "동아시아",
+        "start_year": 751,
+        "end_year": 751,
+        "description": "김대성이 짓기 시작해 그가 죽은 뒤 나라가 완공한 통일신라의 사찰이다.",
+        "tags": [
+          "고대",
+          "불교 건축"
+        ],
+        "sources": [
+          "경주 불국사,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0024933"
+        ],
+        "status": "draft",
+        "_why": "『삼국유사』 751년. 석가탑 문서에 따른 742년 설도 있음"
+      },
+      {
+        "id": "architecture-seokguram",
+        "category": "건축사",
+        "subcategory": "건축",
+        "title": "석굴암",
+        "region": "동아시아",
+        "start_year": 751,
+        "end_year": 751,
+        "description": "인공 석굴로 불국토를 구현한 통일신라의 석굴 사원이다.",
+        "tags": [
+          "고대",
+          "불교 건축"
+        ],
+        "sources": [
+          "경주 석굴암 석굴,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0028362"
+        ],
+        "status": "draft",
+        "_why": "『삼국유사』 751년 창건"
+      },
+      {
+        "id": "architecture-muryangsujeon",
+        "category": "건축사",
+        "subcategory": "건축",
+        "title": "부석사 무량수전 중건",
+        "region": "동아시아",
+        "start_year": 1376,
+        "end_year": 1376,
+        "description": "배흘림기둥으로 이름난 고려의 목조 불전으로, 왜구에 불탄 뒤 다시 지었다.",
+        "tags": [
+          "중세",
+          "목조 건축"
+        ],
+        "sources": [
+          "영주 부석사 무량수전,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0024299"
+        ],
+        "status": "draft",
+        "_why": "\"1376년(우왕 2) … 고쳐 지었다\""
+      },
+      {
+        "id": "architecture-jongmyo",
+        "category": "건축사",
+        "subcategory": "건축",
+        "title": "종묘 건립",
+        "region": "동아시아",
+        "start_year": 1394,
+        "end_year": 1395,
+        "description": "조선 역대 왕과 왕비의 신주를 모신 사당이다.",
+        "tags": [
+          "근세",
+          "궁궐·사당"
+        ],
+        "sources": [
+          "종묘,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0052928"
+        ],
+        "status": "draft",
+        "_why": "1394년 12월 착공, 다음 해 9월 일차 완공"
+      },
+      {
+        "id": "architecture-gyeongbokgung",
+        "category": "건축사",
+        "subcategory": "건축",
+        "title": "경복궁 창건",
+        "region": "동아시아",
+        "start_year": 1394,
+        "end_year": 1395,
+        "description": "한양 천도와 함께 세운 조선의 정궁이다.",
+        "tags": [
+          "근세",
+          "궁궐·사당"
+        ],
+        "sources": [
+          "경복궁,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0002434"
+        ],
+        "status": "draft",
+        "_why": "\"1394년 … 창건을 시작하였으며 이듬해에 완성\""
+      },
+      {
+        "id": "architecture-changdeokgung",
+        "category": "건축사",
+        "subcategory": "건축",
+        "title": "창덕궁 창건",
+        "region": "동아시아",
+        "start_year": 1405,
+        "end_year": 1405,
+        "description": "태종이 한양으로 다시 도읍을 옮기며 세운 조선의 궁궐이다.",
+        "tags": [
+          "근세",
+          "궁궐·사당"
+        ],
+        "sources": [
+          "창덕궁,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0055378"
+        ],
+        "status": "draft",
+        "_why": "\"1405년\""
+      },
+      {
+        "id": "architecture-hwaseong",
+        "category": "건축사",
+        "subcategory": "건축",
+        "title": "수원 화성 축성",
+        "region": "동아시아",
+        "start_year": 1796,
+        "end_year": 1796,
+        "description": "정조가 실학의 성과와 새 기술을 모아 쌓은 성곽 도시다.",
+        "tags": [
+          "근세",
+          "성곽"
+        ],
+        "sources": [
+          "수원 화성,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0064671"
+        ],
+        "status": "draft",
+        "_why": "\"1796년에 축성\""
+      }
+    ],
+    "art-east": [
+      {
+        "id": "art-anak3",
+        "category": "미술사",
+        "subcategory": "동양 미술",
+        "title": "안악 3호분 벽화",
+        "region": "동아시아",
+        "start_year": 357,
+        "end_year": 357,
+        "description": "고구려 귀족의 생활과 대행렬을 그린, 연대가 확실한 이른 시기의 고분벽화다.",
+        "tags": [
+          "고대",
+          "벽화"
+        ],
+        "sources": [
+          "안악 3호분,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0034868",
+          "고분벽화,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0003619"
+        ],
+        "status": "draft",
+        "_why": "묵서명 영화 13년 = 357년"
+      },
+      {
+        "id": "art-silla-crown",
+        "category": "미술사",
+        "subcategory": "동양 미술",
+        "title": "신라 금관",
+        "region": "동아시아",
+        "start_year": 400,
+        "end_year": 600,
+        "description": "나뭇가지·사슴뿔 모양 장식을 단 금관으로 신라 황금 문화를 보여 준다.",
+        "tags": [
+          "고대",
+          "공예"
+        ],
+        "sources": [
+          "신라 금관,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0068699"
+        ],
+        "status": "draft",
+        "_why": "\"5∼6세기에 제작\" — 세기를 연도로 옮긴 대략값"
+      },
+      {
+        "id": "art-suwol",
+        "category": "미술사",
+        "subcategory": "동양 미술",
+        "title": "고려 불화 「수월관음도」",
+        "region": "동아시아",
+        "start_year": 1310,
+        "end_year": 1323,
+        "description": "물가 바위에 앉은 관음보살과 선재동자를 그린 고려 불화의 대표 주제다.",
+        "tags": [
+          "중세",
+          "불화"
+        ],
+        "sources": [
+          "수월관음도,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0031618"
+        ],
+        "status": "draft",
+        "_why": "1310년 김우문 필·1323년 서구방 필 작품 언급"
+      },
+      {
+        "id": "art-buncheong",
+        "category": "미술사",
+        "subcategory": "동양 미술",
+        "title": "분청사기",
+        "region": "동아시아",
+        "start_year": 1400,
+        "end_year": 1600,
+        "description": "회색 바탕흙에 백토를 발라 꾸민 뒤 구운 조선 초기의 도자기다.",
+        "tags": [
+          "근세",
+          "공예"
+        ],
+        "sources": [
+          "분청사기,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0024868"
+        ],
+        "status": "draft",
+        "_why": "\"15·16세기의 약 200여 년간 제작\" — 대략값"
+      },
+      {
+        "id": "art-mongyu",
+        "category": "미술사",
+        "subcategory": "동양 미술",
+        "title": "안견 「몽유도원도」",
+        "region": "동아시아",
+        "start_year": 1447,
+        "end_year": 1447,
+        "description": "안평대군의 꿈 이야기를 그린 조선 초기 산수화의 걸작이다.",
+        "tags": [
+          "근세",
+          "회화"
+        ],
+        "sources": [
+          "몽유도원도,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0018824"
+        ],
+        "status": "draft",
+        "_why": "\"1447년(세종 29)\""
+      },
+      {
+        "id": "art-kimhongdo",
+        "category": "미술사",
+        "subcategory": "동양 미술",
+        "title": "김홍도와 풍속화",
+        "region": "동아시아",
+        "start_year": 1745,
+        "end_year": 1806,
+        "description": "산수·인물·풍속 등 여러 분야에 뛰어났던 조선 후기의 화원이다.",
+        "tags": [
+          "근세",
+          "회화"
+        ],
+        "sources": [
+          "김홍도,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0011079"
+        ],
+        "status": "draft",
+        "_why": "1745년 출생, 1806년 초 사망 추정"
+      },
+      {
+        "id": "art-sehando",
+        "category": "미술사",
+        "subcategory": "동양 미술",
+        "title": "김정희 「세한도」",
+        "region": "동아시아",
+        "start_year": 1844,
+        "end_year": 1844,
+        "description": "제주 유배 중 김정희가 제자 이상적의 지조를 소나무와 잣나무에 빗대어 그린 문인화다.",
+        "tags": [
+          "근세",
+          "회화"
+        ],
+        "sources": [
+          "김정희 필 세한도,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0038956"
+        ],
+        "status": "draft",
+        "_why": "\"1844년(헌종 10)\""
+      }
+    ],
+    "music-east": [
+      {
+        "id": "music-daeseong",
+        "category": "음악사",
+        "subcategory": "동양 음악",
+        "title": "대성아악 전래",
+        "region": "동아시아",
+        "start_year": 1116,
+        "end_year": 1116,
+        "description": "송나라에서 아악과 악기가 들어와 한국 궁중 아악의 기점이 되었다.",
+        "tags": [
+          "중세",
+          "궁중음악"
+        ],
+        "sources": [
+          "대성아악,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0014513",
+          "아악,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0034368"
+        ],
+        "status": "draft",
+        "_why": "\"1116년 … 대성악 … 보내왔다\""
+      },
+      {
+        "id": "music-sinje-aak",
+        "category": "음악사",
+        "subcategory": "동양 음악",
+        "title": "세종의 신제 아악",
+        "region": "동아시아",
+        "start_year": 1430,
+        "end_year": 1430,
+        "description": "세종이 악기와 음률을 정비해 조선의 아악을 새로 완성했다.",
+        "tags": [
+          "근세",
+          "궁중음악"
+        ],
+        "sources": [
+          "아악,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0034368"
+        ],
+        "status": "draft",
+        "_why": "\"1430년(세종 12)에 조선의 신제 아악을 완성\""
+      },
+      {
+        "id": "music-jeonggan",
+        "category": "음악사",
+        "subcategory": "동양 음악",
+        "title": "정간보 창안",
+        "region": "동아시아",
+        "start_year": 1447,
+        "end_year": 1447,
+        "description": "우물 정(井) 자 칸으로 음의 길이까지 적을 수 있게 한 세종 때의 기보법이다.",
+        "tags": [
+          "근세",
+          "기보법"
+        ],
+        "sources": [
+          "정간보,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0049898"
+        ],
+        "status": "draft",
+        "_why": "\"늦어도 1447년까지 … 완성된 것으로 본다\""
+      },
+      {
+        "id": "music-pansori",
+        "category": "음악사",
+        "subcategory": "동양 음악",
+        "title": "판소리의 첫 기록",
+        "region": "동아시아",
+        "start_year": 1753,
+        "end_year": 1753,
+        "description": "한 명의 소리꾼이 고수의 북장단에 맞춰 긴 이야기를 노래하는 판소리가 기록에 처음 보인다.",
+        "tags": [
+          "근세",
+          "민속음악"
+        ],
+        "sources": [
+          "판소리,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0059663"
+        ],
+        "status": "draft",
+        "_why": "유진한 『만화집』(1753년)의 「춘향가」 기록"
+      },
+      {
+        "id": "music-sanjo",
+        "category": "음악사",
+        "subcategory": "동양 음악",
+        "title": "가야금산조 창제",
+        "region": "동아시아",
+        "start_year": 1883,
+        "end_year": 1883,
+        "description": "김창조가 가야금 독주곡 산조의 틀을 짜 전했다.",
+        "tags": [
+          "근대",
+          "민속음악"
+        ],
+        "sources": [
+          "산조,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0026332"
+        ],
+        "status": "draft",
+        "_why": "\"19세 때(1883) 가야금산조를 처음 창제했다고 전한다\""
+      }
+    ],
+    "philosophy-east": [
+      {
+        "id": "philosophy-wonhyo",
+        "category": "철학사",
+        "subcategory": "동양 철학",
+        "title": "원효",
+        "region": "동아시아",
+        "start_year": 617,
+        "end_year": 686,
+        "description": "일심과 화쟁을 내세워 불교 교학을 아우른 신라의 사상가다.",
+        "tags": [
+          "고대",
+          "불교"
+        ],
+        "sources": [
+          "원효,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0040908"
+        ],
+        "status": "draft",
+        "_why": "617~686년"
+      },
+      {
+        "id": "philosophy-uisang",
+        "category": "철학사",
+        "subcategory": "동양 철학",
+        "title": "의상과 화엄",
+        "region": "동아시아",
+        "start_year": 625,
+        "end_year": 702,
+        "description": "당에서 화엄을 배워 와 부석사를 세우고 해동 화엄의 기초를 놓았다.",
+        "tags": [
+          "고대",
+          "불교"
+        ],
+        "sources": [
+          "의상,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0043250"
+        ],
+        "status": "draft",
+        "_why": "625~702년"
+      },
+      {
+        "id": "philosophy-jinul",
+        "category": "철학사",
+        "subcategory": "동양 철학",
+        "title": "지눌과 정혜결사",
+        "region": "동아시아",
+        "start_year": 1158,
+        "end_year": 1210,
+        "description": "정혜결사를 열어 고려 불교의 수행 기풍을 새롭게 한 승려다.",
+        "tags": [
+          "중세",
+          "불교"
+        ],
+        "sources": [
+          "지눌,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0054108"
+        ],
+        "status": "draft",
+        "_why": "1158년 출생, 1210년 입적"
+      },
+      {
+        "id": "philosophy-jeongyakyong",
+        "category": "철학사",
+        "subcategory": "동양 철학",
+        "title": "정약용과 실학",
+        "region": "동아시아",
+        "start_year": 1762,
+        "end_year": 1836,
+        "description": "『목민심서』 등으로 실학을 집대성한 조선 후기의 개혁 사상가다.",
+        "tags": [
+          "근세",
+          "실학"
+        ],
+        "sources": [
+          "정약용,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0050549",
+          "실학,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0033695"
+        ],
+        "status": "draft",
+        "_why": "1762~1836년"
+      },
+      {
+        "id": "philosophy-choehangi",
+        "category": "철학사",
+        "subcategory": "동양 철학",
+        "title": "최한기의 기학",
+        "region": "동아시아",
+        "start_year": 1803,
+        "end_year": 1877,
+        "description": "서양의 역산과 과학기술을 중시하며 기(氣)를 바탕으로 한 학문을 세운 학자다.",
+        "tags": [
+          "근대",
+          "실학"
+        ],
+        "sources": [
+          "최한기,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0057736"
+        ],
+        "status": "draft",
+        "_why": "1803~1877년"
+      }
+    ],
+    "literature-east": [
+      {
+        "id": "literature-hyangga",
+        "category": "문학사",
+        "subcategory": "동양 문학",
+        "title": "향가의 전성기",
+        "region": "동아시아",
+        "start_year": 680,
+        "end_year": 900,
+        "description": "향찰로 적은 신라 고유의 정형시가 가장 활발히 지어진 시기다.",
+        "tags": [
+          "고대",
+          "시가"
+        ],
+        "sources": [
+          "향가,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0062873"
+        ],
+        "status": "draft",
+        "_why": "전성기 \"7세기 말∼9세기 말\" — 대략값"
+      },
+      {
+        "id": "literature-sijo",
+        "category": "문학사",
+        "subcategory": "동양 문학",
+        "title": "시조의 형성",
+        "region": "동아시아",
+        "start_year": 1350,
+        "end_year": 1350,
+        "description": "세 줄 정형시인 시조가 고려 말에 틀을 갖추어 지금까지 창작된다.",
+        "tags": [
+          "중세",
+          "시가"
+        ],
+        "sources": [
+          "시조,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0032460"
+        ],
+        "status": "draft",
+        "_why": "\"14세기경인 고려 말기\" — 대략값"
+      },
+      {
+        "id": "literature-yeolha",
+        "category": "문학사",
+        "subcategory": "동양 문학",
+        "title": "박지원 『열하일기』",
+        "region": "동아시아",
+        "start_year": 1780,
+        "end_year": 1780,
+        "description": "박지원이 청나라 사행에서 보고 들은 것을 적은 견문록으로, 북학 주장이 두드러진다.",
+        "tags": [
+          "근세",
+          "산문"
+        ],
+        "sources": [
+          "열하일기,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0037072"
+        ],
+        "status": "draft",
+        "_why": "\"1780년(정조 4) … 사행\""
+      }
+    ]
+  }
+}
