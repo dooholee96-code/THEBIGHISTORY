@@ -14,7 +14,7 @@
        열 왼쪽 띠는 시대 묶음(매니페스트 periods — 삼국 시대·송원 시대 …)
      · 연도 축은 국가사 열과 주제사 열 사이에 끼어 그림과 함께 옆으로 움직이고,
        화면 밖으로 나가려 하면 왼쪽·오른쪽 가장자리에 붙어 따라온다
-     · 열 이름은 화면 위에, 시대 이름은 연도 축 옆에 붙어 따라온다
+     · 열 이름은 화면 위에 붙어 따라온다(시대 이름은 계기판 알약에)
      · 먼 곳으로 갈 때는 잠깐 물러났다 다가가는 비행(Prezi 의 장면 전환)
      · 끝에 닿아도 벽처럼 멈추지 않는다 — 손가락을 따라 고무줄처럼 늘어났다가 놓으면 튕겨 돌아온다
      · 눕히기(스타워즈 오프닝처럼) — 두 손가락을 나란히 위아래로 밀거나 Alt(Option)+휠, Alt+끌기, T 키.
@@ -24,7 +24,7 @@
      · 판(plane)  — 열·사건·왕조 띠·연도 눈금. js/plane.js 의 붓이 칠한다 —
                      Three.js(WebGL2)가 되면 GPU 로, 눕히기는 원근 카메라를 기울여서.
                      안 되면 Canvas 2D 로 칠하고 눕히기는 CSS 3D 로(판 좌표계는 어느 쪽이든 그대로).
-     · 덮개(#zoom) — 화면에 납작하게 붙은 열 이름·시대 이름. 손가락 입력도 여기서 받아
+     · 덮개(#zoom) — 화면에 납작하게 붙은 열 이름. 손가락 입력도 여기서 받아
                      원근을 거꾸로 풀어 판 좌표로 바꾼다. 그래서 눕혀도 손가락 밑의 점이 그대로 따라온다.
 
    선형 시간이라 선사(3만 년)가 길고 문명사는 아래쪽에 모여 있다 — 그것이 빅 히스토리의 실제 비율.
@@ -240,7 +240,6 @@
     var focus = null;      // 펼쳐 둔 항목 { id, entry, links, block } — 열을 채우며 커지고, 이름 아래로 설명이 나온다
     var grow = { col: -1, g: 0, target: 0 };   // 펼친 항목의 열이 넓어진 정도(0..1)
     var reading = false;   // 펼친 항목의 설명이 나와 있는가
-    var avoid = [];        // 이번 프레임에 사건이 비켜 가야 할 자리(시대 이름)
 
     // ----------------------------------------------------------- 좌표
 
@@ -570,11 +569,7 @@
       var yTop = yearAt(-40);
       var yBot = yearAt(H + 40);
       var axL = axisLeft();
-      var ax = axL + axisW();      // 연도 축 칸의 오른쪽
       var focusYear = yearAt(focusY());
-      var eraSpots = eraTitleSpots(axL, ax);
-      // 납작할 땐 판 좌표 = 화면 좌표 — 사건이 시대 이름 밑에 깔리지 않게 비켜 놓는다
-      avoid = geo.on ? [] : eraSpots;
 
       // 1) 시대 띠(아주 옅은 면 + 경계선)
       eras.forEach(function (era) {
@@ -610,12 +605,9 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, W, Hv);
 
-      // 4) 시대 이름 — 연도 축 옆 위쪽에 붙어 따라온다(넓은 화면만)
-      drawEraTitles(eraSpots);
-
       reading = !!focus && grow.g > 0.5;
 
-      // 5) 열 이름 — 화면 위에 붙어 있다
+      // 4) 열 이름 — 화면 위에 붙어 있다
       drawHeads();
     }
 
@@ -812,8 +804,7 @@
       var grid = [];
       var unitsN = Math.max(1, Math.floor(ew / UNIT));
       for (var u = 0; u < unitsN; u += 1) grid.push([]);
-      lab.rects.concat(avoid).forEach(function (r) {
-        if (r.x + r.w < ex || r.x > ex + ew) return;
+      lab.rects.forEach(function (r) {
         var c0 = Math.floor((r.x - ex) / UNIT);
         mark(grid, c0, Math.ceil((r.x + r.w - ex) / UNIT) - c0, r.y, r.y + r.h);
       });
@@ -891,47 +882,6 @@
         pp.text('지금', right ? ax + 10 : axL - 10, yNow + 24, font(15, '700', true), colors.star, 1, right ? 'left' : 'right');
         pp.text('이야기는 여기서부터 아직 쓰이는 중', right ? ax + 50 : axL - 50, yNow + 24, font(12), colors.inkBg2, 1, right ? 'left' : 'right');
       }
-    }
-
-    /** 시대 이름 자리(화면 좌표) — 띠 안에서 화면 위쪽에 붙어 따라오고, 연도 축 오른쪽(자리가 없으면 왼쪽) */
-    function eraTitleSpots(axL, ax) {
-      var out = [];
-      if (narrow()) return out;   // 좁은 화면은 열 위에 겹치므로 쓰지 않는다(계기판 알약에 시대 이름이 있다)
-      var top = geo.on ? Math.max(HEAD_H, proj(ax, 0).y) : HEAD_H;
-      var axAt = function (sy) { return proj(ax, unproj(W / 2, sy).y).x; };
-      eras.forEach(function (era) {
-        var a = proj(ax, yOf(era.start_year)).y;
-        var b = proj(ax, yOf(era.end_year)).y;
-        if (b - a < 40 || b < top || a > Hv) return;
-        var y = clamp(top + 30, a + 30, b - 10);
-        ctx.font = '700 24px ' + colors.display;
-        var tw = ctx.measureText(era.label).width;
-        ctx.font = '12px ' + colors.sans;
-        var rw = ctx.measureText(era.range || '').width;
-        var bx = axAt(y) + 8;
-        if (bx + tw + rw + 24 > W) bx = proj(axL, unproj(W / 2, y).y).x - tw - rw - 28;
-        out.push({ era: era, x: bx - 6, y: y - 25, w: tw + rw + 28, h: 34, tw: tw });
-      });
-      return out;
-    }
-
-    function drawEraTitles(spots) {
-      spots.forEach(function (r) {
-        var bx = r.x + 6;
-        var y = r.y + 25;
-        ctx.fillStyle = colors.sky;
-        ctx.globalAlpha = 0.82;
-        roundRect(r.x, r.y, r.w, r.h, 12);
-        ctx.fill();
-        ctx.globalAlpha = 1;
-        ctx.font = '700 24px ' + colors.display;
-        ctx.fillStyle = colors.inkBg;
-        ctx.fillText(r.era.label, bx + 2, y);
-        ctx.font = '12px ' + colors.sans;
-        ctx.fillStyle = colors.inkBg2;
-        ctx.fillText(r.era.range || '', bx + r.tw + 12, y);
-        hits.push({ x: r.x, y: r.y, w: r.w, h: r.h, era: r.era, scr: true });
-      });
     }
 
     /** 열 이름 줄 — 화면 맨 위에 붙어 있다. 좁으면 색 점만 */
@@ -1455,7 +1405,7 @@
     function hitAt(p) {
       for (var i = hits.length - 1; i >= 0; i -= 1) {
         var h = hits[i];
-        var x = h.scr ? p.sx : p.x;   // 덮개에 그린 것(열·시대 이름)은 화면 좌표로
+        var x = h.scr ? p.sx : p.x;   // 덮개에 그린 것(열 이름)은 화면 좌표로
         var y = h.scr ? p.sy : p.y;
         if (x >= h.x && x <= h.x + h.w && y >= h.y && y <= h.y + h.h) return h;
       }
@@ -1617,7 +1567,7 @@
         lastT = 0;
         invalidate();
       }
-      // 톡 — 사건이면 상세, 시대 이름이면 그 시대로, 열 이름이면 그 열로, 묶음이면 다가가기. 두 번 톡이면 줌인
+      // 톡 — 사건이면 상세, 시대 묶음 띠면 그 시대로, 열 이름이면 그 열로, 묶음이면 다가가기. 두 번 톡이면 줌인
       if (e.timeStamp - g.at > 450) return;
       var tapAt = e.timeStamp;
       if (lastTap && tapAt - lastTap.t < 320 && Math.abs(lastTap.y - p.sy) < 30 && Math.abs(lastTap.x - p.sx) < 30) {
