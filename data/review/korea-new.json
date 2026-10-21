@@ -1,0 +1,197 @@
+[
+  {
+    "category": "왕조사",
+    "subcategory": "한국",
+    "region": "동아시아",
+    "status": "draft",
+    "id": "korea-jinguk",
+    "title": "진국",
+    "kind": "polity",
+    "start_year": -300,
+    "end_year": -100,
+    "description": "한반도 중남부의 세형동검 문화를 바탕으로 여러 정치집단을 이끌던 세력이다.",
+    "tags": [
+      "고대",
+      "국가형성"
+    ],
+    "sources": [
+      "진국,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0054604"
+    ],
+    "dating_note": "백과사전: \"서기전 3∼2세기경 한반도 중남부지역에 성립\". 끝은 삼한이 자리 잡는 서기전 1세기 무렵으로 잡은 대략값이다.",
+    "after": "korea-wiman"
+  },
+  {
+    "category": "왕조사",
+    "subcategory": "한국",
+    "region": "동아시아",
+    "status": "draft",
+    "id": "korea-okjeo",
+    "title": "옥저",
+    "kind": "polity",
+    "start_year": -200,
+    "end_year": 300,
+    "description": "함경도 해안의 작은 나라로, 위만조선·한 군현·고구려의 지배를 차례로 받았다.",
+    "tags": [
+      "고대",
+      "국가형성"
+    ],
+    "sources": [
+      "옥저,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0038760"
+    ],
+    "dating_note": "백과사전: 처음 위만조선에 예속(서기전 2세기), 3세기 전반 『삼국지』 기록, 이후 고구려에 편입. 시작·끝은 대략값이다.",
+    "after": "korea-buyeo"
+  },
+  {
+    "category": "왕조사",
+    "subcategory": "한국",
+    "region": "동아시아",
+    "status": "draft",
+    "id": "korea-dongye",
+    "title": "동예",
+    "kind": "polity",
+    "start_year": -200,
+    "end_year": 300,
+    "description": "원산·안변에서 동해안을 따라 자리한 집단으로, 한 군현과 고구려의 지배를 차례로 받았다.",
+    "tags": [
+      "고대",
+      "국가형성"
+    ],
+    "sources": [
+      "동예,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0016693"
+    ],
+    "dating_note": "백과사전: 처음 위만조선에 복속(서기전 2세기), 2세기 후반 고구려에 복속, 5세기 전반까지 종족 단위로 남음. 끝은 3세기 무렵으로 잡은 대략값이다.",
+    "after": "korea-okjeo"
+  },
+  {
+    "category": "왕조사",
+    "subcategory": "한국",
+    "region": "동아시아",
+    "status": "draft",
+    "id": "korea-mahan",
+    "title": "마한",
+    "kind": "polity",
+    "parent": "korea-samhan",
+    "start_year": -100,
+    "end_year": 300,
+    "description": "한강 유역에서 충청·전라 지역에 걸친 54개 소국의 연맹체로, 목지국이 맹주였다.",
+    "tags": [
+      "고대",
+      "연맹체"
+    ],
+    "sources": [
+      "마한,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0017481"
+    ],
+    "dating_note": "백과사전 정의 \"서기전 1세기∼서기 3세기경\". 삼한 칸 안에 그린다.",
+    "after": "korea-samhan"
+  },
+  {
+    "category": "왕조사",
+    "subcategory": "한국",
+    "region": "동아시아",
+    "status": "draft",
+    "id": "korea-jinhan",
+    "title": "진한",
+    "kind": "polity",
+    "parent": "korea-samhan",
+    "start_year": -100,
+    "end_year": 300,
+    "description": "지금의 경상도 지역에 있던 소국 연맹체로, 사로국(뒤의 신라)을 중심으로 묶였다.",
+    "tags": [
+      "고대",
+      "연맹체"
+    ],
+    "sources": [
+      "진한,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0054977"
+    ],
+    "dating_note": "백과사전 정의 \"서기전 1세기부터 서기 3세기경까지\". 삼한 칸 안에 그린다.",
+    "after": "korea-mahan"
+  },
+  {
+    "category": "왕조사",
+    "subcategory": "한국",
+    "region": "동아시아",
+    "status": "draft",
+    "id": "korea-byeonhan",
+    "title": "변한",
+    "kind": "polity",
+    "parent": "korea-samhan",
+    "start_year": -100,
+    "end_year": 300,
+    "description": "낙동강 하류의 소국들로, 철 생산과 교역으로 성장해 뒤의 가야 소국들로 이어졌다.",
+    "tags": [
+      "고대",
+      "연맹체"
+    ],
+    "sources": [
+      "변한,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0022968",
+      "삼한,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0026922"
+    ],
+    "dating_note": "백과사전: 1∼3세기 진한과 같은 문화, 변진 소국 대부분이 가야 소국으로 성장. 기간은 삼한과 같이 잡았다.",
+    "after": "korea-jinhan"
+  },
+  {
+    "category": "왕조사",
+    "subcategory": "한국",
+    "region": "동아시아",
+    "status": "draft",
+    "id": "korea-tamna",
+    "title": "탐라국",
+    "kind": "polity",
+    "area": "탐라",
+    "start_year": 476,
+    "end_year": 1105,
+    "description": "제주도에 있던 나라로, 백제·신라·고려에 차례로 조공하며 반독립 체제를 이어 갔다.",
+    "tags": [
+      "고대",
+      "중세"
+    ],
+    "sources": [
+      "탐라국,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0058815"
+    ],
+    "dating_note": "처음 기록에 보이는 476년(백제에 사신)부터 고려의 군으로 개편된 1105년까지(백과사전 본문). 건국은 전승만 있어 시작을 기록 기준으로 잡았다.",
+    "after": "korea-gaya"
+  },
+  {
+    "category": "왕조사",
+    "subcategory": "한국",
+    "region": "동아시아",
+    "status": "draft",
+    "id": "korea-usan",
+    "title": "우산국 복속",
+    "kind": "event",
+    "start_year": 512,
+    "end_year": 512,
+    "description": "울릉도에 있던 우산국이 이사부의 정벌로 신라에 복속되었다.",
+    "tags": [
+      "고대",
+      "통합"
+    ],
+    "sources": [
+      "우산국,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0039942"
+    ],
+    "dating_note": "우산국의 성립 시기는 기록이 없어 나라 칸 대신 복속(512년, 지증왕 13)만 사건으로 넣는다.",
+    "after": "korea-tamna"
+  },
+  {
+    "category": "왕조사",
+    "subcategory": "한국",
+    "region": "동아시아",
+    "status": "draft",
+    "id": "korea-sogunjeong",
+    "title": "소련군정기",
+    "kind": "era",
+    "start_year": 1945,
+    "end_year": 1948,
+    "description": "38도선 이북을 소련군이 점령해 통치한 시기로, 북한 정권 수립으로 끝났다.",
+    "tags": [
+      "현대",
+      "분단"
+    ],
+    "sources": [
+      "미소군정기,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0019962",
+      "북한,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0024785"
+    ],
+    "dating_note": "백과사전 「미소군정기」 정의 \"1945년부터 1948년까지 … 미국과 소련이 남한과 북한을 각기 통치\". 끝은 1948년 9월 9일 북한 정권 수립.",
+    "after": "korea-usamgik"
+  }
+]
