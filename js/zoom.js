@@ -54,6 +54,45 @@
 
   function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
   function easeInOutCubic(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  /**
+   * 줌하며 날아가는 경로 — van Wijk & Nuij(2003) 'Smooth and efficient zooming and panning'.
+   * ChronoZoom 같은 확대형 화면과 d3.interpolateZoom 이 쓰는 그 곡선. 화면에서 느끼는 속도가 고르게,
+   * 먼 곳이면 알맞게 물러났다가 다가간다. 1차원(시간 축): c = 초점선의 해, w = 화면에 보이는 햇수
+   * @returns { S: 경로 길이(시간 배분용), at(t): { c, w, k(이동 진행 0..1) } }
+   */
+  function zoomPath(c0, w0, c1, w1) {
+    var rho = Math.SQRT2;
+    var rho2 = 2;
+    var rho4 = 4;
+    var dx = c1 - c0;
+    var d2 = dx * dx;
+    if (d2 < 1e-12) {
+      var S0 = Math.log(w1 / w0) / rho;
+      return {
+        S: Math.abs(S0),
+        at: function (t) { return { c: c0 + dx * t, w: w0 * Math.exp(rho * t * S0), k: t }; }
+      };
+    }
+    var d1 = Math.sqrt(d2);
+    var b0 = (w1 * w1 - w0 * w0 + rho4 * d2) / (2 * w0 * rho2 * d1);
+    var b1 = (w1 * w1 - w0 * w0 - rho4 * d2) / (2 * w1 * rho2 * d1);
+    var r0 = Math.log(Math.sqrt(b0 * b0 + 1) - b0);
+    var r1 = Math.log(Math.sqrt(b1 * b1 + 1) - b1);
+    var S = (r1 - r0) / rho;
+    var cosh = function (x) { return (Math.exp(x) + Math.exp(-x)) / 2; };
+    var sinh = function (x) { return (Math.exp(x) - Math.exp(-x)) / 2; };
+    var tanh = function (x) { var e2 = Math.exp(2 * x); return (e2 - 1) / (e2 + 1); };
+    var coshr0 = cosh(r0);
+    return {
+      S: Math.abs(S),
+      at: function (t) {
+        var sx = t * S;
+        var u = w0 / (rho2 * d1) * (coshr0 * tanh(rho * sx + r0) - sinh(r0));
+        return { c: c0 + u * dx, w: w0 * coshr0 / cosh(rho * sx + r0), k: clamp(u, 0, 1) };
+      }
+    };
+  }
+
   function yearText(y) { return y < 0 ? '기원전 ' + Math.abs(y) : String(y); }
   function now() { return global.performance ? performance.now() : Date.now(); }
 
@@ -198,6 +237,8 @@
     var fonts = {};
     var lastTap = null;
     var pendingOpen = 0;   // 왕조 칸 톡 — 두 번 톡인지 보려고 잠깐 미룬 열기
+    var focus = null;      // 펼쳐 둔 항목 { id } — 테두리를 두르고, 화면 위 자리를 앱에 알려 상세 카드를 붙인다
+    var focusBox = null;   // 이번 프레임에 그 항목이 그려진 판 위 자리 { x0, y0, x1, y1 }
 
     // ----------------------------------------------------------- 좌표
 
@@ -508,6 +549,7 @@
     function draw() {
       pp.begin();
       hits = [];
+      focusBox = null;
       var yTop = yearAt(-40);
       var yBot = yearAt(H + 40);
       var c = cw();
@@ -559,6 +601,19 @@
 
       // 5) 열 이름 — 화면 위에 붙어 있다
       drawHeads(c);
+
+      // 6) 펼친 항목의 화면 위 자리 — 앱이 상세 카드를 그 옆에 붙인다(눕혔으면 원근을 씌운 자리)
+      if (focus && opts.onFocus) {
+        var r = null;
+        if (focusBox) {
+          var a = proj(focusBox.x0, focusBox.y0);
+          var b = proj(focusBox.x1, focusBox.y1);
+          r = { x: Math.min(a.x, b.x), y: Math.max(HEAD_H, Math.min(a.y, b.y)), w: Math.abs(b.x - a.x), h: 0 };
+          r.h = Math.max(0, Math.min(Hv, Math.max(a.y, b.y)) - r.y);
+          if (r.h < 4 || r.x > W || r.x + r.w < 0) r = null;
+        }
+        opts.onFocus(r, motion.mode === 'idle' && !gesture);
+      }
     }
 
     /** 시대 묶음 띠 폭 — 열이 넓을 때만 글자가 들어갈 만큼 */
@@ -601,6 +656,7 @@
     function drawBlocks(col, bx, bw, focusYear) {
       var top = stickyTop();
       var cand = {};   // 항목마다 이름을 쓸 수 있는 조각들 — 그중 가장 이른(위쪽) 것에 쓴다
+      var mine = [];   // 펼친 항목의 조각들 — 다 모아 바깥 윤곽 하나로 두른다
       col.blocks.forEach(function (p) {
         var a = yOf(p.y0);
         var b = yOf(p.y1);
@@ -619,10 +675,13 @@
         var ga = first ? 1 : 0;
         var gb = last ? 1 : 0;
         pp.rect(px, a + ga, w, Math.max(2, b - a - ga - gb), e._color, alpha, first && last ? Math.min(6, w / 2) : 0);
+        if (focus && focus.id === e.id) mine.push({ x: px, y: a + ga, w: w, h: Math.max(2, b - a - ga - gb) });
         hits.push({ x: px, y: a, w: w, h: b - a, entry: e, block: true });
         var vis = b - Math.max(a, top);
         if (vis >= 20) (cand[e.id] = cand[e.id] || []).push({ p: p, x: px, w: w, a: a, b: b });
       });
+
+      if (mine.length) contour(mine);
 
       // 이름 자리: 화면에 보이는 조각 중 가장 위의 것부터, 가로(줄여서라도) 또는 세로로 들어가는 첫 조각
       function fits(k) {
@@ -923,7 +982,54 @@
       return w;
     }
 
+    /** 펼친 항목 테두리 */
+    function outline(x, y, w, h) {
+      contour([{ x: x, y: y, w: w, h: h }]);
+    }
+
+    /**
+     * 위아래로 이어진 조각들(이웃 나라가 생기고 사라질 때마다 폭이 바뀐다)의 바깥 윤곽 하나.
+     * 옆선은 조각마다, 가로선은 맨 위·맨 아래와, 이음매에서 폭이 어긋난 부분에만 긋는다.
+     */
+    function contour(list) {
+      var t = 2.5;
+      var col = colors.star;
+      var GAP = 3;   // 이음매 틈(1px 씩)과 반올림
+      list.sort(function (p, q) { return p.y - q.y; });
+      function hline(x0, x1, y) { if (x1 - x0 > 0.5 && y >= -10 && y <= H + 10) pp.rect(x0 - t, y, x1 - x0 + t * 2, t, col, 0.95); }
+      list.forEach(function (r, i) {
+        var top = Math.max(r.y, -10);
+        var bot = Math.min(r.y + r.h, H + 10);
+        if (bot > top) {
+          pp.rect(r.x - t, top, t, bot - top, col, 0.95);
+          pp.rect(r.x + r.w, top, t, bot - top, col, 0.95);
+          box(r.x, top, r.x + r.w, bot);
+        }
+        var prev = list[i - 1];
+        var joined = prev && r.y - (prev.y + prev.h) <= GAP;
+        if (!joined) hline(r.x, r.x + r.w, r.y - t);
+        else {
+          // 이음매 — 위 조각과 겹치지 않는 가로 구간만, 이음매 틈도 옆선으로 메운다
+          var y = prev.y + prev.h;
+          pp.rect(r.x - t, y, t, r.y - y, col, 0.95);
+          pp.rect(r.x + r.w, y, t, r.y - y, col, 0.95);
+          hline(Math.min(prev.x, r.x), Math.max(prev.x, r.x), y);
+          hline(Math.min(prev.x + prev.w, r.x + r.w), Math.max(prev.x + prev.w, r.x + r.w), y);
+        }
+        var next = list[i + 1];
+        if (!next || next.y - (r.y + r.h) > GAP) hline(r.x, r.x + r.w, r.y + r.h);
+      });
+    }
+
+    /** 펼친 항목이 그려진 자리를 하나로 합친다(카드를 붙일 곳) */
+    function box(x0, y0, x1, y1) {
+      if (!focusBox) { focusBox = { x0: x0, y0: y0, x1: x1, y1: y1 }; return; }
+      focusBox.x0 = Math.min(focusBox.x0, x0); focusBox.y0 = Math.min(focusBox.y0, y0);
+      focusBox.x1 = Math.max(focusBox.x1, x1); focusBox.y1 = Math.max(focusBox.y1, y1);
+    }
+
     function drawCard(ev, x, y, w) {
+      if (focus && focus.id === ev.id) outline(x, y, w, CARD_H);
       pp.card(x, y, w, CARD_H, 14, colors.foam, 'rgba(58, 42, 36, .14)', 12, 4);
       pp.strip(x, y, w, CARD_H, 14, 6, ev._color);
       var years = ev.end_year !== ev.start_year ? yearText(ev.start_year) + '–' + yearText(ev.end_year) : yearText(ev.start_year);
@@ -935,6 +1041,7 @@
     }
 
     function drawLabel(ev, x, y, w) {
+      if (focus && focus.id === ev.id) outline(x, y, w, LABEL_H);
       var f = font(13);
       pp.rect(x, y, w, LABEL_H, colors.foam, 0.92, 12);
       pp.circle(x + 12, y + LABEL_H / 2, 4.5, ev._color);
@@ -943,6 +1050,7 @@
     }
 
     function drawDot(ev, x, y) {
+      if (focus && focus.id === ev.id) outline(x - DOT / 2, y - DOT / 2, DOT, DOT);
       pp.circle(x, y, DOT / 2 - 1 + 0.75, colors.foam);
       pp.circle(x, y, DOT / 2 - 1 - 0.75, ev._color);
       hits.push({ x: x - 9, y: y - 9, w: 18, h: 18, entry: ev });
@@ -1008,11 +1116,10 @@
       if (motion.mode === 'fly') {
         var f = motion.fly;
         var p = clamp((t - f.t0) / f.dur, 0, 1);
-        var e = easeInOutCubic(p);
-        var logS = f.logS0 + (f.logS1 - f.logS0) * e - f.bump * 4 * e * (1 - e);
-        cam.s = Math.exp(logS);
-        cam.t0 = (f.y0 + (f.y1 - f.y0) * e) - f.fy / cam.s;
-        pinU(f.u0 + (f.u1 - f.u0) * e, W / 2);   // 가운데 보던 자리(또는 고른 열)를 가운데에
+        var v = f.path.at(easeInOutCubic(p));
+        cam.s = clamp(Hv / v.w, sMin() * 0.5, S_MAX);
+        cam.t0 = v.c - f.fy / cam.s;
+        pinU(f.u0 + (f.u1 - f.u0) * v.k, W / 2);   // 가운데 보던 자리(또는 고른 열)를 가운데에 — 이동이 진행된 만큼
         if (p >= 1) motion.mode = 'idle';
         return motion.mode !== 'idle';
       }
@@ -1050,12 +1157,11 @@
         invalidate();
         return;
       }
-      var distPx = Math.abs(year - y0) * Math.min(cam.s, s);
-      var bump = distPx > H * 1.5 ? Math.min(3, Math.log(distPx / H)) * 0.6 : 0;
+      // 시간 축의 '보이는 구간' 기준으로 줌·이동 경로를 짠다 — 멀리 갈수록 잠깐 물러났다가 다가간다
+      var path = zoomPath(y0, Hv / cam.s, year, Hv / s);
       motion.fly = {
-        t0: now(), dur: clamp(520 + 170 * Math.log(1 + distPx / H) / Math.LN2, 520, 1700),
-        y0: y0, y1: year, logS0: Math.log(cam.s), logS1: Math.log(s), bump: bump, fy: fy,
-        u0: u0, u1: u1
+        t0: now(), dur: clamp(path.S * 620, 420, 1900),
+        path: path, fy: fy, u0: u0, u1: u1
       };
       motion.mode = 'fly';
       lastT = 0;
@@ -1091,6 +1197,34 @@
       cam.s = clamp(cam.s * factor, sMin(), S_MAX);
       cam.t0 = year - y / cam.s;
       pinU(u, x);
+      invalidate();
+    }
+
+    /**
+     * 항목 펼치기 — 그 왕조·시대가 화면을 채우도록 날아가고 테두리를 두른다(ChronoZoom 처럼).
+     * 기간이 있으면 그 기간이 화면 높이에 맞게, 한 해짜리 사건이면 앞뒤 수십 년이 보이게.
+     * @param col 그 항목의 열 번호(켜진 열 기준). 없으면 가로는 그대로
+     */
+    function focusEntry(entry, col) {
+      focus = { id: entry.id };
+      var o = { col: col };
+      var span = entry.end_year - entry.start_year;
+      if (span >= 1) {
+        // 위아래로 숨 쉴 틈을 두고 기간을 화면에 맞춘다(아래쪽 계기판·카드 자리도 남겨 둔다)
+        var room = Math.max(120, Hv - HEAD_H - (opts.bottomCover ? opts.bottomCover() : 0));
+        var s = clamp((room * 0.62) / span, sMin(), S_MAX);
+        var top = HEAD_H + room * 0.12;
+        flyTo(entry.start_year + (focusY() - top) / s, s, o);
+      } else {
+        flyTo(entry.start_year, clamp(Math.max(cam.s, Hv / 70), sMin(), S_MAX), o);
+      }
+      invalidate();
+    }
+
+    function blur() {
+      if (!focus) return;
+      focus = null;
+      if (opts.onFocus) opts.onFocus(null, true);
       invalidate();
     }
 
@@ -1281,13 +1415,19 @@
       var tapAt = e.timeStamp;
       if (lastTap && tapAt - lastTap.t < 320 && Math.abs(lastTap.y - p.sy) < 30 && Math.abs(lastTap.x - p.sx) < 30) {
         lastTap = null;
-        clearTimeout(pendingOpen);
+        clearTimeout(pendingOpen);   // 두 번 톡이면 열기·닫기를 미룬 것은 취소
         zoomAround(p.x, p.y, 2.6);
         return;
       }
       lastTap = { t: tapAt, x: p.sx, y: p.sy };
       var h = hitAt(p);
-      if (!h) return;
+      if (!h) {
+        if (focus) {
+          clearTimeout(pendingOpen);
+          pendingOpen = setTimeout(function () { blur(); }, 300);   // 두 번 톡(줌)이면 닫지 않는다
+        }
+        return;
+      }
       // 왕조 칸은 열 바탕을 거의 다 덮으므로, 두 번 톡(줌)일 수 있게 잠깐 기다렸다 연다(지도 앱과 같은 방식)
       if (h.block && opts.openEntry) {
         clearTimeout(pendingOpen);
@@ -1384,6 +1524,9 @@
       redraw: invalidate,
       flyTo: flyTo,
       flyToRange: flyToRange,
+      focusEntry: focusEntry,
+      blur: blur,
+      focused: function () { return focus ? focus.id : null; },
       zoomBy: function (f) { zoomAround(W / 2, focusY(), f); },
       panBy: panBy,
       axisX: function () { return proj(axisLine(), focusY()).x; },

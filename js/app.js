@@ -48,7 +48,12 @@
     sheetEyebrow: document.getElementById('sheet-eyebrow'),
     sheetTitle: document.getElementById('sheet-title'),
     sheetBody: document.getElementById('sheet-body'),
-    sheetClose: document.getElementById('sheet-close')
+    sheetClose: document.getElementById('sheet-close'),
+    focusCard: document.getElementById('focus-card'),
+    focusEyebrow: document.getElementById('focus-eyebrow'),
+    focusTitle: document.getElementById('focus-title'),
+    focusBody: document.getElementById('focus-body'),
+    focusClose: document.getElementById('focus-close')
   };
 
   var TABS = [
@@ -125,20 +130,6 @@
 
   function visibleEntries() {
     return state.data.entries.filter(function (e) { return !state.off[e._dataset]; });
-  }
-
-  /** 항목을 탐험 그림판에서 보여 준다 — 그 열(꺼져 있으면 켜서)과 그 해로 날아간 뒤 상세를 연다 */
-  function showInZoom(entry) {
-    if (state.off[entry._dataset]) {
-      state.off[entry._dataset] = false;
-      syncCategories();
-      refresh();
-    }
-    setTab('timeline');
-    var col = activeColumns().map(function (ds) { return ds.id; }).indexOf(entry._dataset);
-    var span = Math.max(1, entry.end_year - entry.start_year);
-    zoom.flyTo(entry.start_year + span / 2, Math.max(zoom.scale, Math.min(6, 300 / span)), { col: col });
-    setTimeout(function () { openSheet(entry); }, 900);
   }
 
   function buzz(pattern) {
@@ -620,7 +611,7 @@
       summary.textContent = entry.description;
       card.appendChild(summary);
 
-      card.addEventListener('click', function () { openSheet(entry); });
+      card.addEventListener('click', function () { openEntry(entry); });
       frag.appendChild(card);
     });
 
@@ -631,17 +622,17 @@
   // -------------------------------------------------------- 상세 팝업
 
   /** 연도 · 사건 · 한 줄 설명 · 출처 — 그 이상은 넣지 않는다 */
-  function openSheet(entry) {
-    el.sheetEyebrow.textContent = '';
+  /** 상세 내용(연도·사건·한 문장 설명·출처, 갈림길) — 펼친 카드와 아래 팝업이 함께 쓴다 */
+  function fillEntry(entry, eyebrow, title, body, leave) {
+    eyebrow.textContent = '';
     var dot = document.createElement('span');
     dot.className = 'dot';
     dot.style.backgroundColor = entry._color;
-    el.sheetEyebrow.appendChild(dot);
-    el.sheetEyebrow.appendChild(document.createTextNode(entry.era_note || C.periodLabel(entry.start_year, entry.end_year)));
-    el.sheetEyebrow.title = entry._label;
-    el.sheetTitle.textContent = entry.title;
+    eyebrow.appendChild(dot);
+    eyebrow.appendChild(document.createTextNode(entry.era_note || C.periodLabel(entry.start_year, entry.end_year)));
+    eyebrow.title = entry._label;
+    title.textContent = entry.title;
 
-    var body = el.sheetBody;
     body.textContent = '';
 
     var desc = document.createElement('p');
@@ -680,20 +671,92 @@
         go.className = 'branch-link';
         go.textContent = '갈림길 · ' + sc.title + ' →';
         go.addEventListener('click', function () {
-          closeSheet();
+          leave();
           setTab('branch');
           branch.open(sc.id);
         });
         body.appendChild(go);
       });
     }
-
     body.scrollTop = 0;
+  }
+
+  /** 아래에서 올라오는 상세 팝업 — 그림판을 쓸 수 없을 때의 예비 */
+  function openSheet(entry) {
+    fillEntry(entry, el.sheetEyebrow, el.sheetTitle, el.sheetBody, closeSheet);
     el.sheet.style.transform = '';
     el.sheet.style.transition = '';
     el.sheet.style.opacity = '';
     reveal(el.sheet);
     reveal(el.sheetScrim);
+  }
+
+  // ------------------------------------------------ 펼치기(왕조가 확대되며 상세)
+
+  var focusCard = { entry: null, shown: false };
+
+  /**
+   * 항목 열기 — 어디서 눌렀든(그림판·검색·퀴즈·계기판·갈림길) 연표로 와서
+   * 그 왕조·사건이 화면을 채우도록 날아가고, 도착하면 그 옆에 상세 카드가 붙는다.
+   */
+  function openEntry(entry) {
+    if (!zoom) { openSheet(entry); return; }
+    if (state.off[entry._dataset]) {   // 꺼 둔 카테고리면 켠다
+      state.off[entry._dataset] = false;
+      syncCategories();
+      refresh();
+    }
+    if (state.tab !== 'timeline') setTab('timeline');
+    if (isOpen(el.sheet)) closeSheet();
+    focusCard.entry = entry;
+    focusCard.shown = false;
+    fillEntry(entry, el.focusEyebrow, el.focusTitle, el.focusBody, closeFocus);
+    el.focusCard.hidden = true;
+    var col = activeColumns().map(function (ds) { return ds.id; }).indexOf(entry._dataset);
+    zoom.focusEntry(entry, col);
+  }
+
+  function closeFocus() {
+    focusCard.entry = null;
+    focusCard.shown = false;
+    conceal(el.focusCard, 'is-leaving', 180);
+    if (zoom) zoom.blur();
+  }
+
+  /** 그림판이 매 프레임 알려 주는 펼친 항목의 화면 자리 — 카드를 그 옆에 붙인다 */
+  function onFocusRect(r, settled) {
+    var card = el.focusCard;
+    if (!focusCard.entry) return;
+    if (!r) {   // 화면 밖으로 밀려났으면 잠깐 숨긴다(다시 들어오면 나타난다)
+      if (!card.hidden) card.hidden = true;
+      return;
+    }
+    if (!focusCard.shown && !settled) return;   // 처음엔 도착한 뒤에
+    focusCard.shown = true;
+    var box = el.viewTimeline.getBoundingClientRect();
+    var W = box.width;
+    var narrow = W < 720;
+    if (card.hidden) reveal(card);
+    if (narrow) {
+      // 좁은 화면 — 계기판 위에 붙여 둔다
+      card.style.left = '12px';
+      card.style.right = '12px';
+      card.style.top = '';
+      card.style.bottom = (layout.cover + 12) + 'px';
+      card.style.width = '';
+      return;
+    }
+    var cw = Math.min(340, W - 24);
+    var ch = card.offsetHeight || 220;
+    var x = r.x + r.w + 14;
+    if (x + cw > W - 12) x = r.x - cw - 14;         // 오른쪽에 자리가 없으면 왼쪽
+    if (x < 12) x = Math.min(W - cw - 12, Math.max(12, r.x + 10));   // 둘 다 없으면 칸 위에 겹쳐
+    var y = Math.max(46, Math.min(r.y + 6, box.height - layout.cover - ch - 12));
+    card.style.left = Math.round(x) + 'px';
+    card.style.top = Math.round(y) + 'px';
+    card.style.right = '';
+    card.style.bottom = '';
+    card.style.width = cw + 'px';
   }
 
   function closeSheet(flung) {
@@ -886,6 +949,7 @@
 
     el.sheetClose.addEventListener('click', function () { closeSheet(); });
     el.sheetScrim.addEventListener('click', function () { closeSheet(); });
+    el.focusClose.addEventListener('click', closeFocus);
     bindSheetDrag();
 
     document.addEventListener('keydown', onKey);
@@ -904,6 +968,7 @@
   function onKey(e) {
     if (e.key === 'Escape') {
       if (isOpen(el.sheet)) closeSheet();
+      else if (focusCard.entry) closeFocus();
       return;
     }
     var target = e.target || {};
@@ -944,7 +1009,7 @@
     state.data = data;
     applyTheme(loadTheme(), false, true);
 
-    hud = H.create(el.hud, { scrub: onScrub, step: stepEra, pick: openSheet });
+    hud = H.create(el.hud, { scrub: onScrub, step: stepEra, pick: openEntry });
     hud.setCompact(true);   // 그림판에 연도 눈금·시대 제목이 있으니 계기판은 알약으로 접어 둔다
     // 펼쳐 둔 계기판은 그림판을 다시 만지면 접힌다
     el.zoom.addEventListener('pointerdown', function () { hud.fold(); }, { passive: true });
@@ -956,13 +1021,16 @@
       present: presentYear(),
       focusY: function () { return layout.focus; },
       onCamera: onZoomCamera,
-      openEntry: openSheet
+      openEntry: openEntry,
+      onFocus: onFocusRect,
+      // 아래를 가리는 높이 — 좁은 화면에선 계기판 위에 붙는 상세 카드 자리까지
+      bottomCover: function () { return layout.cover + (el.viewTimeline.clientWidth < 720 ? 210 : 0); }
     });
     window.__bhZoom = zoom;   // 개발자 도구에서 확인용
 
     branch = B.create(document.getElementById('branch-root'), {
       data: data,
-      openEntry: openSheet,
+      openEntry: openEntry,
       scrollBox: document.getElementById('view-branch')
     });
 
@@ -970,7 +1038,7 @@
     quiz = Q.create(document.getElementById('quiz-root'), {
       entries: function () { return state.data.entries; },
       shareTitle: document.title,
-      onShow: showInZoom
+      onShow: openEntry
     });
 
     buildTabs();
