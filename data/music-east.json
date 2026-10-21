@@ -3,6 +3,64 @@
   "dataset": "music-east",
   "entries": [
     {
+      "id": "music-daeseong",
+      "category": "음악사",
+      "subcategory": "동양 음악",
+      "title": "대성아악 전래",
+      "region": "동아시아",
+      "start_year": 1116,
+      "end_year": 1116,
+      "description": "송나라에서 아악과 악기가 들어와 한국 궁중 아악의 기점이 되었다.",
+      "tags": [
+        "중세",
+        "궁중음악"
+      ],
+      "sources": [
+        "대성아악,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0014513",
+        "아악,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0034368"
+      ],
+      "status": "draft",
+      "era_note": "1116년"
+    },
+    {
+      "id": "music-sinje-aak",
+      "category": "음악사",
+      "subcategory": "동양 음악",
+      "title": "세종의 신제 아악",
+      "region": "동아시아",
+      "start_year": 1430,
+      "end_year": 1430,
+      "description": "세종이 악기와 음률을 정비해 조선의 아악을 새로 완성했다.",
+      "tags": [
+        "근세",
+        "궁중음악"
+      ],
+      "sources": [
+        "아악,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0034368"
+      ],
+      "status": "draft",
+      "era_note": "1430년"
+    },
+    {
+      "id": "music-jeonggan",
+      "category": "음악사",
+      "subcategory": "동양 음악",
+      "title": "정간보 창안",
+      "region": "동아시아",
+      "start_year": 1447,
+      "end_year": 1447,
+      "description": "우물 정(井) 자 칸으로 음의 길이까지 적을 수 있게 한 세종 때의 기보법이다.",
+      "tags": [
+        "근세",
+        "기보법"
+      ],
+      "sources": [
+        "정간보,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0049898"
+      ],
+      "status": "draft",
+      "era_note": "1447년"
+    },
+    {
       "id": "music-jongmyo",
       "category": "음악사",
       "subcategory": "동양 음악",
@@ -19,6 +77,44 @@
       ],
       "sources": [],
       "status": "draft"
+    },
+    {
+      "id": "music-pansori",
+      "category": "음악사",
+      "subcategory": "동양 음악",
+      "title": "판소리의 첫 기록",
+      "region": "동아시아",
+      "start_year": 1753,
+      "end_year": 1753,
+      "description": "한 명의 소리꾼이 고수의 북장단에 맞춰 긴 이야기를 노래하는 판소리가 기록에 처음 보인다.",
+      "tags": [
+        "근세",
+        "민속음악"
+      ],
+      "sources": [
+        "판소리,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0059663"
+      ],
+      "status": "draft",
+      "era_note": "1753년"
+    },
+    {
+      "id": "music-sanjo",
+      "category": "음악사",
+      "subcategory": "동양 음악",
+      "title": "가야금산조 창제",
+      "region": "동아시아",
+      "start_year": 1883,
+      "end_year": 1883,
+      "description": "김창조가 가야금 독주곡 산조의 틀을 짜 전했다.",
+      "tags": [
+        "근대",
+        "민속음악"
+      ],
+      "sources": [
+        "산조,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0026332"
+      ],
+      "status": "draft",
+      "era_note": "1883년"
     },
     {
       "id": "music-kpop",

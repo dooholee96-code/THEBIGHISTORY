@@ -59,6 +59,25 @@
       "status": "draft"
     },
     {
+      "id": "literature-hyangga",
+      "category": "문학사",
+      "subcategory": "동양 문학",
+      "title": "향가의 전성기",
+      "region": "동아시아",
+      "start_year": 680,
+      "end_year": 900,
+      "description": "향찰로 적은 신라 고유의 정형시가 가장 활발히 지어진 시기다.",
+      "tags": [
+        "고대",
+        "시가"
+      ],
+      "sources": [
+        "향가,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0062873"
+      ],
+      "status": "draft",
+      "era_note": "680년 ~ 900년"
+    },
+    {
       "id": "literature-tangshi",
       "category": "문학사",
       "subcategory": "동양 문학",
@@ -95,6 +114,25 @@
       "status": "draft"
     },
     {
+      "id": "literature-sijo",
+      "category": "문학사",
+      "subcategory": "동양 문학",
+      "title": "시조의 형성",
+      "region": "동아시아",
+      "start_year": 1350,
+      "end_year": 1350,
+      "description": "세 줄 정형시인 시조가 고려 말에 틀을 갖추어 지금까지 창작된다.",
+      "tags": [
+        "중세",
+        "시가"
+      ],
+      "sources": [
+        "시조,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0032460"
+      ],
+      "status": "draft",
+      "era_note": "1350년"
+    },
+    {
       "id": "literature-hunmin-lit",
       "category": "문학사",
       "subcategory": "동양 문학",
@@ -128,6 +166,25 @@
       ],
       "sources": [],
       "status": "draft"
+    },
+    {
+      "id": "literature-yeolha",
+      "category": "문학사",
+      "subcategory": "동양 문학",
+      "title": "박지원 『열하일기』",
+      "region": "동아시아",
+      "start_year": 1780,
+      "end_year": 1780,
+      "description": "박지원이 청나라 사행에서 보고 들은 것을 적은 견문록으로, 북학 주장이 두드러진다.",
+      "tags": [
+        "근세",
+        "산문"
+      ],
+      "sources": [
+        "열하일기,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0037072"
+      ],
+      "status": "draft",
+      "era_note": "1780년"
     },
     {
       "id": "literature-korean-modern",

@@ -3,6 +3,45 @@
   "dataset": "art-east",
   "entries": [
     {
+      "id": "art-anak3",
+      "category": "미술사",
+      "subcategory": "동양 미술",
+      "title": "안악 3호분 벽화",
+      "region": "동아시아",
+      "start_year": 357,
+      "end_year": 357,
+      "description": "고구려 귀족의 생활과 대행렬을 그린, 연대가 확실한 이른 시기의 고분벽화다.",
+      "tags": [
+        "고대",
+        "벽화"
+      ],
+      "sources": [
+        "안악 3호분,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0034868",
+        "고분벽화,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0003619"
+      ],
+      "status": "draft",
+      "era_note": "357년"
+    },
+    {
+      "id": "art-silla-crown",
+      "category": "미술사",
+      "subcategory": "동양 미술",
+      "title": "신라 금관",
+      "region": "동아시아",
+      "start_year": 400,
+      "end_year": 600,
+      "description": "나뭇가지·사슴뿔 모양 장식을 단 금관으로 신라 황금 문화를 보여 준다.",
+      "tags": [
+        "고대",
+        "공예"
+      ],
+      "sources": [
+        "신라 금관,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0068699"
+      ],
+      "status": "draft",
+      "era_note": "400년 ~ 600년"
+    },
+    {
       "id": "art-goryeo-celadon",
       "category": "미술사",
       "subcategory": "동양 미술",
@@ -21,6 +60,63 @@
       "status": "draft"
     },
     {
+      "id": "art-suwol",
+      "category": "미술사",
+      "subcategory": "동양 미술",
+      "title": "고려 불화 「수월관음도」",
+      "region": "동아시아",
+      "start_year": 1310,
+      "end_year": 1323,
+      "description": "물가 바위에 앉은 관음보살과 선재동자를 그린 고려 불화의 대표 주제다.",
+      "tags": [
+        "중세",
+        "불화"
+      ],
+      "sources": [
+        "수월관음도,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0031618"
+      ],
+      "status": "draft",
+      "era_note": "1310년 ~ 1323년"
+    },
+    {
+      "id": "art-buncheong",
+      "category": "미술사",
+      "subcategory": "동양 미술",
+      "title": "분청사기",
+      "region": "동아시아",
+      "start_year": 1400,
+      "end_year": 1600,
+      "description": "회색 바탕흙에 백토를 발라 꾸민 뒤 구운 조선 초기의 도자기다.",
+      "tags": [
+        "근세",
+        "공예"
+      ],
+      "sources": [
+        "분청사기,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0024868"
+      ],
+      "status": "draft",
+      "era_note": "1400년 ~ 1600년"
+    },
+    {
+      "id": "art-mongyu",
+      "category": "미술사",
+      "subcategory": "동양 미술",
+      "title": "안견 「몽유도원도」",
+      "region": "동아시아",
+      "start_year": 1447,
+      "end_year": 1447,
+      "description": "안평대군의 꿈 이야기를 그린 조선 초기 산수화의 걸작이다.",
+      "tags": [
+        "근세",
+        "회화"
+      ],
+      "sources": [
+        "몽유도원도,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0018824"
+      ],
+      "status": "draft",
+      "era_note": "1447년"
+    },
+    {
       "id": "art-jeongseon",
       "category": "미술사",
       "subcategory": "동양 미술",
@@ -37,6 +133,44 @@
       ],
       "sources": [],
       "status": "draft"
+    },
+    {
+      "id": "art-kimhongdo",
+      "category": "미술사",
+      "subcategory": "동양 미술",
+      "title": "김홍도와 풍속화",
+      "region": "동아시아",
+      "start_year": 1745,
+      "end_year": 1806,
+      "description": "산수·인물·풍속 등 여러 분야에 뛰어났던 조선 후기의 화원이다.",
+      "tags": [
+        "근세",
+        "회화"
+      ],
+      "sources": [
+        "김홍도,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0011079"
+      ],
+      "status": "draft",
+      "era_note": "1745년 ~ 1806년"
+    },
+    {
+      "id": "art-sehando",
+      "category": "미술사",
+      "subcategory": "동양 미술",
+      "title": "김정희 「세한도」",
+      "region": "동아시아",
+      "start_year": 1844,
+      "end_year": 1844,
+      "description": "제주 유배 중 김정희가 제자 이상적의 지조를 소나무와 잣나무에 빗대어 그린 문인화다.",
+      "tags": [
+        "근세",
+        "회화"
+      ],
+      "sources": [
+        "김정희 필 세한도,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0038956"
+      ],
+      "status": "draft",
+      "era_note": "1844년"
     }
   ]
 }

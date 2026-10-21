@@ -1,0 +1,158 @@
+{
+  "$schema": "../schema/entries.schema.json",
+  "dataset": "architecture",
+  "entries": [
+    {
+      "id": "architecture-hwangnyongsa",
+      "category": "건축사",
+      "subcategory": "건축",
+      "title": "황룡사 구층목탑",
+      "region": "동아시아",
+      "start_year": 643,
+      "end_year": 645,
+      "description": "높이 약 80m에 이른 신라의 거대한 목탑으로, 고려 때 몽골 침입으로 불탔다.",
+      "tags": [
+        "고대",
+        "불교 건축"
+      ],
+      "sources": [
+        "황룡사 구층목탑,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0065127"
+      ],
+      "status": "draft",
+      "era_note": "643년 ~ 645년"
+    },
+    {
+      "id": "architecture-bulguksa",
+      "category": "건축사",
+      "subcategory": "건축",
+      "title": "불국사 창건",
+      "region": "동아시아",
+      "start_year": 751,
+      "end_year": 751,
+      "description": "김대성이 짓기 시작해 그가 죽은 뒤 나라가 완공한 통일신라의 사찰이다.",
+      "tags": [
+        "고대",
+        "불교 건축"
+      ],
+      "sources": [
+        "경주 불국사,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0024933"
+      ],
+      "status": "draft",
+      "era_note": "751년"
+    },
+    {
+      "id": "architecture-seokguram",
+      "category": "건축사",
+      "subcategory": "건축",
+      "title": "석굴암",
+      "region": "동아시아",
+      "start_year": 751,
+      "end_year": 751,
+      "description": "인공 석굴로 불국토를 구현한 통일신라의 석굴 사원이다.",
+      "tags": [
+        "고대",
+        "불교 건축"
+      ],
+      "sources": [
+        "경주 석굴암 석굴,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0028362"
+      ],
+      "status": "draft",
+      "era_note": "751년"
+    },
+    {
+      "id": "architecture-muryangsujeon",
+      "category": "건축사",
+      "subcategory": "건축",
+      "title": "부석사 무량수전 중건",
+      "region": "동아시아",
+      "start_year": 1376,
+      "end_year": 1376,
+      "description": "배흘림기둥으로 이름난 고려의 목조 불전으로, 왜구에 불탄 뒤 다시 지었다.",
+      "tags": [
+        "중세",
+        "목조 건축"
+      ],
+      "sources": [
+        "영주 부석사 무량수전,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0024299"
+      ],
+      "status": "draft",
+      "era_note": "1376년"
+    },
+    {
+      "id": "architecture-jongmyo",
+      "category": "건축사",
+      "subcategory": "건축",
+      "title": "종묘 건립",
+      "region": "동아시아",
+      "start_year": 1394,
+      "end_year": 1395,
+      "description": "조선 역대 왕과 왕비의 신주를 모신 사당이다.",
+      "tags": [
+        "근세",
+        "궁궐·사당"
+      ],
+      "sources": [
+        "종묘,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0052928"
+      ],
+      "status": "draft",
+      "era_note": "1394년 ~ 1395년"
+    },
+    {
+      "id": "architecture-gyeongbokgung",
+      "category": "건축사",
+      "subcategory": "건축",
+      "title": "경복궁 창건",
+      "region": "동아시아",
+      "start_year": 1394,
+      "end_year": 1395,
+      "description": "한양 천도와 함께 세운 조선의 정궁이다.",
+      "tags": [
+        "근세",
+        "궁궐·사당"
+      ],
+      "sources": [
+        "경복궁,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0002434"
+      ],
+      "status": "draft",
+      "era_note": "1394년 ~ 1395년"
+    },
+    {
+      "id": "architecture-changdeokgung",
+      "category": "건축사",
+      "subcategory": "건축",
+      "title": "창덕궁 창건",
+      "region": "동아시아",
+      "start_year": 1405,
+      "end_year": 1405,
+      "description": "태종이 한양으로 다시 도읍을 옮기며 세운 조선의 궁궐이다.",
+      "tags": [
+        "근세",
+        "궁궐·사당"
+      ],
+      "sources": [
+        "창덕궁,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0055378"
+      ],
+      "status": "draft",
+      "era_note": "1405년"
+    },
+    {
+      "id": "architecture-hwaseong",
+      "category": "건축사",
+      "subcategory": "건축",
+      "title": "수원 화성 축성",
+      "region": "동아시아",
+      "start_year": 1796,
+      "end_year": 1796,
+      "description": "정조가 실학의 성과와 새 기술을 모아 쌓은 성곽 도시다.",
+      "tags": [
+        "근세",
+        "성곽"
+      ],
+      "sources": [
+        "수원 화성,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0064671"
+      ],
+      "status": "draft",
+      "era_note": "1796년"
+    }
+  ]
+}

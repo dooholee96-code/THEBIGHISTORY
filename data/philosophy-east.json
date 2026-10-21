@@ -21,6 +21,44 @@
       "status": "draft"
     },
     {
+      "id": "philosophy-wonhyo",
+      "category": "철학사",
+      "subcategory": "동양 철학",
+      "title": "원효",
+      "region": "동아시아",
+      "start_year": 617,
+      "end_year": 686,
+      "description": "일심과 화쟁을 내세워 불교 교학을 아우른 신라의 사상가다.",
+      "tags": [
+        "고대",
+        "불교"
+      ],
+      "sources": [
+        "원효,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0040908"
+      ],
+      "status": "draft",
+      "era_note": "617년 ~ 686년"
+    },
+    {
+      "id": "philosophy-uisang",
+      "category": "철학사",
+      "subcategory": "동양 철학",
+      "title": "의상과 화엄",
+      "region": "동아시아",
+      "start_year": 625,
+      "end_year": 702,
+      "description": "당에서 화엄을 배워 와 부석사를 세우고 해동 화엄의 기초를 놓았다.",
+      "tags": [
+        "고대",
+        "불교"
+      ],
+      "sources": [
+        "의상,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0043250"
+      ],
+      "status": "draft",
+      "era_note": "625년 ~ 702년"
+    },
+    {
       "id": "philosophy-zhuxi",
       "category": "철학사",
       "subcategory": "동양 철학",
@@ -37,6 +75,25 @@
       ],
       "sources": [],
       "status": "draft"
+    },
+    {
+      "id": "philosophy-jinul",
+      "category": "철학사",
+      "subcategory": "동양 철학",
+      "title": "지눌과 정혜결사",
+      "region": "동아시아",
+      "start_year": 1158,
+      "end_year": 1210,
+      "description": "정혜결사를 열어 고려 불교의 수행 기풍을 새롭게 한 승려다.",
+      "tags": [
+        "중세",
+        "불교"
+      ],
+      "sources": [
+        "지눌,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0054108"
+      ],
+      "status": "draft",
+      "era_note": "1158년 ~ 1210년"
     },
     {
       "id": "philosophy-wangyangming",
@@ -73,6 +130,45 @@
       ],
       "sources": [],
       "status": "draft"
+    },
+    {
+      "id": "philosophy-jeongyakyong",
+      "category": "철학사",
+      "subcategory": "동양 철학",
+      "title": "정약용과 실학",
+      "region": "동아시아",
+      "start_year": 1762,
+      "end_year": 1836,
+      "description": "『목민심서』 등으로 실학을 집대성한 조선 후기의 개혁 사상가다.",
+      "tags": [
+        "근세",
+        "실학"
+      ],
+      "sources": [
+        "정약용,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0050549",
+        "실학,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0033695"
+      ],
+      "status": "draft",
+      "era_note": "1762년 ~ 1836년"
+    },
+    {
+      "id": "philosophy-choehangi",
+      "category": "철학사",
+      "subcategory": "동양 철학",
+      "title": "최한기의 기학",
+      "region": "동아시아",
+      "start_year": 1803,
+      "end_year": 1877,
+      "description": "서양의 역산과 과학기술을 중시하며 기(氣)를 바탕으로 한 학문을 세운 학자다.",
+      "tags": [
+        "근대",
+        "실학"
+      ],
+      "sources": [
+        "최한기,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0057736"
+      ],
+      "status": "draft",
+      "era_note": "1803년 ~ 1877년"
     }
   ]
 }

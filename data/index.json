@@ -657,6 +657,26 @@
       "color": "#9fb5a8",
       "region": "세계",
       "order": 60
+    },
+    {
+      "id": "economy",
+      "file": "economy.json",
+      "track": "theme",
+      "category": "경제사",
+      "subcategory": "경제",
+      "label": "경제사",
+      "color": "#b7a46a",
+      "order": 61
+    },
+    {
+      "id": "architecture",
+      "file": "architecture.json",
+      "track": "theme",
+      "category": "건축사",
+      "subcategory": "건축",
+      "label": "건축사",
+      "color": "#a89b8c",
+      "order": 62
     }
   ]
 }
