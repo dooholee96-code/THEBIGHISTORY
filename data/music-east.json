@@ -1,0 +1,42 @@
+{
+  "$schema": "../schema/entries.schema.json",
+  "dataset": "music-east",
+  "entries": [
+    {
+      "id": "music-jongmyo",
+      "category": "음악사",
+      "subcategory": "동양 음악",
+      "title": "종묘제례악",
+      "wikidata": "Q3323672",
+      "region": "동아시아",
+      "start_year": 1464,
+      "end_year": 2025,
+      "era_note": "1464년 ~ 2025년",
+      "description": "조선 왕실 제례음악으로 현재까지 전승되는 한국 궁중음악의 정수다.",
+      "tags": [
+        "근세",
+        "전통"
+      ],
+      "sources": [],
+      "status": "draft"
+    },
+    {
+      "id": "music-kpop",
+      "category": "음악사",
+      "subcategory": "동양 음악",
+      "title": "K-pop의 성장",
+      "wikidata": "Q213665",
+      "region": "동아시아",
+      "start_year": 1992,
+      "end_year": 2025,
+      "era_note": "1992년 ~ 2025년",
+      "description": "아이돌 시스템과 온라인 확산을 통해 한국 대중음악이 세계 시장에 진출했다.",
+      "tags": [
+        "현대",
+        "대중음악"
+      ],
+      "sources": [],
+      "status": "draft"
+    }
+  ]
+}

@@ -69,8 +69,8 @@ function notAlso(occupations) {
 // 종류 이름으로 거르는 것 — 과학사는 '발견'된 나라·섬·천체·스포츠·상표, 음악사는 국가(國歌)·캐럴, 문학사는 경전·법령·간행물
 const NOT_TYPE = {
   science: /나라|국가|주권국|대륙|섬|제도|지역|지방|호수|해외 영토|스포츠|종목|취미|상표|브랜드|음료|분류군|유적|도시|비석|지리극|작업 분야|교통수단|재료|위성|소행성|왜행성|왜성|항성|카이퍼|사형/,
-  music: /^국가$|캐럴/,
-  literature: /경전|서신서|서간|법령|헌법|헌장|연속간행물|백과사전/
+  'music-west': /^국가$|캐럴/,
+  'literature-west': /경전|서신서|서간|법령|헌법|헌장|연속간행물|백과사전/
 };
 
 const QUERIES = {
@@ -83,11 +83,11 @@ const QUERIES = {
   japan: regionEvents(linkedBy.japan.concat(['Q17', 'Q188712']), 25),
   science: [q('?item wdt:P575 ?t ; wdt:P61 ?who . FILTER NOT EXISTS { ?item wdt:P31 wd:Q11344 } FILTER NOT EXISTS { ?item wdt:P31 wd:Q5 }', 40, 250)],
   technology: [q('?item wdt:P31/wdt:P279? wd:Q39546 .', 30), q('?item wdt:P31 wd:Q11019 .', 40)],
-  music: [q('?item wdt:P31 wd:Q105543609 .', 30), q('?item wdt:P106 wd:Q36834 . ' + notAlso(['Q33999', 'Q937857', 'Q1028181', 'Q82955', 'Q177220', 'Q753110']), 90)],
-  art: [q('?item wdt:P31 wd:Q3305213 .', 45), q('?item wdt:P31 wd:Q968159 .', 25)],
+  'music-west': [q('?item wdt:P31 wd:Q105543609 .', 30), q('?item wdt:P106 wd:Q36834 . ' + notAlso(['Q33999', 'Q937857', 'Q1028181', 'Q82955', 'Q177220', 'Q753110']), 90)],
+  'art-west': [q('?item wdt:P31 wd:Q3305213 .', 45), q('?item wdt:P31 wd:Q968159 .', 25)],
   religion: [q('?item wdt:P31 wd:Q9174 .', 35), q('VALUES ?cls { wd:Q51041800 wd:Q2061186 } ?item wdt:P31 ?cls .', 20)],
-  philosophy: [q('?item wdt:P106 wd:Q4964182 . ' + notAlso(['Q82955', 'Q169470', 'Q33999', 'Q250867', 'Q11063']), 110), q('?item wdt:P31 wd:Q2198855 .', 25)],
-  literature: [q('?item wdt:P31 wd:Q7725634 .', 70), q('?item wdt:P31 wd:Q47461344 .', 70)]
+  'philosophy-west': [q('?item wdt:P106 wd:Q4964182 . ' + notAlso(['Q82955', 'Q169470', 'Q33999', 'Q250867', 'Q11063']), 110), q('?item wdt:P31 wd:Q2198855 .', 25)],
+  'literature-west': [q('?item wdt:P31 wd:Q7725634 .', 70), q('?item wdt:P31 wd:Q47461344 .', 70)]
 };
 
 const yt = (y) => (y == null ? '—' : y < 0 ? '기원전 ' + -y : String(y));

@@ -1,0 +1,78 @@
+{
+  "$schema": "../schema/entries.schema.json",
+  "dataset": "philosophy-east",
+  "entries": [
+    {
+      "id": "philosophy-hundred-schools",
+      "category": "철학사",
+      "subcategory": "동양 철학",
+      "title": "제자백가",
+      "wikidata": "Q864947",
+      "region": "동아시아",
+      "start_year": -500,
+      "end_year": -221,
+      "era_note": "기원전 500년 ~ 기원전 221년",
+      "description": "공자·노자·묵자·한비자 등이 경쟁하며 동아시아 사상의 원천을 이루었다.",
+      "tags": [
+        "고대",
+        "동양철학"
+      ],
+      "sources": [],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-zhuxi",
+      "category": "철학사",
+      "subcategory": "동양 철학",
+      "title": "주희와 성리학",
+      "wikidata": "Q9397",
+      "region": "동아시아",
+      "start_year": 1130,
+      "end_year": 1200,
+      "era_note": "1130년 ~ 1200년",
+      "description": "이기론으로 유교를 체계화해 동아시아 지식 질서를 재편했다.",
+      "tags": [
+        "중세",
+        "동양철학"
+      ],
+      "sources": [],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-wangyangming",
+      "category": "철학사",
+      "subcategory": "동양 철학",
+      "title": "왕양명과 양명학",
+      "wikidata": "Q378462",
+      "region": "동아시아",
+      "start_year": 1472,
+      "end_year": 1529,
+      "era_note": "1472년 ~ 1529년",
+      "description": "지행합일과 심즉리를 주장해 성리학의 주지주의를 비판했다.",
+      "tags": [
+        "근세",
+        "동양철학"
+      ],
+      "sources": [],
+      "status": "draft"
+    },
+    {
+      "id": "philosophy-toegye",
+      "category": "철학사",
+      "subcategory": "동양 철학",
+      "title": "퇴계 이황과 율곡 이이",
+      "wikidata": "Q486291",
+      "region": "동아시아",
+      "start_year": 1501,
+      "end_year": 1584,
+      "era_note": "1501년 ~ 1584년",
+      "description": "사단칠정 논쟁을 통해 조선 성리학을 독자적 수준으로 심화시켰다.",
+      "tags": [
+        "근세",
+        "동양철학"
+      ],
+      "sources": [],
+      "status": "draft"
+    }
+  ]
+}

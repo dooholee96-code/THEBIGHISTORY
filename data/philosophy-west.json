@@ -1,11 +1,11 @@
 {
   "$schema": "../schema/entries.schema.json",
-  "dataset": "philosophy",
+  "dataset": "philosophy-west",
   "entries": [
     {
       "id": "philosophy-thales-phil",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "밀레토스 학파",
       "wikidata": "Q190279",
       "region": "지중해",
@@ -24,7 +24,7 @@
     {
       "id": "philosophy-heraclitus",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "헤라클레이토스와 파르메니데스",
       "wikidata": "Q41155",
       "region": "지중해",
@@ -42,7 +42,7 @@
     {
       "id": "philosophy-sophists",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "소피스트",
       "wikidata": "Q3750514",
       "region": "지중해",
@@ -60,7 +60,7 @@
     {
       "id": "philosophy-socrates",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "소크라테스",
       "wikidata": "Q913",
       "region": "지중해",
@@ -78,7 +78,7 @@
     {
       "id": "philosophy-plato",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "플라톤",
       "wikidata": "Q859",
       "region": "지중해",
@@ -97,7 +97,7 @@
     {
       "id": "philosophy-aristotle",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "아리스토텔레스",
       "wikidata": "Q868",
       "region": "지중해",
@@ -115,7 +115,7 @@
     {
       "id": "philosophy-epicurus",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "에피쿠로스 학파",
       "wikidata": "Q179541",
       "region": "지중해",
@@ -134,7 +134,7 @@
     {
       "id": "philosophy-stoicism",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "스토아 학파",
       "wikidata": "Q48235",
       "region": "지중해",
@@ -150,27 +150,9 @@
       "status": "draft"
     },
     {
-      "id": "philosophy-hundred-schools",
-      "category": "철학사",
-      "subcategory": "철학",
-      "title": "제자백가",
-      "wikidata": "Q864947",
-      "region": "동아시아",
-      "start_year": -500,
-      "end_year": -221,
-      "era_note": "기원전 500년 ~ 기원전 221년",
-      "description": "공자·노자·묵자·한비자 등이 경쟁하며 동아시아 사상의 원천을 이루었다.",
-      "tags": [
-        "고대",
-        "동양철학"
-      ],
-      "sources": [],
-      "status": "draft"
-    },
-    {
       "id": "philosophy-plotinus",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "신플라톤주의(플로티노스)",
       "wikidata": "Q134189",
       "region": "지중해",
@@ -188,7 +170,7 @@
     {
       "id": "philosophy-augustine",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "아우구스티누스",
       "wikidata": "Q8018",
       "region": "북아프리카",
@@ -206,7 +188,7 @@
     {
       "id": "philosophy-islamic-phil",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "이슬람 철학(이븐 시나·이븐 루시드)",
       "wikidata": "Q193104",
       "region": "서아시아",
@@ -224,7 +206,7 @@
     {
       "id": "philosophy-scholastic",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "스콜라 철학",
       "wikidata": "Q41679",
       "region": "유럽",
@@ -240,27 +222,9 @@
       "status": "draft"
     },
     {
-      "id": "philosophy-zhuxi",
-      "category": "철학사",
-      "subcategory": "철학",
-      "title": "주희와 성리학",
-      "wikidata": "Q9397",
-      "region": "동아시아",
-      "start_year": 1130,
-      "end_year": 1200,
-      "era_note": "1130년 ~ 1200년",
-      "description": "이기론으로 유교를 체계화해 동아시아 지식 질서를 재편했다.",
-      "tags": [
-        "중세",
-        "동양철학"
-      ],
-      "sources": [],
-      "status": "draft"
-    },
-    {
       "id": "philosophy-ockham",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "오컴과 유명론",
       "wikidata": "Q43936",
       "region": "유럽",
@@ -278,7 +242,7 @@
     {
       "id": "philosophy-humanism",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "르네상스 인문주의",
       "wikidata": "Q846933",
       "region": "유럽",
@@ -294,45 +258,9 @@
       "status": "draft"
     },
     {
-      "id": "philosophy-wangyangming",
-      "category": "철학사",
-      "subcategory": "철학",
-      "title": "왕양명과 양명학",
-      "wikidata": "Q378462",
-      "region": "동아시아",
-      "start_year": 1472,
-      "end_year": 1529,
-      "era_note": "1472년 ~ 1529년",
-      "description": "지행합일과 심즉리를 주장해 성리학의 주지주의를 비판했다.",
-      "tags": [
-        "근세",
-        "동양철학"
-      ],
-      "sources": [],
-      "status": "draft"
-    },
-    {
-      "id": "philosophy-toegye",
-      "category": "철학사",
-      "subcategory": "철학",
-      "title": "퇴계 이황과 율곡 이이",
-      "wikidata": "Q486291",
-      "region": "동아시아",
-      "start_year": 1501,
-      "end_year": 1584,
-      "era_note": "1501년 ~ 1584년",
-      "description": "사단칠정 논쟁을 통해 조선 성리학을 독자적 수준으로 심화시켰다.",
-      "tags": [
-        "근세",
-        "동양철학"
-      ],
-      "sources": [],
-      "status": "draft"
-    },
-    {
       "id": "philosophy-bacon",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "베이컨의 귀납법",
       "wikidata": "Q37388",
       "region": "유럽",
@@ -350,7 +278,7 @@
     {
       "id": "philosophy-descartes",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "데카르트",
       "wikidata": "Q9191",
       "region": "유럽",
@@ -368,7 +296,7 @@
     {
       "id": "philosophy-spinoza",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "스피노자",
       "wikidata": "Q35802",
       "region": "유럽",
@@ -386,7 +314,7 @@
     {
       "id": "philosophy-locke",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "로크와 경험론",
       "wikidata": "Q9353",
       "region": "유럽",
@@ -404,7 +332,7 @@
     {
       "id": "philosophy-hume",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "흄",
       "wikidata": "Q37160",
       "region": "유럽",
@@ -422,7 +350,7 @@
     {
       "id": "philosophy-rousseau",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "루소",
       "wikidata": "Q6527",
       "region": "유럽",
@@ -440,7 +368,7 @@
     {
       "id": "philosophy-kant",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "칸트",
       "wikidata": "Q9312",
       "region": "유럽",
@@ -458,7 +386,7 @@
     {
       "id": "philosophy-hegel",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "헤겔",
       "wikidata": "Q9235",
       "region": "유럽",
@@ -476,7 +404,7 @@
     {
       "id": "philosophy-utilitarian",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "공리주의(벤담·밀)",
       "wikidata": "Q1197767",
       "region": "유럽",
@@ -495,7 +423,7 @@
     {
       "id": "philosophy-marx",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "마르크스",
       "wikidata": "Q9061",
       "region": "유럽",
@@ -513,7 +441,7 @@
     {
       "id": "philosophy-nietzsche",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "니체",
       "wikidata": "Q9358",
       "region": "유럽",
@@ -531,7 +459,7 @@
     {
       "id": "philosophy-pragmatism",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "실용주의",
       "wikidata": "Q126692",
       "region": "북아메리카",
@@ -549,7 +477,7 @@
     {
       "id": "philosophy-phenomenology",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "현상학(후설)",
       "wikidata": "Q179235",
       "region": "유럽",
@@ -567,7 +495,7 @@
     {
       "id": "philosophy-analytic",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "분석철학(러셀·비트겐슈타인)",
       "wikidata": "Q183216",
       "region": "유럽",
@@ -585,7 +513,7 @@
     {
       "id": "philosophy-existentialism",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "실존주의(사르트르·카뮈)",
       "wikidata": "Q38066",
       "region": "유럽",
@@ -603,7 +531,7 @@
     {
       "id": "philosophy-structuralism",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "구조주의·후기구조주의",
       "wikidata": "Q179168",
       "region": "유럽",
@@ -621,7 +549,7 @@
     {
       "id": "philosophy-rawls",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "롤스 『정의론』",
       "wikidata": "Q300588",
       "region": "북아메리카",
@@ -639,7 +567,7 @@
     {
       "id": "philosophy-applied-ethics",
       "category": "철학사",
-      "subcategory": "철학",
+      "subcategory": "서양 철학",
       "title": "응용윤리와 기술철학",
       "wikidata": "Q538733",
       "region": "세계",

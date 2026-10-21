@@ -1,11 +1,11 @@
 {
   "$schema": "../schema/entries.schema.json",
-  "dataset": "music",
+  "dataset": "music-west",
   "entries": [
     {
       "id": "music-greek-theory",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "고대 그리스 음악이론",
       "region": "지중해",
       "start_year": -500,
@@ -22,7 +22,7 @@
     {
       "id": "music-gregorian",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "그레고리오 성가",
       "wikidata": "Q26473",
       "region": "유럽",
@@ -41,7 +41,7 @@
     {
       "id": "music-guido",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "귀도 다레초의 기보법",
       "wikidata": "Q192238",
       "region": "유럽",
@@ -59,7 +59,7 @@
     {
       "id": "music-notredame",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "노트르담 악파 다성음악",
       "region": "유럽",
       "start_year": 1160,
@@ -76,7 +76,7 @@
     {
       "id": "music-ars-nova",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "아르스 노바",
       "wikidata": "Q210854",
       "region": "유럽",
@@ -95,7 +95,7 @@
     {
       "id": "music-renaissance-poly",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "르네상스 다성음악",
       "wikidata": "Q201405",
       "region": "유럽",
@@ -113,7 +113,7 @@
     {
       "id": "music-palestrina",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "팔레스트리나",
       "wikidata": "Q179277",
       "region": "유럽",
@@ -129,27 +129,9 @@
       "status": "draft"
     },
     {
-      "id": "music-jongmyo",
-      "category": "음악사",
-      "subcategory": "음악",
-      "title": "종묘제례악",
-      "wikidata": "Q3323672",
-      "region": "동아시아",
-      "start_year": 1464,
-      "end_year": 2025,
-      "era_note": "1464년 ~ 2025년",
-      "description": "조선 왕실 제례음악으로 현재까지 전승되는 한국 궁중음악의 정수다.",
-      "tags": [
-        "근세",
-        "전통"
-      ],
-      "sources": [],
-      "status": "draft"
-    },
-    {
       "id": "music-opera-birth",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "오페라의 탄생",
       "region": "유럽",
       "start_year": 1600,
@@ -166,7 +148,7 @@
     {
       "id": "music-baroque",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "바로크 시대",
       "wikidata": "Q8361",
       "region": "유럽",
@@ -184,7 +166,7 @@
     {
       "id": "music-vivaldi",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "비발디",
       "wikidata": "Q1340",
       "region": "유럽",
@@ -202,7 +184,7 @@
     {
       "id": "music-bach",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "J.S. 바흐",
       "wikidata": "Q1339",
       "region": "유럽",
@@ -220,7 +202,7 @@
     {
       "id": "music-handel",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "헨델",
       "wikidata": "Q7302",
       "region": "유럽",
@@ -238,7 +220,7 @@
     {
       "id": "music-classical-era",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "고전주의 시대",
       "wikidata": "Q17723",
       "region": "유럽",
@@ -256,7 +238,7 @@
     {
       "id": "music-haydn",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "하이든",
       "wikidata": "Q7349",
       "region": "유럽",
@@ -274,7 +256,7 @@
     {
       "id": "music-mozart",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "모차르트",
       "wikidata": "Q254",
       "region": "유럽",
@@ -292,7 +274,7 @@
     {
       "id": "music-beethoven",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "베토벤",
       "wikidata": "Q255",
       "region": "유럽",
@@ -310,7 +292,7 @@
     {
       "id": "music-romantic",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "낭만주의 음악",
       "wikidata": "Q207591",
       "region": "유럽",
@@ -328,7 +310,7 @@
     {
       "id": "music-schubert",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "슈베르트와 예술가곡",
       "wikidata": "Q7312",
       "region": "유럽",
@@ -346,7 +328,7 @@
     {
       "id": "music-chopin",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "쇼팽",
       "wikidata": "Q1268",
       "region": "유럽",
@@ -364,7 +346,7 @@
     {
       "id": "music-wagner",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "바그너 악극",
       "wikidata": "Q1511",
       "region": "유럽",
@@ -382,7 +364,7 @@
     {
       "id": "music-brahms",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "브람스",
       "wikidata": "Q7294",
       "region": "유럽",
@@ -400,7 +382,7 @@
     {
       "id": "music-nationalism",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "국민악파",
       "wikidata": "Q1196170",
       "region": "유럽",
@@ -418,7 +400,7 @@
     {
       "id": "music-debussy",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "드뷔시와 인상주의",
       "wikidata": "Q4700",
       "region": "유럽",
@@ -436,7 +418,7 @@
     {
       "id": "music-blues",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "블루스의 형성",
       "wikidata": "Q9759",
       "region": "북아메리카",
@@ -454,7 +436,7 @@
     {
       "id": "music-recording",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "음반 산업의 성립",
       "region": "세계",
       "start_year": 1890,
@@ -471,7 +453,7 @@
     {
       "id": "music-rite-of-spring",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "스트라빈스키 『봄의 제전』",
       "wikidata": "Q206015",
       "region": "유럽",
@@ -489,7 +471,7 @@
     {
       "id": "music-jazz",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "재즈의 확산",
       "wikidata": "Q8341",
       "region": "북아메리카",
@@ -507,7 +489,7 @@
     {
       "id": "music-twelve-tone",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "쇤베르크 12음 기법",
       "wikidata": "Q221686",
       "region": "유럽",
@@ -526,7 +508,7 @@
     {
       "id": "music-electronic",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "전자음악과 신시사이저",
       "wikidata": "Q9778",
       "region": "세계",
@@ -544,7 +526,7 @@
     {
       "id": "music-rocknroll",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "로큰롤의 탄생",
       "wikidata": "Q7749",
       "region": "북아메리카",
@@ -562,7 +544,7 @@
     {
       "id": "music-beatles",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "비틀스",
       "wikidata": "Q1299",
       "region": "유럽",
@@ -580,7 +562,7 @@
     {
       "id": "music-hiphop",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "힙합의 탄생",
       "wikidata": "Q11401",
       "region": "북아메리카",
@@ -598,7 +580,7 @@
     {
       "id": "music-mtv",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "MTV와 뮤직비디오 시대",
       "region": "북아메리카",
       "start_year": 1981,
@@ -613,27 +595,9 @@
       "status": "draft"
     },
     {
-      "id": "music-kpop",
-      "category": "음악사",
-      "subcategory": "음악",
-      "title": "K-pop의 성장",
-      "wikidata": "Q213665",
-      "region": "동아시아",
-      "start_year": 1992,
-      "end_year": 2025,
-      "era_note": "1992년 ~ 2025년",
-      "description": "아이돌 시스템과 온라인 확산을 통해 한국 대중음악이 세계 시장에 진출했다.",
-      "tags": [
-        "현대",
-        "대중음악"
-      ],
-      "sources": [],
-      "status": "draft"
-    },
-    {
       "id": "music-streaming",
       "category": "음악사",
-      "subcategory": "음악",
+      "subcategory": "서양 음악",
       "title": "디지털 음원과 스트리밍",
       "wikidata": "Q220499",
       "region": "세계",

@@ -1,11 +1,11 @@
 {
   "$schema": "../schema/entries.schema.json",
-  "dataset": "art",
+  "dataset": "art-west",
   "entries": [
     {
       "id": "art-cave",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "구석기 동굴벽화(쇼베·라스코)",
       "wikidata": "Q172125",
       "region": "유럽",
@@ -24,7 +24,7 @@
     {
       "id": "art-egypt-art",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "이집트 벽화와 조각",
       "wikidata": "Q318394",
       "region": "북아프리카",
@@ -42,7 +42,7 @@
     {
       "id": "art-archaic-greek",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "그리스 고졸기 조각",
       "region": "지중해",
       "start_year": -700,
@@ -59,7 +59,7 @@
     {
       "id": "art-classical-greek",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "그리스 고전기 조각",
       "region": "지중해",
       "start_year": -480,
@@ -76,7 +76,7 @@
     {
       "id": "art-hellenistic-art",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "헬레니즘 조각",
       "wikidata": "Q1580145",
       "region": "지중해",
@@ -94,7 +94,7 @@
     {
       "id": "art-roman-portrait",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "로마 초상조각과 건축",
       "region": "지중해",
       "start_year": -100,
@@ -111,7 +111,7 @@
     {
       "id": "art-byzantine-art",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "비잔틴 모자이크와 이콘",
       "wikidata": "Q211884",
       "region": "유럽",
@@ -127,27 +127,9 @@
       "status": "draft"
     },
     {
-      "id": "art-goryeo-celadon",
-      "category": "미술사",
-      "subcategory": "미술",
-      "title": "고려청자",
-      "wikidata": "Q850242",
-      "region": "동아시아",
-      "start_year": 918,
-      "end_year": 1392,
-      "era_note": "918년 ~ 1392년",
-      "description": "비색과 상감기법으로 동아시아 도자 공예의 정점을 이루었다.",
-      "tags": [
-        "중세",
-        "공예"
-      ],
-      "sources": [],
-      "status": "draft"
-    },
-    {
       "id": "art-romanesque",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "로마네스크",
       "wikidata": "Q46805",
       "region": "유럽",
@@ -165,7 +147,7 @@
     {
       "id": "art-gothic",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "고딕",
       "wikidata": "Q46825",
       "region": "유럽",
@@ -183,7 +165,7 @@
     {
       "id": "art-giotto",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "조토",
       "wikidata": "Q7814",
       "region": "유럽",
@@ -201,7 +183,7 @@
     {
       "id": "art-early-renaissance",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "초기 르네상스",
       "wikidata": "Q1472236",
       "region": "유럽",
@@ -220,7 +202,7 @@
     {
       "id": "art-northern-renaissance",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "북유럽 르네상스",
       "wikidata": "Q610877",
       "region": "유럽",
@@ -238,7 +220,7 @@
     {
       "id": "art-high-renaissance",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "전성기 르네상스",
       "wikidata": "Q1474884",
       "region": "유럽",
@@ -256,7 +238,7 @@
     {
       "id": "art-mannerism",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "매너리즘",
       "wikidata": "Q131808",
       "region": "유럽",
@@ -274,7 +256,7 @@
     {
       "id": "art-baroque-art",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "바로크 미술",
       "wikidata": "Q37853",
       "region": "유럽",
@@ -292,7 +274,7 @@
     {
       "id": "art-rembrandt",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "렘브란트",
       "wikidata": "Q5598",
       "region": "유럽",
@@ -310,7 +292,7 @@
     {
       "id": "art-dutch-golden",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "네덜란드 황금기 회화",
       "wikidata": "Q2352880",
       "region": "유럽",
@@ -326,27 +308,9 @@
       "status": "draft"
     },
     {
-      "id": "art-jeongseon",
-      "category": "미술사",
-      "subcategory": "미술",
-      "title": "겸재 정선과 진경산수",
-      "wikidata": "Q489785",
-      "region": "동아시아",
-      "start_year": 1676,
-      "end_year": 1759,
-      "era_note": "1676년 ~ 1759년",
-      "description": "중국 화풍을 넘어 조선의 실제 경치를 그린 화풍을 확립했다.",
-      "tags": [
-        "근세",
-        "회화"
-      ],
-      "sources": [],
-      "status": "draft"
-    },
-    {
       "id": "art-rococo",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "로코코",
       "wikidata": "Q122960",
       "region": "유럽",
@@ -364,7 +328,7 @@
     {
       "id": "art-neoclassicism",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "신고전주의",
       "wikidata": "Q14378",
       "region": "유럽",
@@ -382,7 +346,7 @@
     {
       "id": "art-romanticism-art",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "낭만주의 미술",
       "wikidata": "Q37068",
       "region": "유럽",
@@ -400,7 +364,7 @@
     {
       "id": "art-realism-art",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "사실주의",
       "wikidata": "Q2642826",
       "region": "유럽",
@@ -418,7 +382,7 @@
     {
       "id": "art-impressionism",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "인상주의",
       "wikidata": "Q40415",
       "region": "유럽",
@@ -437,7 +401,7 @@
     {
       "id": "art-post-impressionism",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "후기인상주의",
       "wikidata": "Q166713",
       "region": "유럽",
@@ -455,7 +419,7 @@
     {
       "id": "art-artnouveau",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "아르누보",
       "wikidata": "Q34636",
       "region": "유럽",
@@ -473,7 +437,7 @@
     {
       "id": "art-fauvism",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "야수파",
       "wikidata": "Q166593",
       "region": "유럽",
@@ -491,7 +455,7 @@
     {
       "id": "art-expressionism",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "표현주의",
       "wikidata": "Q80113",
       "region": "유럽",
@@ -509,7 +473,7 @@
     {
       "id": "art-cubism",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "입체파",
       "wikidata": "Q42934",
       "region": "유럽",
@@ -527,7 +491,7 @@
     {
       "id": "art-abstract",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "추상미술",
       "wikidata": "Q128115",
       "region": "유럽",
@@ -545,7 +509,7 @@
     {
       "id": "art-dada",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "다다",
       "wikidata": "Q6034",
       "region": "유럽",
@@ -563,7 +527,7 @@
     {
       "id": "art-bauhaus",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "바우하우스",
       "wikidata": "Q124354",
       "region": "유럽",
@@ -581,7 +545,7 @@
     {
       "id": "art-surrealism",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "초현실주의",
       "wikidata": "Q39427",
       "region": "유럽",
@@ -599,7 +563,7 @@
     {
       "id": "art-abstract-expressionism",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "추상표현주의",
       "wikidata": "Q177725",
       "region": "북아메리카",
@@ -617,7 +581,7 @@
     {
       "id": "art-popart",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "팝아트",
       "wikidata": "Q134147",
       "region": "북아메리카",
@@ -635,7 +599,7 @@
     {
       "id": "art-minimalism",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "미니멀리즘",
       "wikidata": "Q6865348",
       "region": "북아메리카",
@@ -653,7 +617,7 @@
     {
       "id": "art-conceptual",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "개념미술",
       "wikidata": "Q203209",
       "region": "세계",
@@ -671,7 +635,7 @@
     {
       "id": "art-contemporary",
       "category": "미술사",
-      "subcategory": "미술",
+      "subcategory": "서양 미술",
       "title": "포스트모던·동시대 미술",
       "wikidata": "Q186030",
       "region": "세계",

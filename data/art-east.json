@@ -1,0 +1,42 @@
+{
+  "$schema": "../schema/entries.schema.json",
+  "dataset": "art-east",
+  "entries": [
+    {
+      "id": "art-goryeo-celadon",
+      "category": "미술사",
+      "subcategory": "동양 미술",
+      "title": "고려청자",
+      "wikidata": "Q850242",
+      "region": "동아시아",
+      "start_year": 918,
+      "end_year": 1392,
+      "era_note": "918년 ~ 1392년",
+      "description": "비색과 상감기법으로 동아시아 도자 공예의 정점을 이루었다.",
+      "tags": [
+        "중세",
+        "공예"
+      ],
+      "sources": [],
+      "status": "draft"
+    },
+    {
+      "id": "art-jeongseon",
+      "category": "미술사",
+      "subcategory": "동양 미술",
+      "title": "겸재 정선과 진경산수",
+      "wikidata": "Q489785",
+      "region": "동아시아",
+      "start_year": 1676,
+      "end_year": 1759,
+      "era_note": "1676년 ~ 1759년",
+      "description": "중국 화풍을 넘어 조선의 실제 경치를 그린 화풍을 확립했다.",
+      "tags": [
+        "근세",
+        "회화"
+      ],
+      "sources": [],
+      "status": "draft"
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "$schema": "../schema/entries.schema.json",
+  "dataset": "literature-east",
+  "entries": [
+    {
+      "id": "literature-rigveda",
+      "category": "문학사",
+      "subcategory": "동양 문학",
+      "title": "『리그베다』",
+      "wikidata": "Q727413",
+      "region": "남아시아",
+      "start_year": -1500,
+      "end_year": -1200,
+      "era_note": "기원전 1500년 ~ 기원전 1200년",
+      "description": "인도 최고의 종교 문헌이자 구전 문학의 원형이다.",
+      "tags": [
+        "고대",
+        "경전"
+      ],
+      "sources": [],
+      "status": "draft",
+      "dating_note": "구전 성립 시기에 근거한 추정 구간이다."
+    },
+    {
+      "id": "literature-shijing",
+      "category": "문학사",
+      "subcategory": "동양 문학",
+      "title": "『시경』",
+      "wikidata": "Q465108",
+      "region": "동아시아",
+      "start_year": -1000,
+      "end_year": -600,
+      "era_note": "기원전 1000년 ~ 기원전 600년",
+      "description": "중국 최초의 시가집으로 동아시아 시문학의 규범이 되었다.",
+      "tags": [
+        "고대",
+        "시가"
+      ],
+      "sources": [],
+      "status": "draft",
+      "dating_note": "수록된 시가 지어진 서주 초~춘추 중기(기원전 11~6세기경)다. 책으로 엮인 시기는 기원전 6세기경으로 본다."
+    },
+    {
+      "id": "literature-indian-epic",
+      "category": "문학사",
+      "subcategory": "동양 문학",
+      "title": "『마하바라타』와 『라마야나』",
+      "wikidata": "Q8276",
+      "region": "남아시아",
+      "start_year": -400,
+      "end_year": 400,
+      "era_note": "기원전 400년 ~ 400년",
+      "description": "인도 문화의 서사적 토대를 이루는 두 대서사시다.",
+      "tags": [
+        "고대",
+        "서사시"
+      ],
+      "sources": [],
+      "status": "draft"
+    },
+    {
+      "id": "literature-tangshi",
+      "category": "문학사",
+      "subcategory": "동양 문학",
+      "title": "당시(이백·두보)",
+      "wikidata": "Q3236984",
+      "region": "동아시아",
+      "start_year": 700,
+      "end_year": 770,
+      "era_note": "700년 ~ 770년",
+      "description": "중국 시문학의 황금기로 동아시아 한시의 전범이 되었다.",
+      "tags": [
+        "중세",
+        "시가"
+      ],
+      "sources": [],
+      "status": "draft"
+    },
+    {
+      "id": "literature-genji",
+      "category": "문학사",
+      "subcategory": "동양 문학",
+      "title": "『겐지 이야기』",
+      "wikidata": "Q8269",
+      "region": "동아시아",
+      "start_year": 1008,
+      "end_year": 1008,
+      "era_note": "1008년",
+      "description": "무라사키 시키부가 쓴 세계 최초의 장편소설로 평가된다.",
+      "tags": [
+        "중세",
+        "소설"
+      ],
+      "sources": [],
+      "status": "draft"
+    },
+    {
+      "id": "literature-hunmin-lit",
+      "category": "문학사",
+      "subcategory": "동양 문학",
+      "title": "훈민정음과 국문 문학",
+      "region": "동아시아",
+      "start_year": 1443,
+      "end_year": 1600,
+      "era_note": "1443년 ~ 1600년",
+      "description": "문자 창제로 시조·가사 등 한글 문학의 토대가 마련되었다.",
+      "tags": [
+        "근세",
+        "국문학"
+      ],
+      "sources": [],
+      "status": "draft"
+    },
+    {
+      "id": "literature-chunhyang",
+      "category": "문학사",
+      "subcategory": "동양 문학",
+      "title": "판소리계 소설(『춘향전』)",
+      "wikidata": "Q717065",
+      "region": "동아시아",
+      "start_year": 1700,
+      "end_year": 1900,
+      "era_note": "1700년 ~ 1900년",
+      "description": "구전 판소리가 소설로 정착하며 조선 후기 서민 문학이 꽃폈다.",
+      "tags": [
+        "근세",
+        "소설"
+      ],
+      "sources": [],
+      "status": "draft"
+    },
+    {
+      "id": "literature-korean-modern",
+      "category": "문학사",
+      "subcategory": "동양 문학",
+      "title": "한국 근대문학의 형성",
+      "region": "동아시아",
+      "start_year": 1917,
+      "end_year": 1935,
+      "era_note": "1917년 ~ 1935년",
+      "description": "『무정』과 김소월·정지용 등을 통해 근대적 국문 문학이 자리잡았다.",
+      "tags": [
+        "현대",
+        "국문학"
+      ],
+      "sources": [],
+      "status": "draft"
+    },
+    {
+      "id": "literature-korean-contemporary",
+      "category": "문학사",
+      "subcategory": "동양 문학",
+      "title": "한국 현대문학",
+      "region": "동아시아",
+      "start_year": 1945,
+      "end_year": 2025,
+      "era_note": "1945년 ~ 2025년",
+      "description": "분단·산업화·민주화의 경험을 담아 세계문학 무대로 확장되었다.",
+      "tags": [
+        "현대",
+        "국문학"
+      ],
+      "sources": [],
+      "status": "draft"
+    }
+  ]
+}

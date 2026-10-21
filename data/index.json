@@ -542,26 +542,48 @@
       "order": 50
     },
     {
-      "id": "music",
-      "file": "music.json",
+      "id": "music-west",
+      "file": "music-west.json",
       "track": "theme",
       "category": "음악사",
-      "subcategory": "음악",
-      "label": "음악사",
+      "subcategory": "서양 음악",
+      "label": "서양 음악사",
       "color": "#c3a9dd",
       "region": "세계",
       "order": 51
     },
     {
-      "id": "art",
-      "file": "art.json",
+      "id": "music-east",
+      "file": "music-east.json",
       "track": "theme",
-      "category": "미술사",
-      "subcategory": "미술",
-      "label": "미술사",
-      "color": "#e6b083",
+      "category": "음악사",
+      "subcategory": "동양 음악",
+      "label": "동양 음악사",
+      "color": "#a9b9dd",
       "region": "세계",
       "order": 52
+    },
+    {
+      "id": "art-west",
+      "file": "art-west.json",
+      "track": "theme",
+      "category": "미술사",
+      "subcategory": "서양 미술",
+      "label": "서양 미술사",
+      "color": "#e6b083",
+      "region": "세계",
+      "order": 53
+    },
+    {
+      "id": "art-east",
+      "file": "art-east.json",
+      "track": "theme",
+      "category": "미술사",
+      "subcategory": "동양 미술",
+      "label": "동양 미술사",
+      "color": "#d9c27f",
+      "region": "세계",
+      "order": 54
     },
     {
       "id": "religion",
@@ -572,29 +594,51 @@
       "label": "종교사",
       "color": "#9aa7b8",
       "region": "세계",
-      "order": 53
+      "order": 55
     },
     {
-      "id": "philosophy",
-      "file": "philosophy.json",
+      "id": "philosophy-west",
+      "file": "philosophy-west.json",
       "track": "theme",
       "category": "철학사",
-      "subcategory": "철학",
-      "label": "철학사",
+      "subcategory": "서양 철학",
+      "label": "서양 철학사",
       "color": "#a3aebd",
       "region": "세계",
-      "order": 54
+      "order": 56
     },
     {
-      "id": "literature",
-      "file": "literature.json",
+      "id": "philosophy-east",
+      "file": "philosophy-east.json",
+      "track": "theme",
+      "category": "철학사",
+      "subcategory": "동양 철학",
+      "label": "동양 철학사",
+      "color": "#9fbdb3",
+      "region": "세계",
+      "order": 57
+    },
+    {
+      "id": "literature-west",
+      "file": "literature-west.json",
       "track": "theme",
       "category": "문학사",
-      "subcategory": "문학",
-      "label": "문학사",
+      "subcategory": "서양 문학",
+      "label": "서양 문학사",
       "color": "#9cc4a2",
       "region": "세계",
-      "order": 55
+      "order": 58
+    },
+    {
+      "id": "literature-east",
+      "file": "literature-east.json",
+      "track": "theme",
+      "category": "문학사",
+      "subcategory": "동양 문학",
+      "label": "동양 문학사",
+      "color": "#b9c49c",
+      "region": "세계",
+      "order": 59
     },
     {
       "id": "technology",
@@ -605,7 +649,7 @@
       "label": "기술사",
       "color": "#9fb5a8",
       "region": "세계",
-      "order": 56
+      "order": 60
     }
   ]
 }
