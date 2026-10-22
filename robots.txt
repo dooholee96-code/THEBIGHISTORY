@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://dooholee96-code.github.io/THEBIGHISTORY/sitemap.xml
+Sitemap: https://shiroleestudio.github.io/prettymuchtimelines/sitemap.xml
