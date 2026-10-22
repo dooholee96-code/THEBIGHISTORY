@@ -23,6 +23,7 @@ const ROOT = path.resolve(__dirname, '..');
 // 해시 계산에 쓰는 파일들 (= 스탬프를 붙일 대상)
 const ASSETS = [
   'css/styles.css',
+  'fonts/fonts.css',
   'js/data.js',
   'js/common.js',
   'js/hud.js',
