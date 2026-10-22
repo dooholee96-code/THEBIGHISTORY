@@ -1,7 +1,7 @@
 {
   "$comment": "사이트 이름·주소 — 이름을 정하거나 도메인을 옮기면 여기만 고치고 npm run build. index.html 의 검색용 머리말, 항목 페이지(p/), sitemap.xml, robots.txt 가 함께 바뀐다.",
   "name": "Timeline of Pretty Much Everything",
-  "tagline": "거의 모든 것의 연표 · 한·중·일 역사를 한 시간축에 나란히",
+  "tagline": "거의 모든 것의 타임라인 · 한·중·일 역사를 한 시간축에 나란히",
   "description": "같은 해 한국·중국·일본과 세계에서는 무슨 일이 있었을까? 왕조와 사건을 한 시간축에 나란히 놓고 확대해 보는 역사 연표. 출처를 확인한 항목은 공공 자료 링크를 함께 보여 줍니다.",
   "url": "https://dooholee96-code.github.io/THEBIGHISTORY/",
   "image": "icons/og.jpg",
