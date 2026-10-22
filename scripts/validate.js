@@ -327,6 +327,30 @@ function checkScenario(file, doc, listedId) {
     return;
   }
 
+  // 게임 게이지 — effects 는 있는 게이지만, zero 는 결말로
+  const statIds = new Set((doc.stats || []).map((st) => st.id));
+  if (statIds.size !== (doc.stats || []).length) fail(file, '게이지(stats) id 가 중복됩니다.');
+  const checkEffects = (where, effects) => {
+    for (const id of Object.keys(effects || {})) {
+      if (!statIds.has(id)) fail(file, `${where} — effects 의 "${id}" 가 stats 에 없습니다.`);
+    }
+  };
+  for (const [id, to] of Object.entries(doc.zero || {})) {
+    if (!statIds.has(id)) fail(file, `zero 의 "${id}" 가 stats 에 없습니다.`);
+    if (!nodes.has(to)) fail(file, `zero 의 "${id}" → "${to}" 노드가 없습니다.`);
+    else if (nodes.get(to).kind !== 'ending') fail(file, `zero 의 "${id}" → "${to}" 는 결말(ending)이어야 합니다.`);
+  }
+  for (const node of doc.nodes) {
+    const where = `노드 "${node.id}"`;
+    checkEffects(where, node.effects);
+    (node.options || []).forEach((opt, i) => {
+      checkEffects(`${where} options[${i}]`, opt.effects);
+      (opt.outcomes || []).forEach((o, j) => checkEffects(`${where} options[${i}].outcomes[${j}]`, o.effects));
+    });
+    if (node.tone && node.kind !== 'ending') warn(file, `${where} — tone 은 결말(ending)에만 씁니다.`);
+    if (node.kind === 'ending' && !node.tone) warn(file, `${where} — 결말 등급(tone)을 적어 두면 결말 도감에 색이 붙습니다.`);
+  }
+
   const edges = new Map();   // id → [다음 노드 id]
   for (const node of doc.nodes) {
     const where = `노드 "${node.id}"`;
@@ -377,6 +401,7 @@ function checkScenario(file, doc, listedId) {
     state.set(id, 2);
   };
   visit(doc.start);
+  for (const to of Object.values(doc.zero || {})) if (nodes.has(to)) visit(to);   // 게이지가 바닥나면 닿는 결말
   for (const id of nodes.keys()) {
     if (!state.has(id)) warn(file, `노드 "${id}" 는 시작에서 닿지 않습니다(쓰이지 않음).`);
   }

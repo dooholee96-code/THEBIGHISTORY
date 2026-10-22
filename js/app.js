@@ -1032,16 +1032,18 @@
     });
     window.__bhZoom = zoom;   // 개발자 도구에서 확인용
 
+    var siteName = document.title.split(' — ')[0];   // 공유 문구용(제목 뒤의 소개말은 뺀다)
     branch = B.create(document.getElementById('branch-root'), {
       data: data,
       openEntry: openEntry,
+      shareTitle: siteName + ' 갈림길',
       scrollBox: document.getElementById('view-branch')
     });
 
     // 퀴즈(데모) — 놓인 카드를 누르면 탐험 그림판의 그 자리로
     quiz = Q.create(document.getElementById('quiz-root'), {
       entries: function () { return state.data.entries; },
-      shareTitle: document.title,
+      shareTitle: siteName,
       onShow: openEntry
     });
 

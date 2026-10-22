@@ -10,7 +10,28 @@
     "year": 918,
     "note": "자리표시 — 여기에는 이 지점에서 실제로 일어난 일을 한두 문장으로 적습니다."
   },
-  "compare": ["korea", "china", "japan"],
+  "compare": [
+    "korea",
+    "china",
+    "japan"
+  ],
+  "stats": [
+    {
+      "id": "power",
+      "label": "국력",
+      "icon": "🛡️",
+      "init": 5
+    },
+    {
+      "id": "people",
+      "label": "민심",
+      "icon": "🌾",
+      "init": 4
+    }
+  ],
+  "zero": {
+    "people": "end-revolt"
+  },
   "start": "fork-1",
   "nodes": [
     {
@@ -20,13 +41,38 @@
       "title": "첫 번째 갈림길",
       "text": "자리표시 — 갈림길의 상황 설명이 들어갑니다.",
       "options": [
-        { "label": "선택지 A (정해진 결과)", "to": "a-1" },
+        {
+          "label": "선택지 A (정해진 결과)",
+          "to": "a-1",
+          "effects": {
+            "power": 2,
+            "people": -2
+          }
+        },
         {
           "label": "선택지 B (확률로 갈림)",
           "outcomes": [
-            { "chance": 0.7, "to": "b-1", "label": "흔한 결과" },
-            { "chance": 0.3, "to": "b-2", "label": "드문 결과" }
-          ]
+            {
+              "chance": 0.7,
+              "to": "b-1",
+              "label": "흔한 결과",
+              "effects": {
+                "power": 1
+              }
+            },
+            {
+              "chance": 0.3,
+              "to": "b-2",
+              "label": "드문 결과",
+              "effects": {
+                "power": -2,
+                "people": -1
+              }
+            }
+          ],
+          "effects": {
+            "people": 1
+          }
         }
       ]
     },
@@ -37,7 +83,10 @@
       "end_year": 990,
       "title": "가상 사건 A-1",
       "text": "자리표시 — 선택지 A 뒤에 이어지는 가상 사건입니다.",
-      "next": "fork-2"
+      "next": "fork-2",
+      "effects": {
+        "people": -1
+      }
     },
     {
       "id": "fork-2",
@@ -46,8 +95,22 @@
       "title": "두 번째 갈림길",
       "text": "자리표시 — 갈림길 안의 갈림길입니다.",
       "options": [
-        { "label": "선택지 A-가", "to": "end-a1" },
-        { "label": "선택지 A-나", "to": "end-a2" }
+        {
+          "label": "선택지 A-가",
+          "to": "end-a1",
+          "effects": {
+            "power": 1,
+            "people": -2
+          }
+        },
+        {
+          "label": "선택지 A-나",
+          "to": "end-a2",
+          "effects": {
+            "power": -1,
+            "people": 2
+          }
+        }
       ]
     },
     {
@@ -56,7 +119,8 @@
       "year": 1100,
       "title": "결말 A-가",
       "text": "자리표시 — 결말 설명이 들어갑니다.",
-      "reality": "자리표시 — 실제로는 어떻게 되었는지 비교해 적는 곳입니다."
+      "reality": "자리표시 — 실제로는 어떻게 되었는지 비교해 적는 곳입니다.",
+      "tone": "mixed"
     },
     {
       "id": "end-a2",
@@ -64,7 +128,8 @@
       "year": 1150,
       "title": "결말 A-나",
       "text": "자리표시 — 결말 설명이 들어갑니다.",
-      "reality": "자리표시 — 실제로는 어떻게 되었는지 비교해 적는 곳입니다."
+      "reality": "자리표시 — 실제로는 어떻게 되었는지 비교해 적는 곳입니다.",
+      "tone": "good"
     },
     {
       "id": "b-1",
@@ -89,7 +154,8 @@
       "year": 1050,
       "title": "결말 B-1",
       "text": "자리표시 — 결말 설명이 들어갑니다.",
-      "reality": "자리표시 — 실제로는 어떻게 되었는지 비교해 적는 곳입니다."
+      "reality": "자리표시 — 실제로는 어떻게 되었는지 비교해 적는 곳입니다.",
+      "tone": "best"
     },
     {
       "id": "end-b2",
@@ -97,6 +163,16 @@
       "year": 1080,
       "title": "결말 B-2",
       "text": "자리표시 — 결말 설명이 들어갑니다.",
+      "reality": "자리표시 — 실제로는 어떻게 되었는지 비교해 적는 곳입니다.",
+      "tone": "bad"
+    },
+    {
+      "id": "end-revolt",
+      "kind": "ending",
+      "year": 1000,
+      "tone": "bad",
+      "title": "결말 — 민심이 바닥남",
+      "text": "자리표시 — 게이지가 0 이 되면 바로 떨어지는 결말입니다.",
       "reality": "자리표시 — 실제로는 어떻게 되었는지 비교해 적는 곳입니다."
     }
   ]
