@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "index.schema.json",
-  "title": "빅 히스토리 연표 매니페스트",
+  "title": "연표 매니페스트",
   "description": "data/index.json. 어떤 데이터 파일이 존재하고 각각 어떤 트랙/카테고리/표시이름/색상에 속하는지 등록한다.",
   "type": "object",
   "required": ["schema_version", "tracks", "datasets", "eras"],

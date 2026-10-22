@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------------
-   빅 히스토리 연표 — 시로 테마 (shirolee studio 의 아기 토끼 시로)
+   Timeline of Pretty Much Everything — 시로 테마 (shirolee studio 의 아기 토끼 시로)
 
    두 가지 테마. 설정 탭에서 시스템 / 라이트 / 다크 중 고른다(기본 라이트).
    · 라이트  연한 종이 위. 토큰의 기본값.
@@ -2245,4 +2245,9 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .tour__spot { transition: none; }
+}
+
+/* 아주 좁은 폰에서도 이름이 잘리지 않게 */
+@media (max-width: 380px) {
+  .brand__title { font-size: 18px; }
 }

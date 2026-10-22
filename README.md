@@ -1,4 +1,7 @@
-# 빅 히스토리 연표 (Big History Timeline)
+# Timeline of Pretty Much Everything
+
+> 거의 모든 것의 연표 — 한국사·중국사·일본사와 주제사를 한 시간축에 나란히 놓고 확대해 보는 역사 연표.
+> (예전 이름: 빅 히스토리 연표) 이름·주소·설명은 `site.json` 한 곳에서 바꿉니다.
 
 왕조·국가사와 주제사를 **한 장의 거대한 그림판에서 나란히 비교**하는 역사 연표입니다.
 아기 토끼 **시로**(shirolee studio)가 시대를 깡충 건너는 테마입니다. 기본은 연한 종이(라이트), 설정에서 밤하늘(다크)이나 시스템 따라가기를 고를 수 있습니다.
@@ -485,7 +488,7 @@ UI 아이디어는 저작권 보호 대상이 아니지만, 화면 그림·아�
 > **예전 버전이 계속 보인다면** (캐시 우선이던 옛 서비스워커가 남아 있는 경우)
 > 주소 뒤에 `?v=2` 를 붙여 한 번 열거나, 새로고침을 두 번 하세요.
 > 그래도 그대로면 개발자도구 → Application → Service workers → **Unregister** 후 새로고침.
-> 지금 어떤 빌드가 떠 있는지는 브라우저 콘솔의 `[app] 빅 히스토리 연표 <해시>` 줄로 확인합니다.
+> 지금 어떤 빌드가 떠 있는지는 브라우저 콘솔의 `[app] Timeline of Pretty Much Everything <해시>` 줄로 확인합니다.
 
 ### 6-3. Capacitor (iOS / Android 앱스토어)
 
@@ -494,7 +497,7 @@ UI 아이디어는 저작권 보호 대상이 아니지만, 화면 그림·아�
 
 ```bash
 npm install @capacitor/core @capacitor/cli
-npx cap init "빅 히스토리 연표" com.example.bighistory --web-dir=.
+npx cap init "Timeline of Pretty Much Everything" com.example.bighistory --web-dir=.
 npm install @capacitor/ios @capacitor/android
 npx cap add ios
 npx cap add android

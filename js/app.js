@@ -1082,7 +1082,7 @@
     });
 
     el.loading.hidden = true;
-    console.info('[app] 빅 히스토리 연표 · 항목 ' + data.entries.length + '개 · 시대 ' + data.eras.length + '구간');
+    console.info('[app] Timeline of Pretty Much Everything · 항목 ' + data.entries.length + '개 · 시대 ' + data.eras.length + '구간');
   }
 
   function showError(err) {

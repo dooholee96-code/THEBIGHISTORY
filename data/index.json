@@ -1,7 +1,7 @@
 {
   "$schema": "../schema/index.schema.json",
   "schema_version": 1,
-  "title": "빅 히스토리 연표",
+  "title": "Timeline of Pretty Much Everything",
   "description": "왕조·국가사와 주제사를 하나의 시간축 위에서 비교하는 통합 연표.",
   "eras": [
     {

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "entries.schema.json",
-  "title": "빅 히스토리 연표 데이터 파일",
+  "title": "연표 데이터 파일",
   "description": "/data/*.json 한 개의 구조. 항목(entry) 배열을 담는다.",
   "type": "object",
   "required": ["entries"],
