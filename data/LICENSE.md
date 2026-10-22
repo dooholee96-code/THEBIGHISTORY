@@ -3,7 +3,7 @@
 이 폴더(`data/`)의 연표 데이터는 **CC BY 4.0**(저작자 표시 4.0 국제) 으로 제공합니다.
 
 - 전문: https://creativecommons.org/licenses/by/4.0/deed.ko
-- 저작권: Copyright (c) 2026 dooholee96-code
+- 저작권: Copyright (c) 2026 shiroleestudio (이시로스튜디오)
 - 상업적 이용, 수정, 재배포 모두 허용되며 **저작자 표시**만 지키면 됩니다.
 
 ## 왜 CC BY 인가

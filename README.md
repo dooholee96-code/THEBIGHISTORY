@@ -446,7 +446,7 @@ UI 아이디어는 저작권 보호 대상이 아니지만, 화면 그림·아�
 
 1. `npm run build` 로 `data/bundle.js` 를 최신화하고 커밋합니다.
 2. GitHub 저장소 → **Settings → Pages → Source: Deploy from a branch**
-3. 브랜치(예: `main`)와 폴더 `/ (root)` 를 선택하면 `https://<계정>.github.io/<저장소>/` 로 열립니다.
+3. 브랜치(예: `main`)와 폴더 `/ (root)` 를 선택하면 `https://<계정>.github.io/<저장소>/` 로 열립니다. 지금 주소는 https://shiroleestudio.github.io/prettymuchtimelines/ (저장소 shiroleestudio/prettymuchtimelines). 옛 주소 dooholee96-code.github.io/THEBIGHISTORY 는 개인 계정의 리다이렉트 저장소가 넘겨줍니다.
 
 모든 경로가 상대 경로라서 하위 경로 배포에서도 그대로 동작합니다.
 
@@ -544,9 +544,8 @@ npx esbuild entry.js --bundle --minify --format=iife --global-name=THREE --targe
 ## 7. 알려진 한계
 
 - **시간 축은 실제 비율입니다**: 선사 3만 년이 길고 문명사는 아래쪽에 몰려 있습니다. 줌해서 다가가야 사건이 펼쳐집니다.
-- **삽화가 아직 없습니다**: 시대 배경과 항목 삽화 자리는 CSS 그라데이션과 자리표시자 라벨입니다.
-  실제 그림(시대별 가로 이미지 6장, 권장 1600×640)을 넣을 때는 그 그림의 라이선스를
-  `THIRD-PARTY-NOTICES.md` 에 추가하세요.
+- **삽화는 시대 배경 6장과 토끼 명화 오마주가 들어가 있습니다**: 시로 그래픽은 캐릭터 시트 확정 전 임시 표현입니다(TODO(character-sheet)).
+  바깥 그림을 새로 넣을 때는 그 그림의 라이선스를 `THIRD-PARTY-NOTICES.md` 에 추가하세요.
 - **그림판은 글자가 아니라 그림입니다**: 연표 화면 안에서는 브라우저의 핀치 확대가 꺼져 있고
   (카테고리·검색·정보 탭은 그대로), '페이지에서 찾기'(Ctrl+F)·화면 읽기 프로그램이 그림판의 사건을 읽지 못합니다 — 검색 탭을 쓰세요.
 - **오래된 기기**: WebGL2 가 없으면(대략 iOS 15 이전) Canvas 2D 로 그려 눕히기가 덜 매끄럽습니다.

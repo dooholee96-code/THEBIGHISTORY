@@ -15,7 +15,7 @@ const { spawnSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..', '..');
 const CACHE_DIR = path.join(ROOT, '.cache', 'sources');
-const USER_AGENT = 'BigHistoryTimeline/0.2 (https://github.com/dooholee96-code/thebighistory; open-data timeline, batch import)';
+const USER_AGENT = 'BigHistoryTimeline/0.2 (https://github.com/shiroleestudio/prettymuchtimelines; open-data timeline, batch import)';
 const FRESH = process.argv.includes('--fresh');
 
 function sleep(ms) {
