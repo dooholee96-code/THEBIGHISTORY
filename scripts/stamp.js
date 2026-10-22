@@ -28,6 +28,7 @@ const ASSETS = [
   'js/hud.js',
   'js/branch.js',
   'js/quiz.js',
+  'js/tour.js',
   'vendor/three.min.js',
   'js/plane.js',
   'js/zoom.js',

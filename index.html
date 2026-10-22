@@ -23,7 +23,7 @@
       } catch (err) { /* 저장소를 못 읽어도 기본(라이트)으로 */ }
     })();
   </script>
-  <link rel="stylesheet" href="css/styles.css?v=0dde59a5" />
+  <link rel="stylesheet" href="css/styles.css?v=44a4d0db" />
 </head>
 <body>
   <!-- 테마는 <html class="is-night"> 로 바뀐다(설정 탭, app.js). 기본은 라이트 -->
@@ -153,6 +153,11 @@
             </div>
             <p class="card__text card__text--hint" style="margin: 10px 0 0;">시스템은 기기의 화면 설정을 따릅니다.</p>
           </div>
+          <div class="card" style="margin-bottom: 14px;">
+            <p class="card__label">사용법</p>
+            <p class="card__text">처음 열 때 나왔던 안내를 다시 볼 수 있어요.</p>
+            <div class="pane__actions" style="margin: 10px 0 0;"><button class="pill-btn" id="tour-again" type="button">사용법 다시 보기</button></div>
+          </div>
           <div class="card">
             <p class="note note--warn">
               <strong>내용 신뢰도</strong> — 이 연표의 항목은 개설 수준의 통설을 요약한 초안(draft)이며,
@@ -182,7 +187,7 @@
 
             <p class="card__label">개인정보</p>
             <p class="card__text">
-              분석 도구와 추적 스크립트를 쓰지 않고, 쿠키도 사용하지 않으며, 이용자 정보를 수집하지 않습니다. 테마 선택·안내를 봤는지·갈림길 진행 상황만 이 기기의 브라우저 저장소에 남고 어디로도 보내지 않습니다.
+              분석 도구와 추적 스크립트를 쓰지 않고, 쿠키도 사용하지 않으며, 이용자 정보를 수집하지 않습니다. 테마 선택·사용법 안내를 봤는지·퀴즈 결과·갈림길 진행 상황만 이 기기의 브라우저 저장소에 남고 어디로도 보내지 않습니다.
               바깥으로 나가는 요청은 위 글꼴을 받아오는 것뿐이며, 홈 화면에 추가하면 오프라인에서도 열립니다.
             </p>
           </div>
@@ -210,14 +215,15 @@
     <div class="loading" id="loading">불러오는 중…</div>
   </div>
 
-  <script src="js/data.js?v=0dde59a5"></script>
-  <script src="js/common.js?v=0dde59a5"></script>
-  <script src="js/hud.js?v=0dde59a5"></script>
-  <script src="js/branch.js?v=0dde59a5"></script>
-  <script src="js/quiz.js?v=0dde59a5"></script>
-  <script src="vendor/three.min.js?v=0dde59a5"></script>
-  <script src="js/plane.js?v=0dde59a5"></script>
-  <script src="js/zoom.js?v=0dde59a5"></script>
-  <script src="js/app.js?v=0dde59a5"></script>
+  <script src="js/data.js?v=44a4d0db"></script>
+  <script src="js/common.js?v=44a4d0db"></script>
+  <script src="js/hud.js?v=44a4d0db"></script>
+  <script src="js/branch.js?v=44a4d0db"></script>
+  <script src="js/quiz.js?v=44a4d0db"></script>
+  <script src="js/tour.js?v=44a4d0db"></script>
+  <script src="vendor/three.min.js?v=44a4d0db"></script>
+  <script src="js/plane.js?v=44a4d0db"></script>
+  <script src="js/zoom.js?v=44a4d0db"></script>
+  <script src="js/app.js?v=44a4d0db"></script>
 </body>
 </html>

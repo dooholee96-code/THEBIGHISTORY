@@ -14,6 +14,7 @@
   var B = window.BigHistoryBranch;
   var Z = window.BigHistoryZoom;
   var Q = window.BigHistoryQuiz;
+  var T = window.BigHistoryTour;
 
   var reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
@@ -98,6 +99,7 @@
   var branch = null;
   var zoom = null;
   var quiz = null;
+  var tour = null;
 
   // ------------------------------------------------------------ 유틸
 
@@ -880,6 +882,55 @@
     t._hold = setTimeout(function () { conceal(t, 'is-leaving', 250); }, ms || 1500);
   }
 
+  // ------------------------------------------------------------ 사용법 안내
+
+  /** 안내 단계 — 마우스·트랙패드와 터치에 맞춰 말을 바꾼다 */
+  function tourSteps() {
+    var fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
+    var mod = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? '⌘' : 'Ctrl';
+    return [
+      {
+        title: '역사를 나란히 보는 연표예요',
+        text: '세로줄 하나가 나라나 주제 하나, 위에서 아래로 흐르는 게 시간이에요. 같은 높이에 있으면 같은 해예요.',
+        place: 'top'
+      },
+      {
+        title: '움직이기',
+        text: fine
+          ? '스크롤하면 위아래로는 시간을, 옆으로는 다른 나라·주제를 따라 움직여요. 끌어도 돼요.'
+          : '한 손가락으로 끌어서 움직여요. 휙 밀면 스르륵 미끄러져요.',
+        place: 'top'
+      },
+      {
+        title: '확대하기',
+        text: fine
+          ? '트랙패드는 두 손가락을 벌리고, 마우스는 ' + mod + '+스크롤로 확대해요. 두 번 클릭해도 확대돼요.'
+          : '두 손가락을 벌려 확대해요. 두 번 톡 쳐도 확대돼요.',
+        place: 'top'
+      },
+      {
+        title: '눌러서 펼치기',
+        text: '왕조나 사건을 누르면 그쪽으로 날아가 커지고, 이름 아래로 설명과 출처가 나와요. 빈 곳을 누르면 다시 접혀요.',
+        place: 'bottom',
+        enter: function () {
+          var e = state.data.entries.filter(function (x) { return x.id === 'korea-goryeo'; })[0];
+          if (e) openEntry(e);
+        },
+        leave: function () { if (zoom) zoom.blur(); }
+      },
+      {
+        title: '지금 이때',
+        text: '지금 보고 있는 해와 시대예요. ‹ › 로 시대를 건너뛰고, 숫자를 누르면 시대 띠와 그때 있던 나라들이 펼쳐져요.',
+        target: function () { return el.hud; }
+      },
+      {
+        title: '더 둘러보기',
+        text: '카테고리에서 보고 싶은 줄을 켜고 끄고, 검색으로 사건을 찾고, 퀴즈도 풀어 보세요.',
+        target: function () { return el.tabs; }
+      }
+    ];
+  }
+
   // ------------------------------------------------------------ 이벤트
 
   function bindEvents() {
@@ -1010,19 +1061,13 @@
     measure();
     zoom.home();
 
-    // 처음 온 사람에게 한 번만 조작법 안내(조작법이 바뀌면 키 번호를 올려 다시 보여 준다).
-    // 마우스·트랙패드는 스크롤이 이동, 핀치·⌘/Ctrl+휠이 확대 / 터치는 끌기와 두 손가락 벌리기
-    try {
-      if (!localStorage.getItem('bighistory.zoomHint2')) {
-        localStorage.setItem('bighistory.zoomHint2', '1');
-        var fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
-        var mod = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? '⌘' : 'Ctrl';
-        var hint = fine
-          ? '스크롤로 이동하고, 핀치나 ' + mod + '+스크롤로 확대해요'
-          : '끌어서 이동하고, 두 손가락을 벌려 확대해요';
-        setTimeout(function () { showToast(hint, 4200); }, 900);
-      }
-    } catch (err) { /* 무시 */ }
+    // 처음 온 사람에게 사용법 안내(안내 내용이 크게 바뀌면 키 번호를 올려 다시 보여 준다)
+    tour = T.create({ key: 'bighistory.tour1', steps: tourSteps() });
+    setTimeout(function () { if (state.tab === 'timeline') tour.start(false); }, 700);
+    document.getElementById('tour-again').addEventListener('click', function () {
+      setTab('timeline');
+      tour.start(true);
+    });
 
     requestAnimationFrame(function () {
       el.tabs.classList.add('is-ready');

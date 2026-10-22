@@ -1959,3 +1959,123 @@ body {
   cursor: pointer;
 }
 .quiz-slot:hover, .quiz-slot:focus-visible { border-color: var(--ink-bg); color: var(--ink-bg); background: rgba(255, 255, 255, .35); }
+
+/* ------------------------------------------------ 사용법 안내(js/tour.js) */
+
+/* 화면 전체를 덮지만 손은 막지 않는다 — 안내를 보며 그림판을 바로 만져 볼 수 있게 */
+.tour {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+}
+
+.tour[hidden] { display: none; }
+
+/* 가리키는 곳 둘레만 밝게 남기는 구멍 */
+.tour__spot {
+  position: absolute;
+  border-radius: 22px;
+  box-shadow: 0 0 0 200vmax rgba(24, 14, 10, .42), 0 0 0 3px var(--star);
+  transition: left .35s var(--spring), top .35s var(--spring), width .35s var(--spring), height .35s var(--spring);
+}
+
+.tour__spot[hidden] { display: none; }
+
+.tour__card {
+  position: absolute;
+  left: 50%;
+  width: min(420px, calc(100% - 24px));
+  padding: 16px 18px 14px;
+  border-radius: 24px;
+  background: var(--foam);
+  color: var(--ink);
+  box-shadow: var(--shadow-3);
+  pointer-events: auto;
+  transform: translateX(-50%);
+}
+
+.tour__card--top { top: 46px; }
+.tour__card--bottom { bottom: calc(14px + env(safe-area-inset-bottom, 0px)); }
+.tour__card.is-in { animation: tour-in .42s var(--spring); }
+
+@keyframes tour-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px) scale(.94); }
+}
+
+.tour__count {
+  margin: 0 0 2px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+.tour__title {
+  margin: 0 0 6px;
+  font-family: var(--display);
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.tour__text {
+  margin: 0 0 12px;
+  font-size: 14.5px;
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+
+.tour__skip {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.tour__skip:hover { background: var(--foam-2); }
+.tour__skip[hidden] { display: none; }
+
+.tour__dots { display: flex; gap: 6px; margin-bottom: 12px; }
+
+.tour__dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 4px;
+  background: var(--line);
+  transition: width .25s ease, background .25s ease;
+}
+
+.tour__dots span.is-on { width: 20px; background: var(--star); }
+
+.tour__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tour__never {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+
+.tour__never[hidden] { display: none; }
+.tour__never input { width: 17px; height: 17px; margin: 0; accent-color: var(--star); }
+.tour__btns { display: flex; gap: 8px; margin-left: auto; }
+.tour__btns [hidden] { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tour__spot { transition: none; }
+}
