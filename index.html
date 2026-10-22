@@ -3,8 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>빅 히스토리 연표</title>
-  <meta name="description" content="아기 토끼 시로와 함께 시대를 깡충 건너는 통합 역사 연표 — 왕조·국가사와 주제사를 한 시간축에서 비교합니다" />
+  <!-- seo:start — scripts/pages.js 가 site.json 으로 만든다. 직접 고치지 말 것 -->
+  <title>빅 히스토리 연표 — 한국사·중국사·일본사를 한 시간축에 나란히</title>
+  <meta name="description" content="같은 해 한국·중국·일본과 세계에서는 무슨 일이 있었을까? 왕조와 사건을 한 시간축에 나란히 놓고 확대해 보는 역사 연표. 출처를 확인한 항목은 공공 자료 링크를 함께 보여 줍니다." />
+  <link rel="canonical" href="https://dooholee96-code.github.io/THEBIGHISTORY/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="빅 히스토리 연표" />
+  <meta property="og:title" content="빅 히스토리 연표" />
+  <meta property="og:description" content="같은 해 한국·중국·일본과 세계에서는 무슨 일이 있었을까? 왕조와 사건을 한 시간축에 나란히 놓고 확대해 보는 역사 연표. 출처를 확인한 항목은 공공 자료 링크를 함께 보여 줍니다." />
+  <meta property="og:url" content="https://dooholee96-code.github.io/THEBIGHISTORY/" />
+  <meta property="og:image" content="https://dooholee96-code.github.io/THEBIGHISTORY/icons/og.jpg" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"빅 히스토리 연표","url":"https://dooholee96-code.github.io/THEBIGHISTORY/","description":"같은 해 한국·중국·일본과 세계에서는 무슨 일이 있었을까? 왕조와 사건을 한 시간축에 나란히 놓고 확대해 보는 역사 연표. 출처를 확인한 항목은 공공 자료 링크를 함께 보여 줍니다.","inLanguage":"ko"}</script>
+  <!-- seo:end -->
   <meta name="theme-color" content="#f3e7d8" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
@@ -23,10 +35,13 @@
       } catch (err) { /* 저장소를 못 읽어도 기본(라이트)으로 */ }
     })();
   </script>
-  <link rel="stylesheet" href="css/styles.css?v=44a4d0db" />
+  <link rel="stylesheet" href="css/styles.css?v=bc9ed97e" />
 </head>
 <body>
   <!-- 테마는 <html class="is-night"> 로 바뀐다(설정 탭, app.js). 기본은 라이트 -->
+  <noscript>
+    <p style="padding: 24px; font-size: 16px;">이 연표는 자바스크립트로 그립니다. 글로 보려면 <a href="p/index.html">항목 목록</a>을 여세요.</p>
+  </noscript>
   <div class="app" id="app">
     <!-- 배경 4겹: 시대 그라데이션 · 색 블롭 · 밤하늘 별(패럴랙스, 다크에서만) · 종이결 -->
     <div class="bg-gradient" id="bg-gradient"></div>
@@ -165,6 +180,9 @@
               항목을 열면 맨 아래에서 출처 상태를 볼 수 있습니다.
             </p>
 
+            <p class="card__label">항목 목록</p>
+            <p class="card__text">출처를 확인한 항목은 글 페이지로도 볼 수 있어요 — <a href="p/index.html">항목 목록 보기</a></p>
+
             <p class="card__label">데이터</p>
             <p class="card__text">
               연표 데이터는 <strong>CC BY 4.0</strong>, 앱 코드는 <strong>MIT</strong> 라이선스입니다.
@@ -215,15 +233,15 @@
     <div class="loading" id="loading">불러오는 중…</div>
   </div>
 
-  <script src="js/data.js?v=44a4d0db"></script>
-  <script src="js/common.js?v=44a4d0db"></script>
-  <script src="js/hud.js?v=44a4d0db"></script>
-  <script src="js/branch.js?v=44a4d0db"></script>
-  <script src="js/quiz.js?v=44a4d0db"></script>
-  <script src="js/tour.js?v=44a4d0db"></script>
-  <script src="vendor/three.min.js?v=44a4d0db"></script>
-  <script src="js/plane.js?v=44a4d0db"></script>
-  <script src="js/zoom.js?v=44a4d0db"></script>
-  <script src="js/app.js?v=44a4d0db"></script>
+  <script src="js/data.js?v=bc9ed97e"></script>
+  <script src="js/common.js?v=bc9ed97e"></script>
+  <script src="js/hud.js?v=bc9ed97e"></script>
+  <script src="js/branch.js?v=bc9ed97e"></script>
+  <script src="js/quiz.js?v=bc9ed97e"></script>
+  <script src="js/tour.js?v=bc9ed97e"></script>
+  <script src="vendor/three.min.js?v=bc9ed97e"></script>
+  <script src="js/plane.js?v=bc9ed97e"></script>
+  <script src="js/zoom.js?v=bc9ed97e"></script>
+  <script src="js/app.js?v=bc9ed97e"></script>
 </body>
 </html>

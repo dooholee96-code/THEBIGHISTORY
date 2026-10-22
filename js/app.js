@@ -1063,7 +1063,11 @@
 
     // 처음 온 사람에게 사용법 안내(안내 내용이 크게 바뀌면 키 번호를 올려 다시 보여 준다)
     tour = T.create({ key: 'bighistory.tour1', steps: tourSteps() });
-    setTimeout(function () { if (state.tab === 'timeline') tour.start(false); }, 700);
+    // 항목 페이지(p/)나 공유 링크로 들어왔으면(#e=<id>) 그 항목을 바로 펼친다 — 안내는 설정 탭에서
+    var deep = /^#e=([a-z0-9-]+)$/.exec(location.hash);
+    var target = deep && data.entries.filter(function (x) { return x.id === deep[1]; })[0];
+    if (target) setTimeout(function () { openEntry(target); }, 400);
+    else setTimeout(function () { if (state.tab === 'timeline') tour.start(false); }, 700);
     document.getElementById('tour-again').addEventListener('click', function () {
       setTab('timeline');
       tour.start(true);
