@@ -445,6 +445,14 @@ body {
 
 .loading[hidden] { display: none; }
 
+/* 첫 화면: 데이터를 받아 계기판이 접힌 모양이 되기 전에는 계기판·초점선·탭바를 숨긴다.
+   그러지 않으면 index.html 에 적힌 펼친 계기판("0년", 시로 손잡이 띠)이 1초쯤 비쳤다가 바뀐다.
+   app.js start() 가 .is-booting 을 떼면 살짝 페이드로 나타난다. */
+.app.is-booting .hud,
+.app.is-booting .focus-line,
+.app.is-booting .tabbar { opacity: 0; visibility: hidden; }
+.hud, .tabbar { transition: opacity .25s ease, visibility 0s; }
+
 /* ------------------------------------------------------ 디오라마 무대 */
 
 /* 디오라마 무대 — 연표 뒤에 화면 크기로 깔린다. 장면 그림(.stage__art)은 모두 여기 겹쳐 있고,

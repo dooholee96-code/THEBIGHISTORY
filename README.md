@@ -508,8 +508,7 @@ npx cap open android  # Android Studio (Play Store 제출)
 
 - `webDir` 를 저장소 루트로 두면 `index.html`·`css/`·`js/`·`data/` 가 그대로 앱 번들에 들어갑니다.
   (`node_modules`, `ios`, `android`, `scripts` 는 `.gitignore`/`.capacitorignore` 로 제외)
-- 네이티브 앱에서 글꼴을 외부에서 받지 않으려면 `index.html` 의 Google Fonts 링크를 지우거나,
-  글꼴 파일을 앱 번들에 포함하고 `@font-face` 로 바꾸세요(SIL OFL 이라 재배포 가능).
+- 글꼴은 `fonts/` 에 파일로 들어 있어 앱 번들에도 그대로 포함되고, 외부에서 받지 않습니다.
 - 네이티브 WebView 는 `capacitor://` 스킴이라 `fetch` 가 동작하므로 JSON 을 직접 읽습니다.
   `data/bundle.js` 는 그대로 두어도 무해합니다.
 - 데이터가 바뀔 때마다 앱을 다시 심사받고 싶지 않다면, 나중에 `data/` 만 원격에서
@@ -562,14 +561,11 @@ npx esbuild entry.js --bundle --minify --format=iife --global-name=THREE --targe
 |---|---|---|---|
 | 앱 코드 (`index.html`, `css/`, `js/`, `scripts/`) | MIT — `LICENSE` | 가능 | 저작권 고지 유지 |
 | 연표 데이터 (`data/`) | CC BY 4.0 — `data/LICENSE.md` | 가능 | 저작자 표시 |
-| 글꼴 Gowun Batang · Dodum | SIL OFL 1.1 | 가능 | 고지 유지(파일 재배포 안 함) |
+| 글꼴 Gaegu · Gowun Dodum (`fonts/`) | SIL OFL 1.1 | 가능 | 고지 유지(`fonts/OFL-*.txt` 동봉) |
 
 - **런타임 의존성이 없습니다.** `package.json` 에 dependencies 가 하나도 없어 전이 의존성 위험이 없습니다.
-- **외부 요청은 글꼴 하나뿐입니다.** Google Fonts 에서 Gowun Batang · Gowun Dodum 을 불러옵니다.
+- **외부 요청이 없습니다.** 글꼴(Gaegu · Gowun Dodum)도 `fonts/` 에 담아 함께 배포합니다(SIL OFL 1.1, 재배포 가능, 전문 동봉).
   분석 도구·추적 스크립트는 없고 쿠키도 쓰지 않습니다. (보기 설정과 갈림길 진행 상황만 기기의 localStorage 에 남습니다)
-  `index.html` 의 `fonts.googleapis.com` 링크를 지우면 **외부 요청이 완전히 사라지고**
-  시스템 글꼴로 대체됩니다(폴백이 지정되어 있습니다).
-- **글꼴 파일을 재배포하지 않습니다.** 링크로 불러올 뿐입니다.
 - **이미지가 없습니다.** `icons/` 는 이 저장소에서 직접 만든 것입니다.
 - 앱의 **정보 탭**에 위 고지가 모두 들어 있어, 배포만으로 고지 의무가 충족됩니다.
 - 자세한 제3자 고지: `THIRD-PARTY-NOTICES.md`

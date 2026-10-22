@@ -1082,11 +1082,14 @@
     });
 
     el.loading.hidden = true;
+    // 계기판이 접힌 뒤 한 프레임 늦게 보이게(css .is-booting)
+    requestAnimationFrame(function () { document.getElementById('app').classList.remove('is-booting'); });
     console.info('[app] Timeline of Pretty Much Everything · 항목 ' + data.entries.length + '개 · 시대 ' + data.eras.length + '구간');
   }
 
   function showError(err) {
     el.loading.hidden = true;
+    document.getElementById('app').classList.remove('is-booting');
     var box = document.createElement('div');
     box.className = 'card load-error';
     var title = document.createElement('p');
@@ -1112,8 +1115,13 @@
 
   // 오프라인 캐시(PWA)
   if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
+    // 새 서비스워커로 바뀌면 새로고침해 옛 코드와 새 코드가 섞이지 않게 한다.
+    // 단, 처음 방문(이 페이지를 띄울 때 서비스워커가 없었음)이면 이미 최신 파일로 열렸으므로
+    // 새로고침하지 않는다 — 그러지 않으면 첫 화면이 한 번 그려졌다가 처음부터 다시 그려진다.
+    var hadController = !!navigator.serviceWorker.controller;
     var reloading = false;
     navigator.serviceWorker.addEventListener('controllerchange', function () {
+      if (!hadController) { hadController = true; return; }
       if (reloading) return;
       reloading = true;
       location.reload();
