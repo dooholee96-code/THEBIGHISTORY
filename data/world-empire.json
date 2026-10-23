@@ -807,6 +807,28 @@
       "status": "draft"
     },
     {
+      "id": "world-russia",
+      "category": "왕조사",
+      "subcategory": "세계",
+      "title": "러시아 연방",
+      "kind": "polity",
+      "wikidata": "Q159",
+      "region": "유라시아",
+      "start_year": 1991,
+      "end_year": 2025,
+      "era_note": "1991년 ~ 2025년",
+      "description": "소련이 해체되며 옐친이 이끄는 러시아 연방이 출범해 구소련의 지위를 이어받았다.",
+      "tags": [
+        "현대",
+        "국가"
+      ],
+      "sources": [
+        "러시아,『한국민족문화대백과사전』 https://encykorea.aks.ac.kr/Article/E0017236"
+      ],
+      "status": "draft",
+      "dating_note": "민족문화대백과 \"1991년 12월 25일 소비에트사회주의연방을 공식적으로 해체시키고 옐친이 이끄는 러시아연방공화국을 출범시켰다\". Wikidata(Q159) 설립일도 1991-12-25. 끝 연도 2025는 다른 현존 국가 항목과 같은 방식이다."
+    },
+    {
       "id": "world-great-depression",
       "category": "왕조사",
       "subcategory": "세계",
