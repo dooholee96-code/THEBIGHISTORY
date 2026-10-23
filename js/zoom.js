@@ -1703,7 +1703,10 @@
         setTilt(0, true);
         cam.s = clamp(((Hv - HEAD_H) * 0.86) / (T_MAX + 4200), sMin(), S_MAX);
         cam.t0 = -4200 - (Hv * 0.04 + HEAD_H) / cam.s;
-        pinU(axisAt + 0.5, W / 2);   // 연도 축이 화면 가운데에(국가사는 왼쪽, 주제사는 오른쪽)
+        // 연도 축이 화면 가운데에(국가사는 왼쪽, 주제사는 오른쪽).
+        // 폰처럼 좁은 화면에서는 축을 오른쪽 끝에 붙여 왼쪽의 국가사 열(한·중·일)이 한 화면에 다 들어오게 한다.
+        // 열 너비는 그대로라 글자 크기는 변하지 않고, 주제사는 옆으로 밀면 나온다.
+        if (narrow()) pinU(axisAt + 1, W - MARGIN); else pinU(axisAt + 0.5, W / 2);
         clampCam();
         invalidate();
       },
