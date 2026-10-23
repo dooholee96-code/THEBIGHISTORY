@@ -712,9 +712,31 @@
         run: function () { zoom.blur(); setTab('branch'); branch.open(sc.id); }
       };
     }) : [];
+    // 이 항목으로 바로 오는 주소를 나누기(폰은 공유 시트, PC는 복사)
+    links.push({
+      label: '이 항목 공유',
+      run: function () { shareEntry(entry); }
+    });
     var col = activeColumns().map(function (ds) { return ds.id; }).indexOf(entry._dataset);
     zoom.focusEntry(entry, col, links);
     el.focusLive.textContent = entry.title + ', ' + (entry.era_note || C.periodLabel(entry.start_year, entry.end_year)) + '. ' + (entry.description || '');
+  }
+
+  /** 항목 주소(#e=<id>)를 공유 시트로 보내거나, 안 되면 클립보드에 복사한다. */
+  function shareEntry(entry) {
+    var url = location.href.split('#')[0] + '#e=' + entry.id;
+    var siteName = document.title.split(' — ')[0];
+    var text = entry.title + ' · ' + (entry.era_note || C.periodLabel(entry.start_year, entry.end_year));
+    if (navigator.share) {
+      navigator.share({ title: siteName, text: text, url: url }).catch(function () { /* 사용자가 닫음 */ });
+      return;
+    }
+    var done = function () { showToast('주소를 복사했어요'); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(done, function () { window.prompt('이 주소를 복사하세요', url); });
+    } else {
+      window.prompt('이 주소를 복사하세요', url);
+    }
   }
 
   function closeSheet(flung) {
@@ -1047,6 +1069,11 @@
       onShow: openEntry
     });
 
+    // 갈림길 탭 — 자리표시 예시(status: sample)만 있으면 숨긴다. 확인용: 주소에 ?branch
+    var realScenarios = (data.scenarios || []).some(function (sc) { return sc.status !== 'sample'; });
+    if (!realScenarios && !/[?&]branch\b/.test(location.search)) {
+      for (var ti = TABS.length - 1; ti >= 0; ti -= 1) { if (TABS[ti].id === 'branch') TABS.splice(ti, 1); }
+    }
     buildTabs();
     buildStage();
     buildCredits();
@@ -1081,6 +1108,12 @@
       el.themeSeg.classList.add('is-ready');
     });
 
+    // 설정 탭 신뢰도 문구의 숫자(출처 있는 항목 수 / 전체)
+    var sc = document.getElementById('sourced-count');
+    if (sc) {
+      var sourced = data.entries.filter(function (e) { return e.sources && e.sources.length; }).length;
+      sc.textContent = data.entries.length + '개 중 ' + sourced + '개';
+    }
     el.loading.hidden = true;
     // 계기판이 접힌 뒤 한 프레임 늦게 보이게(css .is-booting)
     requestAnimationFrame(function () { document.getElementById('app').classList.remove('is-booting'); });

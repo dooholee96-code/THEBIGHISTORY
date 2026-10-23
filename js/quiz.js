@@ -142,7 +142,6 @@
       var wrap = el('div', 'quiz');
       var top = el('div', 'quiz__top');
       top.appendChild(el('h2', 'quiz__title', '연표 끼워 넣기'));
-      top.appendChild(el('span', 'quiz__badge', '데모'));
       wrap.appendChild(top);
 
       if (!game) {
